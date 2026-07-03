@@ -41,27 +41,118 @@ ROLE_ORDER = [
 ]
 
 
+BLACK_HOLE_ANCHOR = re.compile(
+    r"black.?hole|micro.?black.?hole|microscopic.?black.?hole|mini.?black.?hole|\bmbh\b|schwarzschild|horizon",
+    re.I,
+)
+COLLIDER_ANCHOR = re.compile(
+    r"\blhc\b|large hadron collider|collider|parton|hadron|tev|extra dimension|planck scale|trans.?planckian",
+    re.I,
+)
+DENSE_BODY_ANCHOR = re.compile(
+    r"white dwarf|neutron star|sun|earth|dense astrophysical|astronomical bod|cosmic.?ray",
+    re.I,
+)
+SAFETY_ANCHOR = re.compile(
+    r"safety|risk|danger|catastrophic|disaster|threat|exclude|ruled out|no risk|no danger|safe",
+    re.I,
+)
+
+
+def _hits(patterns: List[str], text: str) -> int:
+    return sum(len(re.findall(pattern, text, flags=re.I)) for pattern in patterns)
+
+
+def _has(pattern: re.Pattern[str], text: str) -> bool:
+    return bool(pattern.search(text))
+
+
 def classify_roles(text: str, formula: str = "") -> Dict[str, float]:
     blob = f"{text} {formula}"
     scores: Dict[str, float] = {}
-    for role, patterns in ROLE_PATTERNS.items():
-        count = 0
-        for pattern in patterns:
-            count += len(re.findall(pattern, blob, flags=re.I))
-        if count:
-            scores[role] = min(1.0, count / 3.0)
+    black_hole = _has(BLACK_HOLE_ANCHOR, blob)
+    collider = _has(COLLIDER_ANCHOR, blob)
+    dense_body = _has(DENSE_BODY_ANCHOR, blob)
+    safety = _has(SAFETY_ANCHOR, blob)
+
+    # Role labels are intentionally gated.  Words such as "stable", "capture",
+    # "tau" and "excluded" are common in unrelated physics.  They become LHC
+    # black-hole safety evidence only when attached to the relevant physical
+    # object or branch.
+    production_hits = _hits(ROLE_PATTERNS["production_threshold"], blob)
+    if production_hits and (black_hole or collider):
+        scores["production_threshold"] = min(1.0, production_hits / 3.0)
+
+    evaporation_hits = _hits(
+        [r"Hawking", r"evap", r"black.?hole temperature", r"lifetime", r"dM\s*/\s*dt\s*=\s*-", r"radiation"],
+        blob,
+    )
+    if evaporation_hits and black_hole:
+        scores["evaporation_branch"] = min(1.0, evaporation_hits / 3.0)
+
+    stable_hits = _hits(
+        [r"\bstable\b", r"metastable", r"does not evaporate", r"long.?lived", r"remnant"],
+        blob,
+    )
+    if stable_hits and black_hole:
+        scores["stable_branch"] = min(1.0, stable_hits / 3.0)
+
+    capture_hits = _hits(
+        [r"capture", r"trapped", r"stopp", r"velocity", r"energy loss", r"Earth", r"detector", r"matter"],
+        blob,
+    )
+    if capture_hits and black_hole and (collider or dense_body or safety):
+        scores["capture_stopping"] = min(1.0, capture_hits / 3.0)
+
+    accretion_hits = _hits(
+        [r"accret", r"\bgrowth\b", r"Bondi", r"Eddington", r"dM\s*/\s*dt", r"cross.?section", r"\\rho", r"density"],
+        blob,
+    )
+    if accretion_hits and black_hole:
+        scores["accretion_growth"] = min(1.0, accretion_hits / 3.0)
+
+    astro_hits = _hits(
+        [r"cosmic.?ray", r"white dwarf", r"neutron star", r"astronomical", r"survival", r"Sun", r"Earth"],
+        blob,
+    )
+    if astro_hits and (black_hole or safety):
+        scores["astrophysical_bound"] = min(1.0, astro_hits / 3.0)
+
+    exclusion_hits = _hits(
+        [r"ruled out", r"no risk", r"no danger", r"safe", r"cannot be dangerous", r"disaster", r"catastrophic"],
+        blob,
+    )
+    if exclusion_hits and (black_hole or collider) and safety:
+        scores["exclusion_conclusion"] = min(1.0, exclusion_hits / 2.0)
+
     f = formula
     formula_hints = {
         "production_threshold": [r"\\sqrt\{?s\}?", r"\bM_D\b", r"\bs\s*[><=]"],
-        "evaporation_branch": [r"\\tau", r"evap", r"dM\s*\\over\s*dt\s*}\s*=\s*-", r"dM\s*/\s*dt\s*=\s*-"],
+        "evaporation_branch": [r"evap", r"dM\s*\\over\s*dt\s*}\s*=\s*-", r"dM\s*/\s*dt\s*=\s*-"],
         "accretion_growth": [r"\\rho", r"\\sigma\(M\)", r"dM\s*\\over\s*dt\s*}\s*=\s*\\rho", r"dM\s*/\s*dt\s*=\s*rho"],
         "astrophysical_bound": [r"t_\{?\\rm\s*WD\}?", r"t_\{?grow\}?", r"t_\{?\\rm\s*NS\}?"],
         "capture_stopping": [r"\bv\b", r"dx", r"dE", r"stopp"],
     }
     for role, patterns in formula_hints.items():
-        if any(re.search(pattern, f, flags=re.I) for pattern in patterns):
+        if not any(re.search(pattern, f, flags=re.I) for pattern in patterns):
+            continue
+        if role in {"evaporation_branch", "accretion_growth"} and not black_hole:
+            continue
+        if role == "capture_stopping" and not (black_hole and (collider or dense_body or safety)):
+            continue
+        if role == "astrophysical_bound" and not (black_hole or safety):
+            continue
+        if role == "production_threshold" and not (black_hole or collider):
+            continue
+        if role in {"evaporation_branch", "accretion_growth"}:
             scores[role] = max(scores.get(role, 0.0), 1.25)
-    if re.search(r"\\rho|\\sigma\(M\)|dM", f, flags=re.I) and re.search(r"\bv\b|\\,v", f, flags=re.I):
+        else:
+            scores[role] = max(scores.get(role, 0.0), 1.0)
+    if (
+        black_hole
+        and re.search(r"\\rho|\\sigma\(M\)|dM", f, flags=re.I)
+        and re.search(r"\bv\b|\\,v", f, flags=re.I)
+    ):
         scores["accretion_growth"] = max(scores.get("accretion_growth", 0.0), 1.5)
     return scores
 
