@@ -28,6 +28,48 @@ ROUTE_EXPLANATIONS = {
 
 USABLE_PAIR_STATUSES = {"complete_constructor_pair", "partial_constructor_pair"}
 RICH_ANALOGUE_MIN_ACTIVE_ROUTES = 2
+PROSE_WORD_STOP = {
+    "begin",
+    "end",
+    "frac",
+    "sqrt",
+    "left",
+    "right",
+    "over",
+    "quad",
+    "qquad",
+    "mathrm",
+    "mathbf",
+    "mathcal",
+    "operatorname",
+    "lambda",
+    "sigma",
+    "rho",
+    "tau",
+    "omega",
+    "theta",
+    "alpha",
+    "beta",
+    "gamma",
+    "delta",
+    "epsilon",
+    "varepsilon",
+    "propto",
+    "sim",
+    "grow",
+    "evap",
+}
+PROSE_ARTIFACT_RE = re.compile(
+    r"\$|\\(?:cite|ref|eqref|label|caption|section|subsection|paragraph)\b|"
+    r"includegraphics|bibliography|bibitem|begin\{figure|begin\{table|"
+    r"\b(?:The|These|Those|This|We|Recall|Fortunately|Analogous|Comparable|"
+    r"models|copies|emission|observed|discussed|predict|larger|smaller|"
+    r"existing|limits|depends|reside|study|found)\b",
+    re.I,
+)
+RELATION_RE = re.compile(r"=|<|>|\\le|\\ge|\\sim|\\propto|\\to|\\rightarrow|->|\\mapsto")
+MATH_SYMBOL_RE = re.compile(r"\\[A-Za-z]+|[_^{}=<>+\-*/]|\\(?:le|ge|sim|propto|to|rightarrow)")
+WORD_RE = re.compile(r"\b[A-Za-z]{4,}\b")
 
 
 def read_json(path: Path) -> Dict[str, Any]:
@@ -37,6 +79,40 @@ def read_json(path: Path) -> Dict[str, Any]:
 def compact(text: Any, limit: int = 360) -> str:
     value = " ".join(str(text or "").split())
     return value if len(value) <= limit else value[: limit - 3] + "..."
+
+
+def formula_quality_flags(text: Any) -> List[str]:
+    value = " ".join(str(text or "").split())
+    flags: List[str] = []
+    if not value:
+        return ["empty"]
+    if PROSE_ARTIFACT_RE.search(value):
+        flags.append("prose_or_latex_artifact")
+    words = [word.lower() for word in WORD_RE.findall(value)]
+    prose_words = [word for word in words if word not in PROSE_WORD_STOP]
+    math_symbols = len(MATH_SYMBOL_RE.findall(value))
+    if not RELATION_RE.search(value):
+        flags.append("no_relation_operator")
+    if prose_words and len(prose_words) > max(6, math_symbols):
+        flags.append("word_heavy_formula")
+    if re.search(r"[.!?]\s+[A-Z][a-z]{2,}", value):
+        flags.append("sentence_boundary_inside_formula")
+    if len(value) > 420 and len(prose_words) > 8:
+        flags.append("long_prose_fragment")
+    return flags or ["formula_core"]
+
+
+def is_formula_core(text: Any) -> bool:
+    flags = set(formula_quality_flags(text))
+    hard = {
+        "empty",
+        "prose_or_latex_artifact",
+        "no_relation_operator",
+        "word_heavy_formula",
+        "sentence_boundary_inside_formula",
+        "long_prose_fragment",
+    }
+    return not bool(flags & hard)
 
 
 def route_profile(fp: Dict[str, Any]) -> Dict[str, float]:
@@ -141,6 +217,8 @@ def constructor_roles_from_frames(source_frame: Dict[str, Any], target_frame: Di
 def is_usable_node(node: Dict[str, Any]) -> bool:
     if node.get("pair_status") not in USABLE_PAIR_STATUSES:
         return False
+    if not node.get("formula_core"):
+        return False
     if tuple(node.get("route_signature") or []) == ("route_sparse",):
         return False
     return True
@@ -168,6 +246,8 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
             "id": f"E{index:05d}",
             "source_id": witness.get("source_id"),
             "formula": witness.get("formula"),
+            "formula_core": is_formula_core(witness.get("formula")),
+            "formula_quality_flags": formula_quality_flags(witness.get("formula")),
             "context": witness.get("context"),
             "text_role": witness.get("dominant_role"),
             "route_profile": routes,
@@ -184,7 +264,8 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
         nodes.append(node)
 
     usable_nodes = [node for node in nodes if is_usable_node(node)]
-    artifact_nodes = [node for node in nodes if node.get("pair_status") not in USABLE_PAIR_STATUSES]
+    artifact_nodes = [node for node in nodes if node.get("pair_status") not in USABLE_PAIR_STATUSES or not node.get("formula_core")]
+    formula_quality_counts = Counter(flag for node in nodes for flag in (node.get("formula_quality_flags") or []))
 
     role_counts = Counter(node.get("text_role") for node in usable_nodes)
     route_counts = Counter()
@@ -268,6 +349,7 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
         "pair_status_counts": dict(status_counts),
         "constructor_role_counts": dict(constructor_role_counts),
         "transition_label_counts": dict(transition_counts.most_common(40)),
+        "formula_quality_counts": dict(formula_quality_counts.most_common()),
         "nodes": nodes,
         "usable_node_ids": [node["id"] for node in usable_nodes],
         "edges": edges,
@@ -314,6 +396,11 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
     lines.append("")
     for status, count in Counter(graph.get("pair_status_counts") or {}).most_common():
         lines.append(f"- `{status}`: `{count}`")
+    lines.append("")
+    lines.append("## Formula-Core Quality")
+    lines.append("")
+    for flag, count in Counter(graph.get("formula_quality_counts") or {}).most_common():
+        lines.append(f"- `{flag}`: `{count}`")
     lines.append("")
     lines.append("## Constructor Roles Present")
     lines.append("")
