@@ -73,6 +73,13 @@ CASE_COMPLEMENT_CATEGORIES = {
     "capture_stopping",
     "safety_risk",
 }
+LOCAL_MECHANISM_CASE_CATEGORIES = {
+    "collider_threshold",
+    "evaporation_branch",
+    "accretion_growth",
+    "astrophysical_bound",
+    "capture_stopping",
+}
 PROSE_WORD_STOP = {
     "begin",
     "end",
@@ -392,6 +399,20 @@ def is_case_relevant_node(node: Dict[str, Any]) -> bool:
     return is_usable_node(node) and bool(case.get("case_relevant"))
 
 
+def has_local_case_mechanism(node: Dict[str, Any]) -> bool:
+    case = node.get("case_evidence") or {}
+    local = set(case.get("local_categories") or [])
+    return "black_hole" in local and bool(local & LOCAL_MECHANISM_CASE_CATEGORIES)
+
+
+def is_evidence_grade_case_node(node: Dict[str, Any]) -> bool:
+    return (
+        is_case_relevant_node(node)
+        and has_local_case_mechanism(node)
+        and int(node.get("formula_detail_score") or 0) >= 4
+    )
+
+
 def is_rich_signature(signature: Tuple[str, ...]) -> bool:
     if signature == ("route_sparse",):
         return False
@@ -445,7 +466,7 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
 
     usable_nodes = [node for node in nodes if is_usable_node(node)]
     case_nodes = [node for node in usable_nodes if is_case_relevant_node(node)]
-    evidence_grade_case_nodes = [node for node in case_nodes if int(node.get("formula_detail_score") or 0) >= 4]
+    evidence_grade_case_nodes = [node for node in case_nodes if is_evidence_grade_case_node(node)]
     artifact_nodes = [node for node in nodes if node.get("pair_status") not in USABLE_PAIR_STATUSES or not node.get("formula_core")]
     formula_quality_counts = Counter(flag for node in nodes for flag in (node.get("formula_quality_flags") or []))
     case_category_counts = Counter(category for node in case_nodes for category in ((node.get("case_evidence") or {}).get("categories") or []))
@@ -527,6 +548,8 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
 
     case_internal_analog_edges: List[Dict[str, Any]] = []
     case_transfer_analog_edges: List[Dict[str, Any]] = []
+    evidence_grade_case_internal_analog_edges: List[Dict[str, Any]] = []
+    evidence_grade_case_transfer_analog_edges: List[Dict[str, Any]] = []
     for edge in analog_edges:
         left = node_by_id.get(str(edge.get("source")))
         right = node_by_id.get(str(edge.get("target")))
@@ -538,6 +561,12 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
             case_internal_analog_edges.append(edge)
         elif left_case or right_case:
             case_transfer_analog_edges.append(edge)
+        left_evidence_case = is_evidence_grade_case_node(left)
+        right_evidence_case = is_evidence_grade_case_node(right)
+        if left_evidence_case and right_evidence_case:
+            evidence_grade_case_internal_analog_edges.append(edge)
+        elif left_evidence_case or right_evidence_case:
+            evidence_grade_case_transfer_analog_edges.append(edge)
 
     graph = {
         "report_type": "lhc_equation_mechanism_graph",
@@ -567,6 +596,8 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
         "analog_edges": analog_edges,
         "case_internal_analog_edges": case_internal_analog_edges,
         "case_transfer_analog_edges": case_transfer_analog_edges,
+        "evidence_grade_case_internal_analog_edges": evidence_grade_case_internal_analog_edges,
+        "evidence_grade_case_transfer_analog_edges": evidence_grade_case_transfer_analog_edges,
         "claim_scope": (
             "Hyperion-style equation mechanism graph built from operator/substrate fingerprints stored on equation witnesses. "
             "Text labels are retained as weak human-readable annotations, but route profiles and constructor frames are the mechanism evidence."
@@ -643,6 +674,8 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
     lines.append(f"- rich cross-source route analogues: `{len(graph.get('analog_edges', []))}`")
     lines.append(f"- case-internal rich analogues: `{len(graph.get('case_internal_analog_edges', []))}`")
     lines.append(f"- case-transfer rich analogues: `{len(graph.get('case_transfer_analog_edges', []))}`")
+    lines.append(f"- evidence-grade case-internal rich analogues: `{len(graph.get('evidence_grade_case_internal_analog_edges', []))}`")
+    lines.append(f"- evidence-grade case-transfer rich analogues: `{len(graph.get('evidence_grade_case_transfer_analog_edges', []))}`")
     lines.append("")
     lines.append("## Six-Route Evidence")
     lines.append("")
@@ -661,6 +694,10 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
     lines.append(
         "This gate asks whether a formula-clean mechanism node is locally attached to the LHC black-hole safety case. "
         "Source-level words can support relevance, but they do not create route evidence."
+    )
+    lines.append(
+        "Evidence-grade receipts require the formula window itself to contain the black-hole case and a mechanism category; "
+        "source-level relevance alone is not enough."
     )
     lines.append("")
     for category, count in Counter(graph.get("case_category_counts") or {}).most_common():
@@ -703,10 +740,10 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
     lines.append("")
     lines.append("## Case-Relevant Cross-Source Route Analogues")
     lines.append("")
-    case_internal = graph.get("case_internal_analog_edges") or []
-    case_transfer = graph.get("case_transfer_analog_edges") or []
+    case_internal = graph.get("evidence_grade_case_internal_analog_edges") or []
+    case_transfer = graph.get("evidence_grade_case_transfer_analog_edges") or []
     if not case_internal and not case_transfer:
-        lines.append("No high-cosine case-relevant cross-source route analogues were found under the current threshold.")
+        lines.append("No high-cosine evidence-grade case route analogues were found under the current threshold.")
     if case_internal:
         lines.append("Internal to the LHC black-hole case:")
         lines.append("")
