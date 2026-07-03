@@ -26,6 +26,9 @@ ROUTE_EXPLANATIONS = {
     "discrete_protocol": "algorithmic, measurement, recurrence, intervention or ordered update protocol",
 }
 
+USABLE_PAIR_STATUSES = {"complete_constructor_pair", "partial_constructor_pair"}
+RICH_ANALOGUE_MIN_ACTIVE_ROUTES = 2
+
 
 def read_json(path: Path) -> Dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
@@ -135,6 +138,20 @@ def constructor_roles_from_frames(source_frame: Dict[str, Any], target_frame: Di
     return roles
 
 
+def is_usable_node(node: Dict[str, Any]) -> bool:
+    if node.get("pair_status") not in USABLE_PAIR_STATUSES:
+        return False
+    if tuple(node.get("route_signature") or []) == ("route_sparse",):
+        return False
+    return True
+
+
+def is_rich_signature(signature: Tuple[str, ...]) -> bool:
+    if signature == ("route_sparse",):
+        return False
+    return len(signature) >= RICH_ANALOGUE_MIN_ACTIVE_ROUTES
+
+
 def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
     witnesses = read_json(out_dir / "equation_witnesses.json").get("witnesses", [])
     nodes: List[Dict[str, Any]] = []
@@ -166,13 +183,21 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
         }
         nodes.append(node)
 
-    role_counts = Counter(node.get("text_role") for node in nodes)
+    usable_nodes = [node for node in nodes if is_usable_node(node)]
+    artifact_nodes = [node for node in nodes if node.get("pair_status") not in USABLE_PAIR_STATUSES]
+
+    role_counts = Counter(node.get("text_role") for node in usable_nodes)
     route_counts = Counter()
-    signature_counts = Counter(tuple(node["route_signature"]) for node in nodes)
+    route_counts_all = Counter()
+    signature_counts = Counter(tuple(node["route_signature"]) for node in usable_nodes)
     status_counts = Counter(node["pair_status"] for node in nodes)
     constructor_role_counts = Counter()
     transition_counts = Counter()
     for node in nodes:
+        for route, score in node["route_profile"].items():
+            if score >= 0.12:
+                route_counts_all[route] += 1
+    for node in usable_nodes:
         for route, score in node["route_profile"].items():
             if score >= 0.12:
                 route_counts[route] += 1
@@ -183,7 +208,7 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
 
     edges: List[Dict[str, Any]] = []
     by_source: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
-    for node in nodes:
+    for node in usable_nodes:
         by_source[str(node.get("source_id"))].append(node)
     for source_id, source_nodes in by_source.items():
         for left, right in zip(source_nodes, source_nodes[1:]):
@@ -203,10 +228,10 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
 
     analog_edges: List[Dict[str, Any]] = []
     buckets: Dict[Tuple[str, ...], List[Dict[str, Any]]] = defaultdict(list)
-    for node in nodes:
+    for node in usable_nodes:
         buckets[tuple(node["route_signature"])].append(node)
     for signature, bucket in buckets.items():
-        if signature == ("route_sparse",) or len(bucket) < 2:
+        if not is_rich_signature(signature) or len(bucket) < 2:
             continue
         by_distinct_source: Dict[str, Dict[str, Any]] = {}
         for node in bucket:
@@ -233,14 +258,18 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
         "readiness": "usable" if nodes else "no_hyperion_fingerprints",
         "source_witness_count": len(witnesses),
         "fingerprinted_node_count": len(nodes),
+        "usable_mechanism_node_count": len(usable_nodes),
+        "artifact_or_unusable_node_count": len(artifact_nodes),
         "skipped": dict(skipped),
         "route_counts": dict(route_counts),
+        "route_counts_all_fingerprinted": dict(route_counts_all),
         "route_signature_counts": {" + ".join(k): v for k, v in signature_counts.most_common()},
         "text_role_counts": {str(k): v for k, v in role_counts.most_common()},
         "pair_status_counts": dict(status_counts),
         "constructor_role_counts": dict(constructor_role_counts),
         "transition_label_counts": dict(transition_counts.most_common(40)),
         "nodes": nodes,
+        "usable_node_ids": [node["id"] for node in usable_nodes],
         "edges": edges,
         "analog_edges": analog_edges,
         "claim_scope": (
@@ -264,10 +293,14 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
     lines.append("")
     lines.append(f"- source equation witnesses: `{graph.get('source_witness_count')}`")
     lines.append(f"- fingerprinted mechanism nodes: `{graph.get('fingerprinted_node_count')}`")
+    lines.append(f"- usable non-artifact mechanism nodes: `{graph.get('usable_mechanism_node_count')}`")
+    lines.append(f"- artifact or unusable nodes retained for audit: `{graph.get('artifact_or_unusable_node_count')}`")
     lines.append(f"- source-local route-transition edges: `{len(graph.get('edges', []))}`")
-    lines.append(f"- cross-source route analogues: `{len(graph.get('analog_edges', []))}`")
+    lines.append(f"- rich cross-source route analogues: `{len(graph.get('analog_edges', []))}`")
     lines.append("")
     lines.append("## Six-Route Evidence")
+    lines.append("")
+    lines.append("Counts below use only non-artifact constructor pairs.")
     lines.append("")
     for route, count in Counter(graph.get("route_counts") or {}).most_common():
         lines.append(f"- `{route}`: `{count}` nodes — {ROUTE_EXPLANATIONS.get(route, 'route evidence')}.")
@@ -296,7 +329,7 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
     lines.append("")
     analog_edges = graph.get("analog_edges") or []
     if not analog_edges:
-        lines.append("No high-cosine cross-source route analogues were found under the current threshold.")
+        lines.append("No high-cosine rich cross-source route analogues were found under the current threshold.")
     for edge in analog_edges[:20]:
         lines.append(
             f"- `{edge.get('left_source_id')}` -> `{edge.get('right_source_id')}`: "
@@ -307,9 +340,11 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
     lines.append("")
     lines.append("## Mechanism Examples")
     lines.append("")
+    usable_ids = set(graph.get("usable_node_ids") or [])
     examples = sorted(
-        graph.get("nodes") or [],
+        [node for node in (graph.get("nodes") or []) if node.get("id") in usable_ids],
         key=lambda n: (
+            1 if n.get("pair_status") == "complete_constructor_pair" else 0,
             len(n.get("constructor_roles") or []),
             sum(float(v) for v in (n.get("route_profile") or {}).values()),
             int(n.get("vector_nonzero") or 0),
