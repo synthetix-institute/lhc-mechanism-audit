@@ -198,13 +198,35 @@ def case_evidence(formula: Any, context: Any, source_id: Any, source_text: str) 
         or ("black_hole" in source_set and bool(local_set & (CASE_COMPLEMENT_CATEGORIES - {"safety_risk"})))
         or ({"black_hole", "collider_threshold"} <= all_set and bool(local_set & CASE_COMPLEMENT_CATEGORIES))
     )
+    local_mechanism = bool(local_set & LOCAL_MECHANISM_CASE_CATEGORIES)
+    safety_context = bool((local_set | source_set) & {"collider_threshold", "safety_risk"})
+    direct_safety_case = "black_hole" in local_set and local_mechanism and safety_context
+    astrophysical_analogue = (
+        "black_hole" in local_set
+        and "astrophysical_bound" in local_set
+        and not direct_safety_case
+    )
+    branch_labels: List[str] = []
+    if direct_safety_case:
+        branch_labels.append("direct_lhc_safety")
+    if astrophysical_analogue:
+        branch_labels.append("astrophysical_black_hole_analogue")
+    if "black_hole" in local_set and "evaporation_branch" in local_set:
+        branch_labels.append("evaporation_branch")
+    if "black_hole" in local_set and ("accretion_growth" in local_set or "capture_stopping" in local_set):
+        branch_labels.append("stable_growth_or_capture_branch")
+    if "black_hole" in local_set and "collider_threshold" in local_set:
+        branch_labels.append("production_threshold_branch")
 
     return {
         "case_relevant": bool(case_relevant),
+        "direct_safety_case": bool(direct_safety_case),
+        "astrophysical_analogue": bool(astrophysical_analogue),
         "score": int(score),
         "local_categories": sorted(local_set),
         "source_categories": sorted(source_set),
         "categories": sorted(all_set),
+        "branch_labels": branch_labels,
     }
 
 
@@ -413,6 +435,16 @@ def is_evidence_grade_case_node(node: Dict[str, Any]) -> bool:
     )
 
 
+def is_direct_safety_case_node(node: Dict[str, Any]) -> bool:
+    case = node.get("case_evidence") or {}
+    return is_evidence_grade_case_node(node) and bool(case.get("direct_safety_case"))
+
+
+def is_astrophysical_analogue_node(node: Dict[str, Any]) -> bool:
+    case = node.get("case_evidence") or {}
+    return is_evidence_grade_case_node(node) and bool(case.get("astrophysical_analogue"))
+
+
 def is_rich_signature(signature: Tuple[str, ...]) -> bool:
     if signature == ("route_sparse",):
         return False
@@ -467,9 +499,12 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
     usable_nodes = [node for node in nodes if is_usable_node(node)]
     case_nodes = [node for node in usable_nodes if is_case_relevant_node(node)]
     evidence_grade_case_nodes = [node for node in case_nodes if is_evidence_grade_case_node(node)]
+    direct_safety_case_nodes = [node for node in evidence_grade_case_nodes if is_direct_safety_case_node(node)]
+    astrophysical_analogue_nodes = [node for node in evidence_grade_case_nodes if is_astrophysical_analogue_node(node)]
     artifact_nodes = [node for node in nodes if node.get("pair_status") not in USABLE_PAIR_STATUSES or not node.get("formula_core")]
     formula_quality_counts = Counter(flag for node in nodes for flag in (node.get("formula_quality_flags") or []))
     case_category_counts = Counter(category for node in case_nodes for category in ((node.get("case_evidence") or {}).get("categories") or []))
+    case_branch_counts = Counter(label for node in evidence_grade_case_nodes for label in ((node.get("case_evidence") or {}).get("branch_labels") or []))
 
     role_counts = Counter(node.get("text_role") for node in usable_nodes)
     route_counts = Counter()
@@ -576,6 +611,8 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
         "usable_mechanism_node_count": len(usable_nodes),
         "case_relevant_mechanism_node_count": len(case_nodes),
         "evidence_grade_case_mechanism_node_count": len(evidence_grade_case_nodes),
+        "direct_lhc_safety_mechanism_node_count": len(direct_safety_case_nodes),
+        "astrophysical_analogue_mechanism_node_count": len(astrophysical_analogue_nodes),
         "artifact_or_unusable_node_count": len(artifact_nodes),
         "skipped": dict(skipped),
         "route_counts": dict(route_counts),
@@ -587,10 +624,13 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
         "transition_label_counts": dict(transition_counts.most_common(40)),
         "formula_quality_counts": dict(formula_quality_counts.most_common()),
         "case_category_counts": dict(case_category_counts.most_common()),
+        "case_branch_counts": dict(case_branch_counts.most_common()),
         "nodes": nodes,
         "usable_node_ids": [node["id"] for node in usable_nodes],
         "case_relevant_node_ids": [node["id"] for node in case_nodes],
         "evidence_grade_case_node_ids": [node["id"] for node in evidence_grade_case_nodes],
+        "direct_lhc_safety_node_ids": [node["id"] for node in direct_safety_case_nodes],
+        "astrophysical_analogue_node_ids": [node["id"] for node in astrophysical_analogue_nodes],
         "edges": edges,
         "case_source_local_edges": case_source_local_edges,
         "analog_edges": analog_edges,
@@ -641,6 +681,7 @@ def append_node_examples(lines: List[str], nodes: Iterable[Dict[str, Any]], limi
             lines.append(f"- case score: `{case.get('score', 0)}`")
             lines.append(f"- formula-window case categories: `{', '.join(case.get('local_categories') or []) or 'none'}`")
             lines.append(f"- source case categories: `{', '.join(case.get('source_categories') or []) or 'none'}`")
+            lines.append(f"- branch labels: `{', '.join(case.get('branch_labels') or []) or 'none'}`")
             lines.append(f"- formula detail score: `{node.get('formula_detail_score', 0)}`")
         lines.append("")
         lines.append("Formula:")
@@ -668,6 +709,8 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
     lines.append(f"- usable non-artifact mechanism nodes: `{graph.get('usable_mechanism_node_count')}`")
     lines.append(f"- LHC-black-hole case-relevant mechanism nodes: `{graph.get('case_relevant_mechanism_node_count')}`")
     lines.append(f"- evidence-grade case mechanism nodes: `{graph.get('evidence_grade_case_mechanism_node_count')}`")
+    lines.append(f"- direct LHC-safety mechanism nodes: `{graph.get('direct_lhc_safety_mechanism_node_count')}`")
+    lines.append(f"- astrophysical analogue mechanism nodes: `{graph.get('astrophysical_analogue_mechanism_node_count')}`")
     lines.append(f"- artifact or unusable nodes retained for audit: `{graph.get('artifact_or_unusable_node_count')}`")
     lines.append(f"- source-local route-transition edges: `{len(graph.get('edges', []))}`")
     lines.append(f"- case-relevant source-local route-transition edges: `{len(graph.get('case_source_local_edges', []))}`")
@@ -704,6 +747,23 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
         lines.append(f"- `{category}`: `{count}`")
     if not graph.get("case_category_counts"):
         lines.append("- No formula-clean mechanism nodes passed the LHC black-hole case gate.")
+    lines.append("")
+    lines.append("Evidence-grade branch counts:")
+    lines.append("")
+    for branch, count in Counter(graph.get("case_branch_counts") or {}).most_common():
+        lines.append(f"- `{branch}`: `{count}`")
+    if not graph.get("case_branch_counts"):
+        lines.append("- No evidence-grade case branches were found.")
+    lines.append("")
+    lines.append("Interpretation:")
+    lines.append("")
+    lines.append(
+        "If direct LHC-safety receipts are sparse while astrophysical black-hole analogues are present, "
+        "the result should not be read as a failure of the mechanism graph. It means the inspectable scientific "
+        "substrate is mostly adjacent physics: accretion, evaporation, capture, mass growth and astrophysical "
+        "survival bounds. The safety argument must therefore be audited by translating those mechanisms into the "
+        "collider branch, rather than by counting who asserted safety or danger."
+    )
     lines.append("")
     lines.append("## Constructor Frame Quality")
     lines.append("")
@@ -765,9 +825,21 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
     lines.append("## Case-Relevant Mechanism Examples")
     lines.append("")
     nodes = graph.get("nodes") or []
+    direct_ids = set(graph.get("direct_lhc_safety_node_ids") or [])
+    analogue_ids = set(graph.get("astrophysical_analogue_node_ids") or [])
+    lines.append("### Direct LHC-Safety Receipts")
+    lines.append("")
+    append_node_examples(lines, [node for node in nodes if node.get("id") in direct_ids], limit=8, include_case=True)
+    lines.append("### Astrophysical Black-Hole Analogues")
+    lines.append("")
+    append_node_examples(lines, [node for node in nodes if node.get("id") in analogue_ids], limit=8, include_case=True)
+    lines.append("### Other Evidence-Grade Case Nodes")
+    lines.append("")
     evidence_case_ids = set(graph.get("evidence_grade_case_node_ids") or [])
+    used_case_ids = direct_ids | analogue_ids
+    remaining_evidence_case_ids = evidence_case_ids - used_case_ids
     if evidence_case_ids:
-        append_node_examples(lines, [node for node in nodes if node.get("id") in evidence_case_ids], include_case=True)
+        append_node_examples(lines, [node for node in nodes if node.get("id") in remaining_evidence_case_ids], limit=8, include_case=True)
     else:
         case_ids = set(graph.get("case_relevant_node_ids") or [])
         append_node_examples(lines, [node for node in nodes if node.get("id") in case_ids], include_case=True)
