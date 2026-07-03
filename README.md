@@ -94,7 +94,7 @@ or expose Hyperion core files. The intended workflow is:
 python -B scripts/build_equation_mechanism_graph.py \
   --out-dir outputs/lhc_black_hole_audit_500k_strict
 
-python -B scripts/build_static_public_demo.sh \
+bash scripts/build_static_public_demo.sh \
   outputs/lhc_black_hole_audit_500k_strict \
   paper
 ```

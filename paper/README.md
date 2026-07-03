@@ -10,7 +10,7 @@ pipeline files.
 cd /home/softmat/Desktop/Hyperion/lhc-mechanism-audit
 git pull --ff-only
 
-python -B scripts/build_static_public_demo.sh \
+bash scripts/build_static_public_demo.sh \
   outputs/lhc_black_hole_audit_500k_strict \
   paper
 ```
@@ -37,7 +37,7 @@ latexmk -pdf lhc_mechanism_audit_demo.tex
 For a public smoke test without cluster outputs:
 
 ```bash
-python -B scripts/build_static_public_demo.sh \
+bash scripts/build_static_public_demo.sh \
   runs/lhc_black_hole_audit_500k_strict \
   paper
 ```
