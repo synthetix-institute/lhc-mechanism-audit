@@ -201,6 +201,49 @@ def case_evidence(formula: Any, context: Any, source_id: Any, source_text: str) 
     }
 
 
+def formula_detail_score(formula: Any, routes: Dict[str, float], roles: Iterable[str]) -> int:
+    """Rank equations for display without changing the mechanism gate.
+
+    Formula-core cleaning decides whether a node can enter the graph.  This
+    score only decides which case-relevant receipts are most useful to inspect:
+    equations with rates, bounds, multiple symbols and constructor roles are
+    displayed ahead of isolated scale fragments such as ``~ 2 M_sun``.
+    """
+    value = " ".join(str(formula or "").split())
+    score = 0
+    symbol_count = len(MATH_SYMBOL_RE.findall(value))
+    role_count = len(list(roles or []))
+    active_route_count = sum(1 for route_score in routes.values() if float(route_score) >= 0.12)
+
+    if len(value) >= 24:
+        score += 1
+    if len(value) >= 55:
+        score += 1
+    if len(value) >= 110:
+        score += 1
+    if RELATION_RE.search(value):
+        score += 1
+    if symbol_count >= 6:
+        score += 1
+    if symbol_count >= 12:
+        score += 1
+    if active_route_count >= 2:
+        score += 1
+    if active_route_count >= 3:
+        score += 1
+    if role_count >= 3:
+        score += 1
+    if re.search(r"d[A-Za-z]?\s*\\over\s*d[tT]|\\dot\{?M\}?|\\partial|\\langle|\\lesssim|\\gtrsim", value):
+        score += 2
+    if re.search(r"\\rho|\\sigma|\\sqrt\{s\}|M_D|t_\{?\\rm|r_s|\\Phi|\\Omega|\\lambda", value):
+        score += 1
+    if re.search(r"^\s*(?:\\sim|>|<|\\lesssim|\\gtrsim)?\s*\d", value) and len(value) < 28:
+        score -= 3
+    if re.fullmatch(r"\\?sim\s*[\d^\-{}\\.\\\sA-Za-z_/]+", value) and len(value) < 36:
+        score -= 3
+    return score
+
+
 def formula_quality_flags(text: Any) -> List[str]:
     value = " ".join(str(text or "").split())
     flags: List[str] = []
@@ -390,6 +433,11 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
                 witness.get("source_id"),
                 case_text_by_source.get(str(witness.get("source_id")), ""),
             ),
+            "formula_detail_score": formula_detail_score(
+                witness.get("formula"),
+                routes,
+                constructor_roles(fp),
+            ),
             "vector_nonzero": fp.get("vector_nonzero"),
             "vector_l1": fp.get("vector_l1"),
         }
@@ -397,6 +445,7 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
 
     usable_nodes = [node for node in nodes if is_usable_node(node)]
     case_nodes = [node for node in usable_nodes if is_case_relevant_node(node)]
+    evidence_grade_case_nodes = [node for node in case_nodes if int(node.get("formula_detail_score") or 0) >= 4]
     artifact_nodes = [node for node in nodes if node.get("pair_status") not in USABLE_PAIR_STATUSES or not node.get("formula_core")]
     formula_quality_counts = Counter(flag for node in nodes for flag in (node.get("formula_quality_flags") or []))
     case_category_counts = Counter(category for node in case_nodes for category in ((node.get("case_evidence") or {}).get("categories") or []))
@@ -497,6 +546,7 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
         "fingerprinted_node_count": len(nodes),
         "usable_mechanism_node_count": len(usable_nodes),
         "case_relevant_mechanism_node_count": len(case_nodes),
+        "evidence_grade_case_mechanism_node_count": len(evidence_grade_case_nodes),
         "artifact_or_unusable_node_count": len(artifact_nodes),
         "skipped": dict(skipped),
         "route_counts": dict(route_counts),
@@ -511,6 +561,7 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
         "nodes": nodes,
         "usable_node_ids": [node["id"] for node in usable_nodes],
         "case_relevant_node_ids": [node["id"] for node in case_nodes],
+        "evidence_grade_case_node_ids": [node["id"] for node in evidence_grade_case_nodes],
         "edges": edges,
         "case_source_local_edges": case_source_local_edges,
         "analog_edges": analog_edges,
@@ -530,6 +581,7 @@ def sorted_example_nodes(nodes: Iterable[Dict[str, Any]], case_first: bool = Fal
     return sorted(
         list(nodes),
         key=lambda n: (
+            int(n.get("formula_detail_score") or 0),
             int((n.get("case_evidence") or {}).get("score") or 0) if case_first else 0,
             1 if n.get("pair_status") == "complete_constructor_pair" else 0,
             len(n.get("constructor_roles") or []),
@@ -556,8 +608,9 @@ def append_node_examples(lines: List[str], nodes: Iterable[Dict[str, Any]], limi
         if include_case:
             case = node.get("case_evidence") or {}
             lines.append(f"- case score: `{case.get('score', 0)}`")
-            lines.append(f"- local case categories: `{', '.join(case.get('local_categories') or []) or 'none'}`")
+            lines.append(f"- formula-window case categories: `{', '.join(case.get('local_categories') or []) or 'none'}`")
             lines.append(f"- source case categories: `{', '.join(case.get('source_categories') or []) or 'none'}`")
+            lines.append(f"- formula detail score: `{node.get('formula_detail_score', 0)}`")
         lines.append("")
         lines.append("Formula:")
         lines.append("")
@@ -583,6 +636,7 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
     lines.append(f"- fingerprinted mechanism nodes: `{graph.get('fingerprinted_node_count')}`")
     lines.append(f"- usable non-artifact mechanism nodes: `{graph.get('usable_mechanism_node_count')}`")
     lines.append(f"- LHC-black-hole case-relevant mechanism nodes: `{graph.get('case_relevant_mechanism_node_count')}`")
+    lines.append(f"- evidence-grade case mechanism nodes: `{graph.get('evidence_grade_case_mechanism_node_count')}`")
     lines.append(f"- artifact or unusable nodes retained for audit: `{graph.get('artifact_or_unusable_node_count')}`")
     lines.append(f"- source-local route-transition edges: `{len(graph.get('edges', []))}`")
     lines.append(f"- case-relevant source-local route-transition edges: `{len(graph.get('case_source_local_edges', []))}`")
@@ -674,8 +728,12 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
     lines.append("## Case-Relevant Mechanism Examples")
     lines.append("")
     nodes = graph.get("nodes") or []
-    case_ids = set(graph.get("case_relevant_node_ids") or [])
-    append_node_examples(lines, [node for node in nodes if node.get("id") in case_ids], include_case=True)
+    evidence_case_ids = set(graph.get("evidence_grade_case_node_ids") or [])
+    if evidence_case_ids:
+        append_node_examples(lines, [node for node in nodes if node.get("id") in evidence_case_ids], include_case=True)
+    else:
+        case_ids = set(graph.get("case_relevant_node_ids") or [])
+        append_node_examples(lines, [node for node in nodes if node.get("id") in case_ids], include_case=True)
     lines.append("## Mechanism Examples")
     lines.append("")
     usable_ids = set(graph.get("usable_node_ids") or [])
