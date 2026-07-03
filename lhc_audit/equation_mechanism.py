@@ -724,7 +724,7 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
     lines.append(f"- evidence-grade case mechanism nodes: `{graph.get('evidence_grade_case_mechanism_node_count')}`")
     lines.append(f"- direct LHC-safety mechanism nodes: `{graph.get('direct_lhc_safety_mechanism_node_count')}`")
     lines.append(f"- astrophysical analogue mechanism nodes: `{graph.get('astrophysical_analogue_mechanism_node_count')}`")
-    lines.append(f"- production-threshold mechanism nodes: `{graph.get('production_threshold_mechanism_node_count')}`")
+    lines.append(f"- collider-threshold/selection mechanism nodes: `{graph.get('production_threshold_mechanism_node_count')}`")
     lines.append(f"- artifact or unusable nodes retained for audit: `{graph.get('artifact_or_unusable_node_count')}`")
     lines.append(f"- source-local route-transition edges: `{len(graph.get('edges', []))}`")
     lines.append(f"- case-relevant source-local route-transition edges: `{len(graph.get('case_source_local_edges', []))}`")
@@ -733,6 +733,16 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
     lines.append(f"- case-transfer rich analogues: `{len(graph.get('case_transfer_analog_edges', []))}`")
     lines.append(f"- evidence-grade case-internal rich analogues: `{len(graph.get('evidence_grade_case_internal_analog_edges', []))}`")
     lines.append(f"- evidence-grade case-transfer rich analogues: `{len(graph.get('evidence_grade_case_transfer_analog_edges', []))}`")
+    lines.append("")
+    lines.append("## Main Finding")
+    lines.append("")
+    lines.append(
+        "This corpus does not contain formula-clean direct LHC-safety mechanisms under the current gates. "
+        "It contains one collider-threshold/selection hook and a larger set of astrophysical black-hole mechanisms. "
+        "The evidence therefore supports a mechanism-translation audit: use accretion, evaporation, capture, mass-growth "
+        "and compact-object survival mechanisms as constraints on the collider branch, rather than treating the problem "
+        "as a provenance dispute over who said safe or dangerous."
+    )
     lines.append("")
     lines.append("## Six-Route Evidence")
     lines.append("")
@@ -779,7 +789,7 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
         "collider branch, rather than by counting who asserted safety or danger."
     )
     lines.append(
-        "Production-threshold candidates are separated because they can show where a collider event selection or "
+        "Collider-threshold/selection candidates are separated because they can show where a collider event selection or "
         "formation condition enters the case, but they are not by themselves accretion, evaporation or safety mechanisms."
     )
     lines.append("")
@@ -803,7 +813,9 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
     for label, count in list((graph.get("transition_label_counts") or {}).items())[:20]:
         lines.append(f"- `{label}`: `{count}`")
     lines.append("")
-    lines.append("## Cross-Source Route Analogues")
+    lines.append("## Global Cross-Source Route Analogues")
+    lines.append("")
+    lines.append("These route analogues are formula-clean but not necessarily LHC-case-specific.")
     lines.append("")
     analog_edges = graph.get("analog_edges") or []
     if not analog_edges:
@@ -849,7 +861,7 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
     lines.append("")
     append_node_examples(lines, [node for node in nodes if node.get("id") in direct_ids], limit=8, include_case=True)
     production_ids = set(graph.get("production_threshold_node_ids") or [])
-    lines.append("### Production-Threshold Candidates")
+    lines.append("### Collider-Threshold/Selection Candidates")
     lines.append("")
     append_node_examples(lines, [node for node in nodes if node.get("id") in (production_ids - direct_ids)], limit=8, include_case=True)
     lines.append("### Astrophysical Black-Hole Analogues")
@@ -865,7 +877,9 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
     else:
         case_ids = set(graph.get("case_relevant_node_ids") or [])
         append_node_examples(lines, [node for node in nodes if node.get("id") in case_ids], include_case=True)
-    lines.append("## Mechanism Examples")
+    lines.append("## Global Mechanism Examples")
+    lines.append("")
+    lines.append("These are formula-clean global examples from the operational graph, not LHC-specific receipts.")
     lines.append("")
     usable_ids = set(graph.get("usable_node_ids") or [])
     append_node_examples(lines, [node for node in nodes if node.get("id") in usable_ids])
