@@ -1,5 +1,5 @@
 \documentclass[11pt]{article}
-\usepackage[a4paper,margin=0.85in]{geometry}
+\usepackage[a4paper,margin=0.9in]{geometry}
 \usepackage{graphicx}
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
@@ -9,132 +9,207 @@
 \usepackage{caption}
 \usepackage{xcolor}
 \usepackage{enumitem}
+\usepackage{float}
+\graphicspath{{figures/}}
 \setlist[itemize]{leftmargin=1.2em}
-\setlist[enumerate]{leftmargin=1.4em}
 
-\title{Mechanism Graphs for the LHC Black-Hole Safety Case}
-\author{Static audit report}
+\title{Equation Branches in the LHC Black-Hole Safety Literature}
+\author{Public mechanism map from source-derived artifacts}
 \date{}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-Scientific papers contain an attribution layer and an equation layer. The first records
-sources and claims. The second records the mathematical steps that could make a claim
-physically true. This report applies that separation to the LHC microscopic-black-hole
-safety debate using a static public audit run. The selected corpus contains
-492 arXiv sources, 377
-provenance claim nodes and 1,408 equation witnesses.
-Formula gates reduce the equation layer to 204
-usable mechanism nodes and 35
-evidence-grade case nodes. The branch split is sharp:
-0 source-local formula-clean
-direct LHC-safety mechanisms, 1
+The LHC microscopic-black-hole safety case is a branch problem in physics. A
+dangerous branch would require production, survival, capture, growth and failure
+of the astronomical bound. A safe branch can close through evaporation, failed
+capture, slow accretion or compact-object survival constraints. We build a public
+mechanism map of this literature from source-derived artifacts. The selected run contains 492
+arXiv sources, 377 extracted claim labels and
+1,408 equation witnesses. Formula filters reduce
+these witnesses to 204 usable mechanism
+nodes and 35 evidence-grade
+case nodes. The result is a branch map:
+0 direct formula-clean
+LHC-safety mechanisms, 1
 collider-threshold hook and 28
-astrophysical black-hole analogues. The useful object is a translation map: accretion,
-evaporation, capture, mass growth and compact-object survival mechanisms must be carried
-explicitly into the collider branch before they can support a safety argument.
+astrophysical black-hole analogues. The main result is a mechanism-transfer
+problem: production, evaporation, capture, accretion and compact-object survival
+must be connected by explicit equations before an adjacent astrophysical argument
+can support a collider safety conclusion.
 \end{abstract}
 
-\section{Main Claims and Evidence Register}
+\section{The safety case is a branch structure}
 
-\begin{enumerate}
-\item \textbf{The selected corpus supports a selected-corpus finding.} Evidence: 492 selected sources from the high-recall scan. Interpretation: The scan is broad enough for this public audit object. A universal absence claim would require the full literature and non-arXiv safety reports.
-\item \textbf{The provenance layer is mostly attribution.} Evidence: 869 provenance nodes and 377 source-to-claim edges. Interpretation: It organizes who said what and where. Equation support has to be tested in a separate graph.
-\item \textbf{The mechanism layer is much stricter than the provenance layer.} Evidence: 1408 equation witnesses narrowed to 204 usable mechanism nodes. Interpretation: Most extracted text is retained as audit material or rejected by formula-quality gates.
-\item \textbf{No direct LHC-safety equation branch passed the strict gate.} Evidence: 0 direct LHC-safety mechanism nodes. Interpretation: The absence is defined by the selected corpus and the source-local equation gate.
-\item \textbf{The populated branch is adjacent black-hole physics.} Evidence: 28 astrophysical analogues and 1 collider-threshold hook. Interpretation: The audit becomes mechanism translation from accretion, evaporation, capture and compact-object survival into the collider branch.
-\item \textbf{The dominant mechanism routes are operator/closure/transport.} Evidence: constraint closure=165, spectral operator=160, transport flow=95 Interpretation: The graph records equation roles and route co-activation.
-\item \textbf{Sparse attention supports the branch split.} Evidence: spectral operator=34, constraint closure=33, transport flow=25 Interpretation: The sparse audit is a consistency check over static graph artifacts.
-\end{enumerate}
+The LHC black-hole debate turned on a branch structure in physics: whether
+microscopic black holes could be
+produced, whether they evaporate, whether a stable remnant could be captured, how
+fast it could accrete matter, and whether astronomical observations already exclude
+the dangerous branch. Those questions appear in the published safety literature and
+its critics \cite{GiddingsMangano2008,Ellis2008,Plaga2008,Koch2008,GiddingsManganoComment2008,Casadio2009}.
 
-\section{Data Object}
+For a non-specialist, the essential point is simple. A dangerous scenario needs
+every step of one chain to work: the collider must make the object, the object
+must survive, it must be trapped, it must grow fast enough, and astronomical
+objects must fail to rule out the same growth mechanism. A safety argument can
+close the chain at several places: no production, rapid evaporation, failed
+capture, slow growth, or contradiction with observed compact-object survival.
+	The evidence consists of equation-supported branch tests distributed across
+	the source set.
 
-The run directory is \texttt{runs/lhc\_black\_hole\_audit\_500k\_strict}. It contains derived public artifacts:
-\texttt{manifest.json}, \texttt{provenance\_graph.json}, \texttt{equation\_witnesses.json},
-\texttt{operational\_graph.json}, \texttt{equation\_mechanism\_graph.json} and
-\texttt{sparse\_attention\_audit.json}. These files are enough to inspect the report. Private
-fingerprints, model checkpoints and core pipeline files are outside this repository.
-
-\begin{figure}[t]
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.92\linewidth]{figures/provenance_vs_mechanism.pdf}
-\caption{Two graph layers in the same selected archive. Provenance organizes attribution and claims. The mechanism graph records which equation-level branches are present.}
+\includegraphics[width=0.96\linewidth]{final_branch_dag.pdf}
+\caption{Physical branch structure of the LHC black-hole safety case. Counts are
+evidence-grade receipts retained by the public run. The populated route is mainly
+the adjacent astrophysical branch; the direct collider branch remains empty under
+the strict formula filter.}
+\label{fig:branchdag}
 \end{figure}
 
-\section{Provenance Layer}
+The public repository first builds a literature map of papers, claim labels and
+source-to-claim edges. It then builds an equation mechanism map from local formula
+windows, formula-quality filters, route labels and cross-source analogues. The
+literature map locates the discussion. The equation map asks which physical
+branches are populated by inspectable formula receipts.
 
-The provenance layer contains 869 nodes and
-377 source-to-claim edges. Claim labels in this selected
-corpus are:
-
-\begin{center}
-\begin{tabular}{lr}
-\toprule
-Quantity & Count\\
-\midrule
-astrophysical claim & 355\\
-risk claim & 20\\
-safety claim & 2\\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\begin{figure}[t]
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.74\linewidth]{figures/final_claim_types.pdf}
-\caption{Claim labels in the provenance layer. This layer is an attribution record. Equation support is tested separately.}
+\includegraphics[width=0.96\linewidth]{final_layer_comparison.pdf}
+\caption{Source and equation maps extracted from the same literature. The literature map
+records attribution and claim labels. The equation mechanism map records whether
+local formulas populate the physical branches of the argument.}
+\label{fig:layers}
 \end{figure}
 
-\section{Mechanism Layer and Gates}
+\section{From formulas to mechanism receipts}
 
-The mechanism layer begins with local equation witnesses and applies formula-quality, case-relevance
-and route gates. The public audit uses six route labels:
+An equation witness is a local formula window extracted from a source. It becomes
+a usable mechanism node only when it survives formula-quality filters and activates
+at least one route. The six route labels are broad physical operations:
 \[
 \begin{array}{ll}
-\text{transport/flow} & \partial_t q + \nabla\cdot J = S,\\
-\text{constraint/closure} & C(q,J,\lambda)=0,\\
-\text{spectral/operator} & Lq=\lambda q,\\
-\text{boundary/weak form} & \int_\Omega \phi Lq=\int_\Omega \phi f,\quad Bq=b,\\
-\text{commutator/residual} & [A,B]=AB-BA,\\
-\text{discrete protocol} & x_{n+1}=\Phi(x_n,u_n).
+\text{transport or flow} & \partial_t q+\nabla\cdot J=S,\\
+\text{constraint or closure} & C(q,J,\lambda)=0,\\
+\text{spectral or operator} & Lq=\lambda q,\\
+\text{boundary or weak form} & \int_\Omega \phi Lq=\int_\Omega \phi f,\quad Bq=b,\\
+\text{commutator or residual} & [A,B]=AB-BA,\\
+\text{ordered protocol} & x_{n+1}=\Phi(x_n,u_n).
 \end{array}
 \]
-These route labels are audit gates. They separate formula-clean mechanism receipts from word
-matches and bibliographic residue.
+The labels act as formula filters. They identify the role played by an equation
+inside a possible derivation while leaving the physics in the source-local receipt.
 
-\begin{figure}[t]
+This is the practical definition of evidence used in the report. A paragraph that
+says a black hole is safe or dangerous is a claim. A formula such as a mass-loss
+rate, an accretion rate, a threshold condition or a compact-object survival bound
+is a mechanism receipt. The receipt can be inspected because it states what has to
+change, what quantity is conserved or constrained, and what observation would
+matter.
+
+For the LHC case, the relevant branch can be written schematically as
+\[
+\mathrm{production}\rightarrow \mathrm{evaporation\ or\ stability}
+\rightarrow \mathrm{capture}\rightarrow \mathrm{growth}
+\rightarrow \mathrm{astrophysical\ constraint} .
+\]
+This is the mechanism structure behind the safety argument. The source map records
+where the discussion occurs. The equation mechanism map asks which parts of the
+branch are represented by formulas in the selected corpus.
+
+\section{What the run found}
+
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.82\linewidth]{figures/final_evidence_funnel.pdf}
-\caption{Strict evidence funnel from equation witnesses to case-specific mechanism receipts. The sharp drop is expected: the gate rejects prose fragments, local word matches without a relation operator, and formula windows without case-local mechanism content.}
+\includegraphics[width=0.86\linewidth]{final_evidence_funnel.pdf}
+\caption{Evidence funnel under the public formula filter. Most equation windows are
+kept as trace material or rejected. The retained layer is smaller and physically
+more informative than a word-level source map.}
+\label{fig:funnel}
 \end{figure}
 
-\section{Run Counts}
+The selected run starts with 1,408
+equation witnesses. The formula filter retains 204
+usable mechanism nodes and 35
+evidence-grade case nodes. The direct LHC-safety branch has no formula-clean node
+in this run. The adjacent branch is populated: the graph finds
+28 astrophysical
+black-hole analogues and 1
+collider-threshold hook.
 
-\begin{center}
-\begin{tabular}{lr}
-\toprule
-Quantity & Count\\
-\midrule
-selected sources & 492\\
-provenance claims & 377\\
-source equation witnesses & 1,408\\
-usable mechanism nodes & 204\\
-case-relevant mechanism nodes & 72\\
-evidence-grade case nodes & 35\\
-direct LHC-safety mechanism nodes & 0\\
-collider-threshold hooks & 1\\
-astrophysical analogues & 28\\
-source-local route-transition edges & 120\\
-rich cross-source route analogues & 130\\
-\bottomrule
-\end{tabular}
-\end{center}
+The result is a map of what the selected corpus can prove locally. It proves that
+the run contains many formula-clean black-hole mechanisms relevant to growth,
+capture and compact-object bounds. It also shows where the selected corpus is
+	thin: direct collider-safety formulas are absent from the populated branch. The
+safety argument therefore depends on mechanism translation: adjacent
+astrophysical mechanisms must be carried into the collider setting with their
+assumptions visible.
 
-\section{Mechanism Distribution}
+Published safety analyses use cosmic-ray and astronomical constraints in addition
+to direct collider reasoning \cite{GiddingsMangano2008,Ellis2008,Koch2008}.
+	In this public run, the source-local formula-clean receipts sit mainly in adjacent
+	black-hole physics. The graph therefore makes the collider translation problem
+	explicit.
 
-The usable mechanism layer is dominated by closure, spectral/operator and transport routes:
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\linewidth]{final_mechanism_translation.pdf}
+\caption{Mechanism translation exposed by the graph. The populated side of the
+run is adjacent astrophysical black-hole physics. The collider side contributes a
+	threshold hook; direct source-local safety mechanisms are absent from the
+	formula-clean retained layer.}
+\label{fig:translation}
+\end{figure}
+
+\section{The physical branches}
+
+The production branch asks whether the collider reaches the threshold or event
+condition assumed by a microscopic-black-hole model. A minimal form is
+\[
+\sqrt{s}>M_D .
+\]
+The selected public run found one threshold or event-selection hook. That is a
+	small branch, so the report treats it as a hook, not as a closed collider
+derivation.
+
+The evaporation branch is different. Hawking radiation supplies the standard
+mass-loss route for microscopic black holes \cite{Hawking1975}. A receipt in
+this branch should support a sign or timescale relation such as
+\[
+\frac{dM}{dt}<0,\qquad \tau_{\rm evap}\ll \tau_{\rm capture} .
+\]
+The stable branch reverses the problem. If a black hole does not evaporate before
+capture, the relevant equations become stopping, capture and accretion:
+\[
+\frac{dM}{dt}=\rho\,\sigma(M)\,v .
+\]
+Astronomical survival then becomes a constraint. If the same mechanism would
+destroy white dwarfs or neutron stars on short timescales, observed survival of
+those systems constrains the dangerous branch. This is why the safety argument is
+best read as a transfer of a mechanism from collider production to compact-object
+capture and growth.
+
+	These equations are schematic, but they show what the graph is looking for. A
+	threshold formula belongs to production. A negative mass-change or short lifetime
+	belongs to evaporation. A positive growth law belongs to the stable-remnant
+	branch. A compact-object lifetime bound belongs to the astronomical test. The
+	graph is useful because it keeps these roles separate instead of mixing them into
+	one textual controversy.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\linewidth]{final_equation_branch_logic.pdf}
+\caption{Equation tests behind the physical branch map. The same source set is
+sorted by formula role: production threshold, evaporation timescale, growth rate
+and astronomical survival bound.}
+\label{fig:eqbranch}
+\end{figure}
+
+\section{Route structure and sparse-attention result}
+
+The mechanism routes retained by the graph are concentrated in closure, operator
+structure and transport:
 
 \begin{center}
 \begin{tabular}{lr}
@@ -151,173 +226,158 @@ commutator incompatibility & 12\\
 \end{tabular}
 \end{center}
 
-\begin{figure}[t]
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.82\linewidth]{figures/final_route_counts.pdf}
-\caption{Six-route counts among non-artifact constructor pairs. The reusable layer is a small set of equation operations.}
+\includegraphics[width=0.80\linewidth]{final_route_counts.pdf}
+\caption{Mechanism-route counts among usable nodes. The retained layer is dominated
+by closure, operator structure and transport, the routes needed for growth,
+evaporation and capture arguments.}
+\label{fig:routes}
 \end{figure}
 
-Constructor-role and transition-label diagnostics give the same picture:
+The route co-activation calculation supports the same interpretation. In the evidence-grade case layer, the largest route counts are spectral operator (34), constraint closure (33), transport flow (25), boundary weak form (4). Astrophysical analogues distribute across spectral operator (0.35), constraint closure (0.34), transport flow (0.26), which is the expected pattern for mass, capture and growth mechanisms. The strongest co-activations are constraint closure + spectral operator (32), spectral operator + transport flow (25), constraint closure + transport flow (23).
+	This route-level calculation marks shared equation operations across source
+	contexts. Physical equivalence still depends on the assumptions carried by each
+	source.
+
+	In plain terms, the retained formulas show repeated structure. They combine
+	three operations: an operator or rate law, a closure or constraint, and a
+transport or growth term. That pattern is exactly what a black-hole safety branch
+requires. A growth scenario needs a rate law and a constraint on available matter.
+An evaporation scenario needs a rate law and a timescale. An astrophysical bound
+needs a constraint that connects the same mechanism to observed survival.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\linewidth]{final_branch_route_graph.pdf}
+\caption{Branch-to-route graph in the evidence-grade case layer. Branches are on
+the left, equation routes are on the right, and line thickness gives route attention.
+The dominant branch connections run through spectral/operator, closure and
+transport operations.}
+\label{fig:routegraph}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.88\linewidth]{final_sparse_attention.pdf}
+\caption{Branch-to-route sparse attention. Adjacent astrophysical mechanisms
+concentrate in operator, closure and transport routes; the production-threshold
+branch is separate and small.}
+\label{fig:sparse}
+\end{figure}
+
+\section{Source map result}
+
+The source map has 869 nodes and
+377 source-to-claim edges. Its claim
+labels are:
 
 \begin{center}
 \begin{tabular}{lr}
 \toprule
 Quantity & Count\\
 \midrule
-operator apparatus & 142\\
-selector & 106\\
-real substrate geometry & 94\\
-closure constraints & 68\\
-readout current & 45\\
-protocol order & 25\\
+astrophysical claim & 355\\
+risk claim & 20\\
+safety claim & 2\\
 \bottomrule
 \end{tabular}
 \end{center}
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.82\linewidth]{figures/final_constructor_roles.pdf}
-\caption{Constructor roles present in usable mechanisms. Operator apparatus, selector and real substrate geometry appear as separable roles.}
-\end{figure}
+This layer is still useful. It records which sources belong to the safety, risk,
+astrophysical-bound or collider-threshold discussion. It is also the right layer
+for dates, author identity and citation provenance. Its limit is categorical:
+source-to-claim edges leave the evaporation, capture and accretion branches
+unresolved until the equation layer is inspected.
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.86\linewidth]{figures/final_transition_labels.pdf}
-\caption{Frequent transition labels. Preservation, addition and projection of operator, selector and closure roles are common moves in the equation layer.}
-\end{figure}
+	The source map therefore plays a supporting role. It tells the reader where the
+	discussion sits and which papers are involved. Closure of a mass-growth branch
+	requires the local formulas and their physical roles.
 
-\section{LHC Case Branches}
+\section{Mechanism receipts}
 
-Evidence-grade branch counts are:
+The report exposes local formula windows that can be checked against the source
+papers. Table~\ref{tab:receipts}
+shows a compact sample; the full receipt set remains in
+\texttt{equation\_mechanism\_graph.json} and \texttt{equation\_mechanism\_graph.md}.
+The table should be read as an evidence ledger. Each formula is a reason why a
+branch was counted: a mass accretion rate, a bound on black-hole mass change, a
+compact-object scale or a threshold-like condition.
+
+\begin{table}[t]
+\caption{Representative mechanism receipts retained by the formula filter.}
+\label{tab:receipts}
+\begin{tabularx}{\linewidth}{p{0.13\linewidth}p{0.22\linewidth}p{0.25\linewidth}X}
+\toprule
+Source & Routes & Branch & Formula witness\\
+\midrule
+\href{https://arxiv.org/abs/0904.0230}{0904.0230} & constraint closure, boundary weak form & production threshold branch & \begin{minipage}[t]{\linewidth}\raggedright\sloppy\scriptsize\ttfamily |y\_\{\textbackslash{}\hspace{0pt}gamma \textbackslash{}\hspace{0pt}gamma\}| \textbackslash{}\hspace{0pt}leq 1\end{minipage}\tabularnewline
+\href{https://arxiv.org/abs/0807.3458}{0807.3458} & transport flow, constraint closure, spectral operator & astrophysical black hole analogue, evaporation branch, stable growth or capture branch & \begin{minipage}[t]{\linewidth}\raggedright\sloppy\scriptsize\ttfamily 3 \textbackslash{}\hspace{0pt}times 10\textasciicircum{}\{-13\}\textasciitilde{}\textbackslash{}\hspace{0pt}mathrm\{M\}\_\{\textbackslash{}\hspace{0pt}odo\\ t\}\textasciitilde{}\textbackslash{}\hspace{0pt}mathrm\{yr\}\textasciicircum{}\{-1\} \textbackslash{}\hspace{0pt}lesssim\\ \textbackslash{}\hspace{0pt}langle \textbackslash{}\hspace{0pt}dot\{M\}\_\{\textbackslash{}\hspace{0pt}mathrm\{long\}\}\\ \textbackslash{}\hspace{0pt}rangle \textbackslash{}\hspace{0pt}lesssim 1 \textbackslash{}\hspace{0pt}times\\ 10\textasciicircum{}\{-10\}\textasciitilde{}\textbackslash{}\hspace{0pt}mathrm\{M\}\_\{\textbackslash{}\hspace{0pt}o...\end{minipage}\tabularnewline
+\href{https://arxiv.org/abs/0807.3458}{0807.3458} & transport flow, constraint closure, spectral operator & astrophysical black hole analogue, evaporation branch, stable growth or capture branch & \begin{minipage}[t]{\linewidth}\raggedright\sloppy\scriptsize\ttfamily 4 \textbackslash{}\hspace{0pt}times 10\textasciicircum{}\{-14\}\textasciitilde{}\textbackslash{}\hspace{0pt}mathrm\{M\}\_\{\textbackslash{}\hspace{0pt}odo\\ t\}\textasciitilde{}\textbackslash{}\hspace{0pt}mathrm\{yr\}\textasciicircum{}\{-1\} \textbackslash{}\hspace{0pt}lesssim\\ \textbackslash{}\hspace{0pt}langle \textbackslash{}\hspace{0pt}dot\{M\}\_\{\textbackslash{}\hspace{0pt}mathrm\{long\}\}\\ \textbackslash{}\hspace{0pt}rangle \textbackslash{}\hspace{0pt}lesssim 2 \textbackslash{}\hspace{0pt}times\\ 10\textasciicircum{}\{-11\}\textasciitilde{}\textbackslash{}\hspace{0pt}mathrm\{M\}\_\{\textbackslash{}\hspace{0pt}o...\end{minipage}\tabularnewline
+\href{https://arxiv.org/abs/astro-ph/0212297}{astro-ph0212297} & constraint closure, transport flow, spectral operator & astrophysical black hole analogue, evaporation branch, stable growth or capture branch & \begin{minipage}[t]{\linewidth}\raggedright\sloppy\scriptsize\ttfamily B\_c\textbackslash{}\hspace{0pt}simeq 10\textasciicircum{}\{16\}\textbackslash{}\hspace{0pt}mbox\{G\}\textbackslash{}\hspace{0pt}left(\{7M\\ \_\textbackslash{}\hspace{0pt}odot\}/\{M\_H\}\textbackslash{}\hspace{0pt}right) \textbackslash{}\hspace{0pt}left(\{6M\_H\}/\\ \{R\}\textbackslash{}\hspace{0pt}right)\textasciicircum{}2\textbackslash{}\hspace{0pt}left(\{M\_T\}/\{0.03M\_H\}\textbackslash{}\hspace{0pt}\\ right)\textasciicircum{}\{1/2\}\end{minipage}\tabularnewline
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Evidence register}
+
+\begin{tabularx}{\linewidth}{p{0.17\linewidth}p{0.34\linewidth}X}
+\toprule
+Claim & Evidence & Interpretation\\
+\midrule
+Literature map & 869 nodes and 377 source-to-claim edges. & This layer identifies documents, claim labels and attribution. Branch closure is tested in the equation mechanism map.\\
+Equation mechanism map & 1408 equation witnesses reduced to 204 usable mechanism nodes. & The evidence filter removes prose fragments and word-only matches, leaving equation windows that can be inspected.\\
+Case split & 0 direct LHC-safety mechanisms, 1 threshold hook and 28 astrophysical analogues. & The selected corpus populates adjacent black-hole mechanisms more strongly than direct collider-safety derivations.\\
+Route content & constraint closure=165, spectral operator=160, transport flow=95 & The dominant equation roles are closure, operator structure and transport, which are the routes needed for growth or evaporation branches.\\
+Sparse check & In the evidence-grade case layer, the largest route counts are spectral operator (34), constraint closure (33), transport flow (25), boundary weak form (4). Astrophysical analogues distribute across spectral operator (0.35), constraint closure (0.34), transport flow (0.26), which is the expected pattern for mass, capture and growth mechanisms. The strongest co-activations are constraint closure + spectral operator (32), spectral operator + transport flow (25), constraint closure + transport flow (23). & This calculation uses the public graph artifacts and supports the branch interpretation.\\
+\bottomrule
+\end{tabularx}
+
+\section{Formula-quality boundary}
+
+The graph carries its own failure modes. Formula-quality labels in the public run
+include:
 
 \begin{center}
 \begin{tabular}{lr}
 \toprule
 Quantity & Count\\
 \midrule
-stable growth or capture branch & 29\\
-astrophysical black hole analogue & 28\\
-evaporation branch & 12\\
-production threshold branch & 1\\
+prose or latex artifact & 947\\
+no relation operator & 689\\
+word heavy formula & 372\\
+formula core & 299\\
+sentence boundary inside formula & 272\\
+long prose fragment & 6\\
 \bottomrule
 \end{tabular}
 \end{center}
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.82\linewidth]{figures/final_case_branches.pdf}
-\caption{Evidence-grade case branches. The populated branch is adjacent astrophysical black-hole physics; the direct LHC-safety branch remains empty under the strict gate.}
-\end{figure}
+These counts explain why the evidence funnel is steep. Many local windows are
+prose, bibliography, weak formula fragments or equations without a case-relevant
+mechanism. The formula filter is deliberately conservative: noisy material remains
+available in the source-derived artifacts, while formula-clean case windows are
+promoted to mechanism receipts.
 
-The collider branch first requires a production or event-selection condition, for example
-\[
-\sqrt{s} > M_D .
-\]
-If evaporation dominates, a local receipt should support a mass-loss or lifetime ordering such as
-\[
-\frac{dM}{dt} < 0,\qquad \tau_{\rm evap}\ll \tau_{\rm capture} .
-\]
-If a stable object is assumed, the mechanism changes to stopping, capture and growth:
-\[
-\frac{dM}{dt}=\rho\,\sigma(M)\,v .
-\]
-Compact-object survival then becomes an external constraint on the same mechanism:
-\[
-t_{\rm grow} < t_{\rm WD}
-\]
-would be inconsistent with observed white-dwarf survival if the same production, capture and
-growth mechanism were realized in nature. The static graph found adjacent receipts for this
-translation problem. It did not find a direct formula-clean collider-safety branch.
+\section{Conclusion}
 
-\section{Sparse-Attention Check}
+	The public run demonstrates a practical difference between two ways of reading
+	scientific papers. A source map reconstructs attribution and claim labels. An
+	equation mechanism map asks whether the equations needed by the argument are
+	present and how they connect.
+For the LHC black-hole case, that second graph exposes the main structure of the
+	evidence: a sparse direct collider branch, a small threshold hook, and a populated
+	set of adjacent astrophysical mechanisms. The scientific question becomes a
+	controlled transfer problem between physical branches.
 
-The sparse-attention audit reads the static mechanism graph and measures route co-activation in
-the evidence-grade case layer.
-
-\begin{itemize}
-\item Evidence-grade routes: spectral operator=34, constraint closure=33, transport flow=25, boundary weak form=4.
-\item Astrophysical analogues concentrate on spectral operator=0.35, constraint closure=0.34, transport flow=0.26, boundary weak form=0.04.
-\item The production-threshold branch is small and separate: boundary weak form=0.50, constraint closure=0.50.
-\item The strongest route co-activations are constraint closure + spectral operator=32, spectral operator + transport flow=25, constraint closure + transport flow=23.
-\end{itemize}
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.88\linewidth]{figures/final_sparse_attention.pdf}
-\caption{Branch-to-route sparse attention. Astrophysical analogues activate operator, closure and transport routes; the production-threshold branch is separated.}
-\end{figure}
-
-\section{Equation Receipts}
-
-\subsection{Direct LHC-Safety Receipts}
-\emph{No receipt passed the current gate.}
-
-\subsection{Collider-Threshold or Event-Selection Hook}
-\begin{tabularx}{\linewidth}{p{0.14\linewidth}p{0.23\linewidth}p{0.24\linewidth}X}
-\toprule
-Source & Routes & Branch labels & Formula witness\\
-\midrule
-0904.0230 / E00053 & constraint closure, boundary weak form & production threshold branch & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize\ttfamily |y\_\{\textbackslash{}gamma \textbackslash{}gamma\}| \textbackslash{}leq 1\end{minipage}\tabularnewline
-\bottomrule
-\end{tabularx}
-
-\subsection{Astrophysical Black-Hole Analogues}
-\begin{tabularx}{\linewidth}{p{0.14\linewidth}p{0.23\linewidth}p{0.24\linewidth}X}
-\toprule
-Source & Routes & Branch labels & Formula witness\\
-\midrule
-0807.3458 / E00034 & transport flow, constraint closure, spectral operator & astrophysical black hole analogue, evaporation branch, stable growth or capture branch & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize\ttfamily 3 \textbackslash{}times 10\textasciicircum{}\{-13\}\textasciitilde{}\textbackslash{}mathrm\{M\}\\ \_\{\textbackslash{}odot\}\textasciitilde{}\textbackslash{}mathrm\{yr\}\textasciicircum{}\{-1\}\\ \textbackslash{}lesssim \textbackslash{}langle\\ \textbackslash{}dot\{M\}\_\{\textbackslash{}mathrm\{long\}\}\\ \textbackslash{}rangle \textbackslash{}lesssim 1 \textbackslash{}times 10\\ \textasciicircum{}\{-10\}\textasciitilde{}\textbackslash{}mathrm\{M\}\_\{\textbackslash{}odot\}\textasciitilde{}..\\ .\end{minipage}\tabularnewline
-0807.3458 / E00035 & transport flow, constraint closure, spectral operator & astrophysical black hole analogue, evaporation branch, stable growth or capture branch & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize\ttfamily 4 \textbackslash{}times 10\textasciicircum{}\{-14\}\textasciitilde{}\textbackslash{}mathrm\{M\}\\ \_\{\textbackslash{}odot\}\textasciitilde{}\textbackslash{}mathrm\{yr\}\textasciicircum{}\{-1\}\\ \textbackslash{}lesssim \textbackslash{}langle\\ \textbackslash{}dot\{M\}\_\{\textbackslash{}mathrm\{long\}\}\\ \textbackslash{}rangle \textbackslash{}lesssim 2 \textbackslash{}times 10\\ \textasciicircum{}\{-11\}\textasciitilde{}\textbackslash{}mathrm\{M\}\_\{\textbackslash{}odot\}\textasciitilde{}..\\ .\end{minipage}\tabularnewline
-astro-ph0212297 / E01142 & constraint closure, transport flow, spectral operator & astrophysical black hole analogue, evaporation branch, stable growth or capture branch & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize\ttfamily B\_c\textbackslash{}simeq 10\textasciicircum{}\{16\}\textbackslash{}mbox\{G\}\textbackslash{}le\\ ft(\{7M\_\textbackslash{}odot\}/\{M\_H\}\textbackslash{}right) \textbackslash{}\\ left(\{6M\_H\}/\{R\}\textbackslash{}right)\textasciicircum{}2\textbackslash{}lef\\ t(\{M\_T\}/\{0.03M\_H\}\textbackslash{}right)\textasciicircum{}\{1/\\ 2\}\end{minipage}\tabularnewline
-1307.7685 / E00825 & constraint closure, transport flow, spectral operator & astrophysical black hole analogue, stable growth or capture branch & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize\ttfamily \textbackslash{}delta M\_\{BH\}< 5 \textbackslash{}times\\ 10\textasciicircum{}\{-4\}M\_\{BH\}\end{minipage}\tabularnewline
-1207.1244 / E00797 & constraint closure, transport flow, spectral operator, discrete protocol & astrophysical black hole analogue & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize\ttfamily M\_1 = 0.9\_\{-0.3\}\textasciicircum{}\{+4.6\}\\ M\_\textbackslash{}odot\end{minipage}\tabularnewline
-1604.02455 / E01020 & constraint closure, transport flow, spectral operator & astrophysical black hole analogue, evaporation branch, stable growth or capture branch & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize\ttfamily 4000M \textbackslash{}sim 60(M\_\{\textbackslash{}rm\\ NS/1.625M\_\textbackslash{}odot)\end{minipage}\tabularnewline
-1604.02455 / E01021 & constraint closure, transport flow, spectral operator & astrophysical black hole analogue, evaporation branch, stable growth or capture branch & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize\ttfamily \textbackslash{}Delta t \textbackslash{}sim 0.1 (M\_\{\textbackslash{}rm\\ NS/1.625M\_\textbackslash{}odot)\end{minipage}\tabularnewline
-astro-ph0212297 / E01141 & constraint closure, spectral operator, transport flow & astrophysical black hole analogue, evaporation branch, stable growth or capture branch & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize\ttfamily \{\textbackslash{}cal E\_B\}/\{\{\textbackslash{}cal E\}\_k\}<0.1\end{minipage}\tabularnewline
-\bottomrule
-\end{tabularx}
-
-\subsection{Stable Growth or Capture Branch}
-\begin{tabularx}{\linewidth}{p{0.14\linewidth}p{0.23\linewidth}p{0.24\linewidth}X}
-\toprule
-Source & Routes & Branch labels & Formula witness\\
-\midrule
-0807.3458 / E00034 & transport flow, constraint closure, spectral operator & astrophysical black hole analogue, evaporation branch, stable growth or capture branch & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize\ttfamily 3 \textbackslash{}times 10\textasciicircum{}\{-13\}\textasciitilde{}\textbackslash{}mathrm\{M\}\\ \_\{\textbackslash{}odot\}\textasciitilde{}\textbackslash{}mathrm\{yr\}\textasciicircum{}\{-1\}\\ \textbackslash{}lesssim \textbackslash{}langle\\ \textbackslash{}dot\{M\}\_\{\textbackslash{}mathrm\{long\}\}\\ \textbackslash{}rangle \textbackslash{}lesssim 1 \textbackslash{}times 10\\ \textasciicircum{}\{-10\}\textasciitilde{}\textbackslash{}mathrm\{M\}\_\{\textbackslash{}odot\}\textasciitilde{}..\\ .\end{minipage}\tabularnewline
-0807.3458 / E00035 & transport flow, constraint closure, spectral operator & astrophysical black hole analogue, evaporation branch, stable growth or capture branch & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize\ttfamily 4 \textbackslash{}times 10\textasciicircum{}\{-14\}\textasciitilde{}\textbackslash{}mathrm\{M\}\\ \_\{\textbackslash{}odot\}\textasciitilde{}\textbackslash{}mathrm\{yr\}\textasciicircum{}\{-1\}\\ \textbackslash{}lesssim \textbackslash{}langle\\ \textbackslash{}dot\{M\}\_\{\textbackslash{}mathrm\{long\}\}\\ \textbackslash{}rangle \textbackslash{}lesssim 2 \textbackslash{}times 10\\ \textasciicircum{}\{-11\}\textasciitilde{}\textbackslash{}mathrm\{M\}\_\{\textbackslash{}odot\}\textasciitilde{}..\\ .\end{minipage}\tabularnewline
-astro-ph0212297 / E01142 & constraint closure, transport flow, spectral operator & astrophysical black hole analogue, evaporation branch, stable growth or capture branch & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize\ttfamily B\_c\textbackslash{}simeq 10\textasciicircum{}\{16\}\textbackslash{}mbox\{G\}\textbackslash{}le\\ ft(\{7M\_\textbackslash{}odot\}/\{M\_H\}\textbackslash{}right) \textbackslash{}\\ left(\{6M\_H\}/\{R\}\textbackslash{}right)\textasciicircum{}2\textbackslash{}lef\\ t(\{M\_T\}/\{0.03M\_H\}\textbackslash{}right)\textasciicircum{}\{1/\\ 2\}\end{minipage}\tabularnewline
-astro-ph0109539 / E01098 & constraint closure, spectral operator, transport flow & stable growth or capture branch & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize\ttfamily \textbackslash{}langle M\textbackslash{}rangle \textbackslash{}sim 9\\ \{M\}\_\textbackslash{}odot\end{minipage}\tabularnewline
-1307.7685 / E00825 & constraint closure, transport flow, spectral operator & astrophysical black hole analogue, stable growth or capture branch & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize\ttfamily \textbackslash{}delta M\_\{BH\}< 5 \textbackslash{}times\\ 10\textasciicircum{}\{-4\}M\_\{BH\}\end{minipage}\tabularnewline
-1604.02455 / E01020 & constraint closure, transport flow, spectral operator & astrophysical black hole analogue, evaporation branch, stable growth or capture branch & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize\ttfamily 4000M \textbackslash{}sim 60(M\_\{\textbackslash{}rm\\ NS/1.625M\_\textbackslash{}odot)\end{minipage}\tabularnewline
-\bottomrule
-\end{tabularx}
-
-\subsection{Evaporation Branch}
-\begin{tabularx}{\linewidth}{p{0.14\linewidth}p{0.23\linewidth}p{0.24\linewidth}X}
-\toprule
-Source & Routes & Branch labels & Formula witness\\
-\midrule
-0807.3458 / E00034 & transport flow, constraint closure, spectral operator & astrophysical black hole analogue, evaporation branch, stable growth or capture branch & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize\ttfamily 3 \textbackslash{}times 10\textasciicircum{}\{-13\}\textasciitilde{}\textbackslash{}mathrm\{M\}\\ \_\{\textbackslash{}odot\}\textasciitilde{}\textbackslash{}mathrm\{yr\}\textasciicircum{}\{-1\}\\ \textbackslash{}lesssim \textbackslash{}langle\\ \textbackslash{}dot\{M\}\_\{\textbackslash{}mathrm\{long\}\}\\ \textbackslash{}rangle \textbackslash{}lesssim 1 \textbackslash{}times 10\\ \textasciicircum{}\{-10\}\textasciitilde{}\textbackslash{}mathrm\{M\}\_\{\textbackslash{}odot\}\textasciitilde{}..\\ .\end{minipage}\tabularnewline
-0807.3458 / E00035 & transport flow, constraint closure, spectral operator & astrophysical black hole analogue, evaporation branch, stable growth or capture branch & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize\ttfamily 4 \textbackslash{}times 10\textasciicircum{}\{-14\}\textasciitilde{}\textbackslash{}mathrm\{M\}\\ \_\{\textbackslash{}odot\}\textasciitilde{}\textbackslash{}mathrm\{yr\}\textasciicircum{}\{-1\}\\ \textbackslash{}lesssim \textbackslash{}langle\\ \textbackslash{}dot\{M\}\_\{\textbackslash{}mathrm\{long\}\}\\ \textbackslash{}rangle \textbackslash{}lesssim 2 \textbackslash{}times 10\\ \textasciicircum{}\{-11\}\textasciitilde{}\textbackslash{}mathrm\{M\}\_\{\textbackslash{}odot\}\textasciitilde{}..\\ .\end{minipage}\tabularnewline
-astro-ph0212297 / E01142 & constraint closure, transport flow, spectral operator & astrophysical black hole analogue, evaporation branch, stable growth or capture branch & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize\ttfamily B\_c\textbackslash{}simeq 10\textasciicircum{}\{16\}\textbackslash{}mbox\{G\}\textbackslash{}le\\ ft(\{7M\_\textbackslash{}odot\}/\{M\_H\}\textbackslash{}right) \textbackslash{}\\ left(\{6M\_H\}/\{R\}\textbackslash{}right)\textasciicircum{}2\textbackslash{}lef\\ t(\{M\_T\}/\{0.03M\_H\}\textbackslash{}right)\textasciicircum{}\{1/\\ 2\}\end{minipage}\tabularnewline
-1604.02455 / E01020 & constraint closure, transport flow, spectral operator & astrophysical black hole analogue, evaporation branch, stable growth or capture branch & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize\ttfamily 4000M \textbackslash{}sim 60(M\_\{\textbackslash{}rm\\ NS/1.625M\_\textbackslash{}odot)\end{minipage}\tabularnewline
-1604.02455 / E01021 & constraint closure, transport flow, spectral operator & astrophysical black hole analogue, evaporation branch, stable growth or capture branch & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize\ttfamily \textbackslash{}Delta t \textbackslash{}sim 0.1 (M\_\{\textbackslash{}rm\\ NS/1.625M\_\textbackslash{}odot)\end{minipage}\tabularnewline
-astro-ph0212297 / E01141 & constraint closure, spectral operator, transport flow & astrophysical black hole analogue, evaporation branch, stable growth or capture branch & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize\ttfamily \{\textbackslash{}cal E\_B\}/\{\{\textbackslash{}cal E\}\_k\}<0.1\end{minipage}\tabularnewline
-\bottomrule
-\end{tabularx}
-
-\section{Interpretation}
-
-Provenance remains necessary for attribution, incentives and chronology. It cannot settle a
-physics mechanism by itself. In the selected LHC black-hole corpus, claim extraction finds many
-statements and few safety or risk claims. Equation gating finds a different object: an empty
-direct collider-safety branch under the source-local gate, plus adjacent black-hole mechanisms
-that can constrain the collider branch if the transfer assumptions are stated.
-
-\section{Scope}
-
-All claims in this report are scoped to the selected corpus and the public gates. A complete
-safety review would require a full literature selection, non-arXiv safety reports and human review
-of the equation receipts. The repository provides a static separation between provenance and
-mechanism graphs.
+\begin{thebibliography}{9}
+\bibitem{GiddingsMangano2008} S. B. Giddings and M. L. Mangano, ``Astrophysical implications of hypothetical stable TeV-scale black holes,'' arXiv:0806.3381 (2008).
+\bibitem{Ellis2008} J. Ellis, G. Giudice, M. L. Mangano, I. Tkachev and U. Wiedemann, ``Review of the Safety of LHC Collisions,'' arXiv:0806.3414 (2008).
+\bibitem{Plaga2008} R. Plaga, ``On the potential catastrophic risk from metastable quantum-black holes produced at particle colliders,'' arXiv:0808.1415 (2008).
+\bibitem{Koch2008} B. Koch, M. Bleicher and H. Stoecker, ``Exclusion of black hole disaster scenarios at the LHC,'' arXiv:0807.3349 (2008).
+\bibitem{GiddingsManganoComment2008} S. B. Giddings and M. L. Mangano, ``Comments on claimed risk from metastable black holes,'' arXiv:0808.4087 (2008).
+\bibitem{Casadio2009} R. Casadio, S. Fabi and B. Harms, ``Possibility of catastrophic black hole growth in the warped brane-world scenario at the LHC,'' arXiv:0901.2948 (2009).
+\bibitem{Hawking1975} S. W. Hawking, ``Particle creation by black holes,'' Communications in Mathematical Physics 43, 199--220 (1975).
+\end{thebibliography}
 
 \end{document}

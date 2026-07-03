@@ -164,9 +164,8 @@ def plot_provenance_vs_mechanism(summary: Dict[str, Any], figure_dir: Path) -> N
             ax.text(0.5, y, text, ha="center", va="center", fontsize=9)
             if i < len(boxes) - 1:
                 ax.annotate("", xy=(0.5, y - 0.14), xytext=(0.5, y - 0.075), arrowprops={"arrowstyle": "->", "lw": 1})
-    fig.suptitle("Two different graphs in the same papers", y=1.02, fontsize=12)
-    fig.tight_layout()
-    fig.savefig(figure_dir / "provenance_vs_mechanism.pdf")
+    fig.tight_layout(rect=[0, 0, 1, 0.98])
+    fig.savefig(figure_dir / "provenance_vs_mechanism.pdf", bbox_inches="tight")
     plt.close(fig)
 
 
@@ -325,6 +324,7 @@ def write_latex(summary: Dict[str, Any], sparse: Dict[str, Any], paper_dir: Path
 \date{{}}
 
 \begin{{document}}
+\sloppy
 \maketitle
 
 \begin{{abstract}}
