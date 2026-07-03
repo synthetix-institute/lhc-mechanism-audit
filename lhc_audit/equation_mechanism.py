@@ -28,6 +28,51 @@ ROUTE_EXPLANATIONS = {
 
 USABLE_PAIR_STATUSES = {"complete_constructor_pair", "partial_constructor_pair"}
 RICH_ANALOGUE_MIN_ACTIVE_ROUTES = 2
+CASE_PATTERNS = {
+    "black_hole": re.compile(
+        r"\b(?:black\s+hole|black-hole|micro(?:scopic)?\s+black\s+hole|mini\s+black\s+hole|"
+        r"mbh|schwarzschild|horizon|r_s)\b",
+        re.I,
+    ),
+    "collider_threshold": re.compile(
+        r"\b(?:lhc|large\s+hadron\s+collider|collider|tev|parton|planck|extra\s+dimension|"
+        r"production\s+threshold|threshold)\b|\\sqrt\{s\}|M_D\b",
+        re.I,
+    ),
+    "evaporation_branch": re.compile(
+        r"\b(?:hawking|evaporat|lifetime|temperature|mass\s+loss|decay\s+time|short\s+lived)\b|"
+        r"dM\s*\\over\s*dt|\\dot\{?M\}?",
+        re.I,
+    ),
+    "accretion_growth": re.compile(
+        r"\b(?:accretion|accrete|bondi|eddington|growth|capture\s+rate|mass\s+rate|"
+        r"swallow|absorb)\b|\\dot\{?M\}?|dM\s*\\over\s*dt|\\rho\s*\\,?\\sigma",
+        re.I,
+    ),
+    "astrophysical_bound": re.compile(
+        r"\b(?:cosmic\s+ray|white\s+dwarf|neutron\s+star|dense\s+star|sun|earth|astronomical|"
+        r"survival|observed\s+survival)\b|t_\{?\\rm\s*WD\}?",
+        re.I,
+    ),
+    "capture_stopping": re.compile(
+        r"\b(?:capture|captured|trapped|stopping|energy\s+loss|slowing|matter\s+crossing|"
+        r"detector\s+material)\b",
+        re.I,
+    ),
+    "safety_risk": re.compile(
+        r"\b(?:safety|risk|danger|catastroph|disaster|excluded|exclusion|safe|no\s+risk|"
+        r"no\s+danger)\b",
+        re.I,
+    ),
+}
+CASE_COMPLEMENT_CATEGORIES = {
+    "collider_threshold",
+    "evaporation_branch",
+    "accretion_growth",
+    "astrophysical_bound",
+    "capture_stopping",
+    "safety_risk",
+}
 PROSE_WORD_STOP = {
     "begin",
     "end",
@@ -76,9 +121,84 @@ def read_json(path: Path) -> Dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def source_case_texts(out_dir: Path) -> Dict[str, str]:
+    """Return weak source-level text for case filtering.
+
+    This is deliberately separated from route construction.  Source text can
+    make a clean equation relevant to the LHC black-hole case, but it cannot
+    create route evidence or make a formula pass the mechanism gate.
+    """
+    source_text: Dict[str, List[str]] = defaultdict(list)
+
+    sources_path = out_dir / "sources.json"
+    if sources_path.exists():
+        for source in read_json(sources_path).get("sources", []):
+            sid = str(source.get("source_id") or "")
+            metadata = source.get("metadata") or {}
+            if sid:
+                source_text[sid].append(str(metadata.get("title") or ""))
+                source_text[sid].append(str(metadata.get("arxiv_id") or ""))
+
+    provenance_path = out_dir / "provenance_graph.json"
+    if provenance_path.exists():
+        for node in read_json(provenance_path).get("nodes", []):
+            sid = str(node.get("source_id") or "")
+            if sid and node.get("text"):
+                source_text[sid].append(str(node.get("text") or ""))
+
+    return {sid: " ".join(parts) for sid, parts in source_text.items()}
+
+
 def compact(text: Any, limit: int = 360) -> str:
     value = " ".join(str(text or "").split())
     return value if len(value) <= limit else value[: limit - 3] + "..."
+
+
+def category_hits(text: str) -> List[str]:
+    return [name for name, pattern in CASE_PATTERNS.items() if pattern.search(text)]
+
+
+def case_evidence(formula: Any, context: Any, source_id: Any, source_text: str) -> Dict[str, Any]:
+    """Classify whether a usable equation belongs to the LHC black-hole case.
+
+    The classifier is intentionally conservative:
+    - local formula/context hits carry more weight than source-level hits;
+    - a source-level black-hole mention alone is not sufficient;
+    - the mechanism graph itself still depends on equation fingerprints.
+    """
+    local_text = f"{formula or ''} {context or ''}"
+    source_blob = f"{source_id or ''} {source_text or ''}"
+    local_categories = category_hits(local_text)
+    source_categories = category_hits(source_blob)
+    local_set = set(local_categories)
+    source_set = set(source_categories)
+    all_set = local_set | source_set
+
+    score = 2 * len(local_set) + len(source_set)
+    if "black_hole" in local_set and (all_set & CASE_COMPLEMENT_CATEGORIES):
+        score += 3
+    if "black_hole" in source_set and (local_set & (CASE_COMPLEMENT_CATEGORIES - {"safety_risk"})):
+        score += 2
+    if {"black_hole", "collider_threshold"} <= all_set and (
+        local_set & {"evaporation_branch", "accretion_growth", "astrophysical_bound", "capture_stopping"}
+    ):
+        score += 2
+    if {"black_hole", "accretion_growth", "astrophysical_bound"} <= all_set:
+        score += 2
+
+    case_relevant = (
+        ("black_hole" in local_set and bool(all_set & CASE_COMPLEMENT_CATEGORIES))
+        or ("black_hole" in source_set and bool(local_set & (CASE_COMPLEMENT_CATEGORIES - {"safety_risk"})))
+        or ({"black_hole", "collider_threshold"} <= all_set and bool(local_set & CASE_COMPLEMENT_CATEGORIES))
+    )
+
+    return {
+        "case_relevant": bool(case_relevant),
+        "score": int(score),
+        "local_categories": sorted(local_set),
+        "source_categories": sorted(source_set),
+        "categories": sorted(all_set),
+    }
 
 
 def formula_quality_flags(text: Any) -> List[str]:
@@ -224,6 +344,11 @@ def is_usable_node(node: Dict[str, Any]) -> bool:
     return True
 
 
+def is_case_relevant_node(node: Dict[str, Any]) -> bool:
+    case = node.get("case_evidence") or {}
+    return is_usable_node(node) and bool(case.get("case_relevant"))
+
+
 def is_rich_signature(signature: Tuple[str, ...]) -> bool:
     if signature == ("route_sparse",):
         return False
@@ -232,6 +357,7 @@ def is_rich_signature(signature: Tuple[str, ...]) -> bool:
 
 def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
     witnesses = read_json(out_dir / "equation_witnesses.json").get("witnesses", [])
+    case_text_by_source = source_case_texts(out_dir)
     nodes: List[Dict[str, Any]] = []
     skipped = Counter()
 
@@ -258,14 +384,22 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
             "route_role_interactions": fp.get("route_role_interactions") or [],
             "source_frame_audit": fp.get("source_frame_audit") or {},
             "target_frame_audit": fp.get("target_frame_audit") or {},
+            "case_evidence": case_evidence(
+                witness.get("formula"),
+                witness.get("context"),
+                witness.get("source_id"),
+                case_text_by_source.get(str(witness.get("source_id")), ""),
+            ),
             "vector_nonzero": fp.get("vector_nonzero"),
             "vector_l1": fp.get("vector_l1"),
         }
         nodes.append(node)
 
     usable_nodes = [node for node in nodes if is_usable_node(node)]
+    case_nodes = [node for node in usable_nodes if is_case_relevant_node(node)]
     artifact_nodes = [node for node in nodes if node.get("pair_status") not in USABLE_PAIR_STATUSES or not node.get("formula_core")]
     formula_quality_counts = Counter(flag for node in nodes for flag in (node.get("formula_quality_flags") or []))
+    case_category_counts = Counter(category for node in case_nodes for category in ((node.get("case_evidence") or {}).get("categories") or []))
 
     role_counts = Counter(node.get("text_role") for node in usable_nodes)
     route_counts = Counter()
@@ -334,12 +468,35 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
                         "right_source_id": right.get("source_id"),
                     })
 
+    node_by_id = {node["id"]: node for node in nodes}
+    case_source_local_edges: List[Dict[str, Any]] = []
+    for edge in edges:
+        left = node_by_id.get(str(edge.get("source")))
+        right = node_by_id.get(str(edge.get("target")))
+        if left and right and (is_case_relevant_node(left) or is_case_relevant_node(right)):
+            case_source_local_edges.append(edge)
+
+    case_internal_analog_edges: List[Dict[str, Any]] = []
+    case_transfer_analog_edges: List[Dict[str, Any]] = []
+    for edge in analog_edges:
+        left = node_by_id.get(str(edge.get("source")))
+        right = node_by_id.get(str(edge.get("target")))
+        if not left or not right:
+            continue
+        left_case = is_case_relevant_node(left)
+        right_case = is_case_relevant_node(right)
+        if left_case and right_case:
+            case_internal_analog_edges.append(edge)
+        elif left_case or right_case:
+            case_transfer_analog_edges.append(edge)
+
     graph = {
         "report_type": "lhc_equation_mechanism_graph",
         "readiness": "usable" if nodes else "no_hyperion_fingerprints",
         "source_witness_count": len(witnesses),
         "fingerprinted_node_count": len(nodes),
         "usable_mechanism_node_count": len(usable_nodes),
+        "case_relevant_mechanism_node_count": len(case_nodes),
         "artifact_or_unusable_node_count": len(artifact_nodes),
         "skipped": dict(skipped),
         "route_counts": dict(route_counts),
@@ -350,10 +507,15 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
         "constructor_role_counts": dict(constructor_role_counts),
         "transition_label_counts": dict(transition_counts.most_common(40)),
         "formula_quality_counts": dict(formula_quality_counts.most_common()),
+        "case_category_counts": dict(case_category_counts.most_common()),
         "nodes": nodes,
         "usable_node_ids": [node["id"] for node in usable_nodes],
+        "case_relevant_node_ids": [node["id"] for node in case_nodes],
         "edges": edges,
+        "case_source_local_edges": case_source_local_edges,
         "analog_edges": analog_edges,
+        "case_internal_analog_edges": case_internal_analog_edges,
+        "case_transfer_analog_edges": case_transfer_analog_edges,
         "claim_scope": (
             "Hyperion-style equation mechanism graph built from operator/substrate fingerprints stored on equation witnesses. "
             "Text labels are retained as weak human-readable annotations, but route profiles and constructor frames are the mechanism evidence."
@@ -362,6 +524,50 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
     (out_dir / "equation_mechanism_graph.json").write_text(json.dumps(graph, indent=2, ensure_ascii=False), encoding="utf-8")
     (out_dir / "equation_mechanism_graph.md").write_text(render_equation_mechanism_report(graph), encoding="utf-8")
     return graph
+
+
+def sorted_example_nodes(nodes: Iterable[Dict[str, Any]], case_first: bool = False) -> List[Dict[str, Any]]:
+    return sorted(
+        list(nodes),
+        key=lambda n: (
+            int((n.get("case_evidence") or {}).get("score") or 0) if case_first else 0,
+            1 if n.get("pair_status") == "complete_constructor_pair" else 0,
+            len(n.get("constructor_roles") or []),
+            sum(float(v) for v in (n.get("route_profile") or {}).values()),
+            int(n.get("vector_nonzero") or 0),
+        ),
+        reverse=True,
+    )
+
+
+def append_node_examples(lines: List[str], nodes: Iterable[Dict[str, Any]], limit: int = 12, include_case: bool = False) -> None:
+    examples = sorted_example_nodes(nodes, case_first=include_case)
+    if not examples:
+        lines.append("No examples passed this gate.")
+        return
+    for node in examples[:limit]:
+        routes = ", ".join(f"{k}={float(v):.2f}" for k, v in (node.get("route_profile") or {}).items())
+        lines.append(f"### `{node.get('source_id')}` / `{node.get('id')}`")
+        lines.append("")
+        lines.append(f"- route signature: `{' + '.join(node.get('route_signature') or [])}`")
+        lines.append(f"- route evidence: {routes or '`none`'}")
+        lines.append(f"- constructor roles: `{', '.join(node.get('constructor_roles') or []) or 'none'}`")
+        lines.append(f"- pair status: `{node.get('pair_status')}`")
+        if include_case:
+            case = node.get("case_evidence") or {}
+            lines.append(f"- case score: `{case.get('score', 0)}`")
+            lines.append(f"- local case categories: `{', '.join(case.get('local_categories') or []) or 'none'}`")
+            lines.append(f"- source case categories: `{', '.join(case.get('source_categories') or []) or 'none'}`")
+        lines.append("")
+        lines.append("Formula:")
+        lines.append("")
+        lines.append("```text")
+        lines.append(compact(node.get("formula"), 420))
+        lines.append("```")
+        lines.append("")
+    if len(examples) > limit:
+        lines.append(f"- ... `{len(examples) - limit}` additional examples omitted.")
+        lines.append("")
 
 
 def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
@@ -376,9 +582,13 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
     lines.append(f"- source equation witnesses: `{graph.get('source_witness_count')}`")
     lines.append(f"- fingerprinted mechanism nodes: `{graph.get('fingerprinted_node_count')}`")
     lines.append(f"- usable non-artifact mechanism nodes: `{graph.get('usable_mechanism_node_count')}`")
+    lines.append(f"- LHC-black-hole case-relevant mechanism nodes: `{graph.get('case_relevant_mechanism_node_count')}`")
     lines.append(f"- artifact or unusable nodes retained for audit: `{graph.get('artifact_or_unusable_node_count')}`")
     lines.append(f"- source-local route-transition edges: `{len(graph.get('edges', []))}`")
+    lines.append(f"- case-relevant source-local route-transition edges: `{len(graph.get('case_source_local_edges', []))}`")
     lines.append(f"- rich cross-source route analogues: `{len(graph.get('analog_edges', []))}`")
+    lines.append(f"- case-internal rich analogues: `{len(graph.get('case_internal_analog_edges', []))}`")
+    lines.append(f"- case-transfer rich analogues: `{len(graph.get('case_transfer_analog_edges', []))}`")
     lines.append("")
     lines.append("## Six-Route Evidence")
     lines.append("")
@@ -391,6 +601,18 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
     lines.append("")
     for signature, count in list((graph.get("route_signature_counts") or {}).items())[:12]:
         lines.append(f"- `{signature}`: `{count}`")
+    lines.append("")
+    lines.append("## Case-Relevant Mechanism Evidence")
+    lines.append("")
+    lines.append(
+        "This gate asks whether a formula-clean mechanism node is locally attached to the LHC black-hole safety case. "
+        "Source-level words can support relevance, but they do not create route evidence."
+    )
+    lines.append("")
+    for category, count in Counter(graph.get("case_category_counts") or {}).most_common():
+        lines.append(f"- `{category}`: `{count}`")
+    if not graph.get("case_category_counts"):
+        lines.append("- No formula-clean mechanism nodes passed the LHC black-hole case gate.")
     lines.append("")
     lines.append("## Constructor Frame Quality")
     lines.append("")
@@ -425,34 +647,39 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
     if len(analog_edges) > 20:
         lines.append(f"- ... `{len(analog_edges) - 20}` additional cross-source analogues omitted.")
     lines.append("")
+    lines.append("## Case-Relevant Cross-Source Route Analogues")
+    lines.append("")
+    case_internal = graph.get("case_internal_analog_edges") or []
+    case_transfer = graph.get("case_transfer_analog_edges") or []
+    if not case_internal and not case_transfer:
+        lines.append("No high-cosine case-relevant cross-source route analogues were found under the current threshold.")
+    if case_internal:
+        lines.append("Internal to the LHC black-hole case:")
+        lines.append("")
+        for edge in case_internal[:12]:
+            lines.append(
+                f"- `{edge.get('left_source_id')}` -> `{edge.get('right_source_id')}`: "
+                f"`{' + '.join(edge.get('route_signature') or [])}`, cosine `{float(edge.get('route_cosine', 0.0)):.3f}`"
+            )
+        lines.append("")
+    if case_transfer:
+        lines.append("Transfer analogues from the case to other formula-clean sources:")
+        lines.append("")
+        for edge in case_transfer[:12]:
+            lines.append(
+                f"- `{edge.get('left_source_id')}` -> `{edge.get('right_source_id')}`: "
+                f"`{' + '.join(edge.get('route_signature') or [])}`, cosine `{float(edge.get('route_cosine', 0.0)):.3f}`"
+            )
+        lines.append("")
+    lines.append("## Case-Relevant Mechanism Examples")
+    lines.append("")
+    nodes = graph.get("nodes") or []
+    case_ids = set(graph.get("case_relevant_node_ids") or [])
+    append_node_examples(lines, [node for node in nodes if node.get("id") in case_ids], include_case=True)
     lines.append("## Mechanism Examples")
     lines.append("")
     usable_ids = set(graph.get("usable_node_ids") or [])
-    examples = sorted(
-        [node for node in (graph.get("nodes") or []) if node.get("id") in usable_ids],
-        key=lambda n: (
-            1 if n.get("pair_status") == "complete_constructor_pair" else 0,
-            len(n.get("constructor_roles") or []),
-            sum(float(v) for v in (n.get("route_profile") or {}).values()),
-            int(n.get("vector_nonzero") or 0),
-        ),
-        reverse=True,
-    )
-    for node in examples[:12]:
-        routes = ", ".join(f"{k}={float(v):.2f}" for k, v in (node.get("route_profile") or {}).items())
-        lines.append(f"### `{node.get('source_id')}` / `{node.get('id')}`")
-        lines.append("")
-        lines.append(f"- route signature: `{' + '.join(node.get('route_signature') or [])}`")
-        lines.append(f"- route evidence: {routes or '`none`'}")
-        lines.append(f"- constructor roles: `{', '.join(node.get('constructor_roles') or []) or 'none'}`")
-        lines.append(f"- pair status: `{node.get('pair_status')}`")
-        lines.append("")
-        lines.append("Formula:")
-        lines.append("")
-        lines.append("```text")
-        lines.append(compact(node.get("formula"), 420))
-        lines.append("```")
-        lines.append("")
+    append_node_examples(lines, [node for node in nodes if node.get("id") in usable_ids])
     lines.append("## Boundary")
     lines.append("")
     lines.append("This graph does not prove physical equivalence. It separates equation-level mechanism evidence from provenance and word-level selection, making route analogies inspectable.")
