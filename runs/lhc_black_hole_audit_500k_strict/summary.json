@@ -1,0 +1,47 @@
+{
+  "run_id": "lhc_black_hole_audit_500k_strict",
+  "source_dataset": "synthetix-institute/latex-data-pub",
+  "selection_max_docs": 500000,
+  "selected_sources": 492,
+  "source_equation_witnesses": 1408,
+  "fingerprinted_mechanism_nodes": 1408,
+  "usable_non_artifact_mechanism_nodes": 204,
+  "case_relevant_mechanism_nodes": 72,
+  "evidence_grade_case_mechanism_nodes": 35,
+  "direct_lhc_safety_mechanism_nodes": 0,
+  "collider_threshold_selection_nodes": 1,
+  "astrophysical_analogue_mechanism_nodes": 28,
+  "artifact_or_unusable_nodes": 1200,
+  "source_local_route_transition_edges": 120,
+  "case_relevant_source_local_route_transition_edges": 44,
+  "rich_cross_source_route_analogues": 130,
+  "case_internal_rich_analogues": 24,
+  "case_transfer_rich_analogues": 51,
+  "evidence_grade_case_internal_rich_analogues": 5,
+  "evidence_grade_case_transfer_rich_analogues": 49,
+  "route_counts": {
+    "constraint_closure": 165,
+    "spectral_operator": 160,
+    "transport_flow": 95,
+    "boundary_weak_form": 28,
+    "discrete_protocol": 24,
+    "commutator_incompatibility": 12
+  },
+  "case_category_counts": {
+    "black_hole": 72,
+    "astrophysical_bound": 51,
+    "accretion_growth": 49,
+    "evaporation_branch": 24,
+    "capture_stopping": 14,
+    "collider_threshold": 10,
+    "safety_risk": 2
+  },
+  "evidence_grade_branch_counts": {
+    "stable_growth_or_capture_branch": 29,
+    "astrophysical_black_hole_analogue": 28,
+    "evaporation_branch": 12,
+    "production_threshold_branch": 1
+  },
+  "main_finding": "The selected corpus contains no formula-clean direct LHC-safety mechanism under the current gates. It contains one collider-threshold or event-selection hook and a larger set of astrophysical black-hole mechanisms. The audit therefore supports mechanism translation from adjacent black-hole physics into the collider branch rather than provenance-based claim counting.",
+  "public_boundary": "This summary contains only derived counts and selected public audit conclusions. It does not include Hyperion core files, private fingerprints, model checkpoints, or raw full-corpus paper shards."
+}

@@ -1,0 +1,188 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{caption}
+
+\IfFileExists{generated/run_numbers.tex}{\input{generated/run_numbers.tex}}{%
+\newcommand{\SelectedSources}{492}
+\newcommand{\EquationWitnesses}{1408}
+\newcommand{\UsableMechanisms}{204}
+\newcommand{\CaseMechanisms}{72}
+\newcommand{\EvidenceGradeMechanisms}{35}
+\newcommand{\DirectSafetyMechanisms}{0}
+\newcommand{\AstroAnalogues}{28}
+\newcommand{\ThresholdHooks}{1}
+\newcommand{\CaseAnalogues}{24}
+\newcommand{\CaseTransferAnalogues}{51}
+}
+
+\title{A Mechanism-First Audit of the LHC Black-Hole Safety Debate}
+\author{Public demo generated from static audit artifacts}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Scientific controversies are often represented as provenance graphs: who made a claim,
+which document contains it, and who agrees or disagrees. This is useful for attribution,
+but it does not test whether the physical mechanism exists. We demonstrate a second
+graph on the LHC microscopic-black-hole example. The public audit reads static
+equation witnesses and separates a provenance graph from a mechanism graph. In
+\SelectedSources{} selected arXiv sources, the strict gate found \EquationWitnesses{}
+equation witnesses, \UsableMechanisms{} usable formula-clean mechanism nodes,
+\CaseMechanisms{} LHC-black-hole case-relevant nodes, and \EvidenceGradeMechanisms{}
+evidence-grade case nodes. It found \DirectSafetyMechanisms{} formula-clean direct
+LHC-safety mechanisms, \ThresholdHooks{} collider-threshold or event-selection hook,
+and \AstroAnalogues{} astrophysical black-hole analogues. The result is not a final
+safety review. It is a demonstration that the serious audit layer is mechanism
+translation from adjacent physics, not claim counting.
+\end{abstract}
+
+\section{The Problem}
+
+A provenance graph can tell us which paper asserted safety, danger, or a criticism.
+It cannot by itself test the branch structure of the physical argument. For the LHC
+black-hole case, the relevant scientific question is not whether a sentence says
+``safe'' or ``dangerous''. The question is whether the chain of physical mechanisms
+can be made explicit:
+\[
+\mathrm{production}\rightarrow
+\mathrm{evaporation\ or\ stability}\rightarrow
+\mathrm{capture/stopping}\rightarrow
+\mathrm{accretion/growth}\rightarrow
+\mathrm{astrophysical\ bound}.
+\]
+This is why the demo builds two graphs from the same papers.
+
+\section{Two Graphs in the Same Archive}
+
+\textbf{Provenance graph.} Nodes are sources and claims. Edges record that a
+source makes a claim or belongs to a claim family. This graph is inspectable but
+does not decide whether a claimed mechanism closes.
+
+\textbf{Mechanism graph.} Nodes are equation witnesses and local formula
+transitions. Edges record source-local route transitions and cross-source route
+analogues. A node is evidence-grade only if the local formula window contains
+both the black-hole case and a mechanism category. Source-level words alone are
+not enough.
+
+\begin{figure}[t]
+\centering
+\IfFileExists{figures/provenance_vs_mechanism.pdf}{\includegraphics[width=0.92\linewidth]{figures/provenance_vs_mechanism.pdf}}{\fbox{Missing figure: provenance\_vs\_mechanism.pdf}}
+\caption{A provenance graph and a mechanism graph answer different questions. The first organizes attribution. The second tests whether equation-level mechanisms exist and can be translated.}
+\end{figure}
+
+\section{Mechanism Gates}
+
+The public demo uses six route labels as a readable interface to equation
+transformations:
+\[
+\begin{array}{ll}
+\text{transport/flow} & \partial_t q + \nabla\cdot J = S,\\
+\text{constraint/closure} & C(q,J,\lambda)=0,\\
+\text{spectral/operator} & Lq=\lambda q,\\
+\text{boundary/weak form} & \int_\Omega \phi Lq=\int_\Omega \phi f,\quad Bq=b,\\
+\text{commutator/residual} & [A,B]=AB-BA,\\
+\text{discrete protocol} & x_{n+1}=\Phi(x_n,u_n).
+\end{array}
+\]
+These are not final physical claims. They are audit gates that decide which
+equations are usable as mechanism receipts.
+
+\section{Results}
+
+\begin{figure}[t]
+\centering
+\IfFileExists{figures/evidence_funnel.pdf}{\includegraphics[width=0.86\linewidth]{figures/evidence_funnel.pdf}}{\fbox{Missing figure: evidence\_funnel.pdf}}
+\caption{Strict evidence funnel. Most extracted witnesses are rejected or kept only as audit material. The useful public result is the branch split: no direct safety mechanism under the gate, one threshold hook, and many adjacent astrophysical mechanisms.}
+\end{figure}
+
+The strict run gives the following public counts:
+\[
+\begin{array}{lr}
+\text{equation witnesses} & \EquationWitnesses\\
+\text{usable formula-clean mechanism nodes} & \UsableMechanisms\\
+\text{case-relevant nodes} & \CaseMechanisms\\
+\text{evidence-grade case nodes} & \EvidenceGradeMechanisms\\
+\text{direct LHC-safety mechanisms} & \DirectSafetyMechanisms\\
+\text{collider-threshold hooks} & \ThresholdHooks\\
+\text{astrophysical black-hole analogues} & \AstroAnalogues.
+\end{array}
+\]
+
+The result is precise: the selected corpus does not provide a formula-clean
+direct LHC-safety mechanism under the current gates. It does provide adjacent
+black-hole physics: accretion, evaporation, capture, mass growth and
+compact-object survival. The audit therefore becomes a translation problem.
+
+\section{Mechanism Translation to the LHC Branch}
+
+The LHC branch needs a production or event-selection condition, for example
+\[
+\sqrt{s} > M_D ,
+\]
+followed by a branch decision. If evaporation dominates, one expects a mass-loss
+condition schematically of the form
+\[
+\frac{dM}{dt} < 0,\qquad \tau_{\rm evap}\ll \tau_{\rm capture}.
+\]
+If a stable object is assumed, the relevant mechanism changes to capture and
+growth:
+\[
+\frac{dM}{dt} = \rho\,\sigma(M)\,v .
+\]
+Astrophysical survival bounds then enter as falsifiers. A dangerous growth
+branch would have to be compatible with compact-object observations; schematically,
+\[
+t_{\rm grow} < t_{\rm WD}
+\]
+would conflict with the observed survival of white dwarfs if the same mechanism
+were already realized in nature. The public graph found many adjacent
+astrophysical mechanisms of this type, but no direct formula-clean LHC-safety
+mechanism under the strict gate.
+
+\begin{figure}[t]
+\centering
+\IfFileExists{figures/mechanism_translation.pdf}{\includegraphics[width=0.92\linewidth]{figures/mechanism_translation.pdf}}{\fbox{Missing figure: mechanism\_translation.pdf}}
+\caption{The demo result is a mechanism-translation map. Adjacent black-hole mechanisms provide the inspectable scientific substrate. The collider branch supplies only a threshold hook in this run.}
+\end{figure}
+
+\section{Sparse-Attention Support}
+
+The sparse-attention audit reads the static mechanism graph and asks which routes
+co-activate in the evidence-grade case layer. Its role is interpretive: it
+supports the branch split; it does not create new fingerprints.
+
+\begin{itemize}
+\item Sparse-attention receipts are generated when \texttt{sparse\_attention\_audit.json} is available.
+\end{itemize}
+
+\begin{figure}[t]
+\centering
+\IfFileExists{figures/sparse_attention_routes.pdf}{\includegraphics[width=0.92\linewidth]{figures/sparse_attention_routes.pdf}}{\fbox{Missing figure: sparse\_attention\_routes.pdf}}
+\caption{Sparse co-activation between case branches and mechanism routes. The important signal is concentration in adjacent astrophysical mechanisms, not direct collider-safety derivations.}
+\end{figure}
+
+\section{Why This Beats a Provenance-Only Graph}
+
+A provenance-only graph can identify papers, authors, dates and claim families.
+It is useful for scrutiny of attribution. It fails when the important question is
+mechanistic: whether the physical branch closes. In this demo, provenance can
+organize disagreement about LHC safety, but the mechanism graph shows why the
+scientific evidence is indirect. The direct safety branch is empty under the
+strict gate. The adjacent astrophysical branch is populated. This distinction is
+not visible from a claim map alone.
+
+\section{Boundary}
+
+This report does not claim to resolve the LHC safety question. It demonstrates a
+public, inspectable audit object built from static outputs. The Hyperion core is
+not included in this repository. The public files contain derived graph
+artifacts, run summaries, figures and report text only.
+
+\end{document}

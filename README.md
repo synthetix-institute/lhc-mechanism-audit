@@ -85,6 +85,39 @@ The builder writes:
 - `shallow_failure.md`: what a provenance-only system can and cannot conclude.
 - `audit_report.md`: compact mechanism-first report.
 
+## Public Demo Report
+
+The public demo report runs only on static audit artifacts. It does not vendor
+or expose Hyperion core files. The intended workflow is:
+
+```bash
+python -B scripts/build_equation_mechanism_graph.py \
+  --out-dir outputs/lhc_black_hole_audit_500k_strict
+
+python -B scripts/build_static_public_demo.sh \
+  outputs/lhc_black_hole_audit_500k_strict \
+  paper
+```
+
+This writes a non-expert-facing LaTeX report at:
+
+```text
+paper/lhc_mechanism_audit_demo.tex
+```
+
+The report contains:
+
+- a provenance graph versus mechanism graph explanation;
+- strict evidence-funnel counts;
+- a mechanism-translation map from astrophysical black-hole mechanisms to the
+  collider branch;
+- a sparse-attention audit over the static mechanism graph;
+- clear boundaries explaining that the repo contains derived public artifacts,
+  not the private Hyperion core.
+
+For a public smoke test without full cluster outputs, the script can use the
+sanitized summary in `runs/lhc_black_hole_audit_500k_strict/summary.json`.
+
 ## Claim Boundary
 
 This repository does not claim that an automated script resolves the LHC safety
