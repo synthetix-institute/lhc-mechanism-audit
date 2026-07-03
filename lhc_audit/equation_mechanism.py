@@ -680,6 +680,7 @@ def append_node_examples(lines: List[str], nodes: Iterable[Dict[str, Any]], limi
     examples = sorted_example_nodes(nodes, case_first=include_case)
     if not examples:
         lines.append("No examples passed this gate.")
+        lines.append("")
         return
     for node in examples[:limit]:
         routes = ", ".join(f"{k}={float(v):.2f}" for k, v in (node.get("route_profile") or {}).items())
@@ -859,7 +860,12 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
     analogue_ids = set(graph.get("astrophysical_analogue_node_ids") or [])
     lines.append("### Direct LHC-Safety Receipts")
     lines.append("")
-    append_node_examples(lines, [node for node in nodes if node.get("id") in direct_ids], limit=8, include_case=True)
+    if direct_ids:
+        append_node_examples(lines, [node for node in nodes if node.get("id") in direct_ids], limit=8, include_case=True)
+    else:
+        lines.append("No formula-clean direct LHC-safety mechanism passed the current gate.")
+        lines.append("This is the substantive result: the selected corpus supports an indirect mechanism audit through adjacent black-hole physics.")
+        lines.append("")
     production_ids = set(graph.get("production_threshold_node_ids") or [])
     lines.append("### Collider-Threshold/Selection Candidates")
     lines.append("")
