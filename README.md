@@ -118,6 +118,28 @@ The report contains:
 For a public smoke test without full cluster outputs, the script can use the
 sanitized summary in `runs/lhc_black_hole_audit_500k_strict/summary.json`.
 
+## Final Static Report
+
+The final report uses the full static run artifacts committed under
+`runs/lhc_black_hole_audit_500k_strict/`. It adds a claim/evidence register,
+mechanism-route plots, constructor-role plots, sparse-attention results and
+equation receipt tables.
+
+```bash
+MPLCONFIGDIR=/tmp/lhc-mechanism-mpl python -B scripts/build_final_public_report.py \
+  --run-dir runs/lhc_black_hole_audit_500k_strict \
+  --paper-dir paper
+
+cd paper
+latexmk -pdf lhc_mechanism_audit_final.tex
+```
+
+This writes:
+
+- `paper/lhc_mechanism_audit_final.tex`
+- `paper/lhc_mechanism_audit_final.pdf`
+- `paper/figures/final_*.pdf`
+
 ## Claim Boundary
 
 This repository does not claim that an automated script resolves the LHC safety

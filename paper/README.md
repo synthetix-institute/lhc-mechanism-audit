@@ -44,3 +44,20 @@ bash scripts/build_static_public_demo.sh \
 
 The sparse-attention figure is only fully populated when
 `sparse_attention_audit.json` has been generated from the full static graph.
+
+## Build Final Report
+
+The final report uses the committed static artifacts in
+`runs/lhc_black_hole_audit_500k_strict/` and writes a fuller audit document with
+claim registers, route plots, sparse-attention plots and equation receipt tables.
+
+```bash
+cd /home/softmat/Desktop/Hyperion/lhc-mechanism-audit
+
+MPLCONFIGDIR=/tmp/lhc-mechanism-mpl python -B scripts/build_final_public_report.py \
+  --run-dir runs/lhc_black_hole_audit_500k_strict \
+  --paper-dir paper
+
+cd paper
+latexmk -pdf lhc_mechanism_audit_final.tex
+```
