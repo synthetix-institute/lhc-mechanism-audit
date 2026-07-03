@@ -1,0 +1,20 @@
+{
+  "report_type": "lhc_mechanism_audit_manifest",
+  "readiness": "usable",
+  "papers_dir": "data/hf_lhc_selection_500k/sources",
+  "out_dir": "outputs/lhc_black_hole_audit_500k_strict",
+  "source_count": 492,
+  "claim_count": 377,
+  "equation_witness_count": 1408,
+  "chain_candidate_count": 5,
+  "outputs": {
+    "sources.json": "outputs/lhc_black_hole_audit_500k_strict/sources.json",
+    "provenance_graph.json": "outputs/lhc_black_hole_audit_500k_strict/provenance_graph.json",
+    "equation_witnesses.json": "outputs/lhc_black_hole_audit_500k_strict/equation_witnesses.json",
+    "operational_graph.json": "outputs/lhc_black_hole_audit_500k_strict/operational_graph.json"
+  },
+  "markdown": {
+    "shallow_failure": "outputs/lhc_black_hole_audit_500k_strict/shallow_failure.md",
+    "audit_report": "outputs/lhc_black_hole_audit_500k_strict/audit_report.md"
+  }
+}

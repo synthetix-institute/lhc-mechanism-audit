@@ -1,0 +1,152 @@
+{
+  "report_type": "lhc_sparse_attention_audit",
+  "readiness": "usable",
+  "node_scope": "static equation_mechanism_graph.json",
+  "usable_node_count": 204,
+  "evidence_grade_case_node_count": 35,
+  "usable_route_counts": {
+    "constraint_closure": 165,
+    "spectral_operator": 160,
+    "transport_flow": 95,
+    "boundary_weak_form": 28,
+    "discrete_protocol": 24,
+    "commutator_incompatibility": 12
+  },
+  "evidence_route_counts": {
+    "spectral_operator": 34,
+    "constraint_closure": 33,
+    "transport_flow": 25,
+    "boundary_weak_form": 4,
+    "discrete_protocol": 1
+  },
+  "case_branch_counts": {
+    "stable_growth_or_capture_branch": 29,
+    "astrophysical_black_hole_analogue": 28,
+    "evaporation_branch": 12,
+    "production_threshold_branch": 1
+  },
+  "case_category_counts": {
+    "black_hole": 35,
+    "accretion_growth": 29,
+    "astrophysical_bound": 28,
+    "evaporation_branch": 12,
+    "collider_threshold": 1,
+    "capture_stopping": 1
+  },
+  "branch_route_attention": {
+    "astrophysical_black_hole_analogue": {
+      "spectral_operator": 0.35,
+      "constraint_closure": 0.3375,
+      "transport_flow": 0.2625,
+      "boundary_weak_form": 0.0375,
+      "discrete_protocol": 0.0125
+    },
+    "evaporation_branch": {
+      "constraint_closure": 0.32432432432432434,
+      "spectral_operator": 0.32432432432432434,
+      "transport_flow": 0.2972972972972973,
+      "boundary_weak_form": 0.05405405405405406
+    },
+    "stable_growth_or_capture_branch": {
+      "spectral_operator": 0.3625,
+      "constraint_closure": 0.3375,
+      "transport_flow": 0.2875,
+      "boundary_weak_form": 0.0125
+    },
+    "production_threshold_branch": {
+      "constraint_closure": 0.5,
+      "boundary_weak_form": 0.5
+    }
+  },
+  "category_route_attention": {
+    "accretion_growth": {
+      "spectral_operator": 0.3625,
+      "constraint_closure": 0.3375,
+      "transport_flow": 0.2875,
+      "boundary_weak_form": 0.0125
+    },
+    "astrophysical_bound": {
+      "spectral_operator": 0.35,
+      "constraint_closure": 0.3375,
+      "transport_flow": 0.2625,
+      "boundary_weak_form": 0.0375,
+      "discrete_protocol": 0.0125
+    },
+    "black_hole": {
+      "spectral_operator": 0.35051546391752575,
+      "constraint_closure": 0.3402061855670103,
+      "transport_flow": 0.25773195876288657,
+      "boundary_weak_form": 0.041237113402061855,
+      "discrete_protocol": 0.010309278350515464
+    },
+    "evaporation_branch": {
+      "constraint_closure": 0.32432432432432434,
+      "spectral_operator": 0.32432432432432434,
+      "transport_flow": 0.2972972972972973,
+      "boundary_weak_form": 0.05405405405405406
+    },
+    "collider_threshold": {
+      "constraint_closure": 0.5,
+      "boundary_weak_form": 0.5
+    },
+    "capture_stopping": {
+      "transport_flow": 0.3333333333333333,
+      "constraint_closure": 0.3333333333333333,
+      "spectral_operator": 0.3333333333333333
+    }
+  },
+  "route_route_coattention": [
+    {
+      "left": "constraint_closure",
+      "right": "spectral_operator",
+      "count": 32
+    },
+    {
+      "left": "spectral_operator",
+      "right": "transport_flow",
+      "count": 25
+    },
+    {
+      "left": "constraint_closure",
+      "right": "transport_flow",
+      "count": 23
+    },
+    {
+      "left": "boundary_weak_form",
+      "right": "constraint_closure",
+      "count": 4
+    },
+    {
+      "left": "boundary_weak_form",
+      "right": "spectral_operator",
+      "count": 3
+    },
+    {
+      "left": "boundary_weak_form",
+      "right": "transport_flow",
+      "count": 2
+    },
+    {
+      "left": "discrete_protocol",
+      "right": "transport_flow",
+      "count": 1
+    },
+    {
+      "left": "constraint_closure",
+      "right": "discrete_protocol",
+      "count": 1
+    },
+    {
+      "left": "discrete_protocol",
+      "right": "spectral_operator",
+      "count": 1
+    }
+  ],
+  "findings": [
+    "Sparse attention supports the main audit finding: direct collider-safety mechanisms are absent under the strict gate, while adjacent astrophysical black-hole mechanisms are present.",
+    "Collider-threshold evidence appears as a separate branch from accretion, evaporation and capture mechanisms.",
+    "Evidence-grade case nodes concentrate on spectral_operator (34), constraint_closure (33), transport_flow (25), consistent with mechanism translation rather than claim provenance.",
+    "Astrophysical analogues are routed mainly through spectral_operator (28), constraint_closure (27), transport_flow (21), boundary_weak_form (3)."
+  ],
+  "claim_scope": "This is a sparse co-activation audit over static public graph artifacts. It supports report interpretation; it does not create new Hyperion fingerprints or claim physical equivalence."
+}
