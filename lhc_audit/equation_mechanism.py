@@ -80,6 +80,12 @@ LOCAL_MECHANISM_CASE_CATEGORIES = {
     "astrophysical_bound",
     "capture_stopping",
 }
+LOCAL_DIRECT_SAFETY_MECHANISMS = {
+    "evaporation_branch",
+    "accretion_growth",
+    "capture_stopping",
+    "safety_risk",
+}
 PROSE_WORD_STOP = {
     "begin",
     "end",
@@ -198,9 +204,8 @@ def case_evidence(formula: Any, context: Any, source_id: Any, source_text: str) 
         or ("black_hole" in source_set and bool(local_set & (CASE_COMPLEMENT_CATEGORIES - {"safety_risk"})))
         or ({"black_hole", "collider_threshold"} <= all_set and bool(local_set & CASE_COMPLEMENT_CATEGORIES))
     )
-    local_mechanism = bool(local_set & LOCAL_MECHANISM_CASE_CATEGORIES)
-    safety_context = bool((local_set | source_set) & {"collider_threshold", "safety_risk"})
-    direct_safety_case = "black_hole" in local_set and local_mechanism and safety_context
+    local_direct_mechanism = bool(local_set & LOCAL_DIRECT_SAFETY_MECHANISMS)
+    direct_safety_case = "black_hole" in local_set and "collider_threshold" in local_set and local_direct_mechanism
     astrophysical_analogue = (
         "black_hole" in local_set
         and "astrophysical_bound" in local_set
@@ -445,6 +450,11 @@ def is_astrophysical_analogue_node(node: Dict[str, Any]) -> bool:
     return is_evidence_grade_case_node(node) and bool(case.get("astrophysical_analogue"))
 
 
+def is_production_threshold_node(node: Dict[str, Any]) -> bool:
+    case = node.get("case_evidence") or {}
+    return is_evidence_grade_case_node(node) and "production_threshold_branch" in set(case.get("branch_labels") or [])
+
+
 def is_rich_signature(signature: Tuple[str, ...]) -> bool:
     if signature == ("route_sparse",):
         return False
@@ -501,6 +511,7 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
     evidence_grade_case_nodes = [node for node in case_nodes if is_evidence_grade_case_node(node)]
     direct_safety_case_nodes = [node for node in evidence_grade_case_nodes if is_direct_safety_case_node(node)]
     astrophysical_analogue_nodes = [node for node in evidence_grade_case_nodes if is_astrophysical_analogue_node(node)]
+    production_threshold_nodes = [node for node in evidence_grade_case_nodes if is_production_threshold_node(node)]
     artifact_nodes = [node for node in nodes if node.get("pair_status") not in USABLE_PAIR_STATUSES or not node.get("formula_core")]
     formula_quality_counts = Counter(flag for node in nodes for flag in (node.get("formula_quality_flags") or []))
     case_category_counts = Counter(category for node in case_nodes for category in ((node.get("case_evidence") or {}).get("categories") or []))
@@ -613,6 +624,7 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
         "evidence_grade_case_mechanism_node_count": len(evidence_grade_case_nodes),
         "direct_lhc_safety_mechanism_node_count": len(direct_safety_case_nodes),
         "astrophysical_analogue_mechanism_node_count": len(astrophysical_analogue_nodes),
+        "production_threshold_mechanism_node_count": len(production_threshold_nodes),
         "artifact_or_unusable_node_count": len(artifact_nodes),
         "skipped": dict(skipped),
         "route_counts": dict(route_counts),
@@ -631,6 +643,7 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
         "evidence_grade_case_node_ids": [node["id"] for node in evidence_grade_case_nodes],
         "direct_lhc_safety_node_ids": [node["id"] for node in direct_safety_case_nodes],
         "astrophysical_analogue_node_ids": [node["id"] for node in astrophysical_analogue_nodes],
+        "production_threshold_node_ids": [node["id"] for node in production_threshold_nodes],
         "edges": edges,
         "case_source_local_edges": case_source_local_edges,
         "analog_edges": analog_edges,
@@ -711,6 +724,7 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
     lines.append(f"- evidence-grade case mechanism nodes: `{graph.get('evidence_grade_case_mechanism_node_count')}`")
     lines.append(f"- direct LHC-safety mechanism nodes: `{graph.get('direct_lhc_safety_mechanism_node_count')}`")
     lines.append(f"- astrophysical analogue mechanism nodes: `{graph.get('astrophysical_analogue_mechanism_node_count')}`")
+    lines.append(f"- production-threshold mechanism nodes: `{graph.get('production_threshold_mechanism_node_count')}`")
     lines.append(f"- artifact or unusable nodes retained for audit: `{graph.get('artifact_or_unusable_node_count')}`")
     lines.append(f"- source-local route-transition edges: `{len(graph.get('edges', []))}`")
     lines.append(f"- case-relevant source-local route-transition edges: `{len(graph.get('case_source_local_edges', []))}`")
@@ -763,6 +777,10 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
         "substrate is mostly adjacent physics: accretion, evaporation, capture, mass growth and astrophysical "
         "survival bounds. The safety argument must therefore be audited by translating those mechanisms into the "
         "collider branch, rather than by counting who asserted safety or danger."
+    )
+    lines.append(
+        "Production-threshold candidates are separated because they can show where a collider event selection or "
+        "formation condition enters the case, but they are not by themselves accretion, evaporation or safety mechanisms."
     )
     lines.append("")
     lines.append("## Constructor Frame Quality")
@@ -830,13 +848,17 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
     lines.append("### Direct LHC-Safety Receipts")
     lines.append("")
     append_node_examples(lines, [node for node in nodes if node.get("id") in direct_ids], limit=8, include_case=True)
+    production_ids = set(graph.get("production_threshold_node_ids") or [])
+    lines.append("### Production-Threshold Candidates")
+    lines.append("")
+    append_node_examples(lines, [node for node in nodes if node.get("id") in (production_ids - direct_ids)], limit=8, include_case=True)
     lines.append("### Astrophysical Black-Hole Analogues")
     lines.append("")
     append_node_examples(lines, [node for node in nodes if node.get("id") in analogue_ids], limit=8, include_case=True)
     lines.append("### Other Evidence-Grade Case Nodes")
     lines.append("")
     evidence_case_ids = set(graph.get("evidence_grade_case_node_ids") or [])
-    used_case_ids = direct_ids | analogue_ids
+    used_case_ids = direct_ids | production_ids | analogue_ids
     remaining_evidence_case_ids = evidence_case_ids - used_case_ids
     if evidence_case_ids:
         append_node_examples(lines, [node for node in nodes if node.get("id") in remaining_evidence_case_ids], limit=8, include_case=True)
