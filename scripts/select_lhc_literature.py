@@ -70,6 +70,12 @@ def select(args: argparse.Namespace) -> Dict[str, Any]:
 
     selected: List[Dict[str, Any]] = []
     scanned = 0
+    print(
+        f"[lhc-select] dataset={args.dataset} split={args.split} "
+        f"max_docs={args.max_docs} min_score={args.min_score}",
+        file=sys.stderr,
+        flush=True,
+    )
     for row in iter_hf_rows(args.dataset, args.split):
         scanned += 1
         rid = row_id(row)
@@ -85,6 +91,18 @@ def select(args: argparse.Namespace) -> Dict[str, Any]:
             if text:
                 safe_id = rid or f"row_{scanned:09d}"
                 (source_dir / f"{safe_id.replace('/', '_')}.tex").write_text(text, encoding="utf-8", errors="replace")
+            print(
+                f"[lhc-select] selected scanned={scanned} selected={len(selected)} "
+                f"paper_id={rid or 'unknown'} score={score}",
+                file=sys.stderr,
+                flush=True,
+            )
+        if args.progress_every and scanned % args.progress_every == 0:
+            print(
+                f"[lhc-select] progress scanned={scanned} selected={len(selected)}",
+                file=sys.stderr,
+                flush=True,
+            )
         if args.max_docs and scanned >= args.max_docs:
             break
 
@@ -101,6 +119,12 @@ def select(args: argparse.Namespace) -> Dict[str, Any]:
         "records": selected,
     }
     (out_dir / "selection_manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False), encoding="utf-8")
+    print(
+        f"[lhc-select] done scanned={scanned} selected={len(selected)} "
+        f"manifest={out_dir / 'selection_manifest.json'}",
+        file=sys.stderr,
+        flush=True,
+    )
     return manifest
 
 
@@ -111,6 +135,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--out-dir", default="data/hf_lhc_selection")
     parser.add_argument("--max-docs", type=int, default=0, help="0 means scan the stream until exhaustion/interruption.")
     parser.add_argument("--min-score", type=int, default=3)
+    parser.add_argument("--progress-every", type=int, default=10000)
     return parser
 
 
