@@ -244,7 +244,10 @@ danger branch closes.}
 remain on the left; sparse equation receipts, route labels, physical branches
 and constructor slots appear on the right. Labels are omitted in this overview
 because the graph is topology-first; source names and formulas are given in the
-receipt tables and machine-readable JSON.}
+receipt tables and machine-readable JSON. The coordinates are layout
+coordinates only: horizontal position separates node layers, while vertical
+position groups claim families and physical branches and spreads overlapping
+nodes.}
 \label{fig:public-kg-full}
 \end{figure}
 \end{landscape}
@@ -357,7 +360,10 @@ risk statements, and very few explicit safety statements.
 \caption{Full claim graph. Paper nodes are on the left; extracted claim nodes
 are on the right; each line is a source-to-claim link. This graph contains
 492 papers, 377 claims
-and 377 links.}
+and 377 links. The coordinates are graph-layout
+coordinates only: horizontal position separates papers from claim nodes, while
+vertical position groups claim families and adds jitter so overlapping nodes
+can be seen.}
 \label{fig:provenance-full}
 \end{figure}
 
@@ -394,7 +400,9 @@ capture and growth.
 The equation graph tests whether formulas assemble into the danger chain. It
 retains 35 branch
 receipts. They sit mainly on astronomical analogues and stable growth/capture
-constraints. The direct collider-safety branch remains unclosed.
+constraints. The missing step is specific: no retained formula chain directly
+connects an LHC-produced object to survival, stopping or capture in ordinary
+matter, and net positive growth on a dangerous timescale.
 
 \clearpage
 \begin{landscape}
@@ -402,11 +410,14 @@ constraints. The direct collider-safety branch remains unclosed.
 \centering
 \includegraphics[width=0.98\linewidth,height=0.78\textheight,keepaspectratio]{lhc_mechanism_actual.pdf}
 \caption{Retained equation graph. Each point is a formula receipt placed into
-one physical branch. Panel A keeps the actual receipt nodes and their
-source-local or cross-source links. Panel B shows which mathematical routes are
-attached to those receipts. The graph shows that retained formulas are dense in
-spectral, closure and transport roles, but the collider branch has only a
-production hook and no direct survival--capture--growth closure.}
+one physical branch. Panel A shows all case-relevant equation nodes, with the
+evidence-grade receipts drawn larger and darker. Edges are source-local
+transitions or cross-source route analogues. Panel B shows which mathematical
+routes are attached to the plotted nodes. The graph shows that retained formulas
+are dense in spectral, closure and transport roles, but the collider side has
+only a production hook. The survival--capture--growth steps are transfer
+constraints drawn from adjacent astrophysical mechanisms, not a direct collider
+derivation in the selected corpus.}
 \label{fig:mechanism-actual}
 \end{figure}
 \end{landscape}
@@ -500,7 +511,15 @@ the role of $\rho$, $\sigma_{\rm cap}(M,v)$, $v$ and the growth timescale.
 \item Astronomical bounds matter because long-lived compact objects test whether
 similar growth mechanisms would already have destroyed observed systems.
 \item In this corpus the equations mostly support the astronomical-bound side of
-the argument; the direct collider catastrophe branch remains unfilled.
+the argument. The absent formula is not just a missing citation. It is the
+specific constructor step
+\[
+  \hbox{LHC production}\;\to\;\hbox{survival}\;\to\;\hbox{stopping/capture}
+  \;\to\; \dot M_{\rm LHC}>0
+\]
+with a growth timescale short enough to matter. The retained equations do not
+provide that source-local collider chain; they provide transfer constraints
+against it.
 \end{itemize}
 
 \clearpage

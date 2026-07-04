@@ -645,7 +645,7 @@ def plot_mechanism_retention(graph: Dict[str, Any], path: Path) -> None:
     for label, value, color, x, y in branches:
         draw_box(ax, x, y, label, count(value), color, w=1.85, h=0.78, fs=8.5)
         arrow(ax, (9.33, 3.1), (9.05, y), lw=1.1, color="#555555", rad=0.12 if y > 3.1 else -0.12)
-    ax.text(5.0, 0.35, "Result: equations accumulate around adjacent astrophysical constraints; the collider-growth branch remains broken.", ha="center", fontsize=10)
+    ax.text(5.0, 0.35, "Result: equations accumulate around adjacent astrophysical constraints; no direct survival-capture-growth chain is retained for the collider case.", ha="center", fontsize=10)
     ax.set_title("From processed equations to the retained physical branch receipts", fontsize=12, fontweight="bold", pad=10)
     fig.tight_layout()
     fig.savefig(path, bbox_inches="tight")
@@ -658,8 +658,9 @@ def plot_mechanism_actual_graph(graph: Dict[str, Any], path: Path) -> None:
     import matplotlib.gridspec as gridspec
 
     nodes = graph.get("nodes") or []
-    receipts = set(graph.get("evidence_grade_case_node_ids") or [])
-    receipt_nodes_local = [node for node in nodes if str(node.get("id")) in receipts]
+    receipt_ids = set(graph.get("evidence_grade_case_node_ids") or [])
+    case_ids = set(graph.get("case_relevant_node_ids") or [])
+    receipt_nodes_local = [node for node in nodes if str(node.get("id")) in case_ids]
     edges = (
         (graph.get("case_source_local_edges") or [])
         + (graph.get("evidence_grade_case_internal_analog_edges") or [])
@@ -737,16 +738,30 @@ def plot_mechanism_actual_graph(graph: Dict[str, Any], path: Path) -> None:
             routes = node.get("route_signature") or []
             primary = str(routes[0]) if routes else "none"
             sx, sy = positions[nid]
-            ax.scatter([sx], [sy], s=52, color=route_color.get(primary, route_color["none"]), alpha=0.90, edgecolors="#1f2430", linewidths=0.35, zorder=3)
-        for node in group[:6]:
+            is_receipt = nid in receipt_ids
+            ax.scatter(
+                [sx],
+                [sy],
+                s=58 if is_receipt else 24,
+                color=route_color.get(primary, route_color["none"]),
+                alpha=0.92 if is_receipt else 0.34,
+                edgecolors="#1f2430" if is_receipt else "none",
+                linewidths=0.45 if is_receipt else 0,
+                zorder=4 if is_receipt else 2,
+            )
+        for node in [n for n in group if str(n.get("id")) in receipt_ids][:6]:
             nid = str(node.get("id"))
             if nid not in positions:
                 continue
             sx, sy = positions[nid]
             ax.text(sx + 0.012, sy, str(node.get("source_id") or nid), ha="left", va="center", fontsize=5.8, alpha=0.82)
-        ax.text(x, 0.07, f"{len(group)} receipts", ha="center", fontsize=8.2, color="#3b4048")
-    ax.text(0.50, 0.025, f"{len(receipt_nodes_local)} receipt nodes; {len(graph.get('case_source_local_edges') or [])} source-local transitions; {len(graph.get('evidence_grade_case_internal_analog_edges') or []) + len(graph.get('evidence_grade_case_transfer_analog_edges') or [])} analogue links.", ha="center", fontsize=8.5)
-    ax.set_title("A. Equation mechanism graph: retained receipts by physical branch", fontsize=11.5, fontweight="bold", pad=10)
+        evidence_count = sum(1 for n in group if str(n.get("id")) in receipt_ids)
+        ax.text(x, 0.07, f"{len(group)} nodes; {evidence_count} receipts", ha="center", fontsize=8.2, color="#3b4048")
+    visible_edges = [edge for edge in edges if str(edge.get("source")) in positions and str(edge.get("target")) in positions]
+    visible_source_local = sum(1 for edge in visible_edges if edge.get("edge_type") == "source_local_route_transition")
+    visible_analog = len(visible_edges) - visible_source_local
+    ax.text(0.50, 0.025, f"{len(receipt_nodes_local)} case-relevant equation nodes; {len(receipt_ids)} evidence-grade receipts; {visible_source_local} source-local transitions; {visible_analog} analogue links visible.", ha="center", fontsize=8.5)
+    ax.set_title("A. Equation mechanism graph: case-relevant nodes and retained receipts", fontsize=11.5, fontweight="bold", pad=10)
 
     ax2 = fig.add_subplot(spec[0, 1])
     route_counts_by_branch: Dict[str, Counter] = {key: Counter() for key, *_ in branch_order}
@@ -770,7 +785,7 @@ def plot_mechanism_actual_graph(graph: Dict[str, Any], path: Path) -> None:
     ax2.set_yticklabels(branch_names, fontsize=8)
     ax2.invert_yaxis()
     ax2.set_xlim(0, max_total + 4)
-    ax2.set_xlabel("route labels attached to retained receipts", fontsize=8)
+    ax2.set_xlabel("route labels attached to plotted equation nodes", fontsize=8)
     ax2.tick_params(axis="x", labelsize=7)
     ax2.set_title("B. Route composition", fontsize=11.5, fontweight="bold", pad=10)
     handles = [plt.Rectangle((0, 0), 1, 1, color=route_color[r]) for r in route_order]
@@ -779,7 +794,7 @@ def plot_mechanism_actual_graph(graph: Dict[str, Any], path: Path) -> None:
     ax2.text(
         0.0,
         -0.22,
-        "Interpretation: the graph is dense in spectral/closure/transport receipts, but the direct collider chain has only a production hook and no retained survival-capture-growth closure.",
+        "Interpretation: the graph is dense in spectral/closure/transport roles, but the collider side has only a production hook; survival, capture and growth are supplied as transfer constraints, not as a direct collider derivation.",
         transform=ax2.transAxes,
         ha="left",
         va="top",
@@ -1674,7 +1689,10 @@ danger branch closes.}}
 remain on the left; sparse equation receipts, route labels, physical branches
 and constructor slots appear on the right. Labels are omitted in this overview
 because the graph is topology-first; source names and formulas are given in the
-receipt tables and machine-readable JSON.}}
+receipt tables and machine-readable JSON. The coordinates are layout
+coordinates only: horizontal position separates node layers, while vertical
+position groups claim families and physical branches and spreads overlapping
+nodes.}}
 \label{{fig:public-kg-full}}
 \end{{figure}}
 \end{{landscape}}
@@ -1775,7 +1793,10 @@ risk statements, and very few explicit safety statements.
 \caption{{Full claim graph. Paper nodes are on the left; extracted claim nodes
 are on the right; each line is a source-to-claim link. This graph contains
 {count(provenance_paper_count)} papers, {count(provenance_claim_count)} claims
-and {count(provenance_edge_count)} links.}}
+and {count(provenance_edge_count)} links. The coordinates are graph-layout
+coordinates only: horizontal position separates papers from claim nodes, while
+vertical position groups claim families and adds jitter so overlapping nodes
+can be seen.}}
 \label{{fig:provenance-full}}
 \end{{figure}}
 
@@ -1804,7 +1825,9 @@ capture and growth.
 The equation graph tests whether formulas assemble into the danger chain. It
 retains {count(graph.get('evidence_grade_case_mechanism_node_count'))} branch
 receipts. They sit mainly on astronomical analogues and stable growth/capture
-constraints. The direct collider-safety branch remains unclosed.
+constraints. The missing step is specific: no retained formula chain directly
+connects an LHC-produced object to survival, stopping or capture in ordinary
+matter, and net positive growth on a dangerous timescale.
 
 \clearpage
 \begin{{landscape}}
@@ -1812,11 +1835,14 @@ constraints. The direct collider-safety branch remains unclosed.
 \centering
 \includegraphics[width=0.98\linewidth,height=0.78\textheight,keepaspectratio]{{lhc_mechanism_actual.pdf}}
 \caption{{Retained equation graph. Each point is a formula receipt placed into
-one physical branch. Panel A keeps the actual receipt nodes and their
-source-local or cross-source links. Panel B shows which mathematical routes are
-attached to those receipts. The graph shows that retained formulas are dense in
-spectral, closure and transport roles, but the collider branch has only a
-production hook and no direct survival--capture--growth closure.}}
+one physical branch. Panel A shows all case-relevant equation nodes, with the
+evidence-grade receipts drawn larger and darker. Edges are source-local
+transitions or cross-source route analogues. Panel B shows which mathematical
+routes are attached to the plotted nodes. The graph shows that retained formulas
+are dense in spectral, closure and transport roles, but the collider side has
+only a production hook. The survival--capture--growth steps are transfer
+constraints drawn from adjacent astrophysical mechanisms, not a direct collider
+derivation in the selected corpus.}}
 \label{{fig:mechanism-actual}}
 \end{{figure}}
 \end{{landscape}}
@@ -1888,7 +1914,15 @@ the role of $\rho$, $\sigma_{{\rm cap}}(M,v)$, $v$ and the growth timescale.
 \item Astronomical bounds matter because long-lived compact objects test whether
 similar growth mechanisms would already have destroyed observed systems.
 \item In this corpus the equations mostly support the astronomical-bound side of
-the argument; the direct collider catastrophe branch remains unfilled.
+the argument. The absent formula is not just a missing citation. It is the
+specific constructor step
+\[
+  \hbox{{LHC production}}\;\to\;\hbox{{survival}}\;\to\;\hbox{{stopping/capture}}
+  \;\to\; \dot M_{{\rm LHC}}>0
+\]
+with a growth timescale short enough to matter. The retained equations do not
+provide that source-local collider chain; they provide transfer constraints
+against it.
 \end{{itemize}}
 
 \clearpage
