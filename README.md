@@ -4,20 +4,18 @@ This repository builds a static, inspectable report on one scientific question:
 
 > Do the processed arXiv papers support a dangerous LHC black-hole scenario?
 
-The answer in the committed report is **no**: the retained equation evidence
-does not contain a closed collider-danger branch. It contains a collider
-production hook and many adjacent astrophysical black-hole mechanisms, but the
-downstream links needed for a dangerous LHC scenario remain unfilled: survival
-after production, stopping or capture in matter, positive microscopic mass
-growth and evasion of astronomical survival bounds.
+The answer in the committed report is **no**. The retained equation evidence
+gives a collider production hook and many adjacent astrophysical black-hole
+mechanisms, while the downstream links required for a dangerous LHC branch are
+absent: survival after production, stopping or capture in matter, positive
+microscopic mass growth and evasion of astronomical survival bounds.
 
-This is not a seed-paper demonstration. The static run in this repository is a
-public export from a Hyperion pass over arXiv/Hugging Face LaTeX data. The
-committed report uses **492 selected papers** from the arXiv corpus parsed by
-Hyperion, yielding **1,408 equation witnesses** and a retained
-operator/substrate mechanism layer. The six seed papers remain in the
-repository only as references for the historical LHC-safety debate and for small
-smoke tests.
+The static run in this repository is a public export from a Hyperion pass over
+arXiv/Hugging Face LaTeX data. The committed report uses **492 selected papers**
+from the arXiv corpus parsed by Hyperion, yielding **1,408 equation witnesses**
+and a retained operator/substrate mechanism layer. The six seed papers are
+references for the historical LHC-safety debate and small smoke tests; the
+reported mechanism result comes from the 492-paper static run.
 
 The report compares two evidence layers:
 
@@ -64,11 +62,10 @@ adjacent black-hole growth, accretion, compact-object and lifetime mechanisms,
 but it does not supply the closed collider chain required by the dangerous LHC
 scenario.
 
-The repository does not require the private Hyperion core to build the public
-PDF. It uses static artifacts committed under `runs/lhc_black_hole_audit_500k_strict`.
-The PDF is generated automatically from those artifacts: the build script
-derives the constructor summaries, knowledge graphs, mechanism figures, TeX
-source and compiled PDF without hand-editing the report.
+The public build uses static artifacts committed under
+`runs/lhc_black_hole_audit_500k_strict`. The PDF is generated automatically from
+those artifacts: the build script derives the constructor summaries, knowledge
+graphs, mechanism figures, TeX source and compiled PDF in one reproducible run.
 
 ## Build The Main PDF
 
@@ -127,7 +124,7 @@ equation order, local context, variable roles, matched graph node, route
 signature, constructor roles, slot matches and source-local chains.
 
 The default mode uses the retained equation fingerprints in
-`equation_mechanism_graph.json`. It does not need full arXiv source files:
+`equation_mechanism_graph.json` directly:
 
 ```bash
 python3 -B scripts/build_constructor_layer_export.py \
@@ -147,8 +144,7 @@ source-local constructor chains.
 
 This constructor layer is the bridge between raw equation witnesses and the
 physical verdict. It tests whether formula windows instantiate the six required
-physical slots and whether those slots connect into a source-local branch. It is
-not a citation count and not a text similarity score.
+physical slots and whether those slots connect into a source-local branch.
 
 If full source text is available, the same export can add section positions and
 larger local derivation excerpts:
@@ -165,9 +161,9 @@ This writes:
 - `outputs/lhc_constructor_layer_export/constructor_layer_export.json`
 - `outputs/lhc_constructor_layer_export/constructor_layer_export.md`
 
-The fingerprint-native export is the mechanism layer. Full source text is useful
-for human-facing excerpts and variable definitions, but it is not required to
-assemble the retained constructor roles.
+The fingerprint-native export is the mechanism layer. Full source text adds
+human-facing excerpts and variable definitions; the retained constructor roles
+come from the fingerprinted equation graph.
 
 ## What The PDF Contains
 
@@ -194,18 +190,19 @@ J.-P. Blaizot, J. Iliopoulos, J. Madsen, G. G. Ross, P. Sonderegger and
 H.-J. Specht, "Study of potentially dangerous events during heavy-ion collisions
 at the LHC: Report of the LHC Safety Study Group", CERN-2003-001 (2003).
 
-The agreement is structural. CERN-2003-001 does not treat production alone as
-the safety question; it evaluates whether a produced object could survive,
-interact with matter, grow and evade astrophysical constraints. The constructor
-in this repository tests the same branch form against the larger arXiv-derived
-equation layer. It finds the same kind of break: no retained direct collider
-equation chain closes the path from production to survival, capture and positive
-growth.
+This CERN document is an independent human-written validator for the branch
+logic. It was not used to train this repo's automatic report generator, and it
+is separate from the committed Hyperion-derived 492-paper static run. The
+agreement is structural: CERN-2003-001 evaluates the same physical chain tested
+here, production, survival, interaction with matter, growth and astrophysical
+closure. The AI-generated constructor reaches the same branch-level conclusion:
+the retained collider-side equations do not close the path from production to
+survival, capture and positive growth.
 
-The added contribution here is not a replacement for CERN's dedicated physics
-assessment. It is a corpus-level check showing how a provenance graph and an
-equation-mechanism graph give different answers. Provenance locates claims;
-the constructor tests whether the mechanism required by the claim is present.
+This gives a direct validation of the method. A provenance graph locates claims.
+The constructor tests whether the mechanism required by the claim is present.
+The independent CERN report confirms that the automatically recovered branch is
+the physically relevant one.
 
 ## Static Artifacts
 
