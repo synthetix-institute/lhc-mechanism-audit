@@ -131,17 +131,42 @@ production must feed survival, survival must feed capture and capture must feed
 positive growth. In the retained corpus, production has a direct hook; the
 downstream slots are transfer-only.
 
-The constructor layer is built from the retained equation fingerprints, not from
-paper abstracts. It expands the six-slot summary into
-1,408 fingerprinted
-equation windows from 241
-sources. Of these, 986
-instantiate at least one constructor slot and
-412 are relevant
-to the LHC black-hole question. The source-local graph contains
-241 constructor
-chains. This is the layer that justifies the mechanism verdict: it is a
-slot-by-slot assembly of measured equation roles, not a count of papers.
+\subsection{Fingerprint constructor layer}
+
+The constructor is not inferred from paper abstracts. It is assembled from the
+retained equation fingerprints in the mechanism graph. Each fingerprinted
+equation window carries its route profile, constructor roles, transition labels,
+local context and slot matches. The six physical slots in
+Eq.~\eqref{eq:constructor-slots} are therefore tested against measured
+equation roles rather than against topic words. Table~\ref{tab:constructor-layer}
+shows the exported constructor layer used by this report.
+
+\begin{table}[H]
+\caption{Fingerprint-native constructor-layer export used in the mechanism verdict.}
+\label{tab:constructor-layer}
+\small
+\begin{tabularx}{\linewidth}{p{0.28\linewidth}rX}
+\toprule
+Constructor-layer object & Count & Meaning\\
+\midrule
+fingerprinted equation windows & 1,408 & retained formula windows carrying route profiles and constructor-role evidence\\
+sources with equation windows & 241 & papers represented in the retained fingerprinted equation layer\\
+matched graph nodes & 1,408 & constructor equations linked to equation-mechanism graph nodes\\
+slot-matched equations & 986 & formula windows that instantiate at least one physical constructor slot\\
+case-relevant equations & 412 & slot or route evidence connected to the LHC black-hole question\\
+source-local constructor chains & 241 & ordered equation sequences retained inside individual sources\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+This layer is the bridge between the raw equation graph and the physical
+verdict. It contains 986
+slot-matched equations and 412
+case-relevant equations, organized into
+241
+source-local constructor chains. The unresolved danger branch is therefore a
+statement about missing slot closure inside the measured equation layer, not a
+statement about the number of papers or claims.
 
 \begin{figure}[H]
 \centering

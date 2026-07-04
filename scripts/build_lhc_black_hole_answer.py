@@ -1429,6 +1429,58 @@ def constructor_slots_table(constructor: Dict[str, Any]) -> str:
     )
 
 
+def constructor_layer_summary_table(constructor_layer: Dict[str, Any]) -> str:
+    counts_payload = constructor_layer.get("counts") or {}
+    rows = [
+        (
+            "fingerprinted equation windows",
+            counts_payload.get("extracted_equation_count"),
+            "retained formula windows carrying route profiles and constructor-role evidence",
+        ),
+        (
+            "sources with equation windows",
+            counts_payload.get("source_count_with_equations"),
+            "papers represented in the retained fingerprinted equation layer",
+        ),
+        (
+            "matched graph nodes",
+            counts_payload.get("matched_graph_node_count"),
+            "constructor equations linked to equation-mechanism graph nodes",
+        ),
+        (
+            "slot-matched equations",
+            counts_payload.get("slot_match_equation_count"),
+            "formula windows that instantiate at least one physical constructor slot",
+        ),
+        (
+            "case-relevant equations",
+            counts_payload.get("case_relevant_equation_count"),
+            "slot or route evidence connected to the LHC black-hole question",
+        ),
+        (
+            "source-local constructor chains",
+            counts_payload.get("source_local_chain_count"),
+            "ordered equation sequences retained inside individual sources",
+        ),
+    ]
+    body = [
+        rf"{latex_escape(label)} & {count(value)} & {latex_escape(description)}\\"
+        for label, value, description in rows
+    ]
+    return "\n".join(
+        [
+            r"\small",
+            r"\begin{tabularx}{\linewidth}{p{0.28\linewidth}rX}",
+            r"\toprule",
+            r"Constructor-layer object & Count & Meaning\\",
+            r"\midrule",
+            *body,
+            r"\bottomrule",
+            r"\end{tabularx}",
+        ]
+    )
+
+
 def counts_table(items: Iterable[Tuple[str, int]]) -> str:
     rows = [rf"{latex_escape(compact(k))} & {count(v)}\\" for k, v in items]
     return "\n".join(
@@ -1590,17 +1642,30 @@ production must feed survival, survival must feed capture and capture must feed
 positive growth. In the retained corpus, production has a direct hook; the
 downstream slots are transfer-only.
 
-The constructor layer is built from the retained equation fingerprints, not from
-paper abstracts. It expands the six-slot summary into
-{count(constructor_layer_counts.get('extracted_equation_count'))} fingerprinted
-equation windows from {count(constructor_layer_counts.get('source_count_with_equations'))}
-sources. Of these, {count(constructor_layer_counts.get('slot_match_equation_count'))}
-instantiate at least one constructor slot and
-{count(constructor_layer_counts.get('case_relevant_equation_count'))} are relevant
-to the LHC black-hole question. The source-local graph contains
-{count(constructor_layer_counts.get('source_local_chain_count'))} constructor
-chains. This is the layer that justifies the mechanism verdict: it is a
-slot-by-slot assembly of measured equation roles, not a count of papers.
+\subsection{{Fingerprint constructor layer}}
+
+The constructor is not inferred from paper abstracts. It is assembled from the
+retained equation fingerprints in the mechanism graph. Each fingerprinted
+equation window carries its route profile, constructor roles, transition labels,
+local context and slot matches. The six physical slots in
+Eq.~\eqref{{eq:constructor-slots}} are therefore tested against measured
+equation roles rather than against topic words. Table~\ref{{tab:constructor-layer}}
+shows the exported constructor layer used by this report.
+
+\begin{{table}}[H]
+\caption{{Fingerprint-native constructor-layer export used in the mechanism verdict.}}
+\label{{tab:constructor-layer}}
+{constructor_layer_summary_table(constructor_layer)}
+\end{{table}}
+
+This layer is the bridge between the raw equation graph and the physical
+verdict. It contains {count(constructor_layer_counts.get('slot_match_equation_count'))}
+slot-matched equations and {count(constructor_layer_counts.get('case_relevant_equation_count'))}
+case-relevant equations, organized into
+{count(constructor_layer_counts.get('source_local_chain_count'))}
+source-local constructor chains. The unresolved danger branch is therefore a
+statement about missing slot closure inside the measured equation layer, not a
+statement about the number of papers or claims.
 
 \begin{{figure}}[H]
 \centering
