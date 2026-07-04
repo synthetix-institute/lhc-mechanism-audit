@@ -63,11 +63,31 @@ The build script also derives:
 
 ## Constructor-Layer Export
 
-The public graph receipts can be expanded into source-local constructor objects:
-source id, section, equation order, local context, variable roles, matched graph
-node, route signature, constructor roles, slot matches and source-local chains.
+The public graph receipts can be expanded into constructor objects: source id,
+equation order, local context, variable roles, matched graph node, route
+signature, constructor roles, slot matches and source-local chains.
 
-From the committed/static run plus the local selected source folder:
+The default mode uses the retained equation fingerprints in
+`equation_mechanism_graph.json`. It does not need full arXiv source files:
+
+```bash
+python3 -B scripts/build_constructor_layer_export.py \
+  --run-dir runs/lhc_black_hole_audit_500k_strict \
+  --out-dir outputs/lhc_constructor_layer_fingerprint \
+  --fingerprint-only
+```
+
+This writes:
+
+- `outputs/lhc_constructor_layer_fingerprint/constructor_layer_export.json`
+- `outputs/lhc_constructor_layer_fingerprint/constructor_layer_export.md`
+
+In the current static run this produces 1,408 fingerprinted equation windows,
+986 slot-matched equations, 412 LHC-black-hole-relevant equations and 241
+source-local constructor chains.
+
+If full source text is available, the same export can add section positions and
+larger local derivation excerpts:
 
 ```bash
 python3 -B scripts/build_constructor_layer_export.py \
@@ -81,11 +101,9 @@ This writes:
 - `outputs/lhc_constructor_layer_export/constructor_layer_export.json`
 - `outputs/lhc_constructor_layer_export/constructor_layer_export.md`
 
-The current local source folder is mostly title/abstract-scale text. The export
-therefore reports `limited_abstract_scale_sources`; it is structurally valid and
-matches the public graph nodes, but it cannot reconstruct full paper derivations.
-For full constructor-layer evidence, run the same command on a source directory
-containing full LaTeX/PDF papers, preferably including the LHC safety seed papers.
+The fingerprint-native export is the mechanism layer. Full source text is useful
+for human-facing excerpts and variable definitions, but it is not required to
+assemble the retained constructor roles.
 
 ## What The PDF Contains
 
@@ -153,11 +171,22 @@ python -B scripts/select_lhc_literature.py \
   --min-score 3
 ```
 
-Then build the audit from selected sources:
+The selected sources written by the broad selector may be abstract-scale if the
+dataset row exposes only title/abstract fields. To export full LaTeX from the
+Hugging Face dataset for the selected IDs, run:
+
+```bash
+python -B scripts/export_hf_full_sources_from_selection.py \
+  --dataset synthetix-institute/latex-data \
+  --selection-manifest data/hf_lhc_selection/selection_manifest.json \
+  --out-dir data/hf_lhc_full_selection
+```
+
+Then build the audit from selected sources or full exported sources:
 
 ```bash
 python -B scripts/build_lhc_mechanism_audit.py \
-  --papers-dir data/hf_lhc_selection/sources \
+  --papers-dir data/hf_lhc_full_selection/sources \
   --out-dir outputs/lhc_black_hole_audit_500k_strict \
   --knowledgeparser-root /Users/vbaulin/antigr/KnowledgeParser
 ```

@@ -31,7 +31,13 @@ def source_id_from_path(path: Path) -> str:
     stem = path.stem
     match = re.search(r"(\d{4}\.\d{4,5}|[a-z-]+/\d{7})", stem)
     if match:
-        return match.group(1).replace("/", "")
+        return match.group(1)
+    match = re.search(r"([a-z-]+)[_/](\d{7})", stem)
+    if match:
+        return f"{match.group(1)}/{match.group(2)}"
+    match = re.search(r"([a-z-]+)(\d{7})", stem)
+    if match:
+        return f"{match.group(1)}/{match.group(2)}"
     return stem
 
 

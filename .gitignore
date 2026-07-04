@@ -4,8 +4,12 @@ __pycache__/
 .venv/
 outputs/
 data/papers/
+data/arxiv_download_fix_test/
+data/arxiv_lhc_full_sources*/
+data/hf_lhc_full_selection*/
 data/hf_lhc_selection/
 data/hf_lhc_selection_*/
+logs/
 *.mmap
 *.pt
 *.pth

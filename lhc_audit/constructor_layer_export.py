@@ -126,6 +126,18 @@ def source_document_stats(source_dir: Path) -> Dict[str, Any]:
     }
 
 
+def graph_document_stats(graph: Dict[str, Any]) -> Dict[str, Any]:
+    sources = {str(node.get("source_id") or "") for node in graph.get("nodes") or [] if node.get("source_id")}
+    return {
+        "source_count": len(sources),
+        "median_bytes": None,
+        "files_under_5kb": None,
+        "begin_document_sources": None,
+        "display_equation_sources": None,
+        "evidence_source": "fingerprinted_equation_mechanism_graph",
+    }
+
+
 def graph_node_index(graph: Dict[str, Any]) -> Dict[Tuple[str, str], Deque[Dict[str, Any]]]:
     index: Dict[Tuple[str, str], Deque[Dict[str, Any]]] = defaultdict(deque)
     for node in graph.get("nodes") or []:
@@ -236,6 +248,67 @@ def build_source_equations(
     return equations, stats
 
 
+def build_fingerprint_equations(graph: Dict[str, Any]) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
+    """Build constructor equations directly from fingerprinted graph nodes.
+
+    This mode is the correct fallback when the public run has retained equation
+    fingerprints and local context, but not full paper sources.  It cannot
+    recover section titles or unobserved derivation steps, but it preserves the
+    measured operator/substrate evidence instead of reducing the report to
+    provenance or abstracts.
+    """
+    equations: List[Dict[str, Any]] = []
+    per_source = Counter()
+    per_source_ordinal = Counter()
+
+    for node in graph.get("nodes") or []:
+        source_id = str(node.get("source_id") or "unknown_source")
+        formula = str(node.get("formula") or "")
+        context = str(node.get("context") or "")
+        per_source[source_id] += 1
+        per_source_ordinal[source_id] += 1
+        equations.append({
+            "constructor_equation_id": f"K{len(equations):06d}",
+            "source_id": source_id,
+            "source_path": None,
+            "source_equation_ordinal": per_source_ordinal[source_id],
+            "section": {
+                "level": "fingerprint_window",
+                "title": "retained equation context",
+            },
+            "kind": "fingerprinted_equation_window",
+            "formula": formula,
+            "start": None,
+            "end": None,
+            "context_before": "",
+            "context_after": "",
+            "local_context": compact(context, 1800),
+            "variables": variable_dictionary(formula, context),
+            "matched_graph_node_id": node.get("id"),
+            "formula_core": node.get("formula_core"),
+            "formula_quality_flags": node.get("formula_quality_flags") or [],
+            "text_role": node.get("text_role"),
+            "route_signature": node.get("route_signature") or [],
+            "route_profile": node.get("route_profile") or {},
+            "constructor_roles": node.get("constructor_roles") or [],
+            "transition_labels": node.get("transition_labels") or [],
+            "source_frame_audit": node.get("source_frame_audit") or {},
+            "target_frame_audit": node.get("target_frame_audit") or {},
+            "case_evidence": node.get("case_evidence") or {},
+            "slot_matches": slot_matches_for_node(node),
+            "evidence_source": "fingerprinted_equation_mechanism_graph",
+        })
+
+    stats = {
+        "source_count_with_equations": sum(1 for value in per_source.values() if value),
+        "extracted_equation_count": len(equations),
+        "matched_graph_node_count": len(equations),
+        "unmatched_source_equation_count": 0,
+        "top_sources_by_equation_count": per_source.most_common(12),
+    }
+    return equations, stats
+
+
 def build_source_chains(equations: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     grouped: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
     for equation in equations:
@@ -272,7 +345,9 @@ def build_source_chains(equations: List[Dict[str, Any]]) -> List[Dict[str, Any]]
     return chains
 
 
-def readiness(source_stats: Dict[str, Any], chain_count: int) -> str:
+def readiness(source_stats: Dict[str, Any], chain_count: int, *, fingerprint_only: bool = False) -> str:
+    if fingerprint_only:
+        return "usable" if chain_count else "fingerprinted_nodes_without_constructor_chains"
     if source_stats.get("begin_document_sources", 0) == 0:
         return "limited_abstract_scale_sources"
     if chain_count == 0:
@@ -283,13 +358,16 @@ def readiness(source_stats: Dict[str, Any], chain_count: int) -> str:
 def render_markdown(export: Dict[str, Any]) -> str:
     counts = export["counts"]
     source_stats = export["source_document_stats"]
+    fingerprint_only = source_stats.get("evidence_source") == "fingerprinted_equation_mechanism_graph"
+    full_marker_text = "not required in fingerprint mode" if fingerprint_only else f"`{source_stats['begin_document_sources']}`"
+    display_marker_text = "not required in fingerprint mode" if fingerprint_only else f"`{source_stats['display_equation_sources']}`"
     lines = [
         "# Constructor-Layer Export",
         "",
         f"- readiness: `{export['readiness']}`",
         f"- sources: `{source_stats['source_count']}`",
-        f"- sources with full-document markers: `{source_stats['begin_document_sources']}`",
-        f"- sources with display-equation markers: `{source_stats['display_equation_sources']}`",
+        f"- sources with full-document markers: {full_marker_text}",
+        f"- sources with display-equation markers: {display_marker_text}",
         f"- extracted equations: `{counts['extracted_equation_count']}`",
         f"- graph-node matches: `{counts['matched_graph_node_count']}`",
         f"- source-local constructor chains: `{counts['source_local_chain_count']}`",
@@ -301,7 +379,11 @@ def render_markdown(export: Dict[str, Any]) -> str:
         "## Limits",
         "",
     ]
-    if export["readiness"] == "limited_abstract_scale_sources":
+    if fingerprint_only:
+        lines.append(
+            "The export is built directly from retained fingerprinted equation windows. It preserves measured route profiles, constructor roles, transition labels and case evidence. It does not reconstruct paper section order beyond the retained source-local graph order."
+        )
+    elif export["readiness"] == "limited_abstract_scale_sources":
         lines.append(
             "The current source folder is mostly abstract-scale text. This export is structurally valid, but it cannot reconstruct full paper derivations until run on full LaTeX/PDF sources."
         )
@@ -319,19 +401,26 @@ def render_markdown(export: Dict[str, Any]) -> str:
 def build_constructor_layer_export(
     *,
     run_dir: Path,
-    source_dir: Path,
+    source_dir: Path | None,
     out_dir: Path,
     context_window: int = 1400,
     max_context_chars: int = 900,
+    fingerprint_only: bool = False,
 ) -> Dict[str, Any]:
     graph = read_json(run_dir / "equation_mechanism_graph.json")
-    source_stats = source_document_stats(source_dir)
-    equations, equation_stats = build_source_equations(
-        source_dir,
-        graph,
-        context_window=context_window,
-        max_context_chars=max_context_chars,
-    )
+    if fingerprint_only:
+        source_stats = graph_document_stats(graph)
+        equations, equation_stats = build_fingerprint_equations(graph)
+    else:
+        if source_dir is None:
+            raise ValueError("source_dir is required unless fingerprint_only=True.")
+        source_stats = source_document_stats(source_dir)
+        equations, equation_stats = build_source_equations(
+            source_dir,
+            graph,
+            context_window=context_window,
+            max_context_chars=max_context_chars,
+        )
     chains = build_source_chains(equations)
     counts = {
         **equation_stats,
@@ -341,9 +430,10 @@ def build_constructor_layer_export(
     }
     export = {
         "report_type": "lhc_constructor_layer_export",
-        "readiness": readiness(source_stats, len(chains)),
+        "readiness": readiness(source_stats, len(chains), fingerprint_only=fingerprint_only),
         "source_run": str(run_dir),
-        "source_dir": str(source_dir),
+        "source_dir": str(source_dir) if source_dir is not None else None,
+        "fingerprint_only": bool(fingerprint_only),
         "source_document_stats": source_stats,
         "counts": counts,
         "constructor_equations": equations,

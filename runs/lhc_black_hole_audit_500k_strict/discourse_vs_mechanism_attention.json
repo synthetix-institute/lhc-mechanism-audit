@@ -1,7 +1,7 @@
 {
   "report_type": "lhc_discourse_vs_mechanism_attention",
   "readiness": "usable",
-  "source_run": "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/runs/lhc_black_hole_audit_500k_strict",
+  "source_run": "runs/lhc_black_hole_audit_500k_strict",
   "discourse_graph": {
     "paper_nodes": 492,
     "claim_nodes": 377,

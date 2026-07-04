@@ -1,21 +1,85 @@
 {
   "report_type": "lhc_black_hole_answer",
-  "tex": "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/lhc_black_hole_answer.tex",
-  "pdf": "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/lhc_black_hole_answer.pdf",
+  "tex": "paper/lhc_black_hole_answer.tex",
+  "pdf": "paper/lhc_black_hole_answer.pdf",
   "figures": [
-    "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/figures/lhc_constructor_demonstration.pdf",
-    "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/figures/lhc_discourse_mechanism_proof.pdf",
-    "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/figures/lhc_formation_mechanism.pdf",
-    "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/figures/lhc_mechanism_actual.pdf",
-    "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/figures/lhc_mechanism_retention.pdf",
-    "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/figures/lhc_physical_constructor.pdf",
-    "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/figures/lhc_physical_tree.pdf",
-    "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/figures/lhc_provenance_full.pdf",
-    "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/figures/lhc_provenance_matrix.pdf",
-    "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/figures/lhc_provenance_summary.pdf",
-    "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/figures/lhc_public_knowledge_graph.pdf",
-    "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/figures/lhc_public_knowledge_graph_full.pdf",
-    "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/figures/lhc_transfer_graph.pdf"
+    "paper/figures/lhc_constructor_demonstration.pdf",
+    "paper/figures/lhc_discourse_mechanism_proof.pdf",
+    "paper/figures/lhc_formation_mechanism.pdf",
+    "paper/figures/lhc_mechanism_actual.pdf",
+    "paper/figures/lhc_mechanism_retention.pdf",
+    "paper/figures/lhc_physical_constructor.pdf",
+    "paper/figures/lhc_physical_tree.pdf",
+    "paper/figures/lhc_provenance_full.pdf",
+    "paper/figures/lhc_provenance_matrix.pdf",
+    "paper/figures/lhc_provenance_summary.pdf",
+    "paper/figures/lhc_public_knowledge_graph.pdf",
+    "paper/figures/lhc_public_knowledge_graph_full.pdf",
+    "paper/figures/lhc_transfer_graph.pdf"
   ],
-  "source_run": "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/runs/lhc_black_hole_audit_500k_strict"
+  "constructor_layer": {
+    "json": "runs/lhc_black_hole_audit_500k_strict/constructor_layer/constructor_layer_export.json",
+    "markdown": "runs/lhc_black_hole_audit_500k_strict/constructor_layer/constructor_layer_export.md",
+    "readiness": "usable",
+    "counts": {
+      "source_count_with_equations": 241,
+      "extracted_equation_count": 1408,
+      "matched_graph_node_count": 1408,
+      "unmatched_source_equation_count": 0,
+      "top_sources_by_equation_count": [
+        [
+          "1205.2671",
+          311
+        ],
+        [
+          "1201.5525",
+          302
+        ],
+        [
+          "astro-ph0510161",
+          109
+        ],
+        [
+          "1506.05473",
+          21
+        ],
+        [
+          "1407.5650",
+          13
+        ],
+        [
+          "1207.1244",
+          10
+        ],
+        [
+          "1508.04780",
+          10
+        ],
+        [
+          "astro-ph0208212",
+          10
+        ],
+        [
+          "1005.1081",
+          9
+        ],
+        [
+          "1501.02017",
+          9
+        ],
+        [
+          "0912.0009",
+          8
+        ],
+        [
+          "1309.5455",
+          8
+        ]
+      ],
+      "source_local_chain_count": 241,
+      "slot_match_equation_count": 986,
+      "case_relevant_equation_count": 412
+    }
+  },
+  "source_run": "runs/lhc_black_hole_audit_500k_strict"
 }

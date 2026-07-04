@@ -1,7 +1,7 @@
 {
   "report_type": "lhc_physical_constructor",
   "schema": "KnowledgeParser operator/substrate constructor adapter",
-  "source_run": "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/runs/lhc_black_hole_audit_500k_strict",
+  "source_run": "runs/lhc_black_hole_audit_500k_strict",
   "input_counts": {
     "source_witness_count": 1408,
     "usable_mechanism_node_count": 204,

@@ -19,6 +19,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--out-dir", default=str(ROOT / "outputs" / "lhc_constructor_layer_export"))
     parser.add_argument("--context-window", type=int, default=1400)
     parser.add_argument("--max-context-chars", type=int, default=900)
+    parser.add_argument(
+        "--fingerprint-only",
+        action="store_true",
+        help="Build constructor objects directly from equation_mechanism_graph.json fingerprint nodes.",
+    )
     return parser
 
 
@@ -26,14 +31,14 @@ def main() -> None:
     args = build_parser().parse_args()
     result = build_constructor_layer_export(
         run_dir=Path(args.run_dir),
-        source_dir=Path(args.source_dir),
+        source_dir=Path(args.source_dir) if args.source_dir else None,
         out_dir=Path(args.out_dir),
         context_window=args.context_window,
         max_context_chars=args.max_context_chars,
+        fingerprint_only=args.fingerprint_only,
     )
     print(json.dumps(result, indent=2, ensure_ascii=False))
 
 
 if __name__ == "__main__":
     main()
-

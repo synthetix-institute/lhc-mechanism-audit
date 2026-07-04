@@ -16,6 +16,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from lhc_audit.discourse_mechanism_attention import build_discourse_mechanism_attention, write_discourse_mechanism_attention
+from lhc_audit.constructor_layer_export import build_constructor_layer_export
 from lhc_audit.physical_constructor import build_physical_constructor, write_constructor
 from lhc_audit.public_knowledge_graph import build_public_knowledge_graph, write_public_knowledge_graph
 
@@ -1443,7 +1444,7 @@ def counts_table(items: Iterable[Tuple[str, int]]) -> str:
     )
 
 
-def write_tex(run_dir: Path, paper_dir: Path, manifest: Dict[str, Any], provenance: Dict[str, Any], graph: Dict[str, Any], sparse: Dict[str, Any], constructor: Dict[str, Any], kg: Dict[str, Any], discourse_attention: Dict[str, Any]) -> Path:
+def write_tex(run_dir: Path, paper_dir: Path, manifest: Dict[str, Any], provenance: Dict[str, Any], graph: Dict[str, Any], sparse: Dict[str, Any], constructor: Dict[str, Any], kg: Dict[str, Any], discourse_attention: Dict[str, Any], constructor_layer: Dict[str, Any]) -> Path:
     tex_path = paper_dir / "lhc_black_hole_answer.tex"
     claims = claim_type_counts(provenance)
     branch_counts = graph.get("case_branch_counts") or {}
@@ -1454,6 +1455,7 @@ def write_tex(run_dir: Path, paper_dir: Path, manifest: Dict[str, Any], provenan
     discourse = discourse_attention.get("discourse_graph") or {}
     mechanism_attention = discourse_attention.get("mechanism_graph") or {}
     constructor_attention = discourse_attention.get("constructor") or {}
+    constructor_layer_counts = constructor_layer.get("counts") or {}
 
     tex = rf"""\documentclass[11pt]{{article}}
 \usepackage[a4paper,margin=0.82in]{{geometry}}
@@ -1587,6 +1589,18 @@ collider receipts for the downstream slots and composability between slots:
 production must feed survival, survival must feed capture and capture must feed
 positive growth. In the retained corpus, production has a direct hook; the
 downstream slots are transfer-only.
+
+The constructor layer is built from the retained equation fingerprints, not from
+paper abstracts. It expands the six-slot summary into
+{count(constructor_layer_counts.get('extracted_equation_count'))} fingerprinted
+equation windows from {count(constructor_layer_counts.get('source_count_with_equations'))}
+sources. Of these, {count(constructor_layer_counts.get('slot_match_equation_count'))}
+instantiate at least one constructor slot and
+{count(constructor_layer_counts.get('case_relevant_equation_count'))} are relevant
+to the LHC black-hole question. The source-local graph contains
+{count(constructor_layer_counts.get('source_local_chain_count'))} constructor
+chains. This is the layer that justifies the mechanism verdict: it is a
+slot-by-slot assembly of measured equation roles, not a count of papers.
 
 \begin{{figure}}[H]
 \centering
@@ -2059,6 +2073,13 @@ def build(args: argparse.Namespace) -> Dict[str, Any]:
     sparse = read_json(run_dir / "sparse_attention_audit.json")
     constructor = build_physical_constructor(run_dir)
     write_constructor(run_dir)
+    constructor_layer_result = build_constructor_layer_export(
+        run_dir=run_dir,
+        source_dir=None,
+        out_dir=run_dir / "constructor_layer",
+        fingerprint_only=True,
+    )
+    constructor_layer = read_json(Path(constructor_layer_result["json"]))
     write_discourse_mechanism_attention(run_dir)
     discourse_attention = build_discourse_mechanism_attention(run_dir)
     kg = build_public_knowledge_graph(run_dir)
@@ -2077,12 +2098,13 @@ def build(args: argparse.Namespace) -> Dict[str, Any]:
     plot_physical_constructor(constructor, fig_dir / "lhc_physical_constructor.pdf")
     plot_constructor_demonstration(constructor, fig_dir / "lhc_constructor_demonstration.pdf")
     plot_discourse_mechanism_proof(discourse_attention, fig_dir / "lhc_discourse_mechanism_proof.pdf")
-    tex_path = write_tex(run_dir, paper_dir, manifest, provenance, graph, sparse, constructor, kg, discourse_attention)
+    tex_path = write_tex(run_dir, paper_dir, manifest, provenance, graph, sparse, constructor, kg, discourse_attention, constructor_layer)
     report = {
         "report_type": "lhc_black_hole_answer",
         "tex": str(tex_path),
         "pdf": str(tex_path.with_suffix(".pdf")),
         "figures": sorted(str(path) for path in fig_dir.glob("lhc_*.pdf")),
+        "constructor_layer": constructor_layer_result,
         "source_run": str(run_dir),
     }
     (paper_dir / "lhc_black_hole_answer_manifest.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
