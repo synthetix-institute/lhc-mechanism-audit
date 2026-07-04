@@ -1,0 +1,150 @@
+{
+  "report_type": "lhc_discourse_vs_mechanism_attention",
+  "readiness": "usable",
+  "source_run": "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/runs/lhc_black_hole_audit_500k_strict",
+  "discourse_graph": {
+    "paper_nodes": 492,
+    "claim_nodes": 377,
+    "source_to_claim_edges": 377,
+    "claim_type_counts": {
+      "astrophysical_claim": 355,
+      "risk_claim": 20,
+      "safety_claim": 2
+    },
+    "claim_attention": {
+      "astrophysical_claim": 0.9416445623342176,
+      "risk_claim": 0.05305039787798409,
+      "safety_claim": 0.005305039787798408
+    }
+  },
+  "mechanism_graph": {
+    "fingerprinted_equation_windows": 1408,
+    "usable_equation_nodes": 204,
+    "case_relevant_nodes": 72,
+    "evidence_grade_receipts": 35,
+    "route_counts": {
+      "spectral_operator": 34,
+      "constraint_closure": 33,
+      "transport_flow": 25,
+      "boundary_weak_form": 4,
+      "discrete_protocol": 1
+    },
+    "route_attention": {
+      "spectral_operator": 0.35051546391752575,
+      "constraint_closure": 0.3402061855670103,
+      "transport_flow": 0.25773195876288657,
+      "boundary_weak_form": 0.041237113402061855,
+      "discrete_protocol": 0.010309278350515464
+    },
+    "branch_counts": {
+      "stable_growth_or_capture_branch": 29,
+      "astrophysical_black_hole_analogue": 28,
+      "evaporation_branch": 12,
+      "production_threshold_branch": 1
+    },
+    "branch_attention": {
+      "stable_growth_or_capture_branch": 0.4142857142857143,
+      "astrophysical_black_hole_analogue": 0.4,
+      "evaporation_branch": 0.17142857142857143,
+      "production_threshold_branch": 0.014285714285714285
+    },
+    "branch_route_attention": {
+      "astrophysical_black_hole_analogue": {
+        "spectral_operator": 0.35,
+        "constraint_closure": 0.3375,
+        "transport_flow": 0.2625,
+        "boundary_weak_form": 0.0375,
+        "discrete_protocol": 0.0125
+      },
+      "evaporation_branch": {
+        "constraint_closure": 0.32432432432432434,
+        "spectral_operator": 0.32432432432432434,
+        "transport_flow": 0.2972972972972973,
+        "boundary_weak_form": 0.05405405405405406
+      },
+      "production_threshold_branch": {
+        "constraint_closure": 0.5,
+        "boundary_weak_form": 0.5
+      },
+      "stable_growth_or_capture_branch": {
+        "spectral_operator": 0.3625,
+        "constraint_closure": 0.3375,
+        "transport_flow": 0.2875,
+        "boundary_weak_form": 0.0125
+      }
+    }
+  },
+  "constructor": {
+    "branch_verdict": "broken_danger_branch",
+    "slot_rows": [
+      {
+        "slot_id": "production_selector",
+        "label": "production threshold",
+        "status": "direct_hook",
+        "direct_receipts": 1,
+        "transfer_receipts": 0,
+        "required_condition": "parton collision can enter a low-scale-gravity production channel"
+      },
+      {
+        "slot_id": "survival_lifetime",
+        "label": "survival against evaporation",
+        "status": "transfer_only",
+        "direct_receipts": 0,
+        "transfer_receipts": 6,
+        "required_condition": "object lifetime exceeds the capture or stopping time"
+      },
+      {
+        "slot_id": "stopping_capture",
+        "label": "stopping or capture in matter",
+        "status": "transfer_only",
+        "direct_receipts": 0,
+        "transfer_receipts": 1,
+        "required_condition": "object loses enough kinetic energy to remain inside matter"
+      },
+      {
+        "slot_id": "net_positive_growth",
+        "label": "net positive mass growth",
+        "status": "transfer_only",
+        "direct_receipts": 0,
+        "transfer_receipts": 29,
+        "required_condition": "matter intake exceeds mass loss"
+      },
+      {
+        "slot_id": "growth_timescale",
+        "label": "growth on a relevant timescale",
+        "status": "transfer_only",
+        "direct_receipts": 0,
+        "transfer_receipts": 11,
+        "required_condition": "integrated growth time is shorter than the physical exposure time"
+      },
+      {
+        "slot_id": "astronomical_bound_evasion",
+        "label": "evasion of astronomical survival bounds",
+        "status": "transfer_only",
+        "direct_receipts": 0,
+        "transfer_receipts": 28,
+        "required_condition": "same mechanism must avoid contradiction with compact-object survival"
+      }
+    ],
+    "required_downstream_slots": 5,
+    "direct_downstream_slots": 0,
+    "transfer_only_downstream_slots": 5,
+    "missing_downstream_slots": 0
+  },
+  "proof_checks": {
+    "provenance_can_count_claims": true,
+    "provenance_has_no_physical_slot_dimension": true,
+    "mechanism_has_equation_receipts": true,
+    "mechanism_has_constructor_slots": true,
+    "direct_production_hook_present": true,
+    "downstream_direct_closure_absent": true,
+    "transfer_receipts_populate_downstream": true
+  },
+  "findings": [
+    "The discourse graph resolves the literature as papers linked to claim families. It shows where statements occur, but it has no variable for survival, capture, growth, or astronomical-bound closure.",
+    "The mechanism graph resolves the same source set as formula receipts placed into physical slots. That layer finds one direct collider production hook and no direct downstream collider closure.",
+    "Sparse route attention concentrates on spectral/operator, closure, and transport roles. Those are exactly the operations needed to test threshold, lifetime, capture, and growth.",
+    "The decisive result is structural: downstream evidence is transfer evidence from astrophysics, not a closed collider catastrophe branch."
+  ],
+  "advantage": "A discourse graph ranks who said what. A mechanism graph tests whether equations can be assembled into the required physical branch. In this run the two layers diverge: claims exist, but the equation constructor stops after the production hook."
+}

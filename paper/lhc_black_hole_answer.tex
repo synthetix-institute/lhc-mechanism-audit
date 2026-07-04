@@ -1,0 +1,633 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=0.82in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{pdflscape}
+\hypersetup{hidelinks}
+\graphicspath{{figures/}}
+
+\title{Do the arXiv papers support a dangerous LHC black-hole scenario?}
+\author{Processed arXiv evidence: claims, equations and physical transfer}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The dangerous LHC black-hole scenario fails at the mechanism level. A catastrophe
+requires one continuous physical branch: production in a collision, survival
+against evaporation, stopping or capture in matter, net positive mass growth,
+and evasion of astronomical survival bounds. The claim graph contains
+869 nodes and
+377 source-to-claim links. It places the
+source set: mostly astrophysical black-hole material, a smaller risk surface, and
+very few explicit safety statements. The equation graph tests the physical
+branch. From 1,408 processed equation
+windows, 204 usable equation nodes
+remain; 72 touch the LHC
+black-hole question and 35
+remain as branch receipts. Those receipts populate astronomical growth,
+accretion, compact-object and lifetime constraints, plus one collider selection
+hook. The collider-growth branch is broken at the required links from production
+to survival, from survival to capture, and from capture to fast positive growth.
+The scientific result is a transfer calculation: astrophysical rate and bound
+equations constrain any microscopic collider-product scenario, and the retained
+equations stop before the missing bridge.
+\end{abstract}
+
+The public question is usually phrased as whether the LHC could make a dangerous
+black hole. That wording hides the physics. A dangerous outcome would require a
+sequence of events, not a single production claim: a microscopic object must be
+created in a parton collision, survive evaporation, slow down or be captured by
+matter, accrete faster than it loses mass, and remain compatible with the
+survival of astronomical bodies exposed to much higher natural collision
+histories. The analysis below turns that sequence into an equation-level
+constructor. The claim graph shows what the literature says; the mechanism graph
+tests which steps are actually filled by formulas and where the physical branch
+stops.
+
+\section{Mechanism verdict}
+
+A dangerous LHC branch must connect a collider event to a long-lived object,
+then to stopping or capture in matter, then to positive mass growth on a relevant
+time scale. The retained equations fill adjacent astrophysical branches:
+accretion rates, luminosity limits, compact-object masses, merger parameters and
+survival constraints. The collider side contributes a threshold or event-selection
+hook. The later growth chain remains absent.
+
+The physical question is therefore concrete. Let \(s\) denote the squared
+proton--proton centre-of-mass energy at the collider, \(x_1\) and \(x_2\) the
+parton momentum fractions, and \(\hat s=x_1x_2s\) the parton-level squared
+centre-of-mass energy. Let \(M_D\) denote the fundamental gravitational scale in
+the low-scale-gravity model, \(M_{\min}\) the minimum black-hole mass assumed by
+that model, \(M\) the mass of the candidate microscopic black hole,
+\(\tau_{\rm evap}\) its evaporation lifetime, \(\tau_{\rm capture}\) the time
+required for stopping or capture in matter, \(\rho\) the density of the material
+it traverses, \(\sigma_{\rm cap}(M,v)\) the effective capture or accretion
+cross-section, \(v\) the speed relative to the material, \(P_{\rm evap}(M)\)
+the evaporation power, and \(c\) the speed of light. In this notation the
+minimum danger chain is
+\begin{equation}
+\sqrt{\hat s}=\sqrt{x_1x_2s}>M_{\min}\sim {\rm few}\,M_D,
+\qquad
+\tau_{\rm evap}>\tau_{\rm capture},
+\qquad
+\dot M_{\rm net}=\rho\,\sigma_{\rm cap}(M,v)\,v-\frac{P_{\rm evap}(M)}{c^2}>0 .
+\label{eq:danger-chain}
+\end{equation}
+Equation~\eqref{eq:danger-chain} states the three required steps: the
+collision can access the new-gravity channel, the object survives long enough
+to be captured, and the net mass-growth rate \(\dot M_{\rm net}\) is positive.
+The chain also requires a growth time short enough to matter and no
+contradiction with compact-object survival. The retained equations leave this
+chain open.
+
+\section{Physical constructor}
+
+In this report, a constructor is an ordered physical branch with acceptance
+tests at each step. It is closer to a derivation recipe than to a topic label:
+each step must supply a quantity that the next step can use. For the LHC
+black-hole question the constructor has six slots. The production slot asks
+whether a parton collision can enter the low-scale-gravity channel. The survival
+slot asks whether the object lives long enough to interact with matter. The
+capture slot asks whether it can stop or remain bound inside matter. The growth
+slot asks whether intake exceeds evaporation. The timescale slot asks whether
+the integrated growth is fast enough to matter. The astronomical-bound slot asks
+whether the same mechanism would contradict the survival of dense astronomical
+objects.
+
+Each slot is represented by a minimal equation condition:
+\begin{align}
+&\text{production:}          && \sqrt{\hat s}>M_{\min}, \nonumber\\
+&\text{survival:}            && \tau_{\rm evap}>\tau_{\rm capture}, \nonumber\\
+&\text{capture:}             && L_{\rm stop}<L_{\rm body}, \nonumber\\
+&\text{net growth:}          && \dot M_{\rm net}>0, \nonumber\\
+&\text{growth time:}         && t_{\rm grow}<t_{\rm exposure}, \nonumber\\
+&\text{astronomical closure:}&& N_{\rm CR}P_{\rm cap}P_{\rm grow}\ll 1 .
+\label{eq:constructor-slots}
+\end{align}
+Here \(L_{\rm stop}\) is the stopping length, \(L_{\rm body}\) the material
+length scale, \(t_{\rm grow}\) the time required for dangerous growth,
+\(t_{\rm exposure}\) the relevant exposure time, \(N_{\rm CR}\) the number of
+cosmic-ray production trials in the astronomical comparison, \(P_{\rm cap}\)
+the probability of capture and \(P_{\rm grow}\) the probability of subsequent
+growth. These conditions are intentionally minimal. They specify what must be
+shown before the scenario can become a closed physical branch.
+
+The constructor then classifies equation receipts. A direct receipt is a formula
+written in collider variables for the slot it fills. A transfer receipt is a
+formula from an adjacent astrophysical setting that carries the same physical
+role, such as accretion rate, lifetime, capture scale or compact-object bound.
+Transfer receipts are valuable because they show the relevant physics and the
+variables that must be translated. Branch closure, however, requires direct
+collider receipts for the downstream slots and composability between slots:
+production must feed survival, survival must feed capture and capture must feed
+positive growth. In the retained corpus, production has a direct hook; the
+downstream slots are transfer-only.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\linewidth]{lhc_physical_constructor.pdf}
+\caption{Physical constructor for the danger branch. The first slot has a
+collider-side production hook. The downstream slots are filled only by transfer
+equations from astrophysical black-hole, accretion or compact-object papers.
+Thus the continuous branch from LHC production to survival, capture and fast
+growth is not present in the retained equations.}
+\label{fig:constructor}
+\end{figure}
+
+\begin{table}[H]
+\caption{Evidence status of each required physical slot.}
+\label{tab:constructor}
+\small
+\begin{tabularx}{\linewidth}{p{0.20\linewidth}p{0.16\linewidth}rrX}
+\toprule
+Physical slot & Status & Direct & Transfer & Required condition\\
+\midrule
+production threshold & direct hook & 1 & 0 & parton collision can enter a low-scale-gravity production channel\\
+survival against evaporation & transfer only & 0 & 6 & object lifetime exceeds the capture or stopping time\\
+stopping or capture in matter & transfer only & 0 & 1 & object loses enough kinetic energy to remain inside matter\\
+net positive mass growth & transfer only & 0 & 29 & matter intake exceeds mass loss\\
+growth on a relevant timescale & transfer only & 0 & 11 & integrated growth time is shorter than the physical exposure time\\
+evasion of astronomical survival bounds & transfer only & 0 & 28 & same mechanism must avoid contradiction with compact-object survival\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\clearpage
+\begin{landscape}
+\begin{figure}[p]
+\centering
+\includegraphics[width=0.98\linewidth,height=0.78\textheight,keepaspectratio]{lhc_constructor_demonstration.pdf}
+\caption{How the constructor works. The upper row shows the operation:
+define the physical slots, match formula receipts to those slots, separate
+direct collider evidence from transfer analogues and then test whether the
+branch closes continuously. The lower matrix shows the actual fill state for
+this run. Production has one direct hook; every downstream safety-critical slot
+is transfer-only, so the danger branch does not close.}
+\label{fig:constructor-demo}
+\end{figure}
+\end{landscape}
+\clearpage
+
+\section{Discourse graph and mechanism graph}
+
+The same source set gives two different graphs. The first graph is a discourse
+graph: 492 paper nodes, 377
+claim nodes and 377
+source-to-claim links. It records attribution and coverage: most extracted
+statements in this run are astrophysical black-hole statements, with a smaller
+risk surface and very few explicit safety statements.
+
+The second graph is an equation mechanism graph. It starts from formula windows,
+keeps the windows that contain usable mathematical structure, assigns
+operator/substrate constructor roles, and asks whether those formulas fill the
+physical slots in Fig.~\ref{fig:constructor}. Its sparse attention is not over
+words. It is over physical roles: threshold, lifetime, capture, growth and
+astronomical-bound closure. This graph contains
+35 evidence-grade
+receipts for the case layer. The decisive comparison is that the discourse graph
+can count claim families, whereas the mechanism graph can test branch closure.
+For the required downstream slots, the constructor finds
+0 direct collider
+closures and 5
+transfer-only slots.
+
+\clearpage
+\begin{landscape}
+\begin{figure}[p]
+\centering
+\includegraphics[width=0.98\linewidth,height=0.72\textheight,keepaspectratio]{lhc_discourse_mechanism_proof.pdf}
+\caption{Discourse graph versus mechanism graph on the same source set. Panel
+A shows claim-family attention: it ranks statements. Panel B shows the physical
+constructor: it tests whether required equation slots are filled by direct
+collider receipts or only by transfer analogues. Panel C shows route attention
+inside the retained equation receipts. The claim graph locates statements; the
+mechanism graph identifies the missing physical bridge from production to
+survival, capture and growth.}
+\label{fig:discourse-mechanism-proof}
+\end{figure}
+\end{landscape}
+\clearpage
+
+The comparison changes the question from literature coverage to physical
+closure. Source and claim counts show where statements occur. The constructor
+asks a stricter question: which formulas occupy the required physical roles, and
+do those roles connect into a continuous collider branch? Clean formula
+extraction, operator/substrate constructor roles, sparse route attention and
+slot-by-slot assembly give that answer directly.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\linewidth]{lhc_public_knowledge_graph.pdf}
+\caption{Typed knowledge graph assembled from the static run. It contains
+926 typed nodes and 1,880
+typed edges. The left side is provenance; the middle is the retained equation
+layer; the right side is the constructor layer that decides whether the
+danger branch closes.}
+\label{fig:public-kg}
+\end{figure}
+
+\clearpage
+\begin{landscape}
+\begin{figure}[p]
+\centering
+\includegraphics[width=0.98\linewidth,height=0.78\textheight,keepaspectratio]{lhc_public_knowledge_graph_full.pdf}
+\caption{Full public knowledge graph. Each point is one node in the
+926-node graph. The dense paper and claim layers
+remain on the left; sparse equation receipts, route labels, physical branches
+and constructor slots appear on the right. Labels are omitted in this overview
+because the graph is topology-first; source names and formulas are given in the
+receipt tables and machine-readable JSON.}
+\label{fig:public-kg-full}
+\end{figure}
+\end{landscape}
+\clearpage
+
+\section{How formation is supposed to work}
+
+The LHC formation hypothesis used in these papers belongs to low-scale gravity
+models. The fundamental gravitational scale is lowered to the TeV range, for
+example by large extra dimensions or many particle species. The collider energy
+\(\sqrt{s}\) is shared by two partons carrying momentum fractions \(x_1\) and
+\(x_2\). The parton-level squared centre-of-mass energy is \(\hat{s}\), defined
+by
+\begin{equation}
+\sqrt{\hat s}=\sqrt{x_1x_2s} .
+\label{eq:parton-energy}
+\end{equation}
+Formation is then treated as possible only if the parton-level energy exceeds a
+model-dependent minimum black-hole mass \(M_{\min}\). In the collider papers
+this threshold is usually expressed relative to \(M_D\), the fundamental
+gravitational scale:
+\begin{equation}
+\sqrt{\hat s}>M_{\min}\sim {\rm few}\,M_D .
+\label{eq:formation-threshold}
+\end{equation}
+In the semiclassical picture the production cross-section \(\sigma_{\rm form}\)
+is estimated from a higher-dimensional horizon radius \(r_s\). Here
+\(M_{\rm BH}\) is the produced black-hole mass and \(n\) is the number of extra
+dimensions:
+\begin{equation}
+\sigma_{\rm form}\sim \pi r_s^2(M_{\rm BH},M_D,n).
+\label{eq:geometric-cross-section}
+\end{equation}
+Close to threshold, Eq.~\eqref{eq:geometric-cross-section} becomes a
+quantum-gravity assumption rather than a clean classical black-hole calculation.
+Formation papers can predict detector signatures; a danger argument still
+requires survival, capture and positive growth.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\linewidth]{lhc_formation_mechanism.pdf}
+\caption{Formation-side mechanism. The LHC black-hole hypothesis begins with a
+low gravitational scale, then applies a parton-level threshold. Above threshold,
+some papers use a geometric cross-section estimate; near threshold the object is
+model-dependent quantum gravity. The later growth-in-matter branch is a separate
+physical requirement.}
+\label{fig:formation}
+\end{figure}
+
+\begin{table}[H]
+\caption{Formation-side sources and what they actually support.}
+\label{tab:formation}
+\small
+\begin{tabularx}{\linewidth}{p{0.15\linewidth}p{0.30\linewidth}p{0.26\linewidth}X}
+\toprule
+Source & Formation-side role & Formula or scale & Meaning\\
+\midrule
+\href{https://arxiv.org/abs/hep-ph/0111052}{hep-ph0111052} & large-extra-dimension production and high transverse-momentum jet suppression & $\sigma(pp\to{\rm jet}+X)$ & production/signature model; no growth-in-matter term\\
+\href{https://arxiv.org/abs/hep-ph/0605062}{hep-ph0605062} & TeV-scale large-extra-dimension black holes & $M_f=1~{\rm TeV};\ \sqrt{s}=14~{\rm TeV};\ M>M_f$ & requires a low gravity scale; rate is model-dependent\\
+\href{https://arxiv.org/abs/hep-ph/0602129}{hep-ph0602129} & Higgs production from black-hole evaporation & $T_{\rm BH}\sim 1~{\rm TeV}$ & decay/signature channel; accretion untested\\
+\href{https://arxiv.org/abs/0904.0230}{0904.0230} & TeV black-hole decay products & $p_T^H>100~{\rm GeV};\ |y_{\gamma\gamma}|\leq 1;\ M_P=1~{\rm TeV}$ & detector selections after assumed production\\
+\href{https://arxiv.org/abs/0806.3801}{0806.3801} & many-species microscopic black holes & $M_{\rm Planck}/\sqrt{N}$ & collider threshold changes only in modified gravity\\
+\href{https://arxiv.org/abs/0710.4344}{0710.4344} & species bound and lowered gravitational cutoff & $\Lambda_G\approx M_{\rm Planck}/\sqrt{N}$ & formation tied to a lowered cutoff beyond Standard Model assumptions\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The formation-side result is specific. The selected literature contains papers
+on possible production and possible decay signatures of TeV-scale black holes.
+These formulas support search channels: high-\(p_T\) suppression, Hawking-like
+decay products, heavy-particle production and model-dependent threshold
+behavior. The safety-critical steps remain separate: survival, stopping, capture
+and sustained accretion. Formation occupies the first box in
+Fig.~\ref{fig:physical-tree}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\linewidth]{lhc_physical_tree.pdf}
+\caption{Physical knowledge tree for the LHC black-hole catastrophe claim. A
+dangerous branch requires all steps: production, survival, capture, fast growth
+and failure of astronomical bounds. The retained equations populate the adjacent
+astronomical and growth/capture parts of this tree.}
+\label{fig:physical-tree}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\linewidth]{lhc_mechanism_retention.pdf}
+\caption{Equation funnel for the LHC black-hole question. The graph starts with
+1,408 equation windows and retains
+204 usable equation nodes. Of these,
+72 are relevant to the
+LHC black-hole question and 35
+remain as branch receipts. Branch counts overlap because
+one equation can support more than one physical branch.}
+\label{fig:mechanism-retention}
+\end{figure}
+
+\section{The claim graph}
+
+The provenance graph contains 492 paper nodes,
+377 claim nodes and 377
+source-to-claim links. Its result is simple: the selected source set contains
+many papers where black holes appear in astrophysical settings, fewer explicit
+risk statements, and very few explicit safety statements.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\linewidth]{lhc_provenance_full.pdf}
+\caption{Full claim graph. Paper nodes are on the left; extracted claim nodes
+are on the right; each line is a source-to-claim link. This graph contains
+492 papers, 377 claims
+and 377 links.}
+\label{fig:provenance-full}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\linewidth]{lhc_provenance_matrix.pdf}
+\caption{Source-level provenance matrix. Rows are the highest-claim sources;
+columns are extracted claim families. Cell values are individual source-to-claim
+links. This view preserves provenance rather than collapsing the literature to
+one aggregate edge.}
+\label{fig:provenance-matrix}
+\end{figure}
+
+The claim labels are:
+\begin{center}
+\begin{tabular}{lr}
+\toprule
+Quantity & Count\\
+\midrule
+astrophysical claim & 355\\
+risk claim & 20\\
+safety claim & 2\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The claim graph gives the social surface of the literature: where black-hole,
+risk and safety statements appear. The physical question starts after that.
+The required route is a mathematical one, from LHC production to survival,
+capture and growth.
+
+\section{The equation graph}
+
+The equation graph tests whether formulas assemble into the danger chain. It
+retains 35 branch
+receipts. They sit mainly on astronomical analogues and stable growth/capture
+constraints. The direct collider-safety branch remains unclosed.
+
+\clearpage
+\begin{landscape}
+\begin{figure}[p]
+\centering
+\includegraphics[width=0.98\linewidth,height=0.78\textheight,keepaspectratio]{lhc_mechanism_actual.pdf}
+\caption{Retained equation graph. Each point is a formula receipt placed into
+one physical branch. Panel A keeps the actual receipt nodes and their
+source-local or cross-source links. Panel B shows which mathematical routes are
+attached to those receipts. The graph shows that retained formulas are dense in
+spectral, closure and transport roles, but the collider branch has only a
+production hook and no direct survival--capture--growth closure.}
+\label{fig:mechanism-actual}
+\end{figure}
+\end{landscape}
+\clearpage
+
+The retained branches are:
+\begin{center}
+\begin{tabular}{lr}
+\toprule
+Quantity & Count\\
+\midrule
+stable growth or capture branch & 29\\
+astrophysical black hole analogue & 28\\
+evaporation branch & 12\\
+production threshold branch & 1\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The retained equations support rate laws, constraints and scale relations for
+compact objects. The missing physical bridge is the one from collider production
+to survival, stopping, capture and fast growth inside ordinary matter.
+
+\section{Equation receipts}
+
+Representative receipts are shown in Table~\ref{tab:receipts}. Each receipt is
+a local mathematical object that places a source inside one branch of the
+physical tree. The identifiers R1--R7 refer to source-local formula windows;
+the report-level variables used for the LHC mechanism are defined in
+Eqs.~\eqref{eq:danger-chain}--\eqref{eq:timescale-transfer}.
+
+\begin{table}[H]
+\caption{Representative equation receipts from the retained branch layer.}
+\label{tab:receipts}
+\small
+\begin{tabularx}{\linewidth}{p{0.16\linewidth}p{0.19\linewidth}p{0.29\linewidth}X}
+\toprule
+Receipt & Branch & Equation receipt & Interpretation\\
+\midrule
+\begin{tabular}[t]{@{}l@{}}\textbf{R1}\\ \scriptsize \href{https://arxiv.org/abs/0904.0230}{0904.0230}\end{tabular} & production threshold & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize \(\displaystyle |y_{\gamma \gamma}| \leq 1\)\end{minipage} & Collider-side selection or threshold condition. It is a production hook; the survival and growth steps remain separate.\tabularnewline
+\begin{tabular}[t]{@{}l@{}}\textbf{R2}\\ \scriptsize \href{https://arxiv.org/abs/0807.3458}{0807.3458}\end{tabular} & astronomical analogue; evaporation or lifetime; stable growth/capture & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize \(\displaystyle \begin{gathered}3 \times 10^{-13}~\mathrm{M}_{\odot}~\mathrm{yr}^{-1}\\ \lesssim \langle \dot{M}_{\mathrm{long}} \rangle\\ \lesssim 1 \times 10^{-10}~\mathrm{M}_{\odot}~\mathrm{yr}^{-1}\end{gathered}\)\end{minipage} & Mass-change or lifetime evidence. It belongs to the branch that can close the risk by evaporation or slow evolution.\tabularnewline
+\begin{tabular}[t]{@{}l@{}}\textbf{R3}\\ \scriptsize \href{https://arxiv.org/abs/0807.3458}{0807.3458}\end{tabular} & astronomical analogue; evaporation or lifetime; stable growth/capture & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize \(\displaystyle \begin{gathered}4 \times 10^{-14}~\mathrm{M}_{\odot}~\mathrm{yr}^{-1}\\ \lesssim \langle \dot{M}_{\mathrm{long}} \rangle\\ \lesssim 2 \times 10^{-11}~\mathrm{M}_{\odot}~\mathrm{yr}^{-1}\end{gathered}\)\end{minipage} & Mass-change or lifetime evidence. It belongs to the branch that can close the risk by evaporation or slow evolution.\tabularnewline
+\begin{tabular}[t]{@{}l@{}}\textbf{R4}\\ \scriptsize \href{https://arxiv.org/abs/astro-ph/0212297}{astro-ph0212297}\end{tabular} & astronomical analogue; evaporation or lifetime; stable growth/capture & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize \(\displaystyle \begin{gathered}B_c\simeq 10^{16}\mbox{G}({7M_\odot}/{M_H})\\ ({6M_H}/{R})^2\\ ({M_T}/{0.03M_H})^{1/2}\end{gathered}\)\end{minipage} & Mass-change or lifetime evidence. It belongs to the branch that can close the risk by evaporation or slow evolution.\tabularnewline
+\begin{tabular}[t]{@{}l@{}}\textbf{R5}\\ \scriptsize \href{https://arxiv.org/abs/astro-ph/0109539}{astro-ph0109539}\end{tabular} & stable growth/capture & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize \(\displaystyle \langle M\rangle \sim 9 {M}_\odot\)\end{minipage} & Growth, capture or compact-object scale evidence. It tests the stable-remnant branch.\tabularnewline
+\begin{tabular}[t]{@{}l@{}}\textbf{R6}\\ \scriptsize \href{https://arxiv.org/abs/1207.1244}{1207.1244}\end{tabular} & astronomical analogue & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize \(\displaystyle M_1 = 0.9_{-0.3}^{+4.6} M_\odot\)\end{minipage} & Astronomical analogue evidence. It constrains whether a similar growth mechanism is compatible with observed compact objects.\tabularnewline
+\begin{tabular}[t]{@{}l@{}}\textbf{R7}\\ \scriptsize \href{https://arxiv.org/abs/1307.7685}{1307.7685}\end{tabular} & astronomical analogue; stable growth/capture & \begin{minipage}[t]{\linewidth}\raggedright\scriptsize \(\displaystyle \delta M_{BH}< 5 \times 10^{-4}M_{BH}\)\end{minipage} & Growth, capture or compact-object scale evidence. It tests the stable-remnant branch.\tabularnewline
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{What the equations imply}
+
+The selected equations support a transfer calculation. Astrophysical systems
+provide constraints on growth, accretion, luminosity and compact-object
+survival. Let \(\dot M_{\rm astro}\) denote an astrophysical mass-growth rate
+and \(\dot M_{\rm LHC}\) the corresponding growth term proposed for a
+microscopic object moving through matter. The LHC scenario can borrow
+astrophysical equations only if the same physical role survives the change of
+scale:
+\begin{equation}
+\dot M_{\rm astro}\quad\longrightarrow\quad
+\dot M_{\rm LHC}=\rho\,\sigma_{\rm cap}(M,v)\,v .
+\label{eq:growth-transfer}
+\end{equation}
+Let \(t_{\rm grow}^{\rm astro}\) be the astrophysical growth time inferred from
+compact-object systems, and let \(t_{\rm WD,NS}\) denote the observed survival
+time of white dwarfs or neutron stars used as astronomical bounds. A collider
+translation must replace that astrophysical time-scale by the microscopic
+capture and evaporation variables already defined above:
+\begin{equation}
+t_{\rm grow}^{\rm astro}>t_{\rm WD,NS}
+\quad\longrightarrow\quad
+\left\lbrace \tau_{\rm capture},\tau_{\rm evap},\rho,\sigma_{\rm cap}(M,v),v \right\rbrace
+\quad\hbox{for a microscopic object in matter.}
+\label{eq:timescale-transfer}
+\end{equation}
+Equations~\eqref{eq:growth-transfer} and \eqref{eq:timescale-transfer} are
+valid only where the same growth or capture mechanism is preserved. Evaporation,
+failed capture, or slow growth each breaks the dangerous branch.
+
+Plain-language result:
+\begin{itemize}
+\item Production alone gives the starting condition. A threshold condition says
+where the scenario could begin.
+\item Evaporation closes the danger branch if the object loses mass before it can
+be captured.
+\item Stable survival gives only a lifetime condition. A stable object must also
+be stopped, captured and made to grow.
+\item Growth requires a medium, a cross-section and time. In equations this is
+the role of $\rho$, $\sigma_{\rm cap}(M,v)$, $v$ and the growth timescale.
+\item Astronomical bounds matter because long-lived compact objects test whether
+similar growth mechanisms would already have destroyed observed systems.
+\item In this corpus the equations mostly support the astronomical-bound side of
+the argument; the direct collider catastrophe branch remains unfilled.
+\end{itemize}
+
+\clearpage
+\begin{landscape}
+\begin{figure}[p]
+\centering
+\includegraphics[width=0.98\linewidth,height=0.78\textheight,keepaspectratio]{lhc_transfer_graph.pdf}
+\caption{Equation transfer from astrophysics to the LHC case. The retained
+equations constrain growth, luminosity, compact-object survival and accretion in
+astrophysical settings. Each row shows the required transfer: an astrophysical
+receipt must preserve its physical role, be rewritten in LHC variables and pass
+the corresponding collider closure test. The retained corpus supplies transfer
+receipts but no direct collider closure beyond the production hook.}
+\label{fig:transfer}
+\end{figure}
+\end{landscape}
+\clearpage
+
+\section{Alignment with CERN-2003-001 and equation correctness}
+
+CERN-2003-001 studied potentially dangerous events in heavy-ion collisions and
+treated negatively charged strangelets, gravitational black holes and magnetic
+monopoles \cite{CERN2003}. Its gravitational section uses the same branch
+structure used here. Production is only the first step. A dangerous case also
+requires stability against thermal decay, accretion faster than decay, and a
+mechanism that remains compatible with ordinary matter and astrophysical
+constraints. The agreement is structural: both arguments test whether
+production, survival, capture, growth and astronomical closure can be connected
+into one physical branch.
+
+For ordinary four-dimensional gravity, CERN writes the Schwarzschild radius as
+\begin{equation}
+R_S=2GM=\frac{M}{M_P^2},
+\label{eq:cern-rs}
+\end{equation}
+where \(G\) is Newton's constant and \(M_P\) is the four-dimensional Planck
+mass. Comparing \(R_S\) with the LHC localization scale gives a required mass
+far beyond accelerator energies. CERN then compares the Hawking decay rate
+\begin{equation}
+\Gamma_D\simeq T_{\rm BH}^4R_S^2
+\label{eq:cern-decay}
+\end{equation}
+with an upper bound on accretion through matter,
+\begin{equation}
+\Gamma_A\simeq \pi R_S^2\rho .
+\label{eq:cern-accretion}
+\end{equation}
+Here \(T_{\rm BH}\) is the black-hole temperature and \(\rho\) is the density
+of matter. Growth requires \(\Gamma_A>\Gamma_D\), which CERN rewrites as a mass
+bound many orders of magnitude above the LHC. In models with \(d\) extra
+dimensions and fundamental scale \(M_\ast\), CERN uses
+\begin{equation}
+T_{\rm BH}\simeq M_\ast\left(\frac{M_\ast}{M}\right)^{1/(1+d)}
+\label{eq:cern-extra-temperature}
+\end{equation}
+and again obtains a stability mass far beyond accelerator production, even in
+the extreme case \(M_\ast=1\,{\rm TeV}\). Stable extremal black holes become a
+growth mechanism only if ordinary matter carries the conserved charge needed to
+feed them.
+
+The equation status is as follows. Equation~\eqref{eq:danger-chain} is the
+constructor form of the danger branch, with the production condition written at
+parton level through \(\hat s=x_1x_2s\). Equation~\eqref{eq:cern-rs} is the
+standard Schwarzschild-radius relation in units \(c=\hbar=1\).
+Equations~\eqref{eq:cern-decay} and \eqref{eq:cern-accretion} are the
+same scaling comparison used in CERN-2003-001: Hawking loss must be beaten by
+matter intake before growth can begin. Equation~\eqref{eq:cern-extra-temperature}
+is the higher-dimensional temperature scaling used for the TeV-gravity case.
+The rate-balance term in Eq.~\eqref{eq:danger-chain} is the CERN
+decay-versus-accretion comparison written as a sign test for
+\(\dot M_{\rm net}\).
+
+The present analysis adds four elements to the CERN report. First, it separates
+the literature into a discourse graph, which records who states which kind of
+claim, and an equation graph, which records which formulas occupy the physical
+slots of the branch. Second, it keeps direct collider receipts separate from
+astrophysical transfer receipts, so an accretion equation from a compact-object
+paper cannot be mistaken for a collider closure. Third, it shows the missing
+links explicitly: after the production hook, the survival, capture and growth
+slots are filled only by transfer equations. Fourth, it makes the CERN safety
+logic inspectable on a corpus: any new paper can be tested by asking which slot
+it fills and whether it closes the branch. The conclusion remains aligned with
+CERN-2003-001: the selected arXiv evidence does not connect production to a
+direct collider survival--capture--growth chain.
+
+\begin{table}[H]
+\caption{Equation audit against CERN-2003-001.}
+\label{tab:cern-alignment}
+\small
+\begin{tabularx}{\linewidth}{p{0.17\linewidth}p{0.30\linewidth}X}
+\toprule
+Branch step & Equation used here & Evaluation against CERN-2003-001\\
+\midrule
+Production & \(\sqrt{\hat s}=\sqrt{x_1x_2s}>M_{\min}\sim{\rm few}\,M_D\) & Aligned with the threshold logic of microscopic black-hole production in TeV-scale gravity models. The corrected variable is the partonic energy \(\hat s\), not the full proton--proton energy \(s\).\tabularnewline
+Four-dimensional black-hole size & \(R_S=2GM=M/M_P^2\) & Directly matches the CERN-2003-001 four-dimensional argument: ordinary gravity requires masses far above any accelerator energy.\tabularnewline
+Decay versus accretion & \(\Gamma_D\simeq T_{\rm BH}^4R_S^2,\quad \Gamma_A\simeq \pi R_S^2\rho\) & Matches CERN's branch test: growth requires accretion to exceed thermal decay. In the present report this is compressed into the necessary condition \(\dot M_{\rm net}>0\).\tabularnewline
+Higher-dimensional decay & \(T_{\rm BH}\simeq M_\ast(M_\ast/M)^{1/(1+d)}\) & Aligned with CERN's extra-dimensional stability calculation. Low-mass black holes evaporate rapidly; only extremely massive objects survive the bound.\tabularnewline
+Constructor growth slot & \(\dot M_{\rm net}=\rho\,\sigma_{\rm cap}(M,v)\,v-P_{\rm evap}(M)/c^2\) & Rate-balance form of CERN's decay-versus-accretion test. A collider danger branch must make this balance positive in collider variables.\tabularnewline
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Conclusion}
+
+The dangerous LHC black-hole claim fails as a mechanism in the retained equation
+set. The claim graph shows where black-hole statements occur. The equation graph
+shows where the physical branch breaks: retained formulas populate adjacent
+astrophysical mechanisms and growth/capture constraints, plus one
+production-threshold hook. The missing links are survival after production,
+stopping or capture in matter, positive growth at microscopic mass and velocity,
+and evasion of astronomical survival bounds.
+
+The strongest equation support is for adjacent astrophysical mechanisms:
+accretion, luminosity limits, compact-object masses and survival bounds. A
+danger argument would have to preserve those equations after changing the mass,
+velocity, density, capture and lifetime assumptions to the collider case. The
+retained equations stop before that preservation step.
+
+\begin{thebibliography}{9}
+\bibitem{CERN2003} J.-P. Blaizot, J. Iliopoulos, J. Madsen, G. G. Ross, P. Sonderegger and H.-J. Specht, ``Study of potentially dangerous events during heavy-ion collisions at the LHC: Report of the LHC Safety Study Group,'' CERN-2003-001 (2003), \url{https://cds.cern.ch/record/613175/files/CERN-2003-001.pdf}.
+\bibitem{GiddingsMangano2008} S. B. Giddings and M. L. Mangano, ``Astrophysical implications of hypothetical stable TeV-scale black holes,'' arXiv:0806.3381 (2008).
+\bibitem{Ellis2008} J. Ellis, G. Giudice, M. L. Mangano, I. Tkachev and U. Wiedemann, ``Review of the Safety of LHC Collisions,'' arXiv:0806.3414 (2008).
+\bibitem{Plaga2008} R. Plaga, ``On the potential catastrophic risk from metastable quantum-black holes produced at particle colliders,'' arXiv:0808.1415 (2008).
+\bibitem{Koch2008} B. Koch, M. Bleicher and H. Stoecker, ``Exclusion of black hole disaster scenarios at the LHC,'' arXiv:0807.3349 (2008).
+\bibitem{GiddingsManganoComment2008} S. B. Giddings and M. L. Mangano, ``Comments on claimed risk from metastable black holes,'' arXiv:0808.4087 (2008).
+\bibitem{Casadio2009} R. Casadio, S. Fabi and B. Harms, ``Possibility of catastrophic black hole growth in the warped brane-world scenario at the LHC,'' arXiv:0901.2948 (2009).
+\bibitem{Hawking1975} S. W. Hawking, ``Particle creation by black holes,'' Communications in Mathematical Physics 43, 199--220 (1975).
+\end{thebibliography}
+
+\end{document}

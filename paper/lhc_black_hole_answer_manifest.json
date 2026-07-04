@@ -1,0 +1,21 @@
+{
+  "report_type": "lhc_black_hole_answer",
+  "tex": "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/lhc_black_hole_answer.tex",
+  "pdf": "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/lhc_black_hole_answer.pdf",
+  "figures": [
+    "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/figures/lhc_constructor_demonstration.pdf",
+    "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/figures/lhc_discourse_mechanism_proof.pdf",
+    "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/figures/lhc_formation_mechanism.pdf",
+    "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/figures/lhc_mechanism_actual.pdf",
+    "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/figures/lhc_mechanism_retention.pdf",
+    "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/figures/lhc_physical_constructor.pdf",
+    "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/figures/lhc_physical_tree.pdf",
+    "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/figures/lhc_provenance_full.pdf",
+    "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/figures/lhc_provenance_matrix.pdf",
+    "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/figures/lhc_provenance_summary.pdf",
+    "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/figures/lhc_public_knowledge_graph.pdf",
+    "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/figures/lhc_public_knowledge_graph_full.pdf",
+    "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/paper/figures/lhc_transfer_graph.pdf"
+  ],
+  "source_run": "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/runs/lhc_black_hole_audit_500k_strict"
+}

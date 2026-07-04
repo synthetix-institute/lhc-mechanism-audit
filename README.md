@@ -1,43 +1,106 @@
 # LHC Mechanism Audit
 
-This repository is a worked example for the epistemic-stack contest.  It tests
-a specific claim:
+This repository builds a static, inspectable report on one question:
 
-> A provenance graph can organize the LHC black-hole debate, but it cannot by
-> itself decide the safety argument.  The decisive layer is the mechanism:
-> production assumptions, evaporation or stability branches, capture/stopping,
-> accretion, astrophysical bounds and falsifying observations.
+> Do the processed arXiv papers support a dangerous LHC black-hole scenario?
 
-The repository builds two inspectable graphs from real papers:
+The report compares two layers of evidence. The first is a provenance graph:
+papers connected to extracted claim families. The second is an equation
+mechanism graph: formula windows connected to physical roles such as production,
+evaporation, capture, growth and astronomical bounds. The conclusion is obtained
+from the second layer. A dangerous branch requires production in a parton
+collision, survival against evaporation, stopping or capture in matter, net
+positive growth and consistency with astronomical survival constraints.
 
-1. `provenance_graph.json`: who wrote which paper, what claim family it belongs
-   to, and which sources support or challenge the safety conclusion.
-2. `operational_graph.json`: equation and derivation witnesses, classified by
-   mechanism role, with chain candidates that only exist when source-local
-   equations or explicit derivation language support them.
+The repository does not require the private Hyperion core to build the public
+PDF. It uses static artifacts committed under `runs/lhc_black_hole_audit_500k_strict`.
 
-The point is not to produce another prose summary.  The point is to show what a
-claim graph misses.
+## Build The Main PDF
 
-## Core Sources
+Prerequisites:
 
-The seed set is stored in `data/seed_papers.json`.
+- Python 3.9 or newer
+- `matplotlib`
+- a LaTeX installation with `latexmk`
 
-- Giddings and Mangano, *Astrophysical implications of hypothetical stable
-  TeV-scale black holes*, arXiv:0806.3381.
-- Ellis et al., *Review of the Safety of LHC Collisions*, arXiv:0806.3414.
-- Plaga, *On the potential catastrophic risk from metastable quantum-black
-  holes produced at particle colliders*, arXiv:0808.1415.
-- Koch, Bleicher and Stoecker, *Exclusion of black hole disaster scenarios at
-  the LHC*, arXiv:0807.3349.
-- Giddings and Mangano, *Comments on claimed risk from metastable black holes*,
-  arXiv:0808.4087.
-- Casadio, Fabi and Harms, *Possibility of catastrophic black hole growth in the
-  warped brane-world scenario at the LHC*, arXiv:0901.2948.
+From the repository root:
 
-## Quick Start
+```bash
+python3 -m pip install matplotlib
+scripts/build_lhc_black_hole_answer.sh
+```
 
-Run on the included minimal fixture:
+This writes:
+
+- `paper/lhc_black_hole_answer.tex`
+- `paper/lhc_black_hole_answer.pdf`
+- `paper/lhc_black_hole_answer_manifest.json`
+- `paper/figures/lhc_*.pdf`
+
+To build from a different static run directory:
+
+```bash
+scripts/build_lhc_black_hole_answer.sh \
+  /path/to/lhc_black_hole_audit_500k_strict \
+  paper
+```
+
+The run directory must contain at least:
+
+- `manifest.json`
+- `provenance_graph.json`
+- `equation_mechanism_graph.json`
+- `sparse_attention_audit.json`
+
+The build script also derives:
+
+- `physical_constructor.json`
+- `physical_constructor.md`
+- `public_knowledge_graph.json`
+- `public_knowledge_graph.md`
+- `discourse_vs_mechanism_attention.json`
+- `discourse_vs_mechanism_attention.md`
+
+## What The PDF Contains
+
+The generated report is `paper/lhc_black_hole_answer.pdf`.
+
+It contains:
+
+- a problem-first introduction to the LHC black-hole question;
+- a mechanism verdict expressed as a physical branch;
+- a detailed constructor with six slots and equation conditions;
+- provenance and public knowledge graph figures;
+- a retained equation mechanism graph;
+- representative equation receipts;
+- a transfer analysis from astrophysical black-hole equations to collider variables;
+- a final comparison with the CERN Safety Study Group report, `CERN-2003-001`;
+- references, including the CERN report and LHC-safety papers.
+
+## Static Artifacts
+
+The committed static run is:
+
+```text
+runs/lhc_black_hole_audit_500k_strict/
+```
+
+Important files:
+
+- `manifest.json`: run-level counts and source summary.
+- `provenance_graph.json`: paper and claim-family graph.
+- `equation_witnesses.json`: source-local equation windows.
+- `equation_mechanism_graph.json`: retained equation mechanism graph.
+- `operational_graph.json`: earlier operational graph artifact.
+- `sparse_attention_audit.json`: route-level sparse attention over retained mechanisms.
+- `summary.json`: compact public summary.
+
+These artifacts are derived outputs. They are sufficient to rebuild the public
+PDF and figures without rerunning the full arXiv/Hugging Face selection.
+
+## Regenerating Static Artifacts From Papers
+
+For the minimal included fixture:
 
 ```bash
 python -B scripts/build_lhc_mechanism_audit.py \
@@ -45,7 +108,7 @@ python -B scripts/build_lhc_mechanism_audit.py \
   --out-dir outputs/minimal
 ```
 
-Run on downloaded arXiv sources or PDFs:
+For a folder of downloaded LaTeX sources or PDFs:
 
 ```bash
 python -B scripts/build_lhc_mechanism_audit.py \
@@ -54,96 +117,56 @@ python -B scripts/build_lhc_mechanism_audit.py \
   --knowledgeparser-root /Users/vbaulin/antigr/KnowledgeParser
 ```
 
-Select related literature from a Hugging Face LaTeX dataset:
+For broad arXiv selection from Hugging Face:
 
 ```bash
 python -B scripts/select_lhc_literature.py \
   --dataset synthetix-institute/latex-data-pub \
   --out-dir data/hf_lhc_selection \
-  --max-docs 0
+  --max-docs 500000 \
+  --min-score 3
 ```
 
-Then build from the selected source files:
+Then build the audit from selected sources:
 
 ```bash
 python -B scripts/build_lhc_mechanism_audit.py \
   --papers-dir data/hf_lhc_selection/sources \
-  --out-dir outputs/hf_lhc_audit \
+  --out-dir outputs/lhc_black_hole_audit_500k_strict \
   --knowledgeparser-root /Users/vbaulin/antigr/KnowledgeParser
 ```
 
-## Outputs
-
-The builder writes:
-
-- `sources.json`: selected papers and source files.
-- `provenance_graph.json`: attribution and claim/disagreement graph.
-- `equation_witnesses.json`: extracted equation/local-text witnesses with
-  optional Hyperion operator/substrate fingerprints.
-- `operational_graph.json`: mechanism-role graph and derivation-chain
-  candidates.
-- `shallow_failure.md`: what a provenance-only system can and cannot conclude.
-- `audit_report.md`: compact mechanism-first report.
-
-## Public Demo Report
-
-The public demo report runs only on static audit artifacts. It does not vendor
-or expose Hyperion core files. The intended workflow is:
+To generate the current public PDF from that output:
 
 ```bash
-python -B scripts/build_equation_mechanism_graph.py \
-  --out-dir outputs/lhc_black_hole_audit_500k_strict
-
-bash scripts/build_static_public_demo.sh \
+scripts/build_lhc_black_hole_answer.sh \
   outputs/lhc_black_hole_audit_500k_strict \
   paper
 ```
 
-This writes a non-expert-facing LaTeX report at:
+## CERN Alignment
 
-```text
-paper/lhc_mechanism_audit_demo.tex
-```
+The final chapter of the report compares the branch logic and equations against:
 
-The report contains:
+J.-P. Blaizot, J. Iliopoulos, J. Madsen, G. G. Ross, P. Sonderegger and
+H.-J. Specht, "Study of potentially dangerous events during heavy-ion collisions
+at the LHC: Report of the LHC Safety Study Group", CERN-2003-001 (2003).
 
-- a provenance graph versus mechanism graph explanation;
-- strict evidence-funnel counts;
-- a mechanism-translation map from astrophysical black-hole mechanisms to the
-  collider branch;
-- a sparse-attention audit over the static mechanism graph;
-- clear boundaries explaining that the repo contains derived public artifacts,
-  not the private Hyperion core.
+The report uses the same physical branch structure: production is only the first
+step; a dangerous case also requires survival, accretion faster than decay and
+consistency with astrophysical constraints. The added contribution here is the
+corpus-level separation of claim/provenance evidence from equation-mechanism
+evidence.
 
-For a public smoke test without full cluster outputs, the script can use the
-sanitized summary in `runs/lhc_black_hole_audit_500k_strict/summary.json`.
+## Legacy Demo Scripts
 
-## Final Static Report
+Older demo builders remain in `scripts/` for reference:
 
-The final report uses the full static run artifacts committed under
-`runs/lhc_black_hole_audit_500k_strict/`. It adds a claim/evidence register,
-mechanism-route plots, constructor-role plots, sparse-attention results and
-equation receipt tables.
+- `scripts/build_static_public_demo.sh`
+- `scripts/build_public_demo_report.py`
+
+The main reproducible public report is now built by:
 
 ```bash
-MPLCONFIGDIR=/tmp/lhc-mechanism-mpl python -B scripts/build_final_public_report.py \
-  --run-dir runs/lhc_black_hole_audit_500k_strict \
-  --paper-dir paper
-
-cd paper
-latexmk -pdf lhc_mechanism_audit_final.tex
+scripts/build_lhc_black_hole_answer.sh
 ```
-
-This writes:
-
-- `paper/lhc_mechanism_audit_final.tex`
-- `paper/lhc_mechanism_audit_final.pdf`
-- `paper/figures/final_*.pdf`
-
-## Claim Boundary
-
-This repository does not claim that an automated script resolves the LHC safety
-question.  It demonstrates a stricter evaluation layer: claims are demoted when
-they lack a source-local equation witness, an explicit mechanism role, or a
-testable physical branch.  The output should be inspected as an audit object,
-not as a final physics review.

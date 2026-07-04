@@ -1,0 +1,1413 @@
+{
+  "report_type": "lhc_physical_constructor",
+  "schema": "KnowledgeParser operator/substrate constructor adapter",
+  "source_run": "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/runs/lhc_black_hole_audit_500k_strict",
+  "input_counts": {
+    "source_witness_count": 1408,
+    "usable_mechanism_node_count": 204,
+    "case_relevant_mechanism_node_count": 72,
+    "evidence_grade_case_mechanism_node_count": 35,
+    "direct_lhc_safety_mechanism_node_count": 0,
+    "astrophysical_analogue_mechanism_node_count": 28,
+    "production_threshold_mechanism_node_count": 1
+  },
+  "branch_closed": false,
+  "branch_verdict": "broken_danger_branch",
+  "filled_direct_hooks": [
+    "production_selector"
+  ],
+  "transfer_only_slots": [
+    "survival_lifetime",
+    "stopping_capture",
+    "net_positive_growth",
+    "growth_timescale",
+    "astronomical_bound_evasion"
+  ],
+  "broken_required_slots": [
+    "survival_lifetime",
+    "stopping_capture",
+    "net_positive_growth",
+    "growth_timescale",
+    "astronomical_bound_evasion"
+  ],
+  "slots": [
+    {
+      "slot_id": "production_selector",
+      "label": "production threshold",
+      "required_condition": "parton collision can enter a low-scale-gravity production channel",
+      "equation_template": "\\sqrt{\\hat s}=\\sqrt{x_1x_2s}>M_{\\min},\\quad \\sigma_{\\rm form}\\sim \\pi r_s^2(M,M_D,n)",
+      "route_need": [
+        "constraint_closure",
+        "boundary_weak_form"
+      ],
+      "status": "direct_hook",
+      "direct_receipt_count": 1,
+      "transfer_receipt_count": 0,
+      "direct_receipts": [
+        {
+          "node_id": "E00053",
+          "source_id": "0904.0230",
+          "formula": "|y_{\\gamma \\gamma}| \\leq 1",
+          "context": "icantly enhance the signal for the Higgs search at the LHC. We evaluate rapidity distribution of diphotons and transverse momentum distribution of bottom quarks, photons, tau leptons, top quarks and W bosons from Higgs decay, when Higgs is emitted from the black hole and also in case when these particles are produced directly from the black hole evaporation. We compare our results with the standard model backgrounds. We find that Higgs production from black holes is dominant over standard model production for $p_T^H > 100$ GeV, when $M_P=1$TeV. Diphotons from Higgs, when Higgs is produced from evaporation of black holes, are dominant over the standard model prediction, for diphoton rapidi...",
+          "text_role": "production_threshold",
+          "route_signature": [
+            "constraint_closure",
+            "boundary_weak_form"
+          ],
+          "constructor_roles": [
+            "real_substrate_geometry",
+            "selector"
+          ],
+          "pair_status": "partial_constructor_pair",
+          "formula_detail_score": 4,
+          "local_categories": [
+            "black_hole",
+            "collider_threshold"
+          ],
+          "branch_labels": [
+            "production_threshold_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [
+              "y_\\{?\\\\gamma"
+            ],
+            "context_hits": [
+              "LHC|collider|parton|Planck|extra dimension|TeV",
+              "black hole (?:production|formation|evaporation)",
+              "Higgs|diphoton|transverse momentum|rapidity"
+            ],
+            "route_hits": [
+              "boundary_weak_form",
+              "constraint_closure"
+            ]
+          }
+        }
+      ],
+      "transfer_receipts": []
+    },
+    {
+      "slot_id": "survival_lifetime",
+      "label": "survival against evaporation",
+      "required_condition": "object lifetime exceeds the capture or stopping time",
+      "equation_template": "\\tau_{\\rm evap}(M,M_D,n)>\\tau_{\\rm capture}",
+      "route_need": [
+        "transport_flow",
+        "constraint_closure"
+      ],
+      "status": "transfer_only",
+      "direct_receipt_count": 0,
+      "transfer_receipt_count": 6,
+      "direct_receipts": [],
+      "transfer_receipts": [
+        {
+          "node_id": "E01142",
+          "source_id": "astro-ph0212297",
+          "formula": "B_c\\simeq 10^{16}\\mbox{G}\\left({7M_\\odot}/{M_H}\\right) \\left({6M_H}/{R}\\right)^2\\left({M_T}/{0.03M_H}\\right)^{1/2}",
+          "context": "Theory and astrophysical consequences of a magnetized torus around a rapidly rotating black hole We analyze the topology, lifetime, and emissions of a torus around a black hole formed in hypernovae and black hole-neutron star coalescence. The torus is ab initio uniformly magnetized, represented by two counter oriented current-rings, and develops a state of suspended accretion against a ``magnetic wall\" around the black hole. Magnetic stability of the torus gives rise to a new fundamental limit ${\\cal E_B}/{{\\cal E}_k}<0.1$ for the ratio of poloidal magnetic field energy-to-kinetic energy, corresponding to a maximum magnetic field strength $B_c\\simeq 10^{16}\\mbox{G}\\left({7M_\\odot}/{M_H}\\r...",
+          "text_role": "evaporation_branch",
+          "route_signature": [
+            "constraint_closure",
+            "transport_flow",
+            "spectral_operator"
+          ],
+          "constructor_roles": [
+            "operator_apparatus",
+            "selector"
+          ],
+          "pair_status": "partial_constructor_pair",
+          "formula_detail_score": 8,
+          "local_categories": [
+            "accretion_growth",
+            "astrophysical_bound",
+            "black_hole",
+            "evaporation_branch"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "evaporation_branch",
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [],
+            "context_hits": [
+              "evaporat|Hawking|lifetime|mass[- ]loss"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "transport_flow"
+            ]
+          }
+        },
+        {
+          "node_id": "E00147",
+          "source_id": "1109.6593",
+          "formula": "M_{turn}=1-1.5 ~M_{\\odot}",
+          "context": "ard X-rays emanating from the black hole broad line region, increased cosmic ray rates due to supernovae in starbursts, and strong UV radiation produced by nearby massive stars. We also investigate the importance of shear from the supermassive, $10^{6}-10^{8} ~M_{\\odot}$, black hole as the star-forming cloud orbits around it. A grid of 42 models is created and calculated with the hydrodynamical code FLASH. We find that thermal pressure from X-rays compresses the cloud, which induces a high star-formation rate early on, but reduces the overall star-formation efficiency to about 7\\% due to gas depletion by evaporation. We see that the turn-over mass of the IMF increases up to a factor of 2....",
+          "text_role": "astrophysical_bound",
+          "route_signature": [
+            "constraint_closure",
+            "spectral_operator",
+            "boundary_weak_form",
+            "transport_flow"
+          ],
+          "constructor_roles": [
+            "closure_constraints",
+            "operator_apparatus",
+            "real_substrate_geometry",
+            "selector"
+          ],
+          "pair_status": "partial_constructor_pair",
+          "formula_detail_score": 6,
+          "local_categories": [
+            "astrophysical_bound",
+            "black_hole",
+            "evaporation_branch"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "evaporation_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [],
+            "context_hits": [
+              "evaporat|Hawking|lifetime|mass[- ]loss"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "transport_flow"
+            ]
+          }
+        },
+        {
+          "node_id": "E01020",
+          "source_id": "1604.02455",
+          "formula": "4000M \\sim 60(M_{\\rm NS/1.625M_\\odot)",
+          "context": "s in full general relativity (GRMHD) of quasi-circular, equal-mass, binary neutron stars that undergo merger. The initial stars are irrotational, $n=1$ polytropes and are magnetized. We explore two types of magnetic-field geometries: one where each star is endowed with a dipole magnetic field extending from the interior into the exterior, as in a pulsar, and the other where the dipole field is initially confined to the interior. In both cases the adopted magnetic fields are initially dynamically unimportant. The merger outcome is a hypermassive neutron star that undergoes delayed collapse to a black hole (spin parameter $a/M_{\\rm BH \\sim 0.74$) immersed in a magnetized accretion disk. Abo...",
+          "text_role": "astrophysical_bound",
+          "route_signature": [
+            "constraint_closure",
+            "transport_flow",
+            "spectral_operator"
+          ],
+          "constructor_roles": [
+            "operator_apparatus",
+            "real_substrate_geometry",
+            "selector"
+          ],
+          "pair_status": "partial_constructor_pair",
+          "formula_detail_score": 6,
+          "local_categories": [
+            "accretion_growth",
+            "astrophysical_bound",
+            "black_hole",
+            "evaporation_branch"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "evaporation_branch",
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [],
+            "context_hits": [
+              "evaporat|Hawking|lifetime|mass[- ]loss"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "transport_flow"
+            ]
+          }
+        },
+        {
+          "node_id": "E01021",
+          "source_id": "1604.02455",
+          "formula": "\\Delta t \\sim 0.1 (M_{\\rm NS/1.625M_\\odot)",
+          "context": "tending from the interior into the exterior, as in a pulsar, and the other where the dipole field is initially confined to the interior. In both cases the adopted magnetic fields are initially dynamically unimportant. The merger outcome is a hypermassive neutron star that undergoes delayed collapse to a black hole (spin parameter $a/M_{\\rm BH \\sim 0.74$) immersed in a magnetized accretion disk. About $4000M \\sim 60(M_{\\rm NS/1.625M_\\odot)$ ms following merger, the region above the black hole poles becomes strongly magnetized, and a collimated, mildly relativistic outflow --- an incipient jet --- is launched. The lifetime of the accretion disk, which likely equals the lifetime of the jet, ...",
+          "text_role": "capture_stopping",
+          "route_signature": [
+            "constraint_closure",
+            "transport_flow",
+            "spectral_operator"
+          ],
+          "constructor_roles": [
+            "operator_apparatus",
+            "real_substrate_geometry",
+            "selector"
+          ],
+          "pair_status": "partial_constructor_pair",
+          "formula_detail_score": 6,
+          "local_categories": [
+            "accretion_growth",
+            "astrophysical_bound",
+            "black_hole",
+            "evaporation_branch"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "evaporation_branch",
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [],
+            "context_hits": [
+              "evaporat|Hawking|lifetime|mass[- ]loss"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "transport_flow"
+            ]
+          }
+        },
+        {
+          "node_id": "E01141",
+          "source_id": "astro-ph0212297",
+          "formula": "{\\cal E_B}/{{\\cal E}_k}<0.1",
+          "context": "Theory and astrophysical consequences of a magnetized torus around a rapidly rotating black hole We analyze the topology, lifetime, and emissions of a torus around a black hole formed in hypernovae and black hole-neutron star coalescence. The torus is ab initio uniformly magnetized, represented by two counter oriented current-rings, and develops a state of suspended accretion against a ``magnetic wall\" around the black hole. Magnetic stability of the torus gives rise to a new fundamental limit ${\\cal E_B}/{{\\cal E}_k}<0.1$ for the ratio of poloidal magnetic field energy-to-kinetic energy, corresponding to a maximum magnetic field strength $B_c\\simeq 10^{16}\\mbox{G}\\left({7M_\\odot}/{M_H}\\r...",
+          "text_role": "evaporation_branch",
+          "route_signature": [
+            "constraint_closure",
+            "spectral_operator",
+            "transport_flow"
+          ],
+          "constructor_roles": [
+            "operator_apparatus"
+          ],
+          "pair_status": "partial_constructor_pair",
+          "formula_detail_score": 6,
+          "local_categories": [
+            "accretion_growth",
+            "astrophysical_bound",
+            "black_hole",
+            "evaporation_branch"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "evaporation_branch",
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [],
+            "context_hits": [
+              "evaporat|Hawking|lifetime|mass[- ]loss"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "transport_flow"
+            ]
+          }
+        },
+        {
+          "node_id": "E00149",
+          "source_id": "1109.6593",
+          "formula": "\\Gamma_{Salpeter}=-1.35",
+          "context": "ive stars. We also investigate the importance of shear from the supermassive, $10^{6}-10^{8} ~M_{\\odot}$, black hole as the star-forming cloud orbits around it. A grid of 42 models is created and calculated with the hydrodynamical code FLASH. We find that thermal pressure from X-rays compresses the cloud, which induces a high star-formation rate early on, but reduces the overall star-formation efficiency to about 7\\% due to gas depletion by evaporation. We see that the turn-over mass of the IMF increases up to a factor of 2.3, $M_{turn}=1-1.5 ~M_{\\odot}$, for the model with the highest X-ray flux (160 $erg ~s^{-1} ~cm^{-2}$), while the high-mass slope of the IMF becomes $\\Gamma \\gtrsim -1...",
+          "text_role": "evaporation_branch",
+          "route_signature": [
+            "constraint_closure",
+            "boundary_weak_form",
+            "spectral_operator"
+          ],
+          "constructor_roles": [
+            "closure_constraints",
+            "operator_apparatus",
+            "real_substrate_geometry",
+            "selector"
+          ],
+          "pair_status": "partial_constructor_pair",
+          "formula_detail_score": 5,
+          "local_categories": [
+            "astrophysical_bound",
+            "black_hole",
+            "evaporation_branch"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "evaporation_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [],
+            "context_hits": [
+              "evaporat|Hawking|lifetime|mass[- ]loss"
+            ],
+            "route_hits": [
+              "constraint_closure"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "slot_id": "stopping_capture",
+      "label": "stopping or capture in matter",
+      "required_condition": "object loses enough kinetic energy to remain inside matter",
+      "equation_template": "L_{\\rm stop}(M,v,\\rho,\\sigma)<L_{\\rm body}\\quad {\\rm or}\\quad \\tau_{\\rm capture}<\\tau_{\\rm escape}",
+      "route_need": [
+        "transport_flow",
+        "constraint_closure"
+      ],
+      "status": "transfer_only",
+      "direct_receipt_count": 0,
+      "transfer_receipt_count": 1,
+      "direct_receipts": [],
+      "transfer_receipts": [
+        {
+          "node_id": "E01083",
+          "source_id": "astro-ph0105365",
+          "formula": "\\dot M \\sim (R_{in}/R_a)\\dot M_{Bondi}",
+          "context": "n to a state of self-sustained convection. The radial structure of the flow changes dramatically from its initial Bondi profile, and the mass accretion rate onto the black hole decreases significantly. Motivated by the numerical results, we develop a simplified analytical model of a radiatively inefficient spherical flow in which convective transport of energy to large radii plays an important role. In this ``convection-dominated Bondi flow'' the accretion velocity is highly subsonic and the density varies with radius as $\\rho\\propto R^{-1/2}$ rather than the standard Bondi scaling $\\rho\\propto R^{-3/2}$. We estimate that the mass accretion rate onto the black hole correspondingly scales ...",
+          "text_role": "accretion_growth",
+          "route_signature": [
+            "transport_flow",
+            "constraint_closure",
+            "spectral_operator"
+          ],
+          "constructor_roles": [
+            "operator_apparatus",
+            "selector"
+          ],
+          "pair_status": "partial_constructor_pair",
+          "formula_detail_score": 5,
+          "local_categories": [
+            "accretion_growth",
+            "black_hole",
+            "capture_stopping"
+          ],
+          "branch_labels": [
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [
+              "Bondi"
+            ],
+            "context_hits": [
+              "capture|stopping|energy loss|Bondi|accretion radius|remain inside",
+              "compact object|neutron star|white dwarf"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "transport_flow"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "slot_id": "net_positive_growth",
+      "label": "net positive mass growth",
+      "required_condition": "matter intake exceeds mass loss",
+      "equation_template": "\\dot M_{\\rm net}=\\rho\\,\\sigma(M)\\,v-P_{\\rm evap}(M)/c^2>0",
+      "route_need": [
+        "transport_flow",
+        "constraint_closure",
+        "spectral_operator"
+      ],
+      "status": "transfer_only",
+      "direct_receipt_count": 0,
+      "transfer_receipt_count": 29,
+      "direct_receipts": [],
+      "transfer_receipts": [
+        {
+          "node_id": "E00034",
+          "source_id": "0807.3458",
+          "formula": "3 \\times 10^{-13}~\\mathrm{M}_{\\odot}~\\mathrm{yr}^{-1} \\lesssim \\langle \\dot{M}_{\\mathrm{long}} \\rangle \\lesssim 1 \\times 10^{-10}~\\mathrm{M}_{\\odot}~\\mathrm{yr}^{-1}",
+          "context": "een quiescence and full outburst. We discuss the possibility that the subluminous appearance of the eclipsing X-ray burster AX J1745.6-2901 is due to line-of-sight effects. We detected two type-I X-ray bursts with a duration of 50-60 seconds from AX J1745.6-2901, which we discuss in view of the bursting behavior of low-luminosity X-ray transients. Assuming that we are dealing with accreting neutron stars and black holes, we estimate the time-average accretion rate, $\\langle \\dot{M}_{\\mathrm{long}} \\rangle$, of the transients, which is an important input parameter for binary evolution models that attempt to explain the nature of subluminous X-ray transients. Our estimates lie in the range ...",
+          "text_role": "accretion_growth",
+          "route_signature": [
+            "transport_flow",
+            "constraint_closure",
+            "spectral_operator"
+          ],
+          "constructor_roles": [
+            "operator_apparatus",
+            "readout_current",
+            "real_substrate_geometry"
+          ],
+          "pair_status": "complete_constructor_pair",
+          "formula_detail_score": 11,
+          "local_categories": [
+            "accretion_growth",
+            "astrophysical_bound",
+            "black_hole",
+            "evaporation_branch"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "evaporation_branch",
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [
+              "\\\\dot\\{?M|\\\\dot\\s*M|Mdot|\\\\langle\\s*\\\\dot\\{?M",
+              "\\\\dot\\{?m|\\\\dot\\s*m"
+            ],
+            "context_hits": [
+              "accretion|growth|mass[- ]growth|mass intake|time-average accretion",
+              "luminosity|Eddington|Bondi"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "spectral_operator",
+              "transport_flow"
+            ]
+          }
+        },
+        {
+          "node_id": "E00035",
+          "source_id": "0807.3458",
+          "formula": "4 \\times 10^{-14}~\\mathrm{M}_{\\odot}~\\mathrm{yr}^{-1} \\lesssim \\langle \\dot{M}_{\\mathrm{long}} \\rangle \\lesssim 2 \\times 10^{-11}~\\mathrm{M}_{\\odot}~\\mathrm{yr}^{-1}",
+          "context": "0-60 seconds from AX J1745.6-2901, which we discuss in view of the bursting behavior of low-luminosity X-ray transients. Assuming that we are dealing with accreting neutron stars and black holes, we estimate the time-average accretion rate, $\\langle \\dot{M}_{\\mathrm{long}} \\rangle$, of the transients, which is an important input parameter for binary evolution models that attempt to explain the nature of subluminous X-ray transients. Our estimates lie in the range of $ 3 \\times 10^{-13}~\\mathrm{M}_{\\odot}~\\mathrm{yr}^{-1} \\lesssim \\langle \\dot{M}_{\\mathrm{long}} \\rangle \\lesssim 1 \\times 10^{-10}~\\mathrm{M}_{\\odot}~\\mathrm{yr}^{-1}$, if the systems are neutron star X-ray binaries and betwe...",
+          "text_role": "accretion_growth",
+          "route_signature": [
+            "transport_flow",
+            "constraint_closure",
+            "spectral_operator"
+          ],
+          "constructor_roles": [
+            "operator_apparatus",
+            "readout_current",
+            "real_substrate_geometry"
+          ],
+          "pair_status": "complete_constructor_pair",
+          "formula_detail_score": 11,
+          "local_categories": [
+            "accretion_growth",
+            "astrophysical_bound",
+            "black_hole",
+            "evaporation_branch"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "evaporation_branch",
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [
+              "\\\\dot\\{?M|\\\\dot\\s*M|Mdot|\\\\langle\\s*\\\\dot\\{?M",
+              "\\\\dot\\{?m|\\\\dot\\s*m"
+            ],
+            "context_hits": [
+              "accretion|growth|mass[- ]growth|mass intake|time-average accretion",
+              "luminosity|Eddington|Bondi"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "spectral_operator",
+              "transport_flow"
+            ]
+          }
+        },
+        {
+          "node_id": "E01098",
+          "source_id": "astro-ph0109539",
+          "formula": "\\langle M\\rangle \\sim 9 {M}_\\odot",
+          "context": "X-Rays from Isolated Black Holes in the Milky Way Galactic stellar-population-synthesis models, chemical-enrichment models, and long-duration Bulge microlensing events indicate about $N_{tot}=10^8-10^9$ stellar-mass black holes reside in our Galaxy. We study X-ray emission {}from accretion from the interstellar medium on to isolated black holes. Although isolated black holes may be fewer in number than neutron stars, $N_{NS} \\sim 10^9$, their higher masses, $\\langle M\\rangle \\sim 9 {M}_\\odot$, and smaller space velocities, $\\sigma_v \\sim 40$ km~s$^{-1}$ result in Bondi-Hoyle accretion rates $\\sim 4 \\times 10^3$ times higher than for neutron stars. We estimate that $\\sim 10^4$ isolated bla...",
+          "text_role": "accretion_growth",
+          "route_signature": [
+            "constraint_closure",
+            "spectral_operator",
+            "transport_flow"
+          ],
+          "constructor_roles": [
+            "operator_apparatus",
+            "readout_current",
+            "real_substrate_geometry"
+          ],
+          "pair_status": "partial_constructor_pair",
+          "formula_detail_score": 8,
+          "local_categories": [
+            "accretion_growth",
+            "black_hole"
+          ],
+          "branch_labels": [
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [],
+            "context_hits": [
+              "accretion|growth|mass[- ]growth|mass intake|time-average accretion",
+              "luminosity|Eddington|Bondi"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "spectral_operator",
+              "transport_flow"
+            ]
+          }
+        },
+        {
+          "node_id": "E01142",
+          "source_id": "astro-ph0212297",
+          "formula": "B_c\\simeq 10^{16}\\mbox{G}\\left({7M_\\odot}/{M_H}\\right) \\left({6M_H}/{R}\\right)^2\\left({M_T}/{0.03M_H}\\right)^{1/2}",
+          "context": "Theory and astrophysical consequences of a magnetized torus around a rapidly rotating black hole We analyze the topology, lifetime, and emissions of a torus around a black hole formed in hypernovae and black hole-neutron star coalescence. The torus is ab initio uniformly magnetized, represented by two counter oriented current-rings, and develops a state of suspended accretion against a ``magnetic wall\" around the black hole. Magnetic stability of the torus gives rise to a new fundamental limit ${\\cal E_B}/{{\\cal E}_k}<0.1$ for the ratio of poloidal magnetic field energy-to-kinetic energy, corresponding to a maximum magnetic field strength $B_c\\simeq 10^{16}\\mbox{G}\\left({7M_\\odot}/{M_H}\\r...",
+          "text_role": "evaporation_branch",
+          "route_signature": [
+            "constraint_closure",
+            "transport_flow",
+            "spectral_operator"
+          ],
+          "constructor_roles": [
+            "operator_apparatus",
+            "selector"
+          ],
+          "pair_status": "partial_constructor_pair",
+          "formula_detail_score": 8,
+          "local_categories": [
+            "accretion_growth",
+            "astrophysical_bound",
+            "black_hole",
+            "evaporation_branch"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "evaporation_branch",
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [],
+            "context_hits": [
+              "accretion|growth|mass[- ]growth|mass intake|time-average accretion"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "spectral_operator",
+              "transport_flow"
+            ]
+          }
+        },
+        {
+          "node_id": "E00825",
+          "source_id": "1307.7685",
+          "formula": "\\delta M_{BH}< 5 \\times 10^{-4}M_{BH}",
+          "context": "n the most likely range of mass ratio for neutron star-black hole systems ($q=6$). In this region of the parameter space, the neutron star is not tidally disrupted prior to merger, and we show that the two types of mergers appear remarkably similar. The effect of the presence of a neutron star on the gravitational wave signal is not only undetectable by the next generation of gravitational wave detectors, but also too small to be measured in the numerical simulations: even the plunge, merger and ringdown signals appear in perfect agreement for both types of binaries. The characteristics of the post-merger remnants are equally similar, with the masses of the final black holes agreeing with...",
+          "text_role": "capture_stopping",
+          "route_signature": [
+            "constraint_closure",
+            "transport_flow",
+            "spectral_operator"
+          ],
+          "constructor_roles": [
+            "operator_apparatus",
+            "real_substrate_geometry",
+            "selector"
+          ],
+          "pair_status": "partial_constructor_pair",
+          "formula_detail_score": 7,
+          "local_categories": [
+            "accretion_growth",
+            "astrophysical_bound",
+            "black_hole"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [
+              "\\\\delta\\s*M"
+            ],
+            "context_hits": [
+              "accretion|growth|mass[- ]growth|mass intake|time-average accretion"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "spectral_operator",
+              "transport_flow"
+            ]
+          }
+        },
+        {
+          "node_id": "E00826",
+          "source_id": "1307.7685",
+          "formula": "\\delta \\chi_{BH}< 10^{-3}",
+          "context": "=6$). In this region of the parameter space, the neutron star is not tidally disrupted prior to merger, and we show that the two types of mergers appear remarkably similar. The effect of the presence of a neutron star on the gravitational wave signal is not only undetectable by the next generation of gravitational wave detectors, but also too small to be measured in the numerical simulations: even the plunge, merger and ringdown signals appear in perfect agreement for both types of binaries. The characteristics of the post-merger remnants are equally similar, with the masses of the final black holes agreeing within $\\delta M_{BH}< 5 \\times 10^{-4}M_{BH}$ and their dimensionless spins with...",
+          "text_role": "capture_stopping",
+          "route_signature": [
+            "constraint_closure",
+            "transport_flow",
+            "spectral_operator"
+          ],
+          "constructor_roles": [
+            "operator_apparatus",
+            "real_substrate_geometry",
+            "selector"
+          ],
+          "pair_status": "partial_constructor_pair",
+          "formula_detail_score": 6,
+          "local_categories": [
+            "accretion_growth",
+            "astrophysical_bound",
+            "black_hole"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [],
+            "context_hits": [
+              "accretion|growth|mass[- ]growth|mass intake|time-average accretion"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "spectral_operator",
+              "transport_flow"
+            ]
+          }
+        },
+        {
+          "node_id": "E00932",
+          "source_id": "1503.07522",
+          "formula": "\\mu_4\\equiv(\\mathrm{dm/M_\\odot)/(\\mathrm{dr/1000\\,\\mathrm{km)|_{s=4",
+          "context": ") or a black hole) solely by its structure prior to core collapse has been ambiguous. Our work and previous attempts find a non-monotonic variation of successful and failed supernovae with zero-age main-sequence mass, for which no single structural parameter can serve as a good predictive measure. However, we identify two parameters computed from the pre-collapse structure of the progenitor, which in combination allow for a clear separation of exploding and non-exploding cases with only few exceptions ($\\sim$1--2.5\\%) in our set of 621 investigated stellar models. One parameter is $M_4$, defining the normalized enclosed mass for a dimensionless entropy per nucleon of $s=4$, and the other ...",
+          "text_role": "production_threshold",
+          "route_signature": [
+            "spectral_operator",
+            "transport_flow"
+          ],
+          "constructor_roles": [
+            "operator_apparatus",
+            "real_substrate_geometry"
+          ],
+          "pair_status": "partial_constructor_pair",
+          "formula_detail_score": 6,
+          "local_categories": [
+            "accretion_growth",
+            "black_hole"
+          ],
+          "branch_labels": [
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [],
+            "context_hits": [
+              "accretion|growth|mass[- ]growth|mass intake|time-average accretion",
+              "luminosity|Eddington|Bondi"
+            ],
+            "route_hits": [
+              "spectral_operator",
+              "transport_flow"
+            ]
+          }
+        },
+        {
+          "node_id": "E01020",
+          "source_id": "1604.02455",
+          "formula": "4000M \\sim 60(M_{\\rm NS/1.625M_\\odot)",
+          "context": "s in full general relativity (GRMHD) of quasi-circular, equal-mass, binary neutron stars that undergo merger. The initial stars are irrotational, $n=1$ polytropes and are magnetized. We explore two types of magnetic-field geometries: one where each star is endowed with a dipole magnetic field extending from the interior into the exterior, as in a pulsar, and the other where the dipole field is initially confined to the interior. In both cases the adopted magnetic fields are initially dynamically unimportant. The merger outcome is a hypermassive neutron star that undergoes delayed collapse to a black hole (spin parameter $a/M_{\\rm BH \\sim 0.74$) immersed in a magnetized accretion disk. Abo...",
+          "text_role": "astrophysical_bound",
+          "route_signature": [
+            "constraint_closure",
+            "transport_flow",
+            "spectral_operator"
+          ],
+          "constructor_roles": [
+            "operator_apparatus",
+            "real_substrate_geometry",
+            "selector"
+          ],
+          "pair_status": "partial_constructor_pair",
+          "formula_detail_score": 6,
+          "local_categories": [
+            "accretion_growth",
+            "astrophysical_bound",
+            "black_hole",
+            "evaporation_branch"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "evaporation_branch",
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [],
+            "context_hits": [
+              "accretion|growth|mass[- ]growth|mass intake|time-average accretion"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "spectral_operator",
+              "transport_flow"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "slot_id": "growth_timescale",
+      "label": "growth on a relevant timescale",
+      "required_condition": "integrated growth time is shorter than the physical exposure time",
+      "equation_template": "t_{\\rm grow}=\\int_{M_0}^{M_*}\\frac{dM}{\\dot M_{\\rm net}(M)}<t_{\\rm exposure}",
+      "route_need": [
+        "transport_flow",
+        "constraint_closure"
+      ],
+      "status": "transfer_only",
+      "direct_receipt_count": 0,
+      "transfer_receipt_count": 11,
+      "direct_receipts": [],
+      "transfer_receipts": [
+        {
+          "node_id": "E00034",
+          "source_id": "0807.3458",
+          "formula": "3 \\times 10^{-13}~\\mathrm{M}_{\\odot}~\\mathrm{yr}^{-1} \\lesssim \\langle \\dot{M}_{\\mathrm{long}} \\rangle \\lesssim 1 \\times 10^{-10}~\\mathrm{M}_{\\odot}~\\mathrm{yr}^{-1}",
+          "context": "een quiescence and full outburst. We discuss the possibility that the subluminous appearance of the eclipsing X-ray burster AX J1745.6-2901 is due to line-of-sight effects. We detected two type-I X-ray bursts with a duration of 50-60 seconds from AX J1745.6-2901, which we discuss in view of the bursting behavior of low-luminosity X-ray transients. Assuming that we are dealing with accreting neutron stars and black holes, we estimate the time-average accretion rate, $\\langle \\dot{M}_{\\mathrm{long}} \\rangle$, of the transients, which is an important input parameter for binary evolution models that attempt to explain the nature of subluminous X-ray transients. Our estimates lie in the range ...",
+          "text_role": "accretion_growth",
+          "route_signature": [
+            "transport_flow",
+            "constraint_closure",
+            "spectral_operator"
+          ],
+          "constructor_roles": [
+            "operator_apparatus",
+            "readout_current",
+            "real_substrate_geometry"
+          ],
+          "pair_status": "complete_constructor_pair",
+          "formula_detail_score": 11,
+          "local_categories": [
+            "accretion_growth",
+            "astrophysical_bound",
+            "black_hole",
+            "evaporation_branch"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "evaporation_branch",
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [
+              "(?:yr|Myr|Gyr|second|sec)",
+              "\\\\dot\\{?M|\\\\dot\\s*M|M_\\{?\\\\odot\\s*/\\s*(?:yr|year)"
+            ],
+            "context_hits": [
+              "timescale|growth time|time-average|lifetime|duration|delayed collapse"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "transport_flow"
+            ]
+          }
+        },
+        {
+          "node_id": "E00035",
+          "source_id": "0807.3458",
+          "formula": "4 \\times 10^{-14}~\\mathrm{M}_{\\odot}~\\mathrm{yr}^{-1} \\lesssim \\langle \\dot{M}_{\\mathrm{long}} \\rangle \\lesssim 2 \\times 10^{-11}~\\mathrm{M}_{\\odot}~\\mathrm{yr}^{-1}",
+          "context": "0-60 seconds from AX J1745.6-2901, which we discuss in view of the bursting behavior of low-luminosity X-ray transients. Assuming that we are dealing with accreting neutron stars and black holes, we estimate the time-average accretion rate, $\\langle \\dot{M}_{\\mathrm{long}} \\rangle$, of the transients, which is an important input parameter for binary evolution models that attempt to explain the nature of subluminous X-ray transients. Our estimates lie in the range of $ 3 \\times 10^{-13}~\\mathrm{M}_{\\odot}~\\mathrm{yr}^{-1} \\lesssim \\langle \\dot{M}_{\\mathrm{long}} \\rangle \\lesssim 1 \\times 10^{-10}~\\mathrm{M}_{\\odot}~\\mathrm{yr}^{-1}$, if the systems are neutron star X-ray binaries and betwe...",
+          "text_role": "accretion_growth",
+          "route_signature": [
+            "transport_flow",
+            "constraint_closure",
+            "spectral_operator"
+          ],
+          "constructor_roles": [
+            "operator_apparatus",
+            "readout_current",
+            "real_substrate_geometry"
+          ],
+          "pair_status": "complete_constructor_pair",
+          "formula_detail_score": 11,
+          "local_categories": [
+            "accretion_growth",
+            "astrophysical_bound",
+            "black_hole",
+            "evaporation_branch"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "evaporation_branch",
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [
+              "(?:yr|Myr|Gyr|second|sec)",
+              "\\\\dot\\{?M|\\\\dot\\s*M|M_\\{?\\\\odot\\s*/\\s*(?:yr|year)"
+            ],
+            "context_hits": [
+              "timescale|growth time|time-average|lifetime|duration|delayed collapse"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "transport_flow"
+            ]
+          }
+        },
+        {
+          "node_id": "E01142",
+          "source_id": "astro-ph0212297",
+          "formula": "B_c\\simeq 10^{16}\\mbox{G}\\left({7M_\\odot}/{M_H}\\right) \\left({6M_H}/{R}\\right)^2\\left({M_T}/{0.03M_H}\\right)^{1/2}",
+          "context": "Theory and astrophysical consequences of a magnetized torus around a rapidly rotating black hole We analyze the topology, lifetime, and emissions of a torus around a black hole formed in hypernovae and black hole-neutron star coalescence. The torus is ab initio uniformly magnetized, represented by two counter oriented current-rings, and develops a state of suspended accretion against a ``magnetic wall\" around the black hole. Magnetic stability of the torus gives rise to a new fundamental limit ${\\cal E_B}/{{\\cal E}_k}<0.1$ for the ratio of poloidal magnetic field energy-to-kinetic energy, corresponding to a maximum magnetic field strength $B_c\\simeq 10^{16}\\mbox{G}\\left({7M_\\odot}/{M_H}\\r...",
+          "text_role": "evaporation_branch",
+          "route_signature": [
+            "constraint_closure",
+            "transport_flow",
+            "spectral_operator"
+          ],
+          "constructor_roles": [
+            "operator_apparatus",
+            "selector"
+          ],
+          "pair_status": "partial_constructor_pair",
+          "formula_detail_score": 8,
+          "local_categories": [
+            "accretion_growth",
+            "astrophysical_bound",
+            "black_hole",
+            "evaporation_branch"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "evaporation_branch",
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [],
+            "context_hits": [
+              "timescale|growth time|time-average|lifetime|duration|delayed collapse"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "transport_flow"
+            ]
+          }
+        },
+        {
+          "node_id": "E01020",
+          "source_id": "1604.02455",
+          "formula": "4000M \\sim 60(M_{\\rm NS/1.625M_\\odot)",
+          "context": "s in full general relativity (GRMHD) of quasi-circular, equal-mass, binary neutron stars that undergo merger. The initial stars are irrotational, $n=1$ polytropes and are magnetized. We explore two types of magnetic-field geometries: one where each star is endowed with a dipole magnetic field extending from the interior into the exterior, as in a pulsar, and the other where the dipole field is initially confined to the interior. In both cases the adopted magnetic fields are initially dynamically unimportant. The merger outcome is a hypermassive neutron star that undergoes delayed collapse to a black hole (spin parameter $a/M_{\\rm BH \\sim 0.74$) immersed in a magnetized accretion disk. Abo...",
+          "text_role": "astrophysical_bound",
+          "route_signature": [
+            "constraint_closure",
+            "transport_flow",
+            "spectral_operator"
+          ],
+          "constructor_roles": [
+            "operator_apparatus",
+            "real_substrate_geometry",
+            "selector"
+          ],
+          "pair_status": "partial_constructor_pair",
+          "formula_detail_score": 6,
+          "local_categories": [
+            "accretion_growth",
+            "astrophysical_bound",
+            "black_hole",
+            "evaporation_branch"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "evaporation_branch",
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [],
+            "context_hits": [
+              "timescale|growth time|time-average|lifetime|duration|delayed collapse"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "transport_flow"
+            ]
+          }
+        },
+        {
+          "node_id": "E01021",
+          "source_id": "1604.02455",
+          "formula": "\\Delta t \\sim 0.1 (M_{\\rm NS/1.625M_\\odot)",
+          "context": "tending from the interior into the exterior, as in a pulsar, and the other where the dipole field is initially confined to the interior. In both cases the adopted magnetic fields are initially dynamically unimportant. The merger outcome is a hypermassive neutron star that undergoes delayed collapse to a black hole (spin parameter $a/M_{\\rm BH \\sim 0.74$) immersed in a magnetized accretion disk. About $4000M \\sim 60(M_{\\rm NS/1.625M_\\odot)$ ms following merger, the region above the black hole poles becomes strongly magnetized, and a collimated, mildly relativistic outflow --- an incipient jet --- is launched. The lifetime of the accretion disk, which likely equals the lifetime of the jet, ...",
+          "text_role": "capture_stopping",
+          "route_signature": [
+            "constraint_closure",
+            "transport_flow",
+            "spectral_operator"
+          ],
+          "constructor_roles": [
+            "operator_apparatus",
+            "real_substrate_geometry",
+            "selector"
+          ],
+          "pair_status": "partial_constructor_pair",
+          "formula_detail_score": 6,
+          "local_categories": [
+            "accretion_growth",
+            "astrophysical_bound",
+            "black_hole",
+            "evaporation_branch"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "evaporation_branch",
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [
+              "t_\\{?grow|\\\\Delta\\s*t|\\\\tau"
+            ],
+            "context_hits": [
+              "timescale|growth time|time-average|lifetime|duration|delayed collapse"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "transport_flow"
+            ]
+          }
+        },
+        {
+          "node_id": "E01141",
+          "source_id": "astro-ph0212297",
+          "formula": "{\\cal E_B}/{{\\cal E}_k}<0.1",
+          "context": "Theory and astrophysical consequences of a magnetized torus around a rapidly rotating black hole We analyze the topology, lifetime, and emissions of a torus around a black hole formed in hypernovae and black hole-neutron star coalescence. The torus is ab initio uniformly magnetized, represented by two counter oriented current-rings, and develops a state of suspended accretion against a ``magnetic wall\" around the black hole. Magnetic stability of the torus gives rise to a new fundamental limit ${\\cal E_B}/{{\\cal E}_k}<0.1$ for the ratio of poloidal magnetic field energy-to-kinetic energy, corresponding to a maximum magnetic field strength $B_c\\simeq 10^{16}\\mbox{G}\\left({7M_\\odot}/{M_H}\\r...",
+          "text_role": "evaporation_branch",
+          "route_signature": [
+            "constraint_closure",
+            "spectral_operator",
+            "transport_flow"
+          ],
+          "constructor_roles": [
+            "operator_apparatus"
+          ],
+          "pair_status": "partial_constructor_pair",
+          "formula_detail_score": 6,
+          "local_categories": [
+            "accretion_growth",
+            "astrophysical_bound",
+            "black_hole",
+            "evaporation_branch"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "evaporation_branch",
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [],
+            "context_hits": [
+              "timescale|growth time|time-average|lifetime|duration|delayed collapse"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "transport_flow"
+            ]
+          }
+        },
+        {
+          "node_id": "E00127",
+          "source_id": "1105.1495",
+          "formula": "M_{WD} > 0.72M_{\\odot}",
+          "context": "B models. We argue that both these observations may have an explanation within the unified framework of a Quark-Nova occurring in a low-mass X-ray binary (neutron star-white dwarf). For LMXBs where the binary separation is sufficiently tight, ejecta from the exploding Neutron Star triggers nuclear burning in the white dwarf on impact, possibly leading to Fe-rich composition compact white dwarfs with mass $0.43M_{\\odot}<M_{WD} < 0.72M_{\\odot}$, reminiscent of \\wdsrc. Our results rely on the assumption, which ultimately needs to be tested by hydrodynamic and nucleosynthesis simulations, that under certain circumstances the WD can avoid the thermonuclear runaway. For heavier white dwarfs (i....",
+          "text_role": "astrophysical_bound",
+          "route_signature": [
+            "constraint_closure",
+            "transport_flow",
+            "spectral_operator"
+          ],
+          "constructor_roles": [
+            "operator_apparatus"
+          ],
+          "pair_status": "partial_constructor_pair",
+          "formula_detail_score": 4,
+          "local_categories": [
+            "accretion_growth",
+            "astrophysical_bound",
+            "black_hole"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [],
+            "context_hits": [
+              "timescale|growth time|time-average|lifetime|duration|delayed collapse"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "transport_flow"
+            ]
+          }
+        },
+        {
+          "node_id": "E00128",
+          "source_id": "1105.1495",
+          "formula": "M_{WD} < 0.43M_{\\odot}",
+          "context": "rom the exploding Neutron Star triggers nuclear burning in the white dwarf on impact, possibly leading to Fe-rich composition compact white dwarfs with mass $0.43M_{\\odot}<M_{WD} < 0.72M_{\\odot}$, reminiscent of \\wdsrc. Our results rely on the assumption, which ultimately needs to be tested by hydrodynamic and nucleosynthesis simulations, that under certain circumstances the WD can avoid the thermonuclear runaway. For heavier white dwarfs (i.e. $M_{WD} > 0.72M_{\\odot}$) experiencing the QN shock, degeneracy will not be lifted when Carbon burning begins, and a sub-Chandrasekhar Type Ia Supernovae may result in our model. Under slightly different conditions, and for pure He white dwarfs (i....",
+          "text_role": "astrophysical_bound",
+          "route_signature": [
+            "constraint_closure",
+            "transport_flow",
+            "spectral_operator"
+          ],
+          "constructor_roles": [
+            "operator_apparatus"
+          ],
+          "pair_status": "partial_constructor_pair",
+          "formula_detail_score": 4,
+          "local_categories": [
+            "accretion_growth",
+            "astrophysical_bound",
+            "black_hole"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [],
+            "context_hits": [
+              "timescale|growth time|time-average|lifetime|duration|delayed collapse"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "transport_flow"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "slot_id": "astronomical_bound_evasion",
+      "label": "evasion of astronomical survival bounds",
+      "required_condition": "same mechanism must avoid contradiction with compact-object survival",
+      "equation_template": "N_{\\rm CR}\\,P_{\\rm capture}\\,P_{\\rm grow}\\ll 1\\quad {\\rm for\\ observed\\ white\\ dwarfs/neutron\\ stars}",
+      "route_need": [
+        "constraint_closure",
+        "spectral_operator"
+      ],
+      "status": "transfer_only",
+      "direct_receipt_count": 0,
+      "transfer_receipt_count": 28,
+      "direct_receipts": [],
+      "transfer_receipts": [
+        {
+          "node_id": "E00034",
+          "source_id": "0807.3458",
+          "formula": "3 \\times 10^{-13}~\\mathrm{M}_{\\odot}~\\mathrm{yr}^{-1} \\lesssim \\langle \\dot{M}_{\\mathrm{long}} \\rangle \\lesssim 1 \\times 10^{-10}~\\mathrm{M}_{\\odot}~\\mathrm{yr}^{-1}",
+          "context": "een quiescence and full outburst. We discuss the possibility that the subluminous appearance of the eclipsing X-ray burster AX J1745.6-2901 is due to line-of-sight effects. We detected two type-I X-ray bursts with a duration of 50-60 seconds from AX J1745.6-2901, which we discuss in view of the bursting behavior of low-luminosity X-ray transients. Assuming that we are dealing with accreting neutron stars and black holes, we estimate the time-average accretion rate, $\\langle \\dot{M}_{\\mathrm{long}} \\rangle$, of the transients, which is an important input parameter for binary evolution models that attempt to explain the nature of subluminous X-ray transients. Our estimates lie in the range ...",
+          "text_role": "accretion_growth",
+          "route_signature": [
+            "transport_flow",
+            "constraint_closure",
+            "spectral_operator"
+          ],
+          "constructor_roles": [
+            "operator_apparatus",
+            "readout_current",
+            "real_substrate_geometry"
+          ],
+          "pair_status": "complete_constructor_pair",
+          "formula_detail_score": 11,
+          "local_categories": [
+            "accretion_growth",
+            "astrophysical_bound",
+            "black_hole",
+            "evaporation_branch"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "evaporation_branch",
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [],
+            "context_hits": [
+              "white dwarf|neutron star|compact object|cosmic ray"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "spectral_operator"
+            ]
+          }
+        },
+        {
+          "node_id": "E00035",
+          "source_id": "0807.3458",
+          "formula": "4 \\times 10^{-14}~\\mathrm{M}_{\\odot}~\\mathrm{yr}^{-1} \\lesssim \\langle \\dot{M}_{\\mathrm{long}} \\rangle \\lesssim 2 \\times 10^{-11}~\\mathrm{M}_{\\odot}~\\mathrm{yr}^{-1}",
+          "context": "0-60 seconds from AX J1745.6-2901, which we discuss in view of the bursting behavior of low-luminosity X-ray transients. Assuming that we are dealing with accreting neutron stars and black holes, we estimate the time-average accretion rate, $\\langle \\dot{M}_{\\mathrm{long}} \\rangle$, of the transients, which is an important input parameter for binary evolution models that attempt to explain the nature of subluminous X-ray transients. Our estimates lie in the range of $ 3 \\times 10^{-13}~\\mathrm{M}_{\\odot}~\\mathrm{yr}^{-1} \\lesssim \\langle \\dot{M}_{\\mathrm{long}} \\rangle \\lesssim 1 \\times 10^{-10}~\\mathrm{M}_{\\odot}~\\mathrm{yr}^{-1}$, if the systems are neutron star X-ray binaries and betwe...",
+          "text_role": "accretion_growth",
+          "route_signature": [
+            "transport_flow",
+            "constraint_closure",
+            "spectral_operator"
+          ],
+          "constructor_roles": [
+            "operator_apparatus",
+            "readout_current",
+            "real_substrate_geometry"
+          ],
+          "pair_status": "complete_constructor_pair",
+          "formula_detail_score": 11,
+          "local_categories": [
+            "accretion_growth",
+            "astrophysical_bound",
+            "black_hole",
+            "evaporation_branch"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "evaporation_branch",
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [],
+            "context_hits": [
+              "white dwarf|neutron star|compact object|cosmic ray"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "spectral_operator"
+            ]
+          }
+        },
+        {
+          "node_id": "E01142",
+          "source_id": "astro-ph0212297",
+          "formula": "B_c\\simeq 10^{16}\\mbox{G}\\left({7M_\\odot}/{M_H}\\right) \\left({6M_H}/{R}\\right)^2\\left({M_T}/{0.03M_H}\\right)^{1/2}",
+          "context": "Theory and astrophysical consequences of a magnetized torus around a rapidly rotating black hole We analyze the topology, lifetime, and emissions of a torus around a black hole formed in hypernovae and black hole-neutron star coalescence. The torus is ab initio uniformly magnetized, represented by two counter oriented current-rings, and develops a state of suspended accretion against a ``magnetic wall\" around the black hole. Magnetic stability of the torus gives rise to a new fundamental limit ${\\cal E_B}/{{\\cal E}_k}<0.1$ for the ratio of poloidal magnetic field energy-to-kinetic energy, corresponding to a maximum magnetic field strength $B_c\\simeq 10^{16}\\mbox{G}\\left({7M_\\odot}/{M_H}\\r...",
+          "text_role": "evaporation_branch",
+          "route_signature": [
+            "constraint_closure",
+            "transport_flow",
+            "spectral_operator"
+          ],
+          "constructor_roles": [
+            "operator_apparatus",
+            "selector"
+          ],
+          "pair_status": "partial_constructor_pair",
+          "formula_detail_score": 8,
+          "local_categories": [
+            "accretion_growth",
+            "astrophysical_bound",
+            "black_hole",
+            "evaporation_branch"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "evaporation_branch",
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [
+              "M_\\{?\\\\odot|M_\\\\odot|M_\\{?\\\\sun"
+            ],
+            "context_hits": [
+              "white dwarf|neutron star|compact object|cosmic ray",
+              "black hole[- ]neutron star|binary neutron stars"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "spectral_operator"
+            ]
+          }
+        },
+        {
+          "node_id": "E00797",
+          "source_id": "1207.1244",
+          "formula": "M_1 = 0.9_{-0.3}^{+4.6} M_\\odot",
+          "context": "parameters allow us to determine the lens distance $D_L = 3.11 \\pm 0.39$ kpc and total mass $M_L=1.40 \\pm 0.18 M_\\odot$; this leads to the primary and secondary components having masses of $M_1 = 1.06 \\pm 0.13 M_\\odot$ and $M_2 = 0.34 \\pm 0.04 M_\\odot$, respectively. The parallax model indicates that the binary lens system is likely constructed by the main sequence stars. On the other hand, we used a Bayesian analysis to estimate probability distributions by the model that includes the effects of xallarap (possible orbital motion of the source around a companion) and parallax ($q = 0.270 \\pm 0.005$, $s = 0.083 \\pm 0.001$). The primary component of the binary lens is relatively massive wit...",
+          "text_role": "astrophysical_bound",
+          "route_signature": [
+            "constraint_closure",
+            "transport_flow",
+            "spectral_operator",
+            "discrete_protocol"
+          ],
+          "constructor_roles": [
+            "closure_constraints",
+            "operator_apparatus",
+            "protocol_order",
+            "real_substrate_geometry"
+          ],
+          "pair_status": "partial_constructor_pair",
+          "formula_detail_score": 7,
+          "local_categories": [
+            "astrophysical_bound",
+            "black_hole"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue"
+          ],
+          "slot_match": {
+            "formula_hits": [
+              "M_\\{?\\\\odot|M_\\\\odot|M_\\{?\\\\sun"
+            ],
+            "context_hits": [
+              "white dwarf|neutron star|compact object|cosmic ray"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "spectral_operator"
+            ]
+          }
+        },
+        {
+          "node_id": "E00825",
+          "source_id": "1307.7685",
+          "formula": "\\delta M_{BH}< 5 \\times 10^{-4}M_{BH}",
+          "context": "n the most likely range of mass ratio for neutron star-black hole systems ($q=6$). In this region of the parameter space, the neutron star is not tidally disrupted prior to merger, and we show that the two types of mergers appear remarkably similar. The effect of the presence of a neutron star on the gravitational wave signal is not only undetectable by the next generation of gravitational wave detectors, but also too small to be measured in the numerical simulations: even the plunge, merger and ringdown signals appear in perfect agreement for both types of binaries. The characteristics of the post-merger remnants are equally similar, with the masses of the final black holes agreeing with...",
+          "text_role": "capture_stopping",
+          "route_signature": [
+            "constraint_closure",
+            "transport_flow",
+            "spectral_operator"
+          ],
+          "constructor_roles": [
+            "operator_apparatus",
+            "real_substrate_geometry",
+            "selector"
+          ],
+          "pair_status": "partial_constructor_pair",
+          "formula_detail_score": 7,
+          "local_categories": [
+            "accretion_growth",
+            "astrophysical_bound",
+            "black_hole"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [
+              "M_\\{?(?:WD|NS|BH)"
+            ],
+            "context_hits": [
+              "white dwarf|neutron star|compact object|cosmic ray"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "spectral_operator"
+            ]
+          }
+        },
+        {
+          "node_id": "E00147",
+          "source_id": "1109.6593",
+          "formula": "M_{turn}=1-1.5 ~M_{\\odot}",
+          "context": "ard X-rays emanating from the black hole broad line region, increased cosmic ray rates due to supernovae in starbursts, and strong UV radiation produced by nearby massive stars. We also investigate the importance of shear from the supermassive, $10^{6}-10^{8} ~M_{\\odot}$, black hole as the star-forming cloud orbits around it. A grid of 42 models is created and calculated with the hydrodynamical code FLASH. We find that thermal pressure from X-rays compresses the cloud, which induces a high star-formation rate early on, but reduces the overall star-formation efficiency to about 7\\% due to gas depletion by evaporation. We see that the turn-over mass of the IMF increases up to a factor of 2....",
+          "text_role": "astrophysical_bound",
+          "route_signature": [
+            "constraint_closure",
+            "spectral_operator",
+            "boundary_weak_form",
+            "transport_flow"
+          ],
+          "constructor_roles": [
+            "closure_constraints",
+            "operator_apparatus",
+            "real_substrate_geometry",
+            "selector"
+          ],
+          "pair_status": "partial_constructor_pair",
+          "formula_detail_score": 6,
+          "local_categories": [
+            "astrophysical_bound",
+            "black_hole",
+            "evaporation_branch"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "evaporation_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [
+              "M_\\{?\\\\odot|M_\\\\odot|M_\\{?\\\\sun"
+            ],
+            "context_hits": [
+              "white dwarf|neutron star|compact object|cosmic ray"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "spectral_operator"
+            ]
+          }
+        },
+        {
+          "node_id": "E00826",
+          "source_id": "1307.7685",
+          "formula": "\\delta \\chi_{BH}< 10^{-3}",
+          "context": "=6$). In this region of the parameter space, the neutron star is not tidally disrupted prior to merger, and we show that the two types of mergers appear remarkably similar. The effect of the presence of a neutron star on the gravitational wave signal is not only undetectable by the next generation of gravitational wave detectors, but also too small to be measured in the numerical simulations: even the plunge, merger and ringdown signals appear in perfect agreement for both types of binaries. The characteristics of the post-merger remnants are equally similar, with the masses of the final black holes agreeing within $\\delta M_{BH}< 5 \\times 10^{-4}M_{BH}$ and their dimensionless spins with...",
+          "text_role": "capture_stopping",
+          "route_signature": [
+            "constraint_closure",
+            "transport_flow",
+            "spectral_operator"
+          ],
+          "constructor_roles": [
+            "operator_apparatus",
+            "real_substrate_geometry",
+            "selector"
+          ],
+          "pair_status": "partial_constructor_pair",
+          "formula_detail_score": 6,
+          "local_categories": [
+            "accretion_growth",
+            "astrophysical_bound",
+            "black_hole"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [
+              "\\\\chi_\\{?BH|a_\\{?BH"
+            ],
+            "context_hits": [
+              "white dwarf|neutron star|compact object|cosmic ray"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "spectral_operator"
+            ]
+          }
+        },
+        {
+          "node_id": "E01020",
+          "source_id": "1604.02455",
+          "formula": "4000M \\sim 60(M_{\\rm NS/1.625M_\\odot)",
+          "context": "s in full general relativity (GRMHD) of quasi-circular, equal-mass, binary neutron stars that undergo merger. The initial stars are irrotational, $n=1$ polytropes and are magnetized. We explore two types of magnetic-field geometries: one where each star is endowed with a dipole magnetic field extending from the interior into the exterior, as in a pulsar, and the other where the dipole field is initially confined to the interior. In both cases the adopted magnetic fields are initially dynamically unimportant. The merger outcome is a hypermassive neutron star that undergoes delayed collapse to a black hole (spin parameter $a/M_{\\rm BH \\sim 0.74$) immersed in a magnetized accretion disk. Abo...",
+          "text_role": "astrophysical_bound",
+          "route_signature": [
+            "constraint_closure",
+            "transport_flow",
+            "spectral_operator"
+          ],
+          "constructor_roles": [
+            "operator_apparatus",
+            "real_substrate_geometry",
+            "selector"
+          ],
+          "pair_status": "partial_constructor_pair",
+          "formula_detail_score": 6,
+          "local_categories": [
+            "accretion_growth",
+            "astrophysical_bound",
+            "black_hole",
+            "evaporation_branch"
+          ],
+          "branch_labels": [
+            "astrophysical_black_hole_analogue",
+            "evaporation_branch",
+            "stable_growth_or_capture_branch"
+          ],
+          "slot_match": {
+            "formula_hits": [
+              "M_\\{?\\\\odot|M_\\\\odot|M_\\{?\\\\sun"
+            ],
+            "context_hits": [
+              "white dwarf|neutron star|compact object|cosmic ray",
+              "black hole[- ]neutron star|binary neutron stars"
+            ],
+            "route_hits": [
+              "constraint_closure",
+              "spectral_operator"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "claim_scope": "This constructor assembles public static graph receipts into the physical LHC danger branch. It uses KnowledgeParser operator/substrate constructor frames already embedded in the graph; it does not recompute private fingerprints."
+}
