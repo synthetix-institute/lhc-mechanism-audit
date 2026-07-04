@@ -61,6 +61,32 @@ The build script also derives:
 - `discourse_vs_mechanism_attention.json`
 - `discourse_vs_mechanism_attention.md`
 
+## Constructor-Layer Export
+
+The public graph receipts can be expanded into source-local constructor objects:
+source id, section, equation order, local context, variable roles, matched graph
+node, route signature, constructor roles, slot matches and source-local chains.
+
+From the committed/static run plus the local selected source folder:
+
+```bash
+python3 -B scripts/build_constructor_layer_export.py \
+  --run-dir runs/lhc_black_hole_audit_500k_strict \
+  --source-dir data/hf_lhc_selection_500k/sources \
+  --out-dir outputs/lhc_constructor_layer_export
+```
+
+This writes:
+
+- `outputs/lhc_constructor_layer_export/constructor_layer_export.json`
+- `outputs/lhc_constructor_layer_export/constructor_layer_export.md`
+
+The current local source folder is mostly title/abstract-scale text. The export
+therefore reports `limited_abstract_scale_sources`; it is structurally valid and
+matches the public graph nodes, but it cannot reconstruct full paper derivations.
+For full constructor-layer evidence, run the same command on a source directory
+containing full LaTeX/PDF papers, preferably including the LHC safety seed papers.
+
 ## What The PDF Contains
 
 The generated report is `paper/lhc_black_hole_answer.pdf`.
