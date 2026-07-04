@@ -1943,9 +1943,10 @@ receipts but no direct collider closure beyond the production hook.}}
 
 \section{{Alignment with CERN-2003-001 and equation correctness}}
 
-CERN-2003-001 studied potentially dangerous events in heavy-ion collisions and
-treated negatively charged strangelets, gravitational black holes and magnetic
-monopoles \cite{{CERN2003}}. Its gravitational section uses the same branch
+CERN-2003-001, the report of the LHC Safety Study Group, studied potentially
+dangerous events in heavy-ion collisions and treated negatively charged
+strangelets, gravitational black holes and magnetic monopoles \cite{{CERN2003}}.
+Its gravitational section uses the same branch
 structure used here. Production is only the first step. A dangerous case also
 requires stability against thermal decay, accretion faster than decay, and a
 mechanism that remains compatible with ordinary matter and astrophysical
@@ -2009,7 +2010,7 @@ CERN-2003-001: the selected arXiv evidence does not connect production to a
 direct collider survival--capture--growth chain.
 
 \begin{{table}}[H]
-\caption{{Equation audit against CERN-2003-001.}}
+\caption{{Equation audit against CERN-2003-001 \cite{{CERN2003}}.}}
 \label{{tab:cern-alignment}}
 {cern_alignment_table()}
 \end{{table}}
