@@ -10,6 +10,32 @@ from typing import Iterable, List
 TEXT_EXTENSIONS = {".tex", ".txt", ".md", ".latex"}
 PDF_EXTENSIONS = {".pdf"}
 
+BEGIN_DOCUMENT_RE = re.compile(r"\\begin\s*\{\s*document\s*\}", re.I)
+END_DOCUMENT_RE = re.compile(r"\\end\s*\{\s*document\s*\}", re.I)
+BIBLIOGRAPHY_START_RE = re.compile(
+    r"\\begin\s*\{\s*(?:thebibliography|references)\s*\}"
+    r"|\\bibliography\s*\{"
+    r"|\\printbibliography\b"
+    r"|^\s*(?:references|bibliography)\s*$",
+    re.I | re.M,
+)
+DROP_ENV_RE = re.compile(
+    r"\\begin\s*\{\s*(?:figure|table|tabular|picture|tikzpicture|thebibliography)\s*\}"
+    r".*?"
+    r"\\end\s*\{\s*(?:figure|table|tabular|picture|tikzpicture|thebibliography)\s*\}",
+    re.I | re.S,
+)
+MACRO_DEFINITION_LINE_RE = re.compile(
+    r"^\s*\\(?:def|newcommand|renewcommand|providecommand|DeclareMathOperator|"
+    r"DeclareRobustCommand|let)\b",
+    re.I,
+)
+INLINE_DEF_RE = re.compile(
+    r"\\(?:def|newcommand|renewcommand|providecommand)\b\s*\\?[A-Za-z@]+"
+    r"(?:\s*\[[^\]]*\]){0,2}\s*\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}",
+    re.I | re.S,
+)
+
 
 @dataclass
 class SourceDocument:
@@ -70,13 +96,50 @@ def read_document(path: Path) -> SourceDocument:
         text = read_pdf_text(path)
     else:
         raise ValueError(f"Unsupported file type: {path}")
-    return SourceDocument(source_id=source_id_from_path(path), path=str(path), text=text)
+    return SourceDocument(source_id=source_id_from_path(path), path=str(path), text=sanitize_latex_source(text))
 
 
 def iter_documents(folder: Path) -> Iterable[SourceDocument]:
     for path in sorted(folder.rglob("*")):
         if path.is_file() and path.suffix.lower() in (TEXT_EXTENSIONS | PDF_EXTENSIONS):
             yield read_document(path)
+
+
+def sanitize_latex_source(text: str) -> str:
+    """Keep scientific body text and remove TeX infrastructure.
+
+    The constructor layer needs equations from the paper body.  arXiv source
+    preambles contain macro definitions that look like equations to a regex
+    extractor, so they must be removed before display/inline math extraction.
+    """
+    if not text:
+        return ""
+
+    begin = BEGIN_DOCUMENT_RE.search(text)
+    if begin:
+        text = text[begin.end():]
+
+    end = END_DOCUMENT_RE.search(text)
+    if end:
+        text = text[:end.start()]
+
+    bibliography = BIBLIOGRAPHY_START_RE.search(text)
+    if bibliography:
+        text = text[:bibliography.start()]
+
+    text = DROP_ENV_RE.sub("\n", text)
+    text = INLINE_DEF_RE.sub(" ", text)
+
+    kept_lines: List[str] = []
+    for line in text.splitlines():
+        stripped = line.strip()
+        if not stripped:
+            kept_lines.append("")
+            continue
+        if MACRO_DEFINITION_LINE_RE.match(stripped):
+            continue
+        kept_lines.append(line)
+    return "\n".join(kept_lines)
 
 
 def clean_formula(formula: str) -> str:
