@@ -106,8 +106,12 @@ def select(args: argparse.Namespace) -> Dict[str, Any]:
         if args.max_docs and scanned >= args.max_docs:
             break
 
+    selected_ids = {str(row.get("paper_id") or "") for row in selected}
+    present_seed_ids = sorted(SEED_IDS & selected_ids)
+    missing_seed_ids = sorted(SEED_IDS - selected_ids)
     manifest = {
         "report_type": "lhc_literature_hf_selection",
+        "readiness": "usable" if not missing_seed_ids else "incomplete_seed_coverage",
         "dataset": args.dataset,
         "split": args.split,
         "scanned": scanned,
@@ -115,6 +119,9 @@ def select(args: argparse.Namespace) -> Dict[str, Any]:
         "min_score": args.min_score,
         "keywords": KEYWORDS,
         "seed_ids": sorted(SEED_IDS),
+        "present_seed_ids": present_seed_ids,
+        "missing_seed_ids": missing_seed_ids,
+        "seed_coverage": len(present_seed_ids) / max(1, len(SEED_IDS)),
         "sources": str(source_dir),
         "records": selected,
     }
@@ -125,6 +132,13 @@ def select(args: argparse.Namespace) -> Dict[str, Any]:
         file=sys.stderr,
         flush=True,
     )
+    if missing_seed_ids and not args.allow_missing_seeds:
+        raise RuntimeError(
+            "Selection omitted required benchmark papers: "
+            + ", ".join(missing_seed_ids)
+            + ". Scan the remaining dataset(s), inject the full source packages, or rerun "
+            "with --allow-missing-seeds for a diagnostic selection only."
+        )
     return manifest
 
 
@@ -136,6 +150,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--max-docs", type=int, default=0, help="0 means scan the stream until exhaustion/interruption.")
     parser.add_argument("--min-score", type=int, default=3)
     parser.add_argument("--progress-every", type=int, default=10000)
+    parser.add_argument(
+        "--allow-missing-seeds",
+        action="store_true",
+        help="Write a diagnostic partial selection even when benchmark papers are absent.",
+    )
     return parser
 
 

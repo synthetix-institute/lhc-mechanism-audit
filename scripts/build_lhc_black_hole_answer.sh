@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-RUN_DIR="${1:-${ROOT_DIR}/runs/lhc_black_hole_audit_500k_strict}"
+RUN_DIR="${1:-${ROOT_DIR}/runs/lhc_black_hole_audit_revised}"
 PAPER_DIR="${2:-${ROOT_DIR}/paper}"
 PYTHON_BIN="${PYTHON_BIN:-python3}"
 
@@ -13,7 +13,6 @@ required=(
   "manifest.json"
   "provenance_graph.json"
   "equation_mechanism_graph.json"
-  "sparse_attention_audit.json"
 )
 
 for file in "${required[@]}"; do
@@ -25,6 +24,14 @@ for file in "${required[@]}"; do
 done
 
 cd "${ROOT_DIR}"
+"${PYTHON_BIN}" -B scripts/build_physical_constructor.py --out-dir "${RUN_DIR}"
+"${PYTHON_BIN}" -B scripts/build_sparse_attention_audit.py --out-dir "${RUN_DIR}"
+"${PYTHON_BIN}" -B scripts/build_discourse_mechanism_attention.py --run-dir "${RUN_DIR}"
+"${PYTHON_BIN}" -B scripts/build_public_knowledge_graph.py --out-dir "${RUN_DIR}"
+"${PYTHON_BIN}" -B scripts/build_constructor_layer_export.py \
+  --run-dir "${RUN_DIR}" \
+  --out-dir "${RUN_DIR}" \
+  --fingerprint-only
 "${PYTHON_BIN}" -B scripts/build_lhc_black_hole_answer.py \
   --run-dir "${RUN_DIR}" \
   --paper-dir "${PAPER_DIR}"

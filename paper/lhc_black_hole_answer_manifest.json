@@ -1,85 +1,84 @@
 {
   "report_type": "lhc_black_hole_answer",
+  "readiness": "usable",
   "tex": "paper/lhc_black_hole_answer.tex",
   "pdf": "paper/lhc_black_hole_answer.pdf",
   "figures": [
-    "paper/figures/lhc_constructor_demonstration.pdf",
-    "paper/figures/lhc_discourse_mechanism_proof.pdf",
-    "paper/figures/lhc_formation_mechanism.pdf",
-    "paper/figures/lhc_mechanism_actual.pdf",
-    "paper/figures/lhc_mechanism_retention.pdf",
-    "paper/figures/lhc_physical_constructor.pdf",
-    "paper/figures/lhc_physical_tree.pdf",
+    "paper/figures/lhc_evidence_funnel.pdf",
     "paper/figures/lhc_provenance_full.pdf",
-    "paper/figures/lhc_provenance_matrix.pdf",
     "paper/figures/lhc_provenance_summary.pdf",
     "paper/figures/lhc_public_knowledge_graph.pdf",
-    "paper/figures/lhc_public_knowledge_graph_full.pdf",
-    "paper/figures/lhc_transfer_graph.pdf"
+    "paper/figures/lhc_equation_graph.pdf",
+    "paper/figures/lhc_physical_constructor.pdf",
+    "paper/figures/lhc_transfer_map.pdf",
+    "paper/figures/lhc_sparse_attention.pdf"
   ],
   "constructor_layer": {
-    "json": "runs/lhc_black_hole_audit_500k_strict/constructor_layer/constructor_layer_export.json",
-    "markdown": "runs/lhc_black_hole_audit_500k_strict/constructor_layer/constructor_layer_export.md",
+    "json": "runs/lhc_black_hole_audit_revised/constructor_layer_export.json",
+    "markdown": "runs/lhc_black_hole_audit_revised/constructor_layer_export.md",
     "readiness": "usable",
     "counts": {
-      "source_count_with_equations": 241,
-      "extracted_equation_count": 1408,
-      "matched_graph_node_count": 1408,
+      "source_count_with_equations": 105,
+      "extracted_equation_count": 728,
+      "matched_graph_node_count": 728,
       "unmatched_source_equation_count": 0,
       "top_sources_by_equation_count": [
         [
+          "0806.3381",
+          334
+        ],
+        [
+          "0901.2948",
+          75
+        ],
+        [
           "1205.2671",
-          311
+          52
         ],
         [
-          "1201.5525",
-          302
-        ],
-        [
-          "astro-ph0510161",
-          109
+          "0807.3349",
+          37
         ],
         [
           "1506.05473",
-          21
+          15
         ],
         [
-          "1407.5650",
-          13
+          "astro-ph/0510161",
+          14
         ],
         [
-          "1207.1244",
-          10
+          "0808.1415",
+          12
         ],
         [
-          "1508.04780",
-          10
+          "astro-ph/0109539",
+          7
         ],
         [
-          "astro-ph0208212",
-          10
+          "astro-ph/0212297",
+          7
         ],
         [
-          "1005.1081",
-          9
+          "1201.5525",
+          6
         ],
         [
-          "1501.02017",
-          9
+          "astro-ph/0012271",
+          6
         ],
         [
-          "0912.0009",
-          8
-        ],
-        [
-          "1309.5455",
-          8
+          "0705.3611",
+          5
         ]
       ],
-      "source_local_chain_count": 241,
-      "slot_match_equation_count": 986,
-      "case_relevant_equation_count": 412
+      "source_local_chain_count": 62,
+      "slot_match_equation_count": 42,
+      "case_relevant_equation_count": 567
     }
   },
-  "source_run": "runs/lhc_black_hole_audit_500k_strict"
+  "source_run": "runs/lhc_black_hole_audit_revised",
+  "source_coverage": 1.0,
+  "receipt_coverage": 1.0,
+  "branch_closed": false
 }

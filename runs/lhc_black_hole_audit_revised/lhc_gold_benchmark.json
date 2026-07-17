@@ -1,0 +1,1374 @@
+{
+  "report_type": "lhc_mechanism_gold_benchmark",
+  "readiness": "usable",
+  "schema": "lhc_mechanism_gold_v1",
+  "sources_dir": "data/arxiv_lhc_full_sources/sources",
+  "benchmark": "data/lhc_gold_benchmark.json",
+  "required_source_count": 6,
+  "present_required_sources": 6,
+  "source_coverage": 1.0,
+  "total_receipts": 12,
+  "recovered_receipts": 12,
+  "receipt_coverage": 1.0,
+  "missing_sources": [],
+  "failed_receipts": [],
+  "formula_found_contract_failed": [],
+  "papers": [
+    {
+      "arxiv_id": "0806.3381",
+      "source_present": true,
+      "equation_count": 334,
+      "title": "0806.3381",
+      "citation_count": 91,
+      "receipt_results": [
+        {
+          "receipt_id": "gm_lhc_production_cross_section",
+          "slot_id": "production_selector",
+          "recovered": true,
+          "accepted": {
+            "equation_ordinal": 283,
+            "kind": "system",
+            "formula": "\\sigma_{BH}(M>M_{min}) = \\sum_{ij} \\int_{\\tau_{min}}^1 \\, d\\tau \\int_{\\tau}^{1} \\, \\frac{dx}{x} f_i(x) f_j(\\tau/x) \\hat\\sigma(\\rshat) \\; ,",
+            "context": "H}= \\frac{R^{D-2} \\, \\Omega_{D-2}}{4G_D} = \\left[ \\frac{2M}{(D-2)M_D} \\right]^{(D-2)/(D-3)} \\; \\left[ \\frac{(2\\pi)^{(2D-7)}}{\\Omega_{D-2}} \\right]^{1/(D-3)} \\; . \\end{equation} For example, for the representative cases of $D=6$ and $D=10$, a black hole with mass $M=5 M_D$ has entropy $S_{BH}\\sim 24$, a plausible threshold to assume a semiclassical behaviour. Since for a fixed value of $M$ the black hole radius, and thus the production cross sections, decrease with increasing $M_D$, to be conservative in our estimates of production rates by cosmic rays we shall loosen this constraint, and allow for $M_{min}/M_D$ to be as small as 3. In the primary cases of interest for cosmic ray bounds, $D\\leq7$, this lowest value corresponds to a Schwarzschild radius that is less than twice the Planck radius, $1/M_D$. The production cross sections at the LHC are then obtained from the simple formula: \\begin{equation} \\label{eq:LHC-BHrate} \\sigma_{BH}(M>M_{min}) = \\sum_{ij} \\int_{\\tau_{min}}^1 \\, d\\tau \\int_{\\tau}^{1} \\, \\frac{dx}{x} f_i(x) f_j(\\tau/x) \\hat\\sigma(\\rshat) \\; , \\end{equation} where ${\\hat s} =x_1 x_2 s$, and, as discussed above, $\\hat\\sigma(\\rshat)=\\pi R^2(\\rshat)/4 $, $M_{min}=3 M_D$, and \\begin{equation} \\tau=x_1 x_2 > \\tau_{min}=M_{min}^2/(y^2 s) \\; . \\end{equation} $x_{1,2}$ are the momentum fractions of the colliding nucleons carried by the partons $i$ and $j$, which are taken to span the full set of quarks, antiquarks and gluons. For the numerical evaluations throughout this work we shall use the CTEQ6M set of parton distribution functions~\\cite{Pumplin:2002vw}, calculated at the factorization scale $Q=1/R$~\\cite{Giddings:2001bu}. The event rates at the LHC, integrated over the 1000~fb$^{-1}$ luminosity expected to be collected during the experiments lifetime, are given in fig.~\\ref{fig:lhc}. We show here both the cases of $y=1$ and of $y=0.5$. We use $y=1$ only to overcompensate for uncertainty in the precise value of this parameter; the value",
+            "context_match": true,
+            "contract_match": true,
+            "contract": {
+              "formula_quantity_hits": [
+                "production_cross_section"
+              ],
+              "formula_pattern_hits": {
+                "production_cross_section": [
+                  "\\\\sigma_?\\{?BH\\}?.{0,80}M\\s*>\\s*M_?\\{?min\\}?.{0,100}=.{0,160}\\\\int.{0,240}\\\\hat\\s*\\\\?sigma"
+                ]
+              },
+              "route_hits": [],
+              "regimes": [
+                "astrophysical",
+                "black_hole",
+                "collider"
+              ],
+              "symbols": [
+                "\\sigma",
+                "_",
+                "BH",
+                "M",
+                "min",
+                "\\sum",
+                "ij",
+                "\\int",
+                "\\tau",
+                "^",
+                "d",
+                "\\frac",
+                "dx",
+                "x",
+                "f",
+                "i",
+                "j",
+                "\\hat",
+                "\\rshat"
+              ],
+              "units": [],
+              "input_quantities": [
+                "parton_energy",
+                "gravity_scale"
+              ],
+              "output_quantities": [
+                "produced_microscopic_black_hole"
+              ],
+              "formula_contract_valid": true,
+              "formula_shape_valid": true
+            }
+          },
+          "formula_candidate_count": 1,
+          "formula_candidates": [
+            {
+              "equation_ordinal": 283,
+              "kind": "system",
+              "formula": "\\sigma_{BH}(M>M_{min}) = \\sum_{ij} \\int_{\\tau_{min}}^1 \\, d\\tau \\int_{\\tau}^{1} \\, \\frac{dx}{x} f_i(x) f_j(\\tau/x) \\hat\\sigma(\\rshat) \\; ,",
+              "context": "H}= \\frac{R^{D-2} \\, \\Omega_{D-2}}{4G_D} = \\left[ \\frac{2M}{(D-2)M_D} \\right]^{(D-2)/(D-3)} \\; \\left[ \\frac{(2\\pi)^{(2D-7)}}{\\Omega_{D-2}} \\right]^{1/(D-3)} \\; . \\end{equation} For example, for the representative cases of $D=6$ and $D=10$, a black hole with mass $M=5 M_D$ has entropy $S_{BH}\\sim 24$, a plausible threshold to assume a semiclassical behaviour. Since for a fixed value of $M$ the black hole radius, and thus the production cross sections, decrease with increasing $M_D$, to be conservative in our estimates of production rates by cosmic rays we shall loosen this constraint, and allow for $M_{min}/M_D$ to be as small as 3. In the primary cases of interest for cosmic ray bounds, $D\\leq7$, this lowest value corresponds to a Schwarzschild radius that is less than twice the Planck radius, $1/M_D$. The production cross sections at the LHC are then obtained from the simple formula: \\begin{equation} \\label{eq:LHC-BHrate} \\sigma_{BH}(M>M_{min}) = \\sum_{ij} \\int_{\\tau_{min}}^1 \\, d\\tau \\int_{\\tau}^{1} \\, \\frac{dx}{x} f_i(x) f_j(\\tau/x) \\hat\\sigma(\\rshat) \\; , \\end{equation} where ${\\hat s} =x_1 x_2 s$, and, as discussed above, $\\hat\\sigma(\\rshat)=\\pi R^2(\\rshat)/4 $, $M_{min}=3 M_D$, and \\begin{equation} \\tau=x_1 x_2 > \\tau_{min}=M_{min}^2/(y^2 s) \\; . \\end{equation} $x_{1,2}$ are the momentum fractions of the colliding nucleons carried by the partons $i$ and $j$, which are taken to span the full set of quarks, antiquarks and gluons. For the numerical evaluations throughout this work we shall use the CTEQ6M set of parton distribution functions~\\cite{Pumplin:2002vw}, calculated at the factorization scale $Q=1/R$~\\cite{Giddings:2001bu}. The event rates at the LHC, integrated over the 1000~fb$^{-1}$ luminosity expected to be collected during the experiments lifetime, are given in fig.~\\ref{fig:lhc}. We show here both the cases of $y=1$ and of $y=0.5$. We use $y=1$ only to overcompensate for uncertainty in the precise value of this parameter; the value",
+              "context_match": true,
+              "contract_match": true,
+              "contract": {
+                "formula_quantity_hits": [
+                  "production_cross_section"
+                ],
+                "formula_pattern_hits": {
+                  "production_cross_section": [
+                    "\\\\sigma_?\\{?BH\\}?.{0,80}M\\s*>\\s*M_?\\{?min\\}?.{0,100}=.{0,160}\\\\int.{0,240}\\\\hat\\s*\\\\?sigma"
+                  ]
+                },
+                "route_hits": [],
+                "regimes": [
+                  "astrophysical",
+                  "black_hole",
+                  "collider"
+                ],
+                "symbols": [
+                  "\\sigma",
+                  "_",
+                  "BH",
+                  "M",
+                  "min",
+                  "\\sum",
+                  "ij",
+                  "\\int",
+                  "\\tau",
+                  "^",
+                  "d",
+                  "\\frac",
+                  "dx",
+                  "x",
+                  "f",
+                  "i",
+                  "j",
+                  "\\hat",
+                  "\\rshat"
+                ],
+                "units": [],
+                "input_quantities": [
+                  "parton_energy",
+                  "gravity_scale"
+                ],
+                "output_quantities": [
+                  "produced_microscopic_black_hole"
+                ],
+                "formula_contract_valid": true,
+                "formula_shape_valid": true
+              }
+            }
+          ]
+        },
+        {
+          "receipt_id": "gm_parton_threshold",
+          "slot_id": "production_selector",
+          "recovered": true,
+          "accepted": {
+            "equation_ordinal": 286,
+            "kind": "system",
+            "formula": "\\tau=x_1 x_2 > \\tau_{min}=M_{min}^2/(y^2 s) \\; .",
+            "context": "threshold to assume a semiclassical behaviour. Since for a fixed value of $M$ the black hole radius, and thus the production cross sections, decrease with increasing $M_D$, to be conservative in our estimates of production rates by cosmic rays we shall loosen this constraint, and allow for $M_{min}/M_D$ to be as small as 3. In the primary cases of interest for cosmic ray bounds, $D\\leq7$, this lowest value corresponds to a Schwarzschild radius that is less than twice the Planck radius, $1/M_D$. The production cross sections at the LHC are then obtained from the simple formula: \\begin{equation} \\label{eq:LHC-BHrate} \\sigma_{BH}(M>M_{min}) = \\sum_{ij} \\int_{\\tau_{min}}^1 \\, d\\tau \\int_{\\tau}^{1} \\, \\frac{dx}{x} f_i(x) f_j(\\tau/x) \\hat\\sigma(\\rshat) \\; , \\end{equation} where ${\\hat s} =x_1 x_2 s$, and, as discussed above, $\\hat\\sigma(\\rshat)=\\pi R^2(\\rshat)/4 $, $M_{min}=3 M_D$, and \\begin{equation} \\tau=x_1 x_2 > \\tau_{min}=M_{min}^2/(y^2 s) \\; . \\end{equation} $x_{1,2}$ are the momentum fractions of the colliding nucleons carried by the partons $i$ and $j$, which are taken to span the full set of quarks, antiquarks and gluons. For the numerical evaluations throughout this work we shall use the CTEQ6M set of parton distribution functions~\\cite{Pumplin:2002vw}, calculated at the factorization scale $Q=1/R$~\\cite{Giddings:2001bu}. The event rates at the LHC, integrated over the 1000~fb$^{-1}$ luminosity expected to be collected during the experiments lifetime, are given in fig.~\\ref{fig:lhc}. We show here both the cases of $y=1$ and of $y=0.5$. We use $y=1$ only to overcompensate for uncertainty in the precise value of this parameter; the value $y=1$ is an extreme case, and recent analyses\\cite{Giddings:2007nr} have argued for the more realistic value $y=0.6-0.7$, or even a lower value\\cite{Meade:2007sz}. \\subsection{Black hole product",
+            "context_match": true,
+            "contract_match": true,
+            "contract": {
+              "formula_quantity_hits": [
+                "production_threshold"
+              ],
+              "formula_pattern_hits": {
+                "production_threshold": [
+                  "\\\\tau\\s*=\\s*x_?\\{?1\\}?\\s*x_?\\{?2\\}?.{0,80}>.{0,80}\\\\tau_?\\{?min\\}?.{0,100}M_?\\{?min\\}?\\s*\\^?\\{?2"
+                ]
+              },
+              "route_hits": [],
+              "regimes": [
+                "astrophysical",
+                "black_hole",
+                "collider"
+              ],
+              "symbols": [
+                "\\tau",
+                "x",
+                "_",
+                "min",
+                "M",
+                "^",
+                "y",
+                "s"
+              ],
+              "units": [
+                "time"
+              ],
+              "input_quantities": [
+                "parton_energy",
+                "gravity_scale"
+              ],
+              "output_quantities": [
+                "produced_microscopic_black_hole"
+              ],
+              "formula_contract_valid": true,
+              "formula_shape_valid": true
+            }
+          },
+          "formula_candidate_count": 1,
+          "formula_candidates": [
+            {
+              "equation_ordinal": 286,
+              "kind": "system",
+              "formula": "\\tau=x_1 x_2 > \\tau_{min}=M_{min}^2/(y^2 s) \\; .",
+              "context": "threshold to assume a semiclassical behaviour. Since for a fixed value of $M$ the black hole radius, and thus the production cross sections, decrease with increasing $M_D$, to be conservative in our estimates of production rates by cosmic rays we shall loosen this constraint, and allow for $M_{min}/M_D$ to be as small as 3. In the primary cases of interest for cosmic ray bounds, $D\\leq7$, this lowest value corresponds to a Schwarzschild radius that is less than twice the Planck radius, $1/M_D$. The production cross sections at the LHC are then obtained from the simple formula: \\begin{equation} \\label{eq:LHC-BHrate} \\sigma_{BH}(M>M_{min}) = \\sum_{ij} \\int_{\\tau_{min}}^1 \\, d\\tau \\int_{\\tau}^{1} \\, \\frac{dx}{x} f_i(x) f_j(\\tau/x) \\hat\\sigma(\\rshat) \\; , \\end{equation} where ${\\hat s} =x_1 x_2 s$, and, as discussed above, $\\hat\\sigma(\\rshat)=\\pi R^2(\\rshat)/4 $, $M_{min}=3 M_D$, and \\begin{equation} \\tau=x_1 x_2 > \\tau_{min}=M_{min}^2/(y^2 s) \\; . \\end{equation} $x_{1,2}$ are the momentum fractions of the colliding nucleons carried by the partons $i$ and $j$, which are taken to span the full set of quarks, antiquarks and gluons. For the numerical evaluations throughout this work we shall use the CTEQ6M set of parton distribution functions~\\cite{Pumplin:2002vw}, calculated at the factorization scale $Q=1/R$~\\cite{Giddings:2001bu}. The event rates at the LHC, integrated over the 1000~fb$^{-1}$ luminosity expected to be collected during the experiments lifetime, are given in fig.~\\ref{fig:lhc}. We show here both the cases of $y=1$ and of $y=0.5$. We use $y=1$ only to overcompensate for uncertainty in the precise value of this parameter; the value $y=1$ is an extreme case, and recent analyses\\cite{Giddings:2007nr} have argued for the more realistic value $y=0.6-0.7$, or even a lower value\\cite{Meade:2007sz}. \\subsection{Black hole product",
+              "context_match": true,
+              "contract_match": true,
+              "contract": {
+                "formula_quantity_hits": [
+                  "production_threshold"
+                ],
+                "formula_pattern_hits": {
+                  "production_threshold": [
+                    "\\\\tau\\s*=\\s*x_?\\{?1\\}?\\s*x_?\\{?2\\}?.{0,80}>.{0,80}\\\\tau_?\\{?min\\}?.{0,100}M_?\\{?min\\}?\\s*\\^?\\{?2"
+                  ]
+                },
+                "route_hits": [],
+                "regimes": [
+                  "astrophysical",
+                  "black_hole",
+                  "collider"
+                ],
+                "symbols": [
+                  "\\tau",
+                  "x",
+                  "_",
+                  "min",
+                  "M",
+                  "^",
+                  "y",
+                  "s"
+                ],
+                "units": [
+                  "time"
+                ],
+                "input_quantities": [
+                  "parton_energy",
+                  "gravity_scale"
+                ],
+                "output_quantities": [
+                  "produced_microscopic_black_hole"
+                ],
+                "formula_contract_valid": true,
+                "formula_shape_valid": true
+              }
+            }
+          ]
+        },
+        {
+          "receipt_id": "gm_capture_growth_law",
+          "slot_id": "net_positive_growth",
+          "recovered": true,
+          "accepted": {
+            "equation_ordinal": 32,
+            "kind": "system",
+            "formula": "\\frac{dM}{dt} = \\pi \\rho \\, v \\, r_c^2(M) \\; ,",
+            "context": "M)$ of the black hole, for a given mass. This is the radius out to which the gravitational field of the black hole succeeds in attracting matter that will eventually be absorbed. The other parameter is the flux of mass towards the black hole, $F$. Specifically, the black hole mass grows as \\begin{equation}\\label{genevol} {dM\\over dt} = \\pi r_c^2 F\\ . \\end{equation} This formula neglects reradiation of incident energy, which is discussed in Appendix~\\ref{app:rerad}, and, if present, can lower the growth rate. The flux can arise either from the motion of the black hole relative to the body, or from the motion of the constituents of the body relative to the black hole. In the case where the dominant effect is the velocity $v$ of the black hole, we have \\begin{equation} F=\\rho v \\end{equation} where $\\rho$ is the mass density near the capture radius. This produces an evolution equation \\begin{equation} \\label{eq:defevol} \\frac{dM}{dt} = \\pi \\rho \\, v \\, r_c^2(M) \\; , \\end{equation} The capture radius $r_c$ is frequently different from the Schwarzschild radius $R$, and depends on the size and state of motion of the black hole, as well as on properties of the surrounding medium. For example, free particles with velocity $v$ with respect to a black hole have capture radii \\begin{equation} r_c\\approx R/v \\end{equation} Black holes whose production is accessible at the LHC have an initial radius of the order \\tev$^{-1}$. As they absorb matter, their physical and capture radii grow.\\footnote{They also may have significant initial angular momentum. However, as they absorb matter, with negligible average angular momentum, they become increasingly well-approximated as non-spinning black holes.} In atomic matter, there are three possible domains where the properties of black hole interactions with matter vary. The first phase is that where $r_c$ is smaller than",
+            "context_match": true,
+            "contract_match": true,
+            "contract": {
+              "formula_quantity_hits": [
+                "mass_rate"
+              ],
+              "formula_pattern_hits": {
+                "mass_rate": [
+                  "(?:\\\\dot\\s*\\{?M\\}?|dM\\s*(?:/|\\\\over)\\s*dt|\\\\frac\\s*\\{(?:\\\\mathrm\\{d\\}|\\\\ud|d)\\s*M\\}\\s*\\{(?:\\\\mathrm\\{d\\}|\\\\ud|d)\\s*(?:t|\\\\tau)\\}).{0,120}(?:=|<|>|\\\\sim|\\\\simeq|\\\\propto)"
+                ]
+              },
+              "route_hits": [],
+              "regimes": [
+                "black_hole",
+                "collider",
+                "material"
+              ],
+              "symbols": [
+                "\\frac",
+                "dM",
+                "dt",
+                "\\pi",
+                "\\rho",
+                "v",
+                "r",
+                "_",
+                "c",
+                "^",
+                "M"
+              ],
+              "units": [],
+              "input_quantities": [
+                "captured_microscopic_black_hole",
+                "medium_state"
+              ],
+              "output_quantities": [
+                "growing_microscopic_black_hole"
+              ],
+              "formula_contract_valid": true,
+              "formula_shape_valid": true
+            }
+          },
+          "formula_candidate_count": 1,
+          "formula_candidates": [
+            {
+              "equation_ordinal": 32,
+              "kind": "system",
+              "formula": "\\frac{dM}{dt} = \\pi \\rho \\, v \\, r_c^2(M) \\; ,",
+              "context": "M)$ of the black hole, for a given mass. This is the radius out to which the gravitational field of the black hole succeeds in attracting matter that will eventually be absorbed. The other parameter is the flux of mass towards the black hole, $F$. Specifically, the black hole mass grows as \\begin{equation}\\label{genevol} {dM\\over dt} = \\pi r_c^2 F\\ . \\end{equation} This formula neglects reradiation of incident energy, which is discussed in Appendix~\\ref{app:rerad}, and, if present, can lower the growth rate. The flux can arise either from the motion of the black hole relative to the body, or from the motion of the constituents of the body relative to the black hole. In the case where the dominant effect is the velocity $v$ of the black hole, we have \\begin{equation} F=\\rho v \\end{equation} where $\\rho$ is the mass density near the capture radius. This produces an evolution equation \\begin{equation} \\label{eq:defevol} \\frac{dM}{dt} = \\pi \\rho \\, v \\, r_c^2(M) \\; , \\end{equation} The capture radius $r_c$ is frequently different from the Schwarzschild radius $R$, and depends on the size and state of motion of the black hole, as well as on properties of the surrounding medium. For example, free particles with velocity $v$ with respect to a black hole have capture radii \\begin{equation} r_c\\approx R/v \\end{equation} Black holes whose production is accessible at the LHC have an initial radius of the order \\tev$^{-1}$. As they absorb matter, their physical and capture radii grow.\\footnote{They also may have significant initial angular momentum. However, as they absorb matter, with negligible average angular momentum, they become increasingly well-approximated as non-spinning black holes.} In atomic matter, there are three possible domains where the properties of black hole interactions with matter vary. The first phase is that where $r_c$ is smaller than",
+              "context_match": true,
+              "contract_match": true,
+              "contract": {
+                "formula_quantity_hits": [
+                  "mass_rate"
+                ],
+                "formula_pattern_hits": {
+                  "mass_rate": [
+                    "(?:\\\\dot\\s*\\{?M\\}?|dM\\s*(?:/|\\\\over)\\s*dt|\\\\frac\\s*\\{(?:\\\\mathrm\\{d\\}|\\\\ud|d)\\s*M\\}\\s*\\{(?:\\\\mathrm\\{d\\}|\\\\ud|d)\\s*(?:t|\\\\tau)\\}).{0,120}(?:=|<|>|\\\\sim|\\\\simeq|\\\\propto)"
+                  ]
+                },
+                "route_hits": [],
+                "regimes": [
+                  "black_hole",
+                  "collider",
+                  "material"
+                ],
+                "symbols": [
+                  "\\frac",
+                  "dM",
+                  "dt",
+                  "\\pi",
+                  "\\rho",
+                  "v",
+                  "r",
+                  "_",
+                  "c",
+                  "^",
+                  "M"
+                ],
+                "units": [],
+                "input_quantities": [
+                  "captured_microscopic_black_hole",
+                  "medium_state"
+                ],
+                "output_quantities": [
+                  "growing_microscopic_black_hole"
+                ],
+                "formula_contract_valid": true,
+                "formula_shape_valid": true
+              }
+            }
+          ]
+        },
+        {
+          "receipt_id": "gm_relativistic_stopping_law",
+          "slot_id": "stopping_capture",
+          "recovered": true,
+          "accepted": {
+            "equation_ordinal": 117,
+            "kind": "system",
+            "formula": "\\left({dp\\over d\\ell}\\right)_{ac} = - (\\cac-\\cacm)\\bhm^2 \\pi\\rho{E^2\\over M^2} R^2(\\sqrt s)\\ ,",
+            "context": "hange will then be \\begin{equation} \\Delta p = \\cac p_p - (\\cac-\\cacm){E^2\\over M^2} (E_p-p_p) \\end{equation} where the terms proportional to $p_p$ contribute zero when averaged over different parton momenta. One can combine these equations with the capture cross section to determine the accretion contribution to the momentum and mass variation. For a black hole of velocity $v\\sim 1$ in a matter distribution with parton density $n$, one finds: \\begin{eqnarray}\\label{pacevol} \\left({dp\\over dt}\\right)_{ac} &=& n \\pi[\\bhm R({\\sqrt s})]^2 \\Delta p %nv\\int_0^{\\bhm R} \\pi db^2 \\Delta p \\;, \\\\ \\label{Macevol} \\left({dM\\over dt}\\right)_{ac} &=& n \\pi [\\bhm R({\\sqrt s})]^2 \\Delta M %\\int_0^{\\bhm R} \\pi db^2 \\Delta M \\;, \\end{eqnarray} where \\begin{equation}\\label{sdef} s=M^2+2(EE_p - pp_p) + m_p^2\\ . \\end{equation} This leads to the following evolution as a function of path length $\\ell$: \\begin{equation}\\label{acloss} \\left({dp\\over d\\ell}\\right)_{ac} = - (\\cac-\\cacm)\\bhm^2 \\pi\\rho{E^2\\over M^2} R^2(\\sqrt s)\\ , \\end{equation} \\begin{equation}\\label{mgain} \\left({dM\\over d\\ell}\\right)_{ac} = \\cacm \\bhm^2 \\pi\\rho {E\\over M} R^2(\\sqrt s)\\ , \\end{equation} where we introduced the energy density $\\rho \\simeq n\\langle E_p\\rangle$. We see that in the limit $\\cacm=\\cac$ (``perfect accretion\"), there is no average momentum transfer. \\subsubsection{Coulomb slow-down} Consider now the case of gravitational elastic collisions. For the earliest collisions, $R\\gg1/p_p'$, which is the regime of classical particle scattering. Once $\\gamma$ has decreased by a factor of approximately ten, the wavelength becomes longer than $R$ and we enter the quantum regime. Thus, we consider incident partons outside the capture regime, classically described by impact parameter $b>\\bhm R$. The momentum loss of the black hole is \\begin{equation}\\label{elastd} \\Delta p =-2{E^2\\over s}(E_p-p_p)\\sin^2{\\theta\\over 2} \\end{equation} whe",
+            "context_match": true,
+            "contract_match": true,
+            "contract": {
+              "formula_quantity_hits": [
+                "stopping_power"
+              ],
+              "formula_pattern_hits": {
+                "stopping_power": [
+                  "d[Ep]\\s*(?:/|\\\\over)\\s*d?[x\\\\ell l].{0,100}(?:=|\\\\sim|\\\\simeq|\\\\propto|>|<)"
+                ]
+              },
+              "route_hits": [],
+              "regimes": [
+                "black_hole",
+                "collider",
+                "material"
+              ],
+              "symbols": [
+                "\\left",
+                "dp",
+                "\\over",
+                "d",
+                "\\ell",
+                "\\right",
+                "_",
+                "ac",
+                "\\cac",
+                "\\cacm",
+                "\\bhm",
+                "^",
+                "\\pi",
+                "\\rho",
+                "E",
+                "M",
+                "R",
+                "\\sqrt",
+                "s"
+              ],
+              "units": [
+                "length",
+                "time"
+              ],
+              "input_quantities": [
+                "long_lived_microscopic_black_hole",
+                "medium_state"
+              ],
+              "output_quantities": [
+                "captured_microscopic_black_hole"
+              ],
+              "formula_contract_valid": true,
+              "formula_shape_valid": true
+            }
+          },
+          "formula_candidate_count": 1,
+          "formula_candidates": [
+            {
+              "equation_ordinal": 117,
+              "kind": "system",
+              "formula": "\\left({dp\\over d\\ell}\\right)_{ac} = - (\\cac-\\cacm)\\bhm^2 \\pi\\rho{E^2\\over M^2} R^2(\\sqrt s)\\ ,",
+              "context": "hange will then be \\begin{equation} \\Delta p = \\cac p_p - (\\cac-\\cacm){E^2\\over M^2} (E_p-p_p) \\end{equation} where the terms proportional to $p_p$ contribute zero when averaged over different parton momenta. One can combine these equations with the capture cross section to determine the accretion contribution to the momentum and mass variation. For a black hole of velocity $v\\sim 1$ in a matter distribution with parton density $n$, one finds: \\begin{eqnarray}\\label{pacevol} \\left({dp\\over dt}\\right)_{ac} &=& n \\pi[\\bhm R({\\sqrt s})]^2 \\Delta p %nv\\int_0^{\\bhm R} \\pi db^2 \\Delta p \\;, \\\\ \\label{Macevol} \\left({dM\\over dt}\\right)_{ac} &=& n \\pi [\\bhm R({\\sqrt s})]^2 \\Delta M %\\int_0^{\\bhm R} \\pi db^2 \\Delta M \\;, \\end{eqnarray} where \\begin{equation}\\label{sdef} s=M^2+2(EE_p - pp_p) + m_p^2\\ . \\end{equation} This leads to the following evolution as a function of path length $\\ell$: \\begin{equation}\\label{acloss} \\left({dp\\over d\\ell}\\right)_{ac} = - (\\cac-\\cacm)\\bhm^2 \\pi\\rho{E^2\\over M^2} R^2(\\sqrt s)\\ , \\end{equation} \\begin{equation}\\label{mgain} \\left({dM\\over d\\ell}\\right)_{ac} = \\cacm \\bhm^2 \\pi\\rho {E\\over M} R^2(\\sqrt s)\\ , \\end{equation} where we introduced the energy density $\\rho \\simeq n\\langle E_p\\rangle$. We see that in the limit $\\cacm=\\cac$ (``perfect accretion\"), there is no average momentum transfer. \\subsubsection{Coulomb slow-down} Consider now the case of gravitational elastic collisions. For the earliest collisions, $R\\gg1/p_p'$, which is the regime of classical particle scattering. Once $\\gamma$ has decreased by a factor of approximately ten, the wavelength becomes longer than $R$ and we enter the quantum regime. Thus, we consider incident partons outside the capture regime, classically described by impact parameter $b>\\bhm R$. The momentum loss of the black hole is \\begin{equation}\\label{elastd} \\Delta p =-2{E^2\\over s}(E_p-p_p)\\sin^2{\\theta\\over 2} \\end{equation} whe",
+              "context_match": true,
+              "contract_match": true,
+              "contract": {
+                "formula_quantity_hits": [
+                  "stopping_power"
+                ],
+                "formula_pattern_hits": {
+                  "stopping_power": [
+                    "d[Ep]\\s*(?:/|\\\\over)\\s*d?[x\\\\ell l].{0,100}(?:=|\\\\sim|\\\\simeq|\\\\propto|>|<)"
+                  ]
+                },
+                "route_hits": [],
+                "regimes": [
+                  "black_hole",
+                  "collider",
+                  "material"
+                ],
+                "symbols": [
+                  "\\left",
+                  "dp",
+                  "\\over",
+                  "d",
+                  "\\ell",
+                  "\\right",
+                  "_",
+                  "ac",
+                  "\\cac",
+                  "\\cacm",
+                  "\\bhm",
+                  "^",
+                  "\\pi",
+                  "\\rho",
+                  "E",
+                  "M",
+                  "R",
+                  "\\sqrt",
+                  "s"
+                ],
+                "units": [
+                  "length",
+                  "time"
+                ],
+                "input_quantities": [
+                  "long_lived_microscopic_black_hole",
+                  "medium_state"
+                ],
+                "output_quantities": [
+                  "captured_microscopic_black_hole"
+                ],
+                "formula_contract_valid": true,
+                "formula_shape_valid": true
+              }
+            }
+          ]
+        },
+        {
+          "receipt_id": "gm_white_dwarf_growth_times",
+          "slot_id": "growth_timescale",
+          "recovered": true,
+          "accepted": {
+            "equation_ordinal": 169,
+            "kind": "system",
+            "formula": "t(R_B<R_D) &=& 8\\,\\frac{1}{\\lambda_6} \\left({M_D\\over M_0}\\right)^2 \\yr\\ ,\\ \\ \\quad\\quad\\quad D=6\\\\ t(R_D<R_B<R_C) &=& 4\\times 10^2\\,\\frac{1}{\\lambda_4} \\left({M_D\\over M_0}\\right)^2 \\yr\\ ,\\ \\ \\quad\\quad\\quad D=6\\\\ t(R_B>R_C) &=& 15\\,\\frac{1}{\\lambda_4} \\left({M_D\\over M_0}\\right)^2 \\yr\\ ,\\ \\ \\quad\\quad\\quad D=6",
+            "context": "D$, and from $R_C$ onward. To be conservative, we now model the transition phase between $R_D$ and $R_C$ by assuming the {\\it slowest} evolution, namely a 4-dimensional growth, with a constant Bondi radius equals to $R_D$, until the mass reaches the value corresponding to $R_B=R_C$. This gives an evolution time scale: \\begin{equation}\\label{FbondievWD} t = d_0 c_s {16\\pi [4\\pi(D-3)k_D]^{1/(D-4)} \\over \\lambda_D} \\left({M_D\\over M_0}\\right)^{(D-2)/(D-4)} \\left({M_4\\over M_0}\\right)^{2(D-5)/(D-4)}\\ , \\end{equation} The evolution time scales are determined by the white dwarf parameters (for a $M=M_\\odot$ white dwarf~\\cite{Shen}) $d_0\\approx 1.4\\times 10^{-6} s$ and $c_s\\approx 1.4\\times 10^{-2}$. The combination $d_0 \\, c_s$ has a value that is approximately $1.5\\times 10^{-4}$ times the Earth's value (\\ref{Birch}). The resulting time scales will therefore be comparatively shorter: \\begin{eqnarray} t(R_B<R_D) &=& 8\\,\\frac{1}{\\lambda_6} \\left({M_D\\over M_0}\\right)^2 \\yr\\ ,\\ \\ \\quad\\quad\\quad D=6\\\\ t(R_D<R_B<R_C) &=& 4\\times 10^2\\,\\frac{1}{\\lambda_4} \\left({M_D\\over M_0}\\right)^2 \\yr\\ ,\\ \\ \\quad\\quad\\quad D=6\\\\ t(R_B>R_C) &=& 15\\,\\frac{1}{\\lambda_4} \\left({M_D\\over M_0}\\right)^2 \\yr\\ ,\\ \\ \\quad\\quad\\quad D=6 \\end{eqnarray} \\begin{eqnarray} t(R_B<R_D) &=& 1.3\\times 10^5 \\,\\frac{1}{\\lambda_7} \\left({M_D\\over M_0}\\right)^{5/3} \\yr\\ ,\\ \\ \\quad\\quad\\quad D=7\\\\ t(R_D<R_B<R_C) &=& 6 \\times 10^7\\,\\frac{1}{\\lambda_4} \\left({M_D\\over M_0}\\right)^{5/3}\\yr\\ ,\\ \\ \\quad\\quad\\quad D=7\\\\ t(R_B>R_C) &=& 1.9\\times 10^6\\,\\frac{1}{\\lambda_4}\\left({M_D\\over M_0}\\right)^{5/3} \\yr\\ ,\\ \\ \\quad\\quad\\quad D=7\\ . \\end{eqnarray} Taking the largest value of relevance for the LHC, $M_D\\sim 4.7$~TeV, and using the value of $\\lambda_{D}$ appropriate for a relativistic electron gas, the longest possible phase of the evolution in $D=7$ does not exceed 80 million years. We recall that, in this largest-$M$ condition, the Earth's lifetime for $D=7$ exceeds 10 billion years by a large margin. We also notice that if we consider the case of more massive and thus denser white dwarfs, the timescales are reduced. For example, the central dens",
+            "context_match": true,
+            "contract_match": true,
+            "contract": {
+              "formula_quantity_hits": [
+                "growth_timescale"
+              ],
+              "formula_pattern_hits": {
+                "growth_timescale": [
+                  "(?<![A-Za-z])t\\s*\\([^)]*R_?[BCD][^)]*\\).{0,40}(?:=|&=&|\\\\approx|\\\\sim).{0,260}(?:\\\\yr|\\\\mathrm\\{yr\\}|Gyr|Myr)"
+                ]
+              },
+              "route_hits": [],
+              "regimes": [
+                "astrophysical",
+                "collider",
+                "material"
+              ],
+              "symbols": [
+                "t",
+                "R",
+                "_",
+                "B",
+                "D",
+                "\\frac",
+                "\\lambda",
+                "\\left",
+                "M",
+                "\\over",
+                "\\right",
+                "^",
+                "\\yr",
+                "\\quad",
+                "C",
+                "\\times"
+              ],
+              "units": [
+                "time"
+              ],
+              "input_quantities": [
+                "growing_microscopic_black_hole",
+                "mass_rate"
+              ],
+              "output_quantities": [
+                "macroscopic_growth_within_exposure"
+              ],
+              "formula_contract_valid": true,
+              "formula_shape_valid": true
+            }
+          },
+          "formula_candidate_count": 1,
+          "formula_candidates": [
+            {
+              "equation_ordinal": 169,
+              "kind": "system",
+              "formula": "t(R_B<R_D) &=& 8\\,\\frac{1}{\\lambda_6} \\left({M_D\\over M_0}\\right)^2 \\yr\\ ,\\ \\ \\quad\\quad\\quad D=6\\\\ t(R_D<R_B<R_C) &=& 4\\times 10^2\\,\\frac{1}{\\lambda_4} \\left({M_D\\over M_0}\\right)^2 \\yr\\ ,\\ \\ \\quad\\quad\\quad D=6\\\\ t(R_B>R_C) &=& 15\\,\\frac{1}{\\lambda_4} \\left({M_D\\over M_0}\\right)^2 \\yr\\ ,\\ \\ \\quad\\quad\\quad D=6",
+              "context": "D$, and from $R_C$ onward. To be conservative, we now model the transition phase between $R_D$ and $R_C$ by assuming the {\\it slowest} evolution, namely a 4-dimensional growth, with a constant Bondi radius equals to $R_D$, until the mass reaches the value corresponding to $R_B=R_C$. This gives an evolution time scale: \\begin{equation}\\label{FbondievWD} t = d_0 c_s {16\\pi [4\\pi(D-3)k_D]^{1/(D-4)} \\over \\lambda_D} \\left({M_D\\over M_0}\\right)^{(D-2)/(D-4)} \\left({M_4\\over M_0}\\right)^{2(D-5)/(D-4)}\\ , \\end{equation} The evolution time scales are determined by the white dwarf parameters (for a $M=M_\\odot$ white dwarf~\\cite{Shen}) $d_0\\approx 1.4\\times 10^{-6} s$ and $c_s\\approx 1.4\\times 10^{-2}$. The combination $d_0 \\, c_s$ has a value that is approximately $1.5\\times 10^{-4}$ times the Earth's value (\\ref{Birch}). The resulting time scales will therefore be comparatively shorter: \\begin{eqnarray} t(R_B<R_D) &=& 8\\,\\frac{1}{\\lambda_6} \\left({M_D\\over M_0}\\right)^2 \\yr\\ ,\\ \\ \\quad\\quad\\quad D=6\\\\ t(R_D<R_B<R_C) &=& 4\\times 10^2\\,\\frac{1}{\\lambda_4} \\left({M_D\\over M_0}\\right)^2 \\yr\\ ,\\ \\ \\quad\\quad\\quad D=6\\\\ t(R_B>R_C) &=& 15\\,\\frac{1}{\\lambda_4} \\left({M_D\\over M_0}\\right)^2 \\yr\\ ,\\ \\ \\quad\\quad\\quad D=6 \\end{eqnarray} \\begin{eqnarray} t(R_B<R_D) &=& 1.3\\times 10^5 \\,\\frac{1}{\\lambda_7} \\left({M_D\\over M_0}\\right)^{5/3} \\yr\\ ,\\ \\ \\quad\\quad\\quad D=7\\\\ t(R_D<R_B<R_C) &=& 6 \\times 10^7\\,\\frac{1}{\\lambda_4} \\left({M_D\\over M_0}\\right)^{5/3}\\yr\\ ,\\ \\ \\quad\\quad\\quad D=7\\\\ t(R_B>R_C) &=& 1.9\\times 10^6\\,\\frac{1}{\\lambda_4}\\left({M_D\\over M_0}\\right)^{5/3} \\yr\\ ,\\ \\ \\quad\\quad\\quad D=7\\ . \\end{eqnarray} Taking the largest value of relevance for the LHC, $M_D\\sim 4.7$~TeV, and using the value of $\\lambda_{D}$ appropriate for a relativistic electron gas, the longest possible phase of the evolution in $D=7$ does not exceed 80 million years. We recall that, in this largest-$M$ condition, the Earth's lifetime for $D=7$ exceeds 10 billion years by a large margin. We also notice that if we consider the case of more massive and thus denser white dwarfs, the timescales are reduced. For example, the central dens",
+              "context_match": true,
+              "contract_match": true,
+              "contract": {
+                "formula_quantity_hits": [
+                  "growth_timescale"
+                ],
+                "formula_pattern_hits": {
+                  "growth_timescale": [
+                    "(?<![A-Za-z])t\\s*\\([^)]*R_?[BCD][^)]*\\).{0,40}(?:=|&=&|\\\\approx|\\\\sim).{0,260}(?:\\\\yr|\\\\mathrm\\{yr\\}|Gyr|Myr)"
+                  ]
+                },
+                "route_hits": [],
+                "regimes": [
+                  "astrophysical",
+                  "collider",
+                  "material"
+                ],
+                "symbols": [
+                  "t",
+                  "R",
+                  "_",
+                  "B",
+                  "D",
+                  "\\frac",
+                  "\\lambda",
+                  "\\left",
+                  "M",
+                  "\\over",
+                  "\\right",
+                  "^",
+                  "\\yr",
+                  "\\quad",
+                  "C",
+                  "\\times"
+                ],
+                "units": [
+                  "time"
+                ],
+                "input_quantities": [
+                  "growing_microscopic_black_hole",
+                  "mass_rate"
+                ],
+                "output_quantities": [
+                  "macroscopic_growth_within_exposure"
+                ],
+                "formula_contract_valid": true,
+                "formula_shape_valid": true
+              }
+            }
+          ]
+        },
+        {
+          "receipt_id": "gm_neutron_star_bound",
+          "slot_id": "astronomical_bound_evasion",
+          "recovered": true,
+          "accepted": {
+            "equation_ordinal": 193,
+            "kind": "inline",
+            "formula": "t_{NS,w}\\sim 20\\yr",
+            "context": "me scale (\\ref{Fbondiev}), with $\\lambda_D\\rightarrow\\lambda_4$. For the stage in between, we use, as in the case of the white dwarfs, the conservative time in eq.~(\\ref{FbondievWD}). Taking a typical value $\\rho=2\\times 10^{14}\\gr/\\cm^2$ gives $d_0=7\\times 10^{-3}s$, and the speed of sound is of magnitude $c_s\\sim 0.1$. The time scales are therefore about $10^{-6}$ times smaller than those of the white dwarf. The longest evolution corresponds to the 4-dimensional phase from $R_D$ to $R_C$ in $D=11$ dimensions, with a time scale of $\\sim10$ million years; for $D\\leq7$, times are $\\lsim 50 \\yr$. In the more general warped case, the growth times are, as in the white dwarf case, dominated by the upper end of the warped phase and its crossover to four-dimensional accretion, with time scale (\\ref{Bwarpt}). For neutron star parameters and a value $R_C\\geq 5$~\\AA, this yields times of size $t_{NS,w}\\sim 20\\yr$. Combining the results of this and the preceding subsections, we find that the rate-limiting step to destroy a neutron star is the time required for a black hole to be produced and reach the surface of the neutron star. Once it reaches the core, the accretion times are very rapid compared to the neutron star's lifetime, ${\\cal O}$(Gyr). These bounds appear quite challenging to avoid. In order to do so, one would need a significant deficit of light cosmic ray primaries, together with a heavy ($\\gsim 7\\,\\tev$) minimum black hole mass and only systems with low $FCE$, {\\it and} one would have to have a neutrino flux that is either suppressed by unknown mechanisms or is unusually non-reactive. As a final note, in our framework we can estimate the lifetime of a neutron star that captures a primordial black hole of mass ${\\cal O}(10^{15}\\gr)$. Our parameters yield a time of order $3\\",
+            "context_match": true,
+            "contract_match": true,
+            "contract": {
+              "formula_quantity_hits": [
+                "astronomical_survival_bound"
+              ],
+              "formula_pattern_hits": {
+                "astronomical_survival_bound": [
+                  "t_?\\{?(?:w|WD|NS)\\}?.{0,100}(?:=|<|>|\\\\ll|\\\\gg|\\\\approx|\\\\sim).{0,220}(?:\\\\yr|Gyr|Myr)"
+                ]
+              },
+              "route_hits": [],
+              "regimes": [
+                "astrophysical",
+                "black_hole",
+                "material"
+              ],
+              "symbols": [
+                "t",
+                "_",
+                "NS",
+                "w",
+                "\\sim",
+                "\\yr"
+              ],
+              "units": [
+                "time"
+              ],
+              "input_quantities": [
+                "macroscopic_growth_within_exposure",
+                "cosmic_ray_exposure"
+              ],
+              "output_quantities": [
+                "model_consistent_with_astronomical_survival"
+              ],
+              "formula_contract_valid": true,
+              "formula_shape_valid": true
+            }
+          },
+          "formula_candidate_count": 1,
+          "formula_candidates": [
+            {
+              "equation_ordinal": 193,
+              "kind": "inline",
+              "formula": "t_{NS,w}\\sim 20\\yr",
+              "context": "me scale (\\ref{Fbondiev}), with $\\lambda_D\\rightarrow\\lambda_4$. For the stage in between, we use, as in the case of the white dwarfs, the conservative time in eq.~(\\ref{FbondievWD}). Taking a typical value $\\rho=2\\times 10^{14}\\gr/\\cm^2$ gives $d_0=7\\times 10^{-3}s$, and the speed of sound is of magnitude $c_s\\sim 0.1$. The time scales are therefore about $10^{-6}$ times smaller than those of the white dwarf. The longest evolution corresponds to the 4-dimensional phase from $R_D$ to $R_C$ in $D=11$ dimensions, with a time scale of $\\sim10$ million years; for $D\\leq7$, times are $\\lsim 50 \\yr$. In the more general warped case, the growth times are, as in the white dwarf case, dominated by the upper end of the warped phase and its crossover to four-dimensional accretion, with time scale (\\ref{Bwarpt}). For neutron star parameters and a value $R_C\\geq 5$~\\AA, this yields times of size $t_{NS,w}\\sim 20\\yr$. Combining the results of this and the preceding subsections, we find that the rate-limiting step to destroy a neutron star is the time required for a black hole to be produced and reach the surface of the neutron star. Once it reaches the core, the accretion times are very rapid compared to the neutron star's lifetime, ${\\cal O}$(Gyr). These bounds appear quite challenging to avoid. In order to do so, one would need a significant deficit of light cosmic ray primaries, together with a heavy ($\\gsim 7\\,\\tev$) minimum black hole mass and only systems with low $FCE$, {\\it and} one would have to have a neutrino flux that is either suppressed by unknown mechanisms or is unusually non-reactive. As a final note, in our framework we can estimate the lifetime of a neutron star that captures a primordial black hole of mass ${\\cal O}(10^{15}\\gr)$. Our parameters yield a time of order $3\\",
+              "context_match": true,
+              "contract_match": true,
+              "contract": {
+                "formula_quantity_hits": [
+                  "astronomical_survival_bound"
+                ],
+                "formula_pattern_hits": {
+                  "astronomical_survival_bound": [
+                    "t_?\\{?(?:w|WD|NS)\\}?.{0,100}(?:=|<|>|\\\\ll|\\\\gg|\\\\approx|\\\\sim).{0,220}(?:\\\\yr|Gyr|Myr)"
+                  ]
+                },
+                "route_hits": [],
+                "regimes": [
+                  "astrophysical",
+                  "black_hole",
+                  "material"
+                ],
+                "symbols": [
+                  "t",
+                  "_",
+                  "NS",
+                  "w",
+                  "\\sim",
+                  "\\yr"
+                ],
+                "units": [
+                  "time"
+                ],
+                "input_quantities": [
+                  "macroscopic_growth_within_exposure",
+                  "cosmic_ray_exposure"
+                ],
+                "output_quantities": [
+                  "model_consistent_with_astronomical_survival"
+                ],
+                "formula_contract_valid": true,
+                "formula_shape_valid": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "arxiv_id": "0806.3414",
+      "source_present": true,
+      "equation_count": 0,
+      "title": "0806.3414",
+      "citation_count": 8,
+      "receipt_results": []
+    },
+    {
+      "arxiv_id": "0807.3349",
+      "source_present": true,
+      "equation_count": 37,
+      "title": "Exclusion of black hole disaster scenarios at the LHC",
+      "citation_count": 60,
+      "receipt_results": [
+        {
+          "receipt_id": "kbs_geometric_production",
+          "slot_id": "production_selector",
+          "recovered": true,
+          "accepted": {
+            "equation_ordinal": 5,
+            "kind": "system",
+            "formula": "\\sigma(M)\\approx \\pi R_H^2 \\xi(\\sqrt{s}-M_f)\\quad,",
+            "context": "{hoop}, it might be possible to produce mini black holes with masses of approximately 1 TeV in future colliders \\cite{Banks:1999gd,Giddings:2000ay,Giddings:2001bu,Dimopoulos:2001hw,Hossenfelder:2001dn,Bleicher:2001kh,Kotwal:2002wg,Giddings:2004xy}. This can only be the case when the invariant scattering energy $\\sqrt{s}$ reaches the relevant energy scale $M_f$. The higher dimensional Schwarzschild radius \\cite{Myers:1986un,Giddings:2001bu} of these black holes is given by \\begin{equation} \\label{ssradD} R_H^{d+1}= \\frac{16 \\pi (2 \\pi)^d}{(d+2) A_{d+2}}\\left(\\frac{1}{M_{f}}\\right)^{d+1} \\; \\frac{M}{M_{f}} \\quad , \\end{equation} % where $A_{d+2}$ is the area of the $d+2$ dimensional unit sphere \\begin{equation} A_{d+2}=\\frac{2 \\pi^{(3+d)/2}}{\\Gamma\\left(\\frac{3+d}{2}\\right)}\\quad. \\end{equation} A semi-classical approximation for the mini black hole production cross section is given by \\begin{eqnarray} \\label{cross} \\sigma(M)\\approx \\pi R_H^2 \\xi(\\sqrt{s}-M_f)\\quad, \\end{eqnarray} where the function $\\xi$ ensures that black holes are only produced above the $M_f$ threshold. The function $\\xi$ is one for $\\sqrt{s}\\gg M_f$ and zero for $\\sqrt{s}\\approx M_f$. In many simulations $\\xi$ is replaced by a theta function. The validity of this approximation has been debated in \\cite{Voloshin:2001fe,Voloshin:2001vs,Giddings:2001ih,Rizzo:2001dk,Jevicki:2002fq,Eardley:2002re,Rychkov:2004sf,Rychkov:2004tw,Kang:2004yk,Rizzo:2006uz,Rizzo:2006zb} and the observable formation of an event horizon has been questioned \\cite{Vachaspati:2006ki,Vachaspati:2007hr}. However, other improved calculations including the diffuseness of the scattering particles (as opposed to point particles) and the angular momentum of the collision (as opposed to head on collisions) as well as string inspired arguments only lead to modifications of (\\ref{cross}) which are of the order of one \\cite{Yoshino:",
+            "context_match": true,
+            "contract_match": true,
+            "contract": {
+              "formula_quantity_hits": [
+                "production_cross_section"
+              ],
+              "formula_pattern_hits": {
+                "production_cross_section": [
+                  "\\\\sigma(?:\\([^)]*\\)).{0,100}(?:\\\\approx|\\\\sim|=).{0,80}\\\\pi.{0,80}R_?\\{?H\\}?\\s*\\^?\\{?2.{0,120}(?:\\\\xi|\\\\Theta)"
+                ]
+              },
+              "route_hits": [],
+              "regimes": [
+                "black_hole",
+                "collider"
+              ],
+              "symbols": [
+                "\\sigma",
+                "M",
+                "\\approx",
+                "\\pi",
+                "R",
+                "_",
+                "H",
+                "^",
+                "\\xi",
+                "\\sqrt",
+                "s",
+                "f",
+                "\\quad"
+              ],
+              "units": [
+                "time"
+              ],
+              "input_quantities": [
+                "parton_energy",
+                "gravity_scale"
+              ],
+              "output_quantities": [
+                "produced_microscopic_black_hole"
+              ],
+              "formula_contract_valid": true,
+              "formula_shape_valid": true
+            }
+          },
+          "formula_candidate_count": 1,
+          "formula_candidates": [
+            {
+              "equation_ordinal": 5,
+              "kind": "system",
+              "formula": "\\sigma(M)\\approx \\pi R_H^2 \\xi(\\sqrt{s}-M_f)\\quad,",
+              "context": "{hoop}, it might be possible to produce mini black holes with masses of approximately 1 TeV in future colliders \\cite{Banks:1999gd,Giddings:2000ay,Giddings:2001bu,Dimopoulos:2001hw,Hossenfelder:2001dn,Bleicher:2001kh,Kotwal:2002wg,Giddings:2004xy}. This can only be the case when the invariant scattering energy $\\sqrt{s}$ reaches the relevant energy scale $M_f$. The higher dimensional Schwarzschild radius \\cite{Myers:1986un,Giddings:2001bu} of these black holes is given by \\begin{equation} \\label{ssradD} R_H^{d+1}= \\frac{16 \\pi (2 \\pi)^d}{(d+2) A_{d+2}}\\left(\\frac{1}{M_{f}}\\right)^{d+1} \\; \\frac{M}{M_{f}} \\quad , \\end{equation} % where $A_{d+2}$ is the area of the $d+2$ dimensional unit sphere \\begin{equation} A_{d+2}=\\frac{2 \\pi^{(3+d)/2}}{\\Gamma\\left(\\frac{3+d}{2}\\right)}\\quad. \\end{equation} A semi-classical approximation for the mini black hole production cross section is given by \\begin{eqnarray} \\label{cross} \\sigma(M)\\approx \\pi R_H^2 \\xi(\\sqrt{s}-M_f)\\quad, \\end{eqnarray} where the function $\\xi$ ensures that black holes are only produced above the $M_f$ threshold. The function $\\xi$ is one for $\\sqrt{s}\\gg M_f$ and zero for $\\sqrt{s}\\approx M_f$. In many simulations $\\xi$ is replaced by a theta function. The validity of this approximation has been debated in \\cite{Voloshin:2001fe,Voloshin:2001vs,Giddings:2001ih,Rizzo:2001dk,Jevicki:2002fq,Eardley:2002re,Rychkov:2004sf,Rychkov:2004tw,Kang:2004yk,Rizzo:2006uz,Rizzo:2006zb} and the observable formation of an event horizon has been questioned \\cite{Vachaspati:2006ki,Vachaspati:2007hr}. However, other improved calculations including the diffuseness of the scattering particles (as opposed to point particles) and the angular momentum of the collision (as opposed to head on collisions) as well as string inspired arguments only lead to modifications of (\\ref{cross}) which are of the order of one \\cite{Yoshino:",
+              "context_match": true,
+              "contract_match": true,
+              "contract": {
+                "formula_quantity_hits": [
+                  "production_cross_section"
+                ],
+                "formula_pattern_hits": {
+                  "production_cross_section": [
+                    "\\\\sigma(?:\\([^)]*\\)).{0,100}(?:\\\\approx|\\\\sim|=).{0,80}\\\\pi.{0,80}R_?\\{?H\\}?\\s*\\^?\\{?2.{0,120}(?:\\\\xi|\\\\Theta)"
+                  ]
+                },
+                "route_hits": [],
+                "regimes": [
+                  "black_hole",
+                  "collider"
+                ],
+                "symbols": [
+                  "\\sigma",
+                  "M",
+                  "\\approx",
+                  "\\pi",
+                  "R",
+                  "_",
+                  "H",
+                  "^",
+                  "\\xi",
+                  "\\sqrt",
+                  "s",
+                  "f",
+                  "\\quad"
+                ],
+                "units": [
+                  "time"
+                ],
+                "input_quantities": [
+                  "parton_energy",
+                  "gravity_scale"
+                ],
+                "output_quantities": [
+                  "produced_microscopic_black_hole"
+                ],
+                "formula_contract_valid": true,
+                "formula_shape_valid": true
+              }
+            }
+          ]
+        },
+        {
+          "receipt_id": "kbs_hawking_mass_loss",
+          "slot_id": "survival_lifetime",
+          "recovered": true,
+          "accepted": {
+            "equation_ordinal": 12,
+            "kind": "system",
+            "formula": "\\frac{dM}{dt}\\approx- c \\frac{d+1}{4 R_H^2} \\quad.",
+            "context": "t radiation mechanism. For instance also a conjectured neutralization of the black holes via a Schwinger mechanism is covered by discussion ({\\bf{D1-B}}). %%%%%%%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% \\section{Discussions} \\subsection*{{\\bf{D0}}: the black hole temperature} Most theoretical models for large extra dimensions predict that the mini black holes emit high energetic radiation in a very short time scale. The temperature of this radiation was derived from the quantum theory in curved spacetime \\cite{Hawking:1974sw,Hawking:1982dh}. This so called Hawking temperature is inverse proportional to the radius of the black hole \\cite{Giddings:2001bu} \\begin{equation} T_H=\\frac{d+1}{4 \\pi R_H}\\quad. \\end{equation} The time scale of a single emission can be straight forward estimated $t_{1em}\\approx R_H/c $. Therefore, the decay rate of a mini black hole in the canonical picture is \\begin{equation}\\label{BHdecay} \\frac{dM}{dt}\\approx- c \\frac{d+1}{4 R_H^2} \\quad. \\end{equation} Comparing this decay rate to typical growth rates at the early stage of the mini black hole evolution \\cite{Giddings:2008gr} one finds for instance for $M=10 M_f = 10^4$GeV that the decay rate (\\ref{BHdecay}) exceeds the growth rate for any number of dimensions by at least thirty orders of magnitude. From this estimate it is clear that such mini black holes that are produced on the earth can never grow. %%%%%%%% \\subsection*{{\\bf{D1-A}}: the black hole charge} In this discussion we rely on the logical imperative that those mini black holes that originate from the collapse of charged particles or that swallow charged particles also have effectively some charge. If the average time for the emission of a single particle in the rest frame of the black hole $(t_{1em})$ is of the same order of magnitude or even bigger than the average time ($t_{ac}$) between accretion events ($t_{1em}\\gt",
+            "context_match": true,
+            "contract_match": true,
+            "contract": {
+              "formula_quantity_hits": [
+                "evaporation_rate"
+              ],
+              "formula_pattern_hits": {
+                "evaporation_rate": [
+                  "(?:\\\\dot\\s*\\{?M\\}?|dM\\s*(?:/|\\\\over)\\s*dt|\\\\frac\\s*\\{(?:\\\\mathrm\\{d\\}|\\\\ud|d)\\s*M\\}\\s*\\{(?:\\\\mathrm\\{d\\}|\\\\ud|d)\\s*(?:t|\\\\tau)\\}).{0,80}(?:(?:=|\\\\approx|\\\\simeq|\\\\sim)\\s*-|<\\s*0|-\\s*P_?\\{?(?:\\\\rm\\s*)?evap)"
+                ]
+              },
+              "route_hits": [],
+              "regimes": [
+                "astrophysical",
+                "black_hole",
+                "material"
+              ],
+              "symbols": [
+                "\\frac",
+                "dM",
+                "dt",
+                "\\approx",
+                "c",
+                "d",
+                "R",
+                "_",
+                "H",
+                "^",
+                "\\quad"
+              ],
+              "units": [],
+              "input_quantities": [
+                "produced_microscopic_black_hole"
+              ],
+              "output_quantities": [
+                "long_lived_microscopic_black_hole"
+              ],
+              "formula_contract_valid": true,
+              "formula_shape_valid": true
+            }
+          },
+          "formula_candidate_count": 1,
+          "formula_candidates": [
+            {
+              "equation_ordinal": 12,
+              "kind": "system",
+              "formula": "\\frac{dM}{dt}\\approx- c \\frac{d+1}{4 R_H^2} \\quad.",
+              "context": "t radiation mechanism. For instance also a conjectured neutralization of the black holes via a Schwinger mechanism is covered by discussion ({\\bf{D1-B}}). %%%%%%%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% \\section{Discussions} \\subsection*{{\\bf{D0}}: the black hole temperature} Most theoretical models for large extra dimensions predict that the mini black holes emit high energetic radiation in a very short time scale. The temperature of this radiation was derived from the quantum theory in curved spacetime \\cite{Hawking:1974sw,Hawking:1982dh}. This so called Hawking temperature is inverse proportional to the radius of the black hole \\cite{Giddings:2001bu} \\begin{equation} T_H=\\frac{d+1}{4 \\pi R_H}\\quad. \\end{equation} The time scale of a single emission can be straight forward estimated $t_{1em}\\approx R_H/c $. Therefore, the decay rate of a mini black hole in the canonical picture is \\begin{equation}\\label{BHdecay} \\frac{dM}{dt}\\approx- c \\frac{d+1}{4 R_H^2} \\quad. \\end{equation} Comparing this decay rate to typical growth rates at the early stage of the mini black hole evolution \\cite{Giddings:2008gr} one finds for instance for $M=10 M_f = 10^4$GeV that the decay rate (\\ref{BHdecay}) exceeds the growth rate for any number of dimensions by at least thirty orders of magnitude. From this estimate it is clear that such mini black holes that are produced on the earth can never grow. %%%%%%%% \\subsection*{{\\bf{D1-A}}: the black hole charge} In this discussion we rely on the logical imperative that those mini black holes that originate from the collapse of charged particles or that swallow charged particles also have effectively some charge. If the average time for the emission of a single particle in the rest frame of the black hole $(t_{1em})$ is of the same order of magnitude or even bigger than the average time ($t_{ac}$) between accretion events ($t_{1em}\\gt",
+              "context_match": true,
+              "contract_match": true,
+              "contract": {
+                "formula_quantity_hits": [
+                  "evaporation_rate"
+                ],
+                "formula_pattern_hits": {
+                  "evaporation_rate": [
+                    "(?:\\\\dot\\s*\\{?M\\}?|dM\\s*(?:/|\\\\over)\\s*dt|\\\\frac\\s*\\{(?:\\\\mathrm\\{d\\}|\\\\ud|d)\\s*M\\}\\s*\\{(?:\\\\mathrm\\{d\\}|\\\\ud|d)\\s*(?:t|\\\\tau)\\}).{0,80}(?:(?:=|\\\\approx|\\\\simeq|\\\\sim)\\s*-|<\\s*0|-\\s*P_?\\{?(?:\\\\rm\\s*)?evap)"
+                  ]
+                },
+                "route_hits": [],
+                "regimes": [
+                  "astrophysical",
+                  "black_hole",
+                  "material"
+                ],
+                "symbols": [
+                  "\\frac",
+                  "dM",
+                  "dt",
+                  "\\approx",
+                  "c",
+                  "d",
+                  "R",
+                  "_",
+                  "H",
+                  "^",
+                  "\\quad"
+                ],
+                "units": [],
+                "input_quantities": [
+                  "produced_microscopic_black_hole"
+                ],
+                "output_quantities": [
+                  "long_lived_microscopic_black_hole"
+                ],
+                "formula_contract_valid": true,
+                "formula_shape_valid": true
+              }
+            }
+          ]
+        },
+        {
+          "receipt_id": "kbs_lower_bound_growth",
+          "slot_id": "net_positive_growth",
+          "recovered": true,
+          "accepted": {
+            "equation_ordinal": 21,
+            "kind": "system",
+            "formula": "\\frac{dM_1(x)}{dx}=\\pi (r_p+R_H)^2 \\rho \\alpha \\ge \\alpha \\pi r_p^2 \\rho \\quad \\Rightarrow \\quad M_1(x)\\ge x \\pi r_p^2 \\rho \\alpha+M_f \\;.",
+            "context": "cts of the black hole rapidity and of the black hole surface are neglected. Those strongly interacting but color neutral final states (with a neutralized Black hole $BH$) for an initial black hole - proton system could be ($BH + p^+ \\rightarrow \\{BH+ e^+, BH + \\pi^+ , BH + \\pi^+ + \\pi^0 , \\dots, BH + X \\}$). In order to be most pessimistic about the braking efficiency of the reaction one has to assume that no momentum is transferred to the final state ($X$). In this case the mini black hole grows in mass if the rest mass of ($X$) is smaller than the rest mass of the nucleon. This effect of the strong dynamics can be parameterized by claiming that a black hole can accrete some fraction ($1>\\alpha>0$) of a nucleon when it propagates through it. For this kind of accretion the mass growth ($dM$) after propagating a distance ($dx$) in a star with average density ($\\rho$) is at least % \\begin{equation}\\label{Mgrowth} \\frac{dM_1(x)}{dx}=\\pi (r_p+R_H)^2 \\rho \\alpha \\ge \\alpha \\pi r_p^2 \\rho \\quad \\Rightarrow \\quad M_1(x)\\ge x \\pi r_p^2 \\rho \\alpha+M_f \\;. \\end{equation} % This solution is independent of the number of extra dimensions $d$ and valid within its assumptions as long as the black hole radius is much smaller than the nucleon radius (for $d\\ge1$ this means $M_1<5\\times10^9$~GeV). The subscript in ($M_1$) refers to the fact that this is evolution scenario number one. The approximation (\\ref{Mgrowth}) is tuned to represent the subsequent accretion of a nucleus, but it neglects a possible rapidity and area dependence of the black hole accretion. In this sense it can be seen as complementary to the following more standard accretion estimate, which neglects the strong dynamics but takes into account the geometric area of the black hole. The second equation is more intuitive than (\\ref{Mgrowth}) and it is also the basis of the discussion in \\cite{Giddings:2008gr}. Here it is assumed that the black hole consumes and keeps all matter and energy th",
+            "context_match": true,
+            "contract_match": true,
+            "contract": {
+              "formula_quantity_hits": [
+                "mass_gain_per_length"
+              ],
+              "formula_pattern_hits": {
+                "mass_gain_per_length": [
+                  "\\\\frac\\s*\\{dM(?:_?\\{?\\d+\\}?)?(?:\\([^)]*\\))?\\}\\s*\\{dx\\}.{0,120}(?:=|\\\\ge|>|\\\\sim|\\\\simeq|\\\\propto)"
+                ]
+              },
+              "route_hits": [],
+              "regimes": [
+                "black_hole",
+                "material"
+              ],
+              "symbols": [
+                "\\frac",
+                "dM",
+                "_",
+                "x",
+                "dx",
+                "\\pi",
+                "r",
+                "p",
+                "R",
+                "H",
+                "^",
+                "\\rho",
+                "\\alpha",
+                "\\ge",
+                "\\quad",
+                "\\Rightarrow",
+                "M",
+                "f"
+              ],
+              "units": [],
+              "input_quantities": [
+                "captured_microscopic_black_hole",
+                "medium_state"
+              ],
+              "output_quantities": [
+                "growing_microscopic_black_hole"
+              ],
+              "formula_contract_valid": true,
+              "formula_shape_valid": true
+            }
+          },
+          "formula_candidate_count": 1,
+          "formula_candidates": [
+            {
+              "equation_ordinal": 21,
+              "kind": "system",
+              "formula": "\\frac{dM_1(x)}{dx}=\\pi (r_p+R_H)^2 \\rho \\alpha \\ge \\alpha \\pi r_p^2 \\rho \\quad \\Rightarrow \\quad M_1(x)\\ge x \\pi r_p^2 \\rho \\alpha+M_f \\;.",
+              "context": "cts of the black hole rapidity and of the black hole surface are neglected. Those strongly interacting but color neutral final states (with a neutralized Black hole $BH$) for an initial black hole - proton system could be ($BH + p^+ \\rightarrow \\{BH+ e^+, BH + \\pi^+ , BH + \\pi^+ + \\pi^0 , \\dots, BH + X \\}$). In order to be most pessimistic about the braking efficiency of the reaction one has to assume that no momentum is transferred to the final state ($X$). In this case the mini black hole grows in mass if the rest mass of ($X$) is smaller than the rest mass of the nucleon. This effect of the strong dynamics can be parameterized by claiming that a black hole can accrete some fraction ($1>\\alpha>0$) of a nucleon when it propagates through it. For this kind of accretion the mass growth ($dM$) after propagating a distance ($dx$) in a star with average density ($\\rho$) is at least % \\begin{equation}\\label{Mgrowth} \\frac{dM_1(x)}{dx}=\\pi (r_p+R_H)^2 \\rho \\alpha \\ge \\alpha \\pi r_p^2 \\rho \\quad \\Rightarrow \\quad M_1(x)\\ge x \\pi r_p^2 \\rho \\alpha+M_f \\;. \\end{equation} % This solution is independent of the number of extra dimensions $d$ and valid within its assumptions as long as the black hole radius is much smaller than the nucleon radius (for $d\\ge1$ this means $M_1<5\\times10^9$~GeV). The subscript in ($M_1$) refers to the fact that this is evolution scenario number one. The approximation (\\ref{Mgrowth}) is tuned to represent the subsequent accretion of a nucleus, but it neglects a possible rapidity and area dependence of the black hole accretion. In this sense it can be seen as complementary to the following more standard accretion estimate, which neglects the strong dynamics but takes into account the geometric area of the black hole. The second equation is more intuitive than (\\ref{Mgrowth}) and it is also the basis of the discussion in \\cite{Giddings:2008gr}. Here it is assumed that the black hole consumes and keeps all matter and energy th",
+              "context_match": true,
+              "contract_match": true,
+              "contract": {
+                "formula_quantity_hits": [
+                  "mass_gain_per_length"
+                ],
+                "formula_pattern_hits": {
+                  "mass_gain_per_length": [
+                    "\\\\frac\\s*\\{dM(?:_?\\{?\\d+\\}?)?(?:\\([^)]*\\))?\\}\\s*\\{dx\\}.{0,120}(?:=|\\\\ge|>|\\\\sim|\\\\simeq|\\\\propto)"
+                  ]
+                },
+                "route_hits": [],
+                "regimes": [
+                  "black_hole",
+                  "material"
+                ],
+                "symbols": [
+                  "\\frac",
+                  "dM",
+                  "_",
+                  "x",
+                  "dx",
+                  "\\pi",
+                  "r",
+                  "p",
+                  "R",
+                  "H",
+                  "^",
+                  "\\rho",
+                  "\\alpha",
+                  "\\ge",
+                  "\\quad",
+                  "\\Rightarrow",
+                  "M",
+                  "f"
+                ],
+                "units": [],
+                "input_quantities": [
+                  "captured_microscopic_black_hole",
+                  "medium_state"
+                ],
+                "output_quantities": [
+                  "growing_microscopic_black_hole"
+                ],
+                "formula_contract_valid": true,
+                "formula_shape_valid": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "arxiv_id": "0808.1415",
+      "source_present": true,
+      "equation_count": 12,
+      "title": "On the potential catastrophic risk from metastable quantum-black holes produced at particle colliders",
+      "citation_count": 22,
+      "receipt_results": [
+        {
+          "receipt_id": "plaga_eddington_growth_limit",
+          "slot_id": "net_positive_growth",
+          "recovered": true,
+          "accepted": {
+            "equation_ordinal": 5,
+            "kind": "system",
+            "formula": "dM/dt = {{2.44 \\times 8 \\pi m_p R_B c_s^2}\\over{\\eta \\sigma c}}",
+            "context": "ake about 2.2 msec until the mBH's Schwarzschild radius reaches L=10${-7}$ m at a mass of 0.54 kg. The further evolution of the mBH's shape and size in the ``transitional region'' between 5 and 4-dimensional behaviour (see section \\ref{ch}) is not well understood. For simplicity I will assume that the radius remains constant at L (a radius increase logarithmic with the mBH's mass\\cite{gid03} would not change the results appreciably.). For the input parameters chosen in this subsection, eq.(4.31) of G \\& M predicts an increase of the mBHs mass at a rate of 1.9 $\\times$ 10$^4$ kg/sec. It will then take about 20 $\\mu$sec until its mass reaches about 1 kg. At this mass the luminosity of the mBH is predicted by eq.(\\ref{lumi5}) to be 5.1 $\\times$ 10$^{16}$ W or a mass equivalent of dm/dt = 0.57 kg/sec. It is easy to verify that the five-dimensional Eddington limit (eq.(B.25) of G \\& M) \\begin{equation} dM/dt = {{2.44 \\times 8 \\pi m_p R_B c_s^2}\\over{\\eta \\sigma c}} \\label{eddington} \\end{equation} has the same magnitude for an efficiency $\\eta$=1. Here m$_p$ is the mass of the proton, R$_B$ the Bondi radius (4.1 mm for our parameters), c$_s$ the velocity of sound in the interior of Earth (5200 m/sec) and $\\sigma$ the Thomson cross section. \\\\ Therefore the radiation pressure of this Hawking radiation is intense enough to limit the mass of accreted matter to the mass-energy radiated away: dm/dt = dM/dt i.e. the mBHs accretes at the 5-dimensional Eddington limit. All accreted mass is then reradiated, and the mBH's mass remains constant on average. G \\& M discussed the possibility of a radiation-limited accretion and excluded it, but only because in their {\\it scenario 2} the Hawking radiation is completely switched off. \\\\ For the next 3 $\\times$ 10$^{17}$ years, a time span vastly exceeding the life time of our sun as a normal star, the mBH will radiate at the quoted, constant",
+            "context_match": true,
+            "contract_match": true,
+            "contract": {
+              "formula_quantity_hits": [
+                "mass_rate"
+              ],
+              "formula_pattern_hits": {
+                "mass_rate": [
+                  "(?:\\\\dot\\s*\\{?M\\}?|dM\\s*(?:/|\\\\over)\\s*dt|\\\\frac\\s*\\{(?:\\\\mathrm\\{d\\}|\\\\ud|d)\\s*M\\}\\s*\\{(?:\\\\mathrm\\{d\\}|\\\\ud|d)\\s*(?:t|\\\\tau)\\}).{0,120}(?:=|<|>|\\\\sim|\\\\simeq|\\\\propto)"
+                ]
+              },
+              "route_hits": [],
+              "regimes": [
+                "astrophysical",
+                "black_hole",
+                "material"
+              ],
+              "symbols": [
+                "dM",
+                "dt",
+                "\\times",
+                "\\pi",
+                "m",
+                "_",
+                "p",
+                "R",
+                "B",
+                "c",
+                "s",
+                "^",
+                "\\over",
+                "\\eta",
+                "\\sigma"
+              ],
+              "units": [
+                "time"
+              ],
+              "input_quantities": [
+                "captured_microscopic_black_hole",
+                "medium_state"
+              ],
+              "output_quantities": [
+                "growing_microscopic_black_hole"
+              ],
+              "formula_contract_valid": true,
+              "formula_shape_valid": true
+            }
+          },
+          "formula_candidate_count": 1,
+          "formula_candidates": [
+            {
+              "equation_ordinal": 5,
+              "kind": "system",
+              "formula": "dM/dt = {{2.44 \\times 8 \\pi m_p R_B c_s^2}\\over{\\eta \\sigma c}}",
+              "context": "ake about 2.2 msec until the mBH's Schwarzschild radius reaches L=10${-7}$ m at a mass of 0.54 kg. The further evolution of the mBH's shape and size in the ``transitional region'' between 5 and 4-dimensional behaviour (see section \\ref{ch}) is not well understood. For simplicity I will assume that the radius remains constant at L (a radius increase logarithmic with the mBH's mass\\cite{gid03} would not change the results appreciably.). For the input parameters chosen in this subsection, eq.(4.31) of G \\& M predicts an increase of the mBHs mass at a rate of 1.9 $\\times$ 10$^4$ kg/sec. It will then take about 20 $\\mu$sec until its mass reaches about 1 kg. At this mass the luminosity of the mBH is predicted by eq.(\\ref{lumi5}) to be 5.1 $\\times$ 10$^{16}$ W or a mass equivalent of dm/dt = 0.57 kg/sec. It is easy to verify that the five-dimensional Eddington limit (eq.(B.25) of G \\& M) \\begin{equation} dM/dt = {{2.44 \\times 8 \\pi m_p R_B c_s^2}\\over{\\eta \\sigma c}} \\label{eddington} \\end{equation} has the same magnitude for an efficiency $\\eta$=1. Here m$_p$ is the mass of the proton, R$_B$ the Bondi radius (4.1 mm for our parameters), c$_s$ the velocity of sound in the interior of Earth (5200 m/sec) and $\\sigma$ the Thomson cross section. \\\\ Therefore the radiation pressure of this Hawking radiation is intense enough to limit the mass of accreted matter to the mass-energy radiated away: dm/dt = dM/dt i.e. the mBHs accretes at the 5-dimensional Eddington limit. All accreted mass is then reradiated, and the mBH's mass remains constant on average. G \\& M discussed the possibility of a radiation-limited accretion and excluded it, but only because in their {\\it scenario 2} the Hawking radiation is completely switched off. \\\\ For the next 3 $\\times$ 10$^{17}$ years, a time span vastly exceeding the life time of our sun as a normal star, the mBH will radiate at the quoted, constant",
+              "context_match": true,
+              "contract_match": true,
+              "contract": {
+                "formula_quantity_hits": [
+                  "mass_rate"
+                ],
+                "formula_pattern_hits": {
+                  "mass_rate": [
+                    "(?:\\\\dot\\s*\\{?M\\}?|dM\\s*(?:/|\\\\over)\\s*dt|\\\\frac\\s*\\{(?:\\\\mathrm\\{d\\}|\\\\ud|d)\\s*M\\}\\s*\\{(?:\\\\mathrm\\{d\\}|\\\\ud|d)\\s*(?:t|\\\\tau)\\}).{0,120}(?:=|<|>|\\\\sim|\\\\simeq|\\\\propto)"
+                  ]
+                },
+                "route_hits": [],
+                "regimes": [
+                  "astrophysical",
+                  "black_hole",
+                  "material"
+                ],
+                "symbols": [
+                  "dM",
+                  "dt",
+                  "\\times",
+                  "\\pi",
+                  "m",
+                  "_",
+                  "p",
+                  "R",
+                  "B",
+                  "c",
+                  "s",
+                  "^",
+                  "\\over",
+                  "\\eta",
+                  "\\sigma"
+                ],
+                "units": [
+                  "time"
+                ],
+                "input_quantities": [
+                  "captured_microscopic_black_hole",
+                  "medium_state"
+                ],
+                "output_quantities": [
+                  "growing_microscopic_black_hole"
+                ],
+                "formula_contract_valid": true,
+                "formula_shape_valid": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "arxiv_id": "0808.4087",
+      "source_present": true,
+      "equation_count": 3,
+      "title": "0808.4087",
+      "citation_count": 6,
+      "receipt_results": []
+    },
+    {
+      "arxiv_id": "0901.2948",
+      "source_present": true,
+      "equation_count": 75,
+      "title": "Possibility of Catastrophic Black Hole Growth in the Warped Brane-World Scenario at the LHC",
+      "citation_count": 6,
+      "receipt_results": [
+        {
+          "receipt_id": "cfh_accretion_rate",
+          "slot_id": "net_positive_growth",
+          "recovered": true,
+          "accepted": {
+            "equation_ordinal": 37,
+            "kind": "system",
+            "formula": "\\left.\\frac{\\ud M}{\\ud t}\\right|_{\\rm acc} = \\pi\\,v\\,\\rho\\,\\reff^2 \\ ,",
+            "context": "meq 10^2\\,$kg. % % % \\section{Black Hole Accretion} % \\label{accretion} % % After the black holes are created at the LHC they can, depending on the value of $\\mc$, live long enough in the RS scenario to escape into the atmosphere or into the Earth. They can grow in mass and therefore in horizon radius by absorbing anything which comes within their capture radii. There are two basic mechanisms by which the black holes in general might accrete: one due to their collisions with the atomic and sub-atomic particles they encounter as they sweep through matter, and one due to the gravitational force the black holes exert on surrounding matter once they come to rest. The latter form is known as Bondi accretion and is appreciable only when the black holes have horizon radii greater than atomic size. % % \\subsection{Capture Radius} % \\label{IIIA} % The accretion rate due to collisions is given by \\begin{eqnarray} \\left.\\frac{\\ud M}{\\ud t}\\right|_{\\rm acc} = \\pi\\,v\\,\\rho\\,\\reff^2 \\ , \\label{acc} \\end{eqnarray} where $\\rho$ is the density of the material through which the black hole is moving, and $v$ is the relative velocity of the black hole and the surrounding matter, while $t$ is the time of observers at rest with respect to the medium. The effective radius $\\reff$ depends upon the details of the accretion mechanism and, for the problem at hand, of the extra-dimensional scenario. \\par For sufficiently small horizon radius $\\rh$, the capture radius $\\reff$ can be determined by simple Newtonian arguments. In particular, we can assume that it is given by the range over which the gravitational force of the black hole can overcome the electromagnetic force which binds the nucleus of an atom to the surrounding medium. For a black hole in motion through matter, accretion will then occur when the impact parameter is small enough for the gravitational field of the black hole to overcome the electro",
+            "context_match": true,
+            "contract_match": true,
+            "contract": {
+              "formula_quantity_hits": [
+                "mass_rate"
+              ],
+              "formula_pattern_hits": {
+                "mass_rate": [
+                  "(?:\\\\dot\\s*\\{?M\\}?|dM\\s*(?:/|\\\\over)\\s*dt|\\\\frac\\s*\\{(?:\\\\mathrm\\{d\\}|\\\\ud|d)\\s*M\\}\\s*\\{(?:\\\\mathrm\\{d\\}|\\\\ud|d)\\s*(?:t|\\\\tau)\\}).{0,120}(?:=|<|>|\\\\sim|\\\\simeq|\\\\propto)"
+                ]
+              },
+              "route_hits": [],
+              "regimes": [
+                "astrophysical",
+                "black_hole",
+                "collider",
+                "material"
+              ],
+              "symbols": [
+                "\\left",
+                "\\frac",
+                "\\ud",
+                "M",
+                "t",
+                "\\right",
+                "_",
+                "\\rm",
+                "acc",
+                "\\pi",
+                "v",
+                "\\rho",
+                "\\reff",
+                "^"
+              ],
+              "units": [],
+              "input_quantities": [
+                "captured_microscopic_black_hole",
+                "medium_state"
+              ],
+              "output_quantities": [
+                "growing_microscopic_black_hole"
+              ],
+              "formula_contract_valid": true,
+              "formula_shape_valid": true
+            }
+          },
+          "formula_candidate_count": 1,
+          "formula_candidates": [
+            {
+              "equation_ordinal": 37,
+              "kind": "system",
+              "formula": "\\left.\\frac{\\ud M}{\\ud t}\\right|_{\\rm acc} = \\pi\\,v\\,\\rho\\,\\reff^2 \\ ,",
+              "context": "meq 10^2\\,$kg. % % % \\section{Black Hole Accretion} % \\label{accretion} % % After the black holes are created at the LHC they can, depending on the value of $\\mc$, live long enough in the RS scenario to escape into the atmosphere or into the Earth. They can grow in mass and therefore in horizon radius by absorbing anything which comes within their capture radii. There are two basic mechanisms by which the black holes in general might accrete: one due to their collisions with the atomic and sub-atomic particles they encounter as they sweep through matter, and one due to the gravitational force the black holes exert on surrounding matter once they come to rest. The latter form is known as Bondi accretion and is appreciable only when the black holes have horizon radii greater than atomic size. % % \\subsection{Capture Radius} % \\label{IIIA} % The accretion rate due to collisions is given by \\begin{eqnarray} \\left.\\frac{\\ud M}{\\ud t}\\right|_{\\rm acc} = \\pi\\,v\\,\\rho\\,\\reff^2 \\ , \\label{acc} \\end{eqnarray} where $\\rho$ is the density of the material through which the black hole is moving, and $v$ is the relative velocity of the black hole and the surrounding matter, while $t$ is the time of observers at rest with respect to the medium. The effective radius $\\reff$ depends upon the details of the accretion mechanism and, for the problem at hand, of the extra-dimensional scenario. \\par For sufficiently small horizon radius $\\rh$, the capture radius $\\reff$ can be determined by simple Newtonian arguments. In particular, we can assume that it is given by the range over which the gravitational force of the black hole can overcome the electromagnetic force which binds the nucleus of an atom to the surrounding medium. For a black hole in motion through matter, accretion will then occur when the impact parameter is small enough for the gravitational field of the black hole to overcome the electro",
+              "context_match": true,
+              "contract_match": true,
+              "contract": {
+                "formula_quantity_hits": [
+                  "mass_rate"
+                ],
+                "formula_pattern_hits": {
+                  "mass_rate": [
+                    "(?:\\\\dot\\s*\\{?M\\}?|dM\\s*(?:/|\\\\over)\\s*dt|\\\\frac\\s*\\{(?:\\\\mathrm\\{d\\}|\\\\ud|d)\\s*M\\}\\s*\\{(?:\\\\mathrm\\{d\\}|\\\\ud|d)\\s*(?:t|\\\\tau)\\}).{0,120}(?:=|<|>|\\\\sim|\\\\simeq|\\\\propto)"
+                  ]
+                },
+                "route_hits": [],
+                "regimes": [
+                  "astrophysical",
+                  "black_hole",
+                  "collider",
+                  "material"
+                ],
+                "symbols": [
+                  "\\left",
+                  "\\frac",
+                  "\\ud",
+                  "M",
+                  "t",
+                  "\\right",
+                  "_",
+                  "\\rm",
+                  "acc",
+                  "\\pi",
+                  "v",
+                  "\\rho",
+                  "\\reff",
+                  "^"
+                ],
+                "units": [],
+                "input_quantities": [
+                  "captured_microscopic_black_hole",
+                  "medium_state"
+                ],
+                "output_quantities": [
+                  "growing_microscopic_black_hole"
+                ],
+                "formula_contract_valid": true,
+                "formula_shape_valid": true
+              }
+            }
+          ]
+        },
+        {
+          "receipt_id": "cfh_competing_mass_rates",
+          "slot_id": "net_positive_growth",
+          "recovered": true,
+          "accepted": {
+            "equation_ordinal": 49,
+            "kind": "system",
+            "formula": "\\frac{\\ud M}{\\ud t} = \\left.\\frac{\\ud M}{\\ud t}\\right|_{\\rm evap} +\\left. \\frac{\\ud M}{\\ud t}\\right|_{\\rm acc} \\ .",
+            "context": "% \\label{evo} % % The growth and decay of microscopic black holes created at the LHC are described by the expressions given above for the evaporation rate and the accretion rate along with the expression for the rate of change of the black hole's momentum. The solution of this system of equations gives the time evolution of the mass and momentum~ \\footnote{The actual decay of a black hole is a discrete process which causes jumps in both $M$ and $p$~\\cite{bhlhc}. The evolution equations~\\eqref{dMdt} and~\\eqref{dpdt}, as well as the continuous solutions displayed in the figures, represent valid approximations only for $M$ sufficiently larger than the mass of the decay products. The actual decay time is also affected by these considerations.}. % % % \\subsection{System of Equations} % The time evolution of the black hole mass is obtained by summing the evaporation and accretion expressions, \\begin{eqnarray} \\frac{\\ud M}{\\ud t} = \\left.\\frac{\\ud M}{\\ud t}\\right|_{\\rm evap} +\\left. \\frac{\\ud M}{\\ud t}\\right|_{\\rm acc} \\ . \\label{dMdt} \\end{eqnarray} The decay rate in the reference frame of the Earth is obtained from Eq.~\\eqref{evap5}, \\begin{eqnarray} \\left.\\frac{\\ud M}{\\ud t}\\right|_{\\rm evap} \\simeq -\\frac{1}{\\gamma} \\left.\\frac{\\ud M}{\\ud \\tau}\\right|_{\\rm evap} \\ , \\label{evap} \\end{eqnarray} where $\\gamma$ is the relativistic factor for a point-particle of mass $M$ and three-momentum of magnitude $p$, \\begin{eqnarray} \\gamma = \\frac{1}{\\sqrt{1-\\beta^2}} = \\frac{\\sqrt{M^2 + p^2}}{M} \\ . \\end{eqnarray} Inserting this expression for $\\gamma$ and that for $C$ in terms of $\\mc$ [see Eq.~\\eqref{C}] into Eq.~\\eqref{evap} gives \\begin{eqnarray} \\left.\\frac{\\ud M}{\\ud t}\\right|_{\\rm evap} \\simeq -\\frac{g_{\\rm eff}}{960\\, \\pi\\,\\lp}\\left(\\frac{\\mpl}{\\mc}\\right)^3 \\frac{M^2(t)}{\\sqrt{M^2(t)+p^2(t)}} \\ . \\end{eqnarray} The accretion rate is given in general by Eq~\\eqref{acc}. For sub-atomic growth and $p>0$, the accretion rate is \\begin{eq",
+            "context_match": true,
+            "contract_match": true,
+            "contract": {
+              "formula_quantity_hits": [
+                "mass_rate"
+              ],
+              "formula_pattern_hits": {
+                "mass_rate": [
+                  "(?:\\\\dot\\s*\\{?M\\}?|dM\\s*(?:/|\\\\over)\\s*dt|\\\\frac\\s*\\{(?:\\\\mathrm\\{d\\}|\\\\ud|d)\\s*M\\}\\s*\\{(?:\\\\mathrm\\{d\\}|\\\\ud|d)\\s*(?:t|\\\\tau)\\}).{0,120}(?:=|<|>|\\\\sim|\\\\simeq|\\\\propto)"
+                ]
+              },
+              "route_hits": [],
+              "regimes": [
+                "astrophysical",
+                "black_hole",
+                "collider",
+                "material"
+              ],
+              "symbols": [
+                "\\frac",
+                "\\ud",
+                "M",
+                "t",
+                "\\left",
+                "\\right",
+                "_",
+                "\\rm",
+                "evap",
+                "acc"
+              ],
+              "units": [],
+              "input_quantities": [
+                "captured_microscopic_black_hole",
+                "medium_state"
+              ],
+              "output_quantities": [
+                "growing_microscopic_black_hole"
+              ],
+              "formula_contract_valid": true,
+              "formula_shape_valid": true
+            }
+          },
+          "formula_candidate_count": 1,
+          "formula_candidates": [
+            {
+              "equation_ordinal": 49,
+              "kind": "system",
+              "formula": "\\frac{\\ud M}{\\ud t} = \\left.\\frac{\\ud M}{\\ud t}\\right|_{\\rm evap} +\\left. \\frac{\\ud M}{\\ud t}\\right|_{\\rm acc} \\ .",
+              "context": "% \\label{evo} % % The growth and decay of microscopic black holes created at the LHC are described by the expressions given above for the evaporation rate and the accretion rate along with the expression for the rate of change of the black hole's momentum. The solution of this system of equations gives the time evolution of the mass and momentum~ \\footnote{The actual decay of a black hole is a discrete process which causes jumps in both $M$ and $p$~\\cite{bhlhc}. The evolution equations~\\eqref{dMdt} and~\\eqref{dpdt}, as well as the continuous solutions displayed in the figures, represent valid approximations only for $M$ sufficiently larger than the mass of the decay products. The actual decay time is also affected by these considerations.}. % % % \\subsection{System of Equations} % The time evolution of the black hole mass is obtained by summing the evaporation and accretion expressions, \\begin{eqnarray} \\frac{\\ud M}{\\ud t} = \\left.\\frac{\\ud M}{\\ud t}\\right|_{\\rm evap} +\\left. \\frac{\\ud M}{\\ud t}\\right|_{\\rm acc} \\ . \\label{dMdt} \\end{eqnarray} The decay rate in the reference frame of the Earth is obtained from Eq.~\\eqref{evap5}, \\begin{eqnarray} \\left.\\frac{\\ud M}{\\ud t}\\right|_{\\rm evap} \\simeq -\\frac{1}{\\gamma} \\left.\\frac{\\ud M}{\\ud \\tau}\\right|_{\\rm evap} \\ , \\label{evap} \\end{eqnarray} where $\\gamma$ is the relativistic factor for a point-particle of mass $M$ and three-momentum of magnitude $p$, \\begin{eqnarray} \\gamma = \\frac{1}{\\sqrt{1-\\beta^2}} = \\frac{\\sqrt{M^2 + p^2}}{M} \\ . \\end{eqnarray} Inserting this expression for $\\gamma$ and that for $C$ in terms of $\\mc$ [see Eq.~\\eqref{C}] into Eq.~\\eqref{evap} gives \\begin{eqnarray} \\left.\\frac{\\ud M}{\\ud t}\\right|_{\\rm evap} \\simeq -\\frac{g_{\\rm eff}}{960\\, \\pi\\,\\lp}\\left(\\frac{\\mpl}{\\mc}\\right)^3 \\frac{M^2(t)}{\\sqrt{M^2(t)+p^2(t)}} \\ . \\end{eqnarray} The accretion rate is given in general by Eq~\\eqref{acc}. For sub-atomic growth and $p>0$, the accretion rate is \\begin{eq",
+              "context_match": true,
+              "contract_match": true,
+              "contract": {
+                "formula_quantity_hits": [
+                  "mass_rate"
+                ],
+                "formula_pattern_hits": {
+                  "mass_rate": [
+                    "(?:\\\\dot\\s*\\{?M\\}?|dM\\s*(?:/|\\\\over)\\s*dt|\\\\frac\\s*\\{(?:\\\\mathrm\\{d\\}|\\\\ud|d)\\s*M\\}\\s*\\{(?:\\\\mathrm\\{d\\}|\\\\ud|d)\\s*(?:t|\\\\tau)\\}).{0,120}(?:=|<|>|\\\\sim|\\\\simeq|\\\\propto)"
+                  ]
+                },
+                "route_hits": [],
+                "regimes": [
+                  "astrophysical",
+                  "black_hole",
+                  "collider",
+                  "material"
+                ],
+                "symbols": [
+                  "\\frac",
+                  "\\ud",
+                  "M",
+                  "t",
+                  "\\left",
+                  "\\right",
+                  "_",
+                  "\\rm",
+                  "evap",
+                  "acc"
+                ],
+                "units": [],
+                "input_quantities": [
+                  "captured_microscopic_black_hole",
+                  "medium_state"
+                ],
+                "output_quantities": [
+                  "growing_microscopic_black_hole"
+                ],
+                "formula_contract_valid": true,
+                "formula_shape_valid": true
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

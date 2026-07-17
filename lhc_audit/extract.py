@@ -4,7 +4,7 @@ import re
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable, List
+from typing import Any, Dict, Iterable, List, Tuple
 
 
 TEXT_EXTENSIONS = {".tex", ".txt", ".md", ".latex"}
@@ -42,15 +42,39 @@ class SourceDocument:
     source_id: str
     path: str
     text: str
+    metadata: Dict[str, Any]
+    cited_arxiv_ids: List[str]
 
 
+DISPLAY_ENV_PATTERN = re.compile(
+    r"\\begin\{(?P<env>equation\*?|align\*?|alignat\*?|gather\*?|multline\*?|"
+    r"eqnarray\*?|displaymath)\}(?P<body>.*?)\\end\{(?P=env)\}",
+    re.S,
+)
 DISPLAY_PATTERNS = [
-    re.compile(r"\\\[(.*?)\\\]", re.S),
-    re.compile(r"\\begin\{equation\*?\}(.*?)\\end\{equation\*?\}", re.S),
-    re.compile(r"\\begin\{align\*?\}(.*?)\\end\{align\*?\}", re.S),
-    re.compile(r"\$\$(.*?)\$\$", re.S),
+    ("display", re.compile(r"\\\[(.*?)\\\]", re.S), 1),
+    ("system", DISPLAY_ENV_PATTERN, "body"),
+    ("display", re.compile(r"\$\$(.*?)\$\$", re.S), 1),
 ]
-INLINE_PATTERN = re.compile(r"\$(.{8,240}?[=<>\\][^$]{0,240}?)\$", re.S)
+INLINE_PATTERN = re.compile(
+    r"\$([^$]{6,500}?(?:=|<|>|\\leq?|\\geq?|\\ll|\\gg|\\sim|\\simeq|"
+    r"\\approx|\\propto|\\to|\\rightarrow|\\mapsto)[^$]{0,500}?)\$",
+    re.S,
+)
+ARXIV_ID_RE = re.compile(r"(?:arXiv\s*:\s*)?(\d{4}\.\d{4,5}|[a-z-]+/\d{7})", re.I)
+DISPLAY_ALIAS_RE = re.compile(
+    r"\\(?:def\s*)?(?P<macro>\\[A-Za-z@]+)\s*(?:#\d\s*)*\{\s*"
+    r"\\(?P<action>begin|end)\s*\{\s*(?P<env>equation\*?|align\*?|alignat\*?|"
+    r"gather\*?|multline\*?|eqnarray\*?|displaymath)\s*\}\s*\}",
+    re.I,
+)
+NEWCOMMAND_DISPLAY_ALIAS_RE = re.compile(
+    r"\\(?:newcommand|renewcommand|providecommand)\s*\{(?P<macro>\\[A-Za-z@]+)\}"
+    r"(?:\s*\[[^\]]*\]){0,2}\s*\{\s*\\(?P<action>begin|end)\s*"
+    r"\{\s*(?P<env>equation\*?|align\*?|alignat\*?|gather\*?|multline\*?|"
+    r"eqnarray\*?|displaymath)\s*\}\s*\}",
+    re.I,
+)
 
 
 def source_id_from_path(path: Path) -> str:
@@ -88,15 +112,121 @@ def read_pdf_text(path: Path) -> str:
         raise RuntimeError(f"Could not extract text from PDF {path}: {exc}") from exc
 
 
+def normalize_arxiv_id(value: str) -> str:
+    value = str(value or "").strip().replace("arXiv:", "")
+    return re.sub(r"v\d+$", "", value, flags=re.I)
+
+
+def _balanced_argument(text: str, start: int) -> Tuple[str, int]:
+    depth = 0
+    escaped = False
+    for index in range(start, len(text)):
+        char = text[index]
+        if escaped:
+            escaped = False
+            continue
+        if char == "\\":
+            escaped = True
+            continue
+        if char == "{":
+            depth += 1
+        elif char == "}":
+            depth -= 1
+            if depth == 0:
+                return text[start + 1:index], index + 1
+    return "", start
+
+
+def command_arguments(text: str, command: str, limit: int = 24) -> List[str]:
+    pattern = re.compile(rf"\\{re.escape(command)}\s*(?:\[[^\]]*\]\s*)*\{{", re.I)
+    values: List[str] = []
+    for match in pattern.finditer(text):
+        value, _ = _balanced_argument(text, match.end() - 1)
+        if value.strip():
+            values.append(value.strip())
+        if len(values) >= limit:
+            break
+    return values
+
+
+def plain_metadata_text(value: str) -> str:
+    value = re.sub(r"%.*", "", value)
+    value = re.sub(r"\\(?:thanks|affiliation|address|email)\s*\{.*?\}", " ", value, flags=re.I | re.S)
+    value = re.sub(r"\\[A-Za-z@]+\*?(?:\[[^\]]*\])?", " ", value)
+    value = value.replace("{", "").replace("}", "")
+    return re.sub(r"\s+", " ", value).strip()
+
+
+def extract_document_metadata(text: str, source_id: str) -> Dict[str, Any]:
+    header = re.sub(r"(?m)(?<!\\)%.*$", "", text[:200000])
+    titles = command_arguments(header, "title", limit=4)
+    authors = command_arguments(header, "author", limit=40)
+    dates = command_arguments(header, "date", limit=2)
+    normalized = normalize_arxiv_id(source_id)
+    year = None
+    new_style = re.match(r"(\d{2})\d{2}\.\d+", normalized)
+    if new_style:
+        yy = int(new_style.group(1))
+        year = 2000 + yy if yy < 90 else 1900 + yy
+    return {
+        "arxiv_id": normalized,
+        "title": plain_metadata_text(titles[0]) if titles else normalized,
+        "authors": [plain_metadata_text(author) for author in authors if plain_metadata_text(author)],
+        "date": plain_metadata_text(dates[0]) if dates else None,
+        "year": year,
+        "url": f"https://arxiv.org/abs/{normalized}" if normalized else None,
+        "metadata_source": "latex_source",
+    }
+
+
+def extract_cited_arxiv_ids(text: str) -> List[str]:
+    seen: set[str] = set()
+    values: List[str] = []
+    for match in ARXIV_ID_RE.finditer(text):
+        value = normalize_arxiv_id(match.group(1))
+        if value and value not in seen:
+            seen.add(value)
+            values.append(value)
+    return values
+
+
+def extract_display_aliases(text: str) -> Dict[str, str]:
+    aliases: Dict[str, str] = {}
+    for pattern in (DISPLAY_ALIAS_RE, NEWCOMMAND_DISPLAY_ALIAS_RE):
+        for match in pattern.finditer(text[:250000]):
+            macro = match.group("macro")
+            action = match.group("action").lower()
+            env = match.group("env")
+            aliases[macro] = f"\\{action}{{{env}}}"
+    return aliases
+
+
+def expand_display_aliases(text: str, aliases: Dict[str, str]) -> str:
+    for macro in sorted(aliases, key=len, reverse=True):
+        text = re.sub(re.escape(macro) + r"(?![A-Za-z@])", lambda _: aliases[macro], text)
+    return text
+
+
 def read_document(path: Path) -> SourceDocument:
     suffix = path.suffix.lower()
     if suffix in TEXT_EXTENSIONS:
-        text = path.read_text(encoding="utf-8", errors="replace")
+        raw_text = path.read_text(encoding="utf-8", errors="replace")
     elif suffix in PDF_EXTENSIONS:
-        text = read_pdf_text(path)
+        raw_text = read_pdf_text(path)
     else:
         raise ValueError(f"Unsupported file type: {path}")
-    return SourceDocument(source_id=source_id_from_path(path), path=str(path), text=sanitize_latex_source(text))
+    source_id = source_id_from_path(path)
+    metadata = extract_document_metadata(raw_text, source_id)
+    citations = [item for item in extract_cited_arxiv_ids(raw_text) if item != normalize_arxiv_id(source_id)]
+    aliases = extract_display_aliases(raw_text)
+    text = expand_display_aliases(sanitize_latex_source(raw_text), aliases)
+    return SourceDocument(
+        source_id=source_id,
+        path=str(path),
+        text=text,
+        metadata=metadata,
+        cited_arxiv_ids=citations,
+    )
 
 
 def iter_documents(folder: Path) -> Iterable[SourceDocument]:
@@ -151,16 +281,22 @@ def clean_formula(formula: str) -> str:
 
 def extract_equations(text: str) -> List[dict]:
     out: List[dict] = []
-    for pattern in DISPLAY_PATTERNS:
+    display_intervals: List[Tuple[int, int]] = []
+    for kind, pattern, group in DISPLAY_PATTERNS:
         for match in pattern.finditer(text):
-            formula = clean_formula(match.group(1))
+            formula = clean_formula(match.group(group))
             if len(formula) >= 6:
-                out.append({"formula": formula, "start": match.start(), "end": match.end(), "kind": "display"})
+                out.append({"formula": formula, "start": match.start(), "end": match.end(), "kind": kind})
+                display_intervals.append((match.start(), match.end()))
     for match in INLINE_PATTERN.finditer(text):
+        if any(start <= match.start() < end for start, end in display_intervals):
+            continue
         formula = clean_formula(match.group(1))
-        if len(formula) >= 8:
+        if len(formula) >= 8 and "\\begin{" not in formula and "\\end{" not in formula:
             out.append({"formula": formula, "start": match.start(), "end": match.end(), "kind": "inline"})
     out.sort(key=lambda x: (x["start"], x["end"]))
+    for ordinal, equation in enumerate(out):
+        equation["ordinal"] = ordinal
     return out
 
 

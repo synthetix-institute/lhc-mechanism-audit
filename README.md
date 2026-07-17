@@ -1,298 +1,153 @@
-# LHC Mechanism Audit
+# Can the LHC produce a dangerous black hole?
 
-This repository builds a static, inspectable report on one scientific question:
+This repository reconstructs the physical argument from equations in the scientific literature. The result is a fully generated paper with a provenance graph, an equation graph, a six-condition physical constructor, sparse graph attention, vector figures and an independent comparison with the CERN Safety Study Group report.
 
-> Do the processed arXiv papers support a dangerous LHC black-hole scenario?
+[Read the generated PDF](paper/lhc_black_hole_answer.pdf)
 
-The answer in the committed report is **no**. The retained equation evidence
-gives a collider production hook and many adjacent astrophysical black-hole
-mechanisms, while the downstream links required for a dangerous LHC branch are
-absent: survival after production, stopping or capture in matter, positive
-microscopic mass growth and evasion of astronomical survival bounds.
+## Result
 
-The static run in this repository is a public export from a Hyperion pass over
-arXiv/Hugging Face LaTeX data. The committed report uses **492 selected papers**
-from the arXiv corpus parsed by Hyperion, yielding **1,408 equation witnesses**
-and a retained operator/substrate mechanism layer. The six seed papers are
-references for the historical LHC-safety debate and small smoke tests; the
-reported mechanism result comes from the 492-paper static run.
+A catastrophic outcome requires one consistent derivation through six conditions:
 
-The report compares two evidence layers:
+1. a microscopic black hole is produced;
+2. it survives Hawking evaporation;
+3. it loses enough momentum to remain inside matter;
+4. accretion exceeds mass loss;
+5. the positive rate integrates to macroscopic growth within the available time;
+6. the same mechanism remains compatible with the survival of white dwarfs and neutron stars exposed to cosmic-ray collisions.
 
-1. **Provenance graph:** papers connected to extracted claim families. This
-   layer shows who says what kind of thing: astrophysical black-hole statements,
-   risk statements and safety statements.
-2. **Mechanism graph:** fingerprinted equation windows connected to physical
-   roles such as production, evaporation, capture, growth and astronomical
-   bounds. This layer tests whether the equations close into a continuous
-   physical branch.
+The revised extraction recovers equations for every part of this argument. It finds collider-regime equations for production, evaporation, stopping, mass growth and a growth-time calculation. The compact-star condition is supplied by an astrophysical transfer equation. No recovered derivation connects all six conditions under one parameter-consistent set of assumptions. Standard semiclassical objects evaporate; stable or metastable alternatives are constrained by stopping, growth times and compact-star survival.
 
-The conclusion is obtained from the second layer. A dangerous branch requires
-production in a parton collision, survival against evaporation, stopping or
-capture in matter, net positive growth and consistency with astronomical
-survival constraints.
+The independent CERN report follows the same branch order and reaches the same safety conclusion. It was withheld from the equation benchmark. Agreement in physical structure and conclusion provides an external check on the automatically reconstructed argument.
 
-## Main Result
+## Evidence
 
-The static run contains:
+The case build combines two source layers:
 
-- 492 selected papers from the arXiv/HF LaTeX corpus parsed by Hyperion;
-- 377 extracted source-to-claim records in the provenance layer;
-- 1,408 equation witnesses;
-- 204 usable mechanism nodes after fingerprint and formula-quality gates;
-- 72 LHC-black-hole-relevant mechanism nodes;
-- 35 evidence-grade case receipts;
-- 0 direct LHC-safety mechanism nodes under the retained gates.
+- a broad screen of 500,000 records from the Hyperion arXiv mirror, which retained 492 case-related source records;
+- complete source packages for six primary LHC-safety papers, including four papers absent from the screened prefix.
 
-The physical constructor has six required slots. The retained evidence fills the
-first slot directly and the downstream slots only by transfer from adjacent
-astrophysical mechanisms:
+After source overlays, the run contains 496 papers, 708 extracted claims and 729 equation windows. The equation graph retains 728 fingerprinted nodes, 366 source-local transitions and 190 cross-paper structural analogues.
 
-| Constructor slot | Direct collider receipts | Transfer receipts | Status |
-| --- | ---: | ---: | --- |
-| production threshold | 1 | 0 | direct hook |
-| survival against evaporation | 0 | 6 | transfer only |
-| stopping or capture in matter | 0 | 1 | transfer only |
-| net positive mass growth | 0 | 29 | transfer only |
-| growth on a relevant timescale | 0 | 11 | transfer only |
-| evasion of astronomical survival bounds | 0 | 28 | transfer only |
+The primary-source regression fixes twelve equations in advance. They cover production cross-sections, parton thresholds, Hawking mass loss, stopping, accretion, competing mass rates, compact-star growth times and astronomical constraints. The current extractor recovers 12 of 12.
 
-The mechanism verdict is therefore specific: the corpus supplies equations for
-adjacent black-hole growth, accretion, compact-object and lifetime mechanisms,
-but it does not supply the closed collider chain required by the dangerous LHC
-scenario.
+## Two graphs
 
-The public build uses static artifacts committed under
-`runs/lhc_black_hole_audit_500k_strict`. The PDF is generated automatically from
-those artifacts: the build script derives the constructor summaries, knowledge
-graphs, mechanism figures, TeX source and compiled PDF in one reproducible run.
+The provenance graph records:
 
-## Build The Main PDF
+- authorship;
+- paper-to-paper citations;
+- source-local claims and their claim families.
 
-Prerequisites:
+The mechanism graph records:
 
-- Python 3.9 or newer
-- `matplotlib`
-- a LaTeX installation with `latexmk`
+- complete equation windows and their source positions;
+- operator/substrate fingerprints;
+- physical quantities and mechanism roles;
+- source-local equation transitions;
+- cross-paper structural analogues;
+- assignments to the six safety conditions.
 
-From the repository root:
+These graphs answer different scientific questions. Provenance identifies responsibility and documentary dependence. The mechanism graph tests whether the equations form a physically composable argument.
+
+## Strict equation contracts
+
+`lhc_audit/evidence_contract.py` defines the quantities required by each constructor condition. Formula symbols determine the mechanism role. Source title and local text determine whether the formula is applied to a collider, material or astrophysical regime.
+
+This separation prevents a context sentence from turning a generic formula into evidence. A rapidity cut such as `|y_{gamma gamma}| <= 1`, for example, cannot fill the production condition. A valid production receipt must contain a production threshold or cross-section. A compact-star accretion equation remains a transfer candidate until its density, velocity, capture radius and exposure time are mapped to the collider case.
+
+Branch closure requires:
+
+- a valid equation receipt for every condition;
+- compatible output and input quantities between adjacent conditions;
+- an equation path in the source graph for each required transition.
+
+## Build the paper from static artifacts
+
+The committed static run contains the graph evidence needed to regenerate the constructor, sparse attention, figures, TeX and PDF:
 
 ```bash
-python3 -m pip install matplotlib
-scripts/build_lhc_black_hole_answer.sh
+bash scripts/build_lhc_black_hole_answer.sh
 ```
 
-This writes:
+The command writes:
 
 - `paper/lhc_black_hole_answer.tex`
 - `paper/lhc_black_hole_answer.pdf`
-- `paper/lhc_black_hole_answer_manifest.json`
-- `paper/figures/lhc_*.pdf`
+- eight vector PDF figures under `paper/figures/`
 
-The build is deterministic with respect to the committed static run directory.
-Updating `runs/lhc_black_hole_audit_500k_strict/` and rerunning the script
-regenerates the TeX, all figures and the PDF.
+## Rebuild the scientific run
 
-To build from a different static run directory:
+With the broad selection and six complete source packages available locally:
 
 ```bash
-scripts/build_lhc_black_hole_answer.sh \
-  /path/to/lhc_black_hole_audit_500k_strict \
-  paper
+bash scripts/run_full_audit.sh
 ```
 
-The run directory must contain at least:
+The default pipeline performs nine stages:
 
-- `manifest.json`
-- `provenance_graph.json`
-- `equation_mechanism_graph.json`
-- `sparse_attention_audit.json`
+1. primary-source equation regression;
+2. provenance and equation-window extraction;
+3. equation mechanism graph construction;
+4. strict physical construction;
+5. sparse attention over measured graph edges;
+6. provenance-versus-mechanism comparison;
+7. joined public knowledge graph construction;
+8. source-ordered constructor export;
+9. TeX and PDF generation.
 
-The build script also derives:
-
-- `physical_constructor.json`
-- `physical_constructor.md`
-- `public_knowledge_graph.json`
-- `public_knowledge_graph.md`
-- `discourse_vs_mechanism_attention.json`
-- `discourse_vs_mechanism_attention.md`
-
-## Constructor-Layer Export
-
-The public graph receipts can be expanded into constructor objects: source id,
-equation order, local context, variable roles, matched graph node, route
-signature, constructor roles, slot matches and source-local chains.
-
-The default mode uses the retained equation fingerprints in
-`equation_mechanism_graph.json` directly:
+Set paths explicitly when the source folders are elsewhere:
 
 ```bash
-python3 -B scripts/build_constructor_layer_export.py \
-  --run-dir runs/lhc_black_hole_audit_500k_strict \
-  --out-dir outputs/lhc_constructor_layer_fingerprint \
-  --fingerprint-only
+PAPERS_DIR=/path/to/hf_selection/sources \
+PRIMARY_SOURCES_DIR=/path/to/full_sources/sources \
+KNOWLEDGEPARSER_ROOT=/path/to/KnowledgeParser \
+OUT_DIR=/path/to/output \
+bash scripts/run_full_audit.sh
 ```
 
-This writes:
+Set `BUILD_PDF=0` to generate the data artifacts without compiling LaTeX.
 
-- `outputs/lhc_constructor_layer_fingerprint/constructor_layer_export.json`
-- `outputs/lhc_constructor_layer_fingerprint/constructor_layer_export.md`
+## Select and recover source papers
 
-In the current static run this produces 1,408 fingerprinted equation windows,
-986 slot-matched equations, 412 LHC-black-hole-relevant equations and 241
-source-local constructor chains.
-
-This constructor layer is the bridge between raw equation witnesses and the
-physical verdict. It tests whether formula windows instantiate the six required
-physical slots and whether those slots connect into a source-local branch.
-
-If full source text is available, the same export can add section positions and
-larger local derivation excerpts:
+Broad selection:
 
 ```bash
-python3 -B scripts/build_constructor_layer_export.py \
-  --run-dir runs/lhc_black_hole_audit_500k_strict \
-  --source-dir data/hf_lhc_selection_500k/sources \
-  --out-dir outputs/lhc_constructor_layer_export
-```
-
-This writes:
-
-- `outputs/lhc_constructor_layer_export/constructor_layer_export.json`
-- `outputs/lhc_constructor_layer_export/constructor_layer_export.md`
-
-The fingerprint-native export is the mechanism layer. Full source text adds
-human-facing excerpts and variable definitions; the retained constructor roles
-come from the fingerprinted equation graph.
-
-## What The PDF Contains
-
-The generated report is `paper/lhc_black_hole_answer.pdf`.
-
-It contains:
-
-- a problem-first introduction to the LHC black-hole question;
-- a mechanism verdict expressed as a physical branch;
-- a detailed constructor with six slots and equation conditions;
-- provenance and public knowledge graph figures;
-- a retained equation mechanism graph;
-- representative equation receipts;
-- a transfer analysis from astrophysical black-hole equations to collider variables;
-- a final comparison with the CERN Safety Study Group report, `CERN-2003-001`;
-- references, including the CERN report and LHC-safety papers.
-
-## Relation To The CERN Safety Report
-
-The final chapter compares the mechanism result with the independent CERN Safety
-Study Group report:
-
-J.-P. Blaizot, J. Iliopoulos, J. Madsen, G. G. Ross, P. Sonderegger and
-H.-J. Specht, "Study of potentially dangerous events during heavy-ion collisions
-at the LHC: Report of the LHC Safety Study Group", CERN-2003-001 (2003).
-
-This CERN document is an independent human-written validator for the branch
-logic. It was not used to train this repo's automatic report generator, and it
-is separate from the committed Hyperion-derived 492-paper static run. The
-agreement is structural: CERN-2003-001 evaluates the same physical chain tested
-here, production, survival, interaction with matter, growth and astrophysical
-closure. The AI-generated constructor reaches the same branch-level conclusion:
-the retained collider-side equations do not close the path from production to
-survival, capture and positive growth.
-
-This gives a direct validation of the method. A provenance graph locates claims.
-The constructor tests whether the mechanism required by the claim is present.
-The independent CERN report confirms that the automatically recovered branch is
-the physically relevant one.
-
-## Static Artifacts
-
-The committed static run is:
-
-```text
-runs/lhc_black_hole_audit_500k_strict/
-```
-
-Important files:
-
-- `manifest.json`: run-level counts and source summary.
-- `provenance_graph.json`: paper and claim-family graph.
-- `equation_witnesses.json`: source-local equation windows.
-- `equation_mechanism_graph.json`: retained equation mechanism graph.
-- `constructor_layer/constructor_layer_export.json`: fingerprint-native
-  constructor objects and source-local chains.
-- `operational_graph.json`: earlier operational graph artifact.
-- `sparse_attention_audit.json`: route-level sparse attention over retained mechanisms.
-- `summary.json`: compact public summary.
-
-These artifacts are derived outputs. They are sufficient to rebuild the public
-PDF and figures without rerunning the full arXiv/Hugging Face selection.
-
-## Regenerating Static Artifacts From Papers
-
-For the minimal included fixture:
-
-```bash
-python -B scripts/build_lhc_mechanism_audit.py \
-  --papers-dir examples \
-  --out-dir outputs/minimal
-```
-
-For a folder of downloaded LaTeX sources or PDFs:
-
-```bash
-python -B scripts/build_lhc_mechanism_audit.py \
-  --papers-dir data/papers \
-  --out-dir outputs/lhc_black_hole_audit \
-  --knowledgeparser-root /Users/vbaulin/antigr/KnowledgeParser
-```
-
-For broad arXiv selection from Hugging Face:
-
-```bash
-python -B scripts/select_lhc_literature.py \
+python3 -B scripts/select_lhc_literature.py \
   --dataset synthetix-institute/latex-data-pub \
-  --out-dir data/hf_lhc_selection \
+  --out-dir data/hf_lhc_selection_500k \
   --max-docs 500000 \
-  --min-score 3
+  --min-score 3 \
+  --allow-missing-seeds
 ```
 
-The selected sources written by the broad selector may be abstract-scale if the
-dataset row exposes only title/abstract fields. To export full LaTeX from the
-Hugging Face dataset for the selected IDs, run:
+Fetch the six full primary sources:
 
 ```bash
-python -B scripts/export_hf_full_sources_from_selection.py \
-  --dataset synthetix-institute/latex-data \
-  --selection-manifest data/hf_lhc_selection/selection_manifest.json \
-  --out-dir data/hf_lhc_full_selection
+python3 -B scripts/download_arxiv_full_sources.py \
+  --out-dir data/arxiv_lhc_full_sources
 ```
 
-Then build the audit from selected sources or full exported sources:
+The downloader detects PDF payloads returned by arXiv and extracts their text before equation parsing.
+
+## Tests
 
 ```bash
-python -B scripts/build_lhc_mechanism_audit.py \
-  --papers-dir data/hf_lhc_full_selection/sources \
-  --out-dir outputs/lhc_black_hole_audit_500k_strict \
-  --knowledgeparser-root /Users/vbaulin/antigr/KnowledgeParser
+python3 -B -m pytest -q
 ```
 
-To generate the current public PDF from that output:
+The regression suite checks display-math aliases, long equation systems, citation extraction, strict formula contracts, false production receipts, source-level regime tags, source-local branch closure and edge-based sparse attention.
 
-```bash
-scripts/build_lhc_black_hole_answer.sh \
-  outputs/lhc_black_hole_audit_500k_strict \
-  paper
-```
+## Main files
 
-## Legacy Demo Scripts
+- `lhc_audit/evidence_contract.py`: six typed physical conditions and equation matchers.
+- `lhc_audit/physical_constructor.py`: receipt assignment and branch composition.
+- `lhc_audit/equation_mechanism.py`: fingerprinted equation graph.
+- `lhc_audit/sparse_attention.py`: attention over measured graph transitions.
+- `lhc_audit/public_knowledge_graph.py`: joined provenance and mechanism graph.
+- `data/lhc_gold_benchmark.json`: twelve prespecified primary-source receipts.
+- `scripts/build_lhc_black_hole_answer.py`: vector figures and scientific paper.
+- `scripts/run_full_audit.sh`: end-to-end reproducible build.
 
-Older demo builders remain in `scripts/` for reference:
+## Independent reference
 
-- `scripts/build_static_public_demo.sh`
-- `scripts/build_public_demo_report.py`
-
-The main reproducible public report is now built by:
-
-```bash
-scripts/build_lhc_black_hole_answer.sh
-```
+J.-P. Blaizot et al., *Study of potentially dangerous events during heavy-ion collisions at the LHC: Report of the LHC Safety Study Group*, CERN-2003-001 (2003): <https://cds.cern.ch/record/613175/files/CERN-2003-001.pdf>

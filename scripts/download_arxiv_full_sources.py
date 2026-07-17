@@ -6,6 +6,7 @@ import gzip
 import io
 import json
 import re
+import subprocess
 import tarfile
 import time
 import urllib.error
@@ -96,6 +97,29 @@ def decode_bytes(data: bytes) -> str:
 def extract_text_files(raw_path: Path) -> List[Tuple[str, str]]:
     data = raw_path.read_bytes()
     files: List[Tuple[str, str]] = []
+
+    if data.startswith(b"%PDF-"):
+        try:
+            from pypdf import PdfReader  # type: ignore
+
+            reader = PdfReader(io.BytesIO(data))
+            text = "\n".join(page.extract_text() or "" for page in reader.pages)
+            if text.strip():
+                return [(raw_path.with_suffix(".pdf.txt").name, text)]
+        except Exception:
+            pass
+        try:
+            result = subprocess.run(
+                ["pdftotext", "-layout", str(raw_path), "-"],
+                check=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+            )
+            if result.stdout.strip():
+                return [(raw_path.with_suffix(".pdf.txt").name, result.stdout)]
+        except Exception as exc:
+            raise RuntimeError(f"Could not extract text from PDF source {raw_path}: {exc}") from exc
 
     for mode in ("r:*",):
         try:

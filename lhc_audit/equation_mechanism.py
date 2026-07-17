@@ -7,6 +7,8 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Tuple
 
+from .evidence_contract import SLOT_CONTRACTS, classify_receipt
+
 
 ROUTE_ORDER = [
     "transport_flow",
@@ -160,11 +162,6 @@ def source_case_texts(out_dir: Path) -> Dict[str, str]:
                 source_text[sid].append(str(node.get("text") or ""))
 
     return {sid: " ".join(parts) for sid, parts in source_text.items()}
-
-
-def compact(text: Any, limit: int = 360) -> str:
-    value = " ".join(str(text or "").split())
-    return value if len(value) <= limit else value[: limit - 3] + "..."
 
 
 def category_hits(text: str) -> List[str]:
@@ -433,26 +430,31 @@ def has_local_case_mechanism(node: Dict[str, Any]) -> bool:
 
 
 def is_evidence_grade_case_node(node: Dict[str, Any]) -> bool:
-    return (
-        is_case_relevant_node(node)
-        and has_local_case_mechanism(node)
-        and int(node.get("formula_detail_score") or 0) >= 4
+    return is_usable_node(node) and any(
+        classify_receipt(node, slot)[0] is not None
+        for slot in SLOT_CONTRACTS
     )
 
 
+def strict_receipt_slots(node: Dict[str, Any], grade: str | None = None) -> List[str]:
+    slots: List[str] = []
+    for slot in SLOT_CONTRACTS:
+        receipt_grade, _ = classify_receipt(node, slot)
+        if receipt_grade is not None and (grade is None or receipt_grade == grade):
+            slots.append(str(slot["slot_id"]))
+    return slots
+
+
 def is_direct_safety_case_node(node: Dict[str, Any]) -> bool:
-    case = node.get("case_evidence") or {}
-    return is_evidence_grade_case_node(node) and bool(case.get("direct_safety_case"))
+    return bool(strict_receipt_slots(node, "direct_collider_receipt"))
 
 
 def is_astrophysical_analogue_node(node: Dict[str, Any]) -> bool:
-    case = node.get("case_evidence") or {}
-    return is_evidence_grade_case_node(node) and bool(case.get("astrophysical_analogue"))
+    return bool(strict_receipt_slots(node, "candidate_transfer_receipt"))
 
 
 def is_production_threshold_node(node: Dict[str, Any]) -> bool:
-    case = node.get("case_evidence") or {}
-    return is_evidence_grade_case_node(node) and "production_threshold_branch" in set(case.get("branch_labels") or [])
+    return "production_selector" in strict_receipt_slots(node)
 
 
 def is_rich_signature(signature: Tuple[str, ...]) -> bool:
@@ -476,7 +478,15 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
         signature = route_signature(routes)
         node = {
             "id": f"E{index:05d}",
+            "witness_id": witness.get("witness_id"),
             "source_id": witness.get("source_id"),
+            "source_title": witness.get("source_title"),
+            "source_stance": witness.get("source_stance"),
+            "source_role": witness.get("source_role"),
+            "source_url": witness.get("source_url"),
+            "source_equation_ordinal": witness.get("source_equation_ordinal", index),
+            "source_start": witness.get("source_start"),
+            "source_end": witness.get("source_end"),
             "formula": witness.get("formula"),
             "formula_core": is_formula_core(witness.get("formula")),
             "formula_quality_flags": formula_quality_flags(witness.get("formula")),
@@ -508,7 +518,10 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
 
     usable_nodes = [node for node in nodes if is_usable_node(node)]
     case_nodes = [node for node in usable_nodes if is_case_relevant_node(node)]
-    evidence_grade_case_nodes = [node for node in case_nodes if is_evidence_grade_case_node(node)]
+    evidence_grade_case_nodes = [
+        node for node in usable_nodes
+        if is_evidence_grade_case_node(node)
+    ]
     direct_safety_case_nodes = [node for node in evidence_grade_case_nodes if is_direct_safety_case_node(node)]
     astrophysical_analogue_nodes = [node for node in evidence_grade_case_nodes if is_astrophysical_analogue_node(node)]
     production_threshold_nodes = [node for node in evidence_grade_case_nodes if is_production_threshold_node(node)]
@@ -542,6 +555,7 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
     for node in usable_nodes:
         by_source[str(node.get("source_id"))].append(node)
     for source_id, source_nodes in by_source.items():
+        source_nodes.sort(key=lambda node: int(node.get("source_equation_ordinal") or 0))
         for left, right in zip(source_nodes, source_nodes[1:]):
             overlap = sorted(set(left["route_signature"]) & set(right["route_signature"]))
             cosine = route_cosine(left["route_profile"], right["route_profile"])
@@ -555,6 +569,8 @@ def build_equation_mechanism_graph(out_dir: Path) -> Dict[str, Any]:
                     "route_cosine": cosine,
                     "left_signature": left["route_signature"],
                     "right_signature": right["route_signature"],
+                    "source_equation_ordinal": left.get("source_equation_ordinal"),
+                    "target_equation_ordinal": right.get("source_equation_ordinal"),
                 })
 
     analog_edges: List[Dict[str, Any]] = []
@@ -701,11 +717,11 @@ def append_node_examples(lines: List[str], nodes: Iterable[Dict[str, Any]], limi
         lines.append("Formula:")
         lines.append("")
         lines.append("```text")
-        lines.append(compact(node.get("formula"), 420))
+        lines.append(str(node.get("formula") or ""))
         lines.append("```")
         lines.append("")
     if len(examples) > limit:
-        lines.append(f"- ... `{len(examples) - limit}` additional examples omitted.")
+        lines.append(f"- Additional examples omitted from this summary: `{len(examples) - limit}`.")
         lines.append("")
 
 
@@ -722,7 +738,7 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
     lines.append(f"- fingerprinted mechanism nodes: `{graph.get('fingerprinted_node_count')}`")
     lines.append(f"- usable non-artifact mechanism nodes: `{graph.get('usable_mechanism_node_count')}`")
     lines.append(f"- LHC-black-hole case-relevant mechanism nodes: `{graph.get('case_relevant_mechanism_node_count')}`")
-    lines.append(f"- evidence-grade case mechanism nodes: `{graph.get('evidence_grade_case_mechanism_node_count')}`")
+    lines.append(f"- typed case equation receipts: `{graph.get('evidence_grade_case_mechanism_node_count')}`")
     lines.append(f"- direct LHC-safety mechanism nodes: `{graph.get('direct_lhc_safety_mechanism_node_count')}`")
     lines.append(f"- astrophysical analogue mechanism nodes: `{graph.get('astrophysical_analogue_mechanism_node_count')}`")
     lines.append(f"- collider-threshold/selection mechanism nodes: `{graph.get('production_threshold_mechanism_node_count')}`")
@@ -732,8 +748,8 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
     lines.append(f"- rich cross-source route analogues: `{len(graph.get('analog_edges', []))}`")
     lines.append(f"- case-internal rich analogues: `{len(graph.get('case_internal_analog_edges', []))}`")
     lines.append(f"- case-transfer rich analogues: `{len(graph.get('case_transfer_analog_edges', []))}`")
-    lines.append(f"- evidence-grade case-internal rich analogues: `{len(graph.get('evidence_grade_case_internal_analog_edges', []))}`")
-    lines.append(f"- evidence-grade case-transfer rich analogues: `{len(graph.get('evidence_grade_case_transfer_analog_edges', []))}`")
+    lines.append(f"- typed case-internal rich analogues: `{len(graph.get('evidence_grade_case_internal_analog_edges', []))}`")
+    lines.append(f"- typed case-transfer rich analogues: `{len(graph.get('evidence_grade_case_transfer_analog_edges', []))}`")
     lines.append("")
     lines.append("## Main Finding")
     lines.append("")
@@ -773,12 +789,12 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
     if not graph.get("case_category_counts"):
         lines.append("- No formula-clean mechanism nodes passed the LHC black-hole case gate.")
     lines.append("")
-    lines.append("Evidence-grade branch counts:")
+    lines.append("Typed equation-contract branch counts:")
     lines.append("")
     for branch, count in Counter(graph.get("case_branch_counts") or {}).most_common():
         lines.append(f"- `{branch}`: `{count}`")
     if not graph.get("case_branch_counts"):
-        lines.append("- No evidence-grade case branches were found.")
+        lines.append("- No equation satisfied a typed case contract.")
     lines.append("")
     lines.append("Interpretation:")
     lines.append("")
@@ -827,14 +843,14 @@ def render_equation_mechanism_report(graph: Dict[str, Any]) -> str:
             f"`{' + '.join(edge.get('route_signature') or [])}`, cosine `{float(edge.get('route_cosine', 0.0)):.3f}`"
         )
     if len(analog_edges) > 20:
-        lines.append(f"- ... `{len(analog_edges) - 20}` additional cross-source analogues omitted.")
+        lines.append(f"- Additional cross-source analogues omitted from this summary: `{len(analog_edges) - 20}`.")
     lines.append("")
     lines.append("## Case-Relevant Cross-Source Route Analogues")
     lines.append("")
     case_internal = graph.get("evidence_grade_case_internal_analog_edges") or []
     case_transfer = graph.get("evidence_grade_case_transfer_analog_edges") or []
     if not case_internal and not case_transfer:
-        lines.append("No high-cosine evidence-grade case route analogues were found under the current threshold.")
+        lines.append("No high-cosine typed case route analogues were found under the current threshold.")
     if case_internal:
         lines.append("Internal to the LHC black-hole case:")
         lines.append("")

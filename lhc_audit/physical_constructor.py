@@ -1,216 +1,41 @@
 from __future__ import annotations
 
 import json
-import re
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
-
-SLOT_DEFINITIONS: List[Dict[str, Any]] = [
-    {
-        "slot_id": "production_selector",
-        "label": "production threshold",
-        "required_condition": "parton collision can enter a low-scale-gravity production channel",
-        "equation_template": r"\sqrt{\hat s}=\sqrt{x_1x_2s}>M_{\min},\quad \sigma_{\rm form}\sim \pi r_s^2(M,M_D,n)",
-        "direct_categories": {"collider_threshold"},
-        "transfer_categories": set(),
-        "route_need": ["constraint_closure", "boundary_weak_form"],
-        "formula_patterns": [
-            r"\\sqrt\{?\\hat\s*s",
-            r"M_\{?\\?(?:min|D|P|Planck|BH|f)",
-            r"p_?\{?T",
-            r"y_\{?\\gamma",
-            r"\\sigma",
-            r"TeV",
-        ],
-        "context_patterns": [
-            r"LHC|collider|parton|Planck|extra dimension|TeV",
-            r"black hole (?:production|formation|evaporation)",
-            r"Higgs|diphoton|transverse momentum|rapidity",
-        ],
-    },
-    {
-        "slot_id": "survival_lifetime",
-        "label": "survival against evaporation",
-        "required_condition": "object lifetime exceeds the capture or stopping time",
-        "equation_template": r"\tau_{\rm evap}(M,M_D,n)>\tau_{\rm capture}",
-        "direct_categories": {"evaporation_branch", "collider_threshold"},
-        "transfer_categories": {"evaporation_branch"},
-        "route_need": ["transport_flow", "constraint_closure"],
-        "formula_patterns": [
-            r"\\tau|tau|lifetime",
-            r"T_\{?BH|T_\{?\\rm\s*BH|T_\\mathrm\{BH\}",
-            r"P_\{?evap|P_\{?\\rm\s*evap|evaporat|Hawking",
-            r"dM\s*/\s*dt\s*<\s*0",
-            r"evaporat|Hawking",
-        ],
-        "context_patterns": [
-            r"evaporat|Hawking|lifetime|mass[- ]loss",
-            r"short[- ]lived|long[- ]lived",
-        ],
-    },
-    {
-        "slot_id": "stopping_capture",
-        "label": "stopping or capture in matter",
-        "required_condition": "object loses enough kinetic energy to remain inside matter",
-        "equation_template": r"L_{\rm stop}(M,v,\rho,\sigma)<L_{\rm body}\quad {\rm or}\quad \tau_{\rm capture}<\tau_{\rm escape}",
-        "direct_categories": {"capture_stopping", "collider_threshold"},
-        "transfer_categories": {"capture_stopping"},
-        "route_need": ["transport_flow", "constraint_closure"],
-        "formula_patterns": [
-            r"R_\{?in\s*/\s*R_?\{?a",
-            r"Bondi",
-            r"dE\s*/\s*dx|\\Delta\s*E",
-            r"\\tau_\{?capture|capture|stopp",
-            r"\\Delta\s*t",
-        ],
-        "context_patterns": [
-            r"capture|stopping|energy loss|Bondi|accretion radius|remain inside",
-            r"compact object|neutron star|white dwarf",
-        ],
-    },
-    {
-        "slot_id": "net_positive_growth",
-        "label": "net positive mass growth",
-        "required_condition": "matter intake exceeds mass loss",
-        "equation_template": r"\dot M_{\rm net}=\rho\,\sigma(M)\,v-P_{\rm evap}(M)/c^2>0",
-        "direct_categories": {"accretion_growth", "collider_threshold"},
-        "transfer_categories": {"accretion_growth"},
-        "route_need": ["transport_flow", "constraint_closure", "spectral_operator"],
-        "formula_patterns": [
-            r"\\dot\{?M|\\dot\s*M|Mdot|\\langle\s*\\dot\{?M",
-            r"\\dot\{?m|\\dot\s*m",
-            r"L_\{?Edd|L_X",
-            r"\\delta\s*M",
-            r"\\rho.*\\sigma.*v",
-            r"M_\{?\\odot\s*/\s*(?:yr|year)",
-        ],
-        "context_patterns": [
-            r"accretion|growth|mass[- ]growth|mass intake|time-average accretion",
-            r"luminosity|Eddington|Bondi",
-        ],
-    },
-    {
-        "slot_id": "growth_timescale",
-        "label": "growth on a relevant timescale",
-        "required_condition": "integrated growth time is shorter than the physical exposure time",
-        "equation_template": r"t_{\rm grow}=\int_{M_0}^{M_*}\frac{dM}{\dot M_{\rm net}(M)}<t_{\rm exposure}",
-        "direct_categories": {"accretion_growth", "safety_risk", "collider_threshold"},
-        "transfer_categories": {"accretion_growth", "astrophysical_bound"},
-        "route_need": ["transport_flow", "constraint_closure"],
-        "formula_patterns": [
-            r"t_\{?grow|\\Delta\s*t|\\tau",
-            r"(?:yr|Myr|Gyr|second|sec)",
-            r"\\dot\{?M|\\dot\s*M|M_\{?\\odot\s*/\s*(?:yr|year)",
-        ],
-        "context_patterns": [
-            r"timescale|growth time|time-average|lifetime|duration|delayed collapse",
-            r"shorter than|longer than|survival",
-        ],
-    },
-    {
-        "slot_id": "astronomical_bound_evasion",
-        "label": "evasion of astronomical survival bounds",
-        "required_condition": "same mechanism must avoid contradiction with compact-object survival",
-        "equation_template": r"N_{\rm CR}\,P_{\rm capture}\,P_{\rm grow}\ll 1\quad {\rm for\ observed\ white\ dwarfs/neutron\ stars}",
-        "direct_categories": {"astrophysical_bound", "safety_risk", "collider_threshold"},
-        "transfer_categories": {"astrophysical_bound"},
-        "route_need": ["constraint_closure", "spectral_operator"],
-        "formula_patterns": [
-            r"M_\{?(?:WD|NS|BH)",
-            r"M_\{?\\odot|M_\\odot|M_\{?\\sun",
-            r"L_\{?Edd",
-            r"\\chi_\{?BH|a_\{?BH",
-            r"white dwarf|neutron star",
-        ],
-        "context_patterns": [
-            r"white dwarf|neutron star|compact object|cosmic ray",
-            r"observed survival|survival bounds?|astrophysical bound",
-            r"black hole[- ]neutron star|binary neutron stars",
-        ],
-    },
-]
+from .evidence_contract import (
+    SLOT_CONTRACTS,
+    SLOT_ORDER,
+    classify_receipt,
+    contracts_compose,
+    source_local_reachable,
+)
 
 
-COMPILED_SLOT_PATTERNS: Dict[str, Dict[str, List[re.Pattern[str]]]] = {
-    slot["slot_id"]: {
-        "formula": [re.compile(pattern, re.IGNORECASE | re.DOTALL) for pattern in slot.get("formula_patterns", [])],
-        "context": [re.compile(pattern, re.IGNORECASE | re.DOTALL) for pattern in slot.get("context_patterns", [])],
-    }
-    for slot in SLOT_DEFINITIONS
-}
+# Public compatibility name used by report builders.
+SLOT_DEFINITIONS = SLOT_CONTRACTS
 
 
 def read_json(path: Path) -> Dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def compact(text: Any, limit: int = 420) -> str:
-    value = " ".join(str(text or "").split())
-    return value if len(value) <= limit else value[: limit - 3] + "..."
-
-
-def node_categories(node: Dict[str, Any]) -> set[str]:
-    case = node.get("case_evidence") or {}
-    return set(case.get("local_categories") or []) | set(case.get("categories") or [])
-
-
-def is_receipt(node: Dict[str, Any], receipt_ids: set[str]) -> bool:
-    return str(node.get("id")) in receipt_ids
-
-
 def slot_match(node: Dict[str, Any], slot: Dict[str, Any]) -> Tuple[bool, Dict[str, Any]]:
-    patterns = COMPILED_SLOT_PATTERNS.get(slot["slot_id"], {})
-    formula = str(node.get("formula") or "")
-    context = str(node.get("context") or "")
-    formula_hits = [
-        pattern.pattern
-        for pattern in patterns.get("formula", [])
-        if pattern.search(formula)
-    ]
-    context_hits = [
-        pattern.pattern
-        for pattern in patterns.get("context", [])
-        if pattern.search(context)
-    ]
-    routes = set(node.get("route_signature") or [])
-    needed = set(slot.get("route_need") or [])
-    route_hits = sorted(routes & needed)
-    has_slot_evidence = bool(formula_hits or context_hits)
-    # For required mechanism slots, route agreement alone is not enough. It can
-    # only support an already slot-specific formula/context match.
-    return has_slot_evidence, {
-        "formula_hits": formula_hits[:4],
-        "context_hits": context_hits[:4],
-        "route_hits": route_hits,
-    }
+    """Match a slot from the equation itself; prose supplies regime only."""
+    grade, details = classify_receipt(node, slot)
+    return grade is not None, details
 
 
 def evidence_grade(node: Dict[str, Any], slot: Dict[str, Any]) -> Tuple[str | None, Dict[str, Any]]:
-    categories = node_categories(node)
-    matched, match = slot_match(node, slot)
-    if "black_hole" not in categories:
-        return None, match
-    if not matched:
-        return None, match
-    direct_categories = set(slot["direct_categories"])
-    transfer_categories = set(slot["transfer_categories"])
-    if direct_categories and direct_categories <= categories:
-        return "direct_collider_receipt", match
-    if slot["slot_id"] == "production_selector" and "collider_threshold" in categories:
-        return "direct_collider_receipt", match
-    if transfer_categories and transfer_categories <= categories:
-        return "astrophysical_transfer_receipt", match
-    return None, match
+    return classify_receipt(node, slot)
 
 
-def slot_status(slot: Dict[str, Any], direct: List[Dict[str, Any]], transfer: List[Dict[str, Any]]) -> str:
-    if slot["slot_id"] == "production_selector" and direct:
-        return "direct_hook"
+def slot_status(direct: List[Dict[str, Any]], candidates: List[Dict[str, Any]]) -> str:
     if direct:
         return "direct_mechanism_receipt"
-    if transfer:
-        return "transfer_only"
+    if candidates:
+        return "candidate_transfer_only"
     return "missing"
 
 
@@ -219,8 +44,9 @@ def node_summary(node: Dict[str, Any], match: Dict[str, Any] | None = None) -> D
     out = {
         "node_id": node.get("id"),
         "source_id": node.get("source_id"),
-        "formula": compact(node.get("formula"), 600),
-        "context": compact(node.get("context"), 700),
+        "source_equation_ordinal": node.get("source_equation_ordinal"),
+        "formula": str(node.get("formula") or ""),
+        "context": str(node.get("context") or ""),
         "text_role": node.get("text_role"),
         "route_signature": node.get("route_signature") or [],
         "constructor_roles": node.get("constructor_roles") or [],
@@ -234,89 +60,167 @@ def node_summary(node: Dict[str, Any], match: Dict[str, Any] | None = None) -> D
     return out
 
 
+def _rank(node: Dict[str, Any]) -> Tuple[int, int, int]:
+    return (
+        int(node.get("formula_detail_score") or 0),
+        len(node.get("constructor_roles") or []),
+        len(str(node.get("formula") or "")),
+    )
+
+
+def _slot_receipts(nodes: List[Dict[str, Any]], slot: Dict[str, Any]) -> Dict[str, Any]:
+    direct: List[Tuple[Dict[str, Any], Dict[str, Any]]] = []
+    candidates: List[Tuple[Dict[str, Any], Dict[str, Any]]] = []
+    rejected_formula_matches = 0
+
+    for node in nodes:
+        grade, details = evidence_grade(node, slot)
+        if grade == "direct_collider_receipt":
+            direct.append((node, details))
+        elif grade == "candidate_transfer_receipt":
+            candidates.append((node, details))
+        elif details.get("formula_contract_valid"):
+            rejected_formula_matches += 1
+
+    direct.sort(key=lambda pair: _rank(pair[0]), reverse=True)
+    candidates.sort(key=lambda pair: _rank(pair[0]), reverse=True)
+    return {
+        "direct": direct,
+        "candidates": candidates,
+        "rejected_formula_matches": rejected_formula_matches,
+    }
+
+
+def _composition_audit(
+    slots: List[Dict[str, Any]],
+    raw_receipts: Dict[str, Dict[str, Any]],
+    graph_edges: List[Dict[str, Any]],
+) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    supported: List[Dict[str, Any]] = []
+    broken: List[Dict[str, Any]] = []
+    slot_by_id = {slot["slot_id"]: slot for slot in slots}
+
+    for left_id, right_id in zip(SLOT_ORDER, SLOT_ORDER[1:]):
+        left_slot = slot_by_id[left_id]
+        right_slot = slot_by_id[right_id]
+        contract_compatible = contracts_compose(left_slot, right_slot)
+        witnesses: List[Dict[str, Any]] = []
+        typed_cross_source_candidates = 0
+
+        for left_node, _ in raw_receipts[left_id]["direct"]:
+            for right_node, _ in raw_receipts[right_id]["direct"]:
+                left_source = str(left_node.get("source_id") or "")
+                right_source = str(right_node.get("source_id") or "")
+                if left_source != right_source:
+                    typed_cross_source_candidates += 1
+                    continue
+                if source_local_reachable(
+                    left_source,
+                    left_node.get("id"),
+                    right_node.get("id"),
+                    graph_edges,
+                ):
+                    witnesses.append({
+                        "source_id": left_source,
+                        "source_node": left_node.get("id"),
+                        "target_node": right_node.get("id"),
+                        "edge_type": "source_local_equation_path",
+                    })
+
+        record = {
+            "source_slot": left_id,
+            "target_slot": right_id,
+            "contract_compatible": contract_compatible,
+            "source_local_witnesses": witnesses,
+            "typed_cross_source_candidates": typed_cross_source_candidates,
+            "supports_branch_closure": bool(contract_compatible and witnesses),
+        }
+        if record["supports_branch_closure"]:
+            supported.append(record)
+        else:
+            broken.append(record)
+    return supported, broken
+
+
 def build_physical_constructor(run_dir: Path) -> Dict[str, Any]:
     graph = read_json(run_dir / "equation_mechanism_graph.json")
-    receipt_ids = set(graph.get("evidence_grade_case_node_ids") or [])
-    nodes = [node for node in graph.get("nodes") or [] if is_receipt(node, receipt_ids)]
+    usable_ids = set(graph.get("usable_node_ids") or [])
+    nodes = [
+        node for node in graph.get("nodes") or []
+        if str(node.get("id")) in usable_ids
+    ]
 
     slots: List[Dict[str, Any]] = []
+    raw_receipts: Dict[str, Dict[str, Any]] = {}
     for slot_def in SLOT_DEFINITIONS:
-        direct: List[Dict[str, Any]] = []
-        transfer: List[Dict[str, Any]] = []
-        direct_matches: Dict[str, Dict[str, Any]] = {}
-        transfer_matches: Dict[str, Dict[str, Any]] = {}
-        for node in nodes:
-            grade, match = evidence_grade(node, slot_def)
-            if grade == "direct_collider_receipt":
-                direct.append(node)
-                direct_matches[str(node.get("id"))] = match
-            elif grade == "astrophysical_transfer_receipt":
-                transfer.append(node)
-                transfer_matches[str(node.get("id"))] = match
-        direct.sort(key=lambda n: int(n.get("formula_detail_score") or 0), reverse=True)
-        transfer.sort(key=lambda n: int(n.get("formula_detail_score") or 0), reverse=True)
-        status = slot_status(slot_def, direct, transfer)
+        receipts = _slot_receipts(nodes, slot_def)
+        raw_receipts[slot_def["slot_id"]] = receipts
+        direct = receipts["direct"]
+        candidates = receipts["candidates"]
         slots.append({
             "slot_id": slot_def["slot_id"],
             "label": slot_def["label"],
             "required_condition": slot_def["required_condition"],
             "equation_template": slot_def["equation_template"],
             "route_need": slot_def["route_need"],
-            "status": status,
+            "formula_quantities": slot_def["formula_quantities"],
+            "inputs": slot_def["inputs"],
+            "outputs": slot_def["outputs"],
+            "status": slot_status([item[0] for item in direct], [item[0] for item in candidates]),
             "direct_receipt_count": len(direct),
-            "transfer_receipt_count": len(transfer),
-            "direct_receipts": [
-                node_summary(node, direct_matches.get(str(node.get("id"))))
-                for node in direct[:6]
-            ],
-            "transfer_receipts": [
-                node_summary(node, transfer_matches.get(str(node.get("id"))))
-                for node in transfer[:8]
-            ],
+            "candidate_transfer_count": len(candidates),
+            # Compatibility aliases for existing figure/report code.
+            "transfer_receipt_count": len(candidates),
+            "direct_receipts": [node_summary(node, match) for node, match in direct],
+            "candidate_transfer_receipts": [node_summary(node, match) for node, match in candidates],
+            "transfer_receipts": [node_summary(node, match) for node, match in candidates],
+            "rejected_formula_matches_without_case_regime": receipts["rejected_formula_matches"],
         })
 
-    direct_required = [
-        slot for slot in slots
-        if slot["slot_id"] in {
-            "survival_lifetime",
-            "stopping_capture",
-            "net_positive_growth",
-            "growth_timescale",
-            "astronomical_bound_evasion",
-        }
+    supported_transitions, broken_transitions = _composition_audit(
+        SLOT_DEFINITIONS,
+        raw_receipts,
+        list(graph.get("edges") or []),
+    )
+    missing_direct_slots = [
+        slot["slot_id"] for slot in slots
+        if slot["status"] != "direct_mechanism_receipt"
     ]
-    broken_slots = [slot for slot in direct_required if slot["status"] != "direct_mechanism_receipt"]
-    transfer_slots = [slot for slot in slots if slot["status"] == "transfer_only"]
-    hook_slots = [slot for slot in slots if slot["status"] == "direct_hook"]
+    branch_closed = not missing_direct_slots and not broken_transitions
 
     return {
         "report_type": "lhc_physical_constructor",
-        "schema": "KnowledgeParser operator/substrate constructor adapter",
+        "schema": "typed equation-contract constructor v2",
+        "readiness": "usable",
         "source_run": str(run_dir),
+        "evidence_rule": (
+            "Equation quantities fill mechanism slots; surrounding text identifies the physical regime. "
+            "Branch closure additionally requires a source-local equation path between every adjacent slot."
+        ),
         "input_counts": {
             "source_witness_count": graph.get("source_witness_count"),
             "usable_mechanism_node_count": graph.get("usable_mechanism_node_count"),
             "case_relevant_mechanism_node_count": graph.get("case_relevant_mechanism_node_count"),
-            "evidence_grade_case_mechanism_node_count": graph.get("evidence_grade_case_mechanism_node_count"),
-            "direct_lhc_safety_mechanism_node_count": graph.get("direct_lhc_safety_mechanism_node_count"),
-            "astrophysical_analogue_mechanism_node_count": graph.get("astrophysical_analogue_mechanism_node_count"),
-            "production_threshold_mechanism_node_count": graph.get("production_threshold_mechanism_node_count"),
         },
-        "branch_closed": not broken_slots,
+        "branch_closed": branch_closed,
         "branch_verdict": (
-            "closed_danger_branch"
-            if not broken_slots
-            else "broken_danger_branch"
+            "closed_composable_danger_branch"
+            if branch_closed
+            else "incomplete_direct_mechanism_branch"
         ),
-        "filled_direct_hooks": [slot["slot_id"] for slot in hook_slots],
-        "transfer_only_slots": [slot["slot_id"] for slot in transfer_slots],
-        "broken_required_slots": [slot["slot_id"] for slot in broken_slots],
+        "missing_direct_slots": missing_direct_slots,
+        "broken_required_slots": missing_direct_slots,
+        "supported_transitions": supported_transitions,
+        "broken_transitions": broken_transitions,
+        "candidate_transfer_only_slots": [
+            slot["slot_id"] for slot in slots
+            if slot["status"] == "candidate_transfer_only"
+        ],
+        "transfer_only_slots": [
+            slot["slot_id"] for slot in slots
+            if slot["status"] == "candidate_transfer_only"
+        ],
         "slots": slots,
-        "claim_scope": (
-            "This constructor assembles public static graph receipts into the physical LHC danger branch. "
-            "It uses KnowledgeParser operator/substrate constructor frames already embedded in the graph; "
-            "it does not recompute private fingerprints."
-        ),
     }
 
 
@@ -326,40 +230,50 @@ def render_markdown(constructor: Dict[str, Any]) -> str:
         "",
         f"Verdict: `{constructor['branch_verdict']}`",
         "",
-        "A dangerous LHC black-hole mechanism requires every slot below. The table distinguishes direct collider receipts from astrophysical transfer receipts.",
+        constructor["evidence_rule"],
         "",
-        "| Slot | Status | Direct receipts | Transfer receipts | Required condition |",
-        "|---|---:|---:|---:|---|",
+        "| Mechanism condition | Status | Direct collider equations | Transfer candidates |",
+        "|---|---:|---:|---:|",
     ]
     for slot in constructor["slots"]:
         lines.append(
             f"| {slot['label']} | `{slot['status']}` | {slot['direct_receipt_count']} | "
-            f"{slot['transfer_receipt_count']} | {slot['required_condition']} |"
+            f"{slot['candidate_transfer_count']} |"
         )
-    lines += ["", "## Slot Receipts", ""]
+
+    lines += ["", "## Equation Receipts", ""]
     for slot in constructor["slots"]:
         lines += [
             f"### {slot['label']}",
             "",
-            f"- status: `{slot['status']}`",
-            f"- equation template: `{slot['equation_template']}`",
+            f"Required relation: ${slot['equation_template']}$",
             "",
         ]
         if slot["direct_receipts"]:
-            lines.append("Direct collider receipts:")
+            lines.append("Direct collider equations:")
             lines.append("")
             for item in slot["direct_receipts"]:
-                lines.append(f"- `{item['source_id']}` / `{item['node_id']}`: `{item['formula']}`")
+                lines.append(f"- `{item['source_id']}` / `{item['node_id']}`: `${item['formula']}$`")
             lines.append("")
-        if slot["transfer_receipts"]:
-            lines.append("Astrophysical transfer receipts:")
+        if slot["candidate_transfer_receipts"]:
+            lines.append("Cross-regime equation candidates:")
             lines.append("")
-            for item in slot["transfer_receipts"][:5]:
-                lines.append(f"- `{item['source_id']}` / `{item['node_id']}`: `{item['formula']}`")
+            for item in slot["candidate_transfer_receipts"]:
+                lines.append(f"- `{item['source_id']}` / `{item['node_id']}`: `${item['formula']}$`")
             lines.append("")
-        if not slot["direct_receipts"] and not slot["transfer_receipts"]:
-            lines.append("No retained branch receipt fills this slot.")
-            lines.append("")
+        if not slot["direct_receipts"] and not slot["candidate_transfer_receipts"]:
+            lines += ["No equation satisfies this contract in the retained run.", ""]
+
+    lines += ["## Composition", ""]
+    for transition in constructor["supported_transitions"]:
+        lines.append(
+            f"- `{transition['source_slot']} -> {transition['target_slot']}`: "
+            f"{len(transition['source_local_witnesses'])} source-local equation path(s)."
+        )
+    for transition in constructor["broken_transitions"]:
+        lines.append(
+            f"- `{transition['source_slot']} -> {transition['target_slot']}`: no source-local equation path."
+        )
     return "\n".join(lines).rstrip() + "\n"
 
 
@@ -369,4 +283,4 @@ def write_constructor(run_dir: Path) -> Dict[str, str]:
     md_path = run_dir / "physical_constructor.md"
     json_path.write_text(json.dumps(constructor, indent=2, ensure_ascii=False), encoding="utf-8")
     md_path.write_text(render_markdown(constructor), encoding="utf-8")
-    return {"json": str(json_path), "markdown": str(md_path), "readiness": "usable"}
+    return {"json": str(json_path), "markdown": str(md_path), "readiness": constructor["readiness"]}

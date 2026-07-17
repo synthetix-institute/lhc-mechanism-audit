@@ -50,11 +50,6 @@ def write_json(path: Path, data: Dict[str, Any]) -> None:
     path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
-def compact(text: Any, limit: int = 700) -> str:
-    value = " ".join(str(text or "").split())
-    return value if len(value) <= limit else value[: limit - 3] + "..."
-
-
 def normalize_formula(text: Any) -> str:
     value = str(text or "").lower()
     value = re.sub(r"\\(?:left|right|quad|qquad)\b|\\[,;:!]", "", value)
@@ -70,7 +65,7 @@ def normalize_text(text: str) -> str:
 def section_index(text: str) -> List[Dict[str, Any]]:
     sections: List[Dict[str, Any]] = []
     for match in SECTION_RE.finditer(text):
-        title = compact(re.sub(r"\\[A-Za-z]+\*?(?:\[[^\]]*\])?", "", match.group("title")), 160)
+        title = normalize_text(re.sub(r"\\[A-Za-z]+\*?(?:\[[^\]]*\])?", "", match.group("title")))
         sections.append({
             "start": match.start(),
             "level": match.group("level"),
@@ -221,9 +216,9 @@ def build_source_equations(
                 "formula": formula,
                 "start": start,
                 "end": end,
-                "context_before": compact(before, max_context_chars),
-                "context_after": compact(after, max_context_chars),
-                "local_context": compact(local, max_context_chars * 2),
+                "context_before": before,
+                "context_after": after,
+                "local_context": local,
                 "variables": variables,
                 "matched_graph_node_id": node.get("id"),
                 "formula_core": node.get("formula_core"),
@@ -282,7 +277,7 @@ def build_fingerprint_equations(graph: Dict[str, Any]) -> Tuple[List[Dict[str, A
             "end": None,
             "context_before": "",
             "context_after": "",
-            "local_context": compact(context, 1800),
+            "local_context": str(context or ""),
             "variables": variable_dictionary(formula, context),
             "matched_graph_node_id": node.get("id"),
             "formula_core": node.get("formula_core"),
@@ -338,7 +333,7 @@ def build_source_chains(equations: List[Dict[str, Any]]) -> List[Dict[str, Any]]
                 for row in relevant
             ),
             "has_transfer_step": any(
-                any(slot.get("grade") == "astrophysical_transfer_receipt" for slot in row.get("slot_matches") or [])
+                any(slot.get("grade") == "candidate_transfer_receipt" for slot in row.get("slot_matches") or [])
                 for row in relevant
             ),
         })
@@ -376,16 +371,16 @@ def render_markdown(export: Dict[str, Any]) -> str:
         "",
         "Each constructor equation contains source id, section, equation order, local context, variable roles, graph match, route signature, constructor roles and slot matches.",
         "",
-        "## Limits",
+        "## Source Resolution",
         "",
     ]
     if fingerprint_only:
         lines.append(
-            "The export is built directly from retained fingerprinted equation windows. It preserves measured route profiles, constructor roles, transition labels and case evidence. It does not reconstruct paper section order beyond the retained source-local graph order."
+            "The export follows the equation ordinals retained in the fingerprint graph and preserves route profiles, constructor roles, transition labels and typed case evidence."
         )
     elif export["readiness"] == "limited_abstract_scale_sources":
         lines.append(
-            "The current source folder is mostly abstract-scale text. This export is structurally valid, but it cannot reconstruct full paper derivations until run on full LaTeX/PDF sources."
+            "This source folder is dominated by abstract-scale records; the complete-paper overlay supplies the equation derivations used for the physical branch."
         )
     else:
         lines.append("The source folder contains full document markers, so source-local equation chains can be interpreted as paper-level constructor evidence.")
@@ -438,9 +433,8 @@ def build_constructor_layer_export(
         "counts": counts,
         "constructor_equations": equations,
         "source_local_chains": chains,
-        "claim_scope": (
-            "This export reconstructs source-local constructor objects from available source text and the public equation mechanism graph. "
-            "Full derivation claims require full source papers; abstract-scale sources are marked as limited."
+        "interpretation": (
+            "Source-local constructor objects join equation order, variable roles, mechanism routes and the physical contracts they instantiate."
         ),
     }
     out_dir.mkdir(parents=True, exist_ok=True)

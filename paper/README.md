@@ -1,41 +1,23 @@
-# Paper Build
+# Generated Paper
 
-The current public report is:
+`lhc_black_hole_answer.pdf` is generated from the retained provenance graph,
+equation mechanism graph, six-slot physical constructor, sparse-attention
+calculation and the independent equation benchmark.
 
-```text
-paper/lhc_black_hole_answer.pdf
-```
-
-Build it from the repository root:
+From the repository root, run:
 
 ```bash
-scripts/build_lhc_black_hole_answer.sh
+bash scripts/build_lhc_black_hole_answer.sh
 ```
 
-The script regenerates:
-
-- `paper/lhc_black_hole_answer.tex`
-- `paper/lhc_black_hole_answer.pdf`
-- `paper/lhc_black_hole_answer_manifest.json`
-- `paper/figures/lhc_*.pdf`
-
-The default input is:
-
-```text
-runs/lhc_black_hole_audit_500k_strict/
-```
-
-To rebuild from another static run:
+The default evidence bundle is `runs/lhc_black_hole_audit_revised`. The build
+regenerates the derived JSON files, eight vector figures, the LaTeX source and
+the PDF. A different evidence bundle can be supplied as the first argument.
 
 ```bash
-scripts/build_lhc_black_hole_answer.sh \
-  /path/to/lhc_black_hole_audit_500k_strict \
-  paper
+bash scripts/build_lhc_black_hole_answer.sh /path/to/run paper
 ```
 
-The LaTeX file can also be compiled manually:
-
-```bash
-cd paper
-latexmk -pdf -interaction=nonstopmode -halt-on-error lhc_black_hole_answer.tex
-```
+The report figures show the evidence funnel, full and collapsed provenance
+graphs, public knowledge graph, retained equation graph, physical constructor,
+astrophysics-to-collider transfer map and sparse-attention result.

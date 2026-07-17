@@ -1,0 +1,112 @@
+{
+  "schema": "lhc_mechanism_gold_v1",
+  "description": "Primary-source equations that must survive extraction and typed constructor matching.",
+  "papers": [
+    {
+      "arxiv_id": "0806.3381",
+      "required_source": true,
+      "receipts": [
+        {
+          "receipt_id": "gm_lhc_production_cross_section",
+          "slot_id": "production_selector",
+          "formula_regex": "\\\\sigma_\\{BH\\}\\(M>M_\\{min\\}\\)",
+          "context_regex": "production cross sections at the LHC"
+        },
+        {
+          "receipt_id": "gm_parton_threshold",
+          "slot_id": "production_selector",
+          "formula_regex": "\\\\tau\\s*=\\s*x_1\\s*x_2\\s*>\\s*\\\\tau_\\{min\\}",
+          "context_regex": "M_\\{min\\}"
+        },
+        {
+          "receipt_id": "gm_capture_growth_law",
+          "slot_id": "net_positive_growth",
+          "formula_regex": "\\\\frac\\{dM\\}\\{dt\\}\\s*=\\s*\\\\pi\\s*\\\\rho.*v.*r_c\\^2",
+          "context_regex": "capture radius"
+        },
+        {
+          "receipt_id": "gm_relativistic_stopping_law",
+          "slot_id": "stopping_capture",
+          "formula_regex": "dp\\\\over d\\\\ell.*=\\s*-",
+          "context_regex": "path length"
+        },
+        {
+          "receipt_id": "gm_white_dwarf_growth_times",
+          "slot_id": "growth_timescale",
+          "formula_regex": "t\\(R_B<R_D\\).*\\\\yr",
+          "context_regex": "time scales"
+        },
+        {
+          "receipt_id": "gm_neutron_star_bound",
+          "slot_id": "astronomical_bound_evasion",
+          "formula_regex": "t_\\{NS,w\\}\\s*\\\\sim\\s*20\\\\yr",
+          "context_regex": "neutron star"
+        }
+      ]
+    },
+    {
+      "arxiv_id": "0806.3414",
+      "required_source": true,
+      "receipts": []
+    },
+    {
+      "arxiv_id": "0807.3349",
+      "required_source": true,
+      "receipts": [
+        {
+          "receipt_id": "kbs_geometric_production",
+          "slot_id": "production_selector",
+          "formula_regex": "\\\\sigma\\(M\\).*\\\\pi\\s*R_H\\^2.*\\\\xi\\(\\\\sqrt\\{s\\}-M_f\\)",
+          "context_regex": "production cross section"
+        },
+        {
+          "receipt_id": "kbs_hawking_mass_loss",
+          "slot_id": "survival_lifetime",
+          "formula_regex": "\\\\frac\\{dM\\}\\{dt\\}\\s*\\\\approx\\s*-",
+          "context_regex": "decay rate"
+        },
+        {
+          "receipt_id": "kbs_lower_bound_growth",
+          "slot_id": "net_positive_growth",
+          "formula_regex": "\\\\frac\\{dM_1\\(x\\)\\}\\{dx\\}.*\\\\ge",
+          "context_regex": "mass growth"
+        }
+      ]
+    },
+    {
+      "arxiv_id": "0808.1415",
+      "required_source": true,
+      "receipts": [
+        {
+          "receipt_id": "plaga_eddington_growth_limit",
+          "slot_id": "net_positive_growth",
+          "formula_regex": "dM/dt\\s*=.*R_B.*c_s\\^2",
+          "context_regex": "Eddington limit"
+        }
+      ]
+    },
+    {
+      "arxiv_id": "0808.4087",
+      "required_source": true,
+      "receipts": []
+    },
+    {
+      "arxiv_id": "0901.2948",
+      "required_source": true,
+      "receipts": [
+        {
+          "receipt_id": "cfh_accretion_rate",
+          "slot_id": "net_positive_growth",
+          "formula_regex": "\\\\frac\\{\\\\ud M\\}\\{\\\\ud t\\}.*acc.*=\\s*\\\\pi.*v.*\\\\rho.*\\\\reff",
+          "context_regex": "accretion"
+        },
+        {
+          "receipt_id": "cfh_competing_mass_rates",
+          "slot_id": "net_positive_growth",
+          "formula_regex": "\\\\frac\\{\\\\ud M\\}\\{\\\\ud t\\}\\s*=.*evap.*acc",
+          "context_regex": "evolution"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1743 @@
+{
+  "report_type": "lhc_graph_sparse_attention",
+  "readiness": "usable",
+  "method": "Edge attention = route similarity x inverse-frequency route weight x transition information x strict-receipt factor / geometric-mean endpoint degree.",
+  "usable_node_count": 464,
+  "graph_edge_count": 556,
+  "strict_receipt_node_count": 36,
+  "attended_edge_count": 91,
+  "route_idf": {
+    "transport_flow": 1.828831426545569,
+    "constraint_closure": 1.3862951920004443,
+    "spectral_operator": 1.301395748213958,
+    "boundary_weak_form": 2.282225001225684,
+    "commutator_incompatibility": 3.3133960090982613,
+    "discrete_protocol": 3.9639835752394106
+  },
+  "route_prevalence": {
+    "spectral_operator": 343,
+    "constraint_closure": 315,
+    "transport_flow": 202,
+    "boundary_weak_form": 128,
+    "commutator_incompatibility": 45,
+    "discrete_protocol": 23
+  },
+  "strict_receipt_route_prevalence": {
+    "spectral_operator": 30,
+    "transport_flow": 28,
+    "constraint_closure": 25,
+    "commutator_incompatibility": 9,
+    "boundary_weak_form": 6
+  },
+  "top_edges": [
+    {
+      "source": "E00456",
+      "target": "E00457",
+      "source_paper": "0901.2948",
+      "target_paper": "0901.2948",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.7893681382485775,
+      "shared_routes": [
+        "commutator_incompatibility",
+        "constraint_closure",
+        "spectral_operator"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [
+        "transport_flow"
+      ],
+      "hub_penalty": 2.449489742783178,
+      "rarity_weight": 1.957479593964558,
+      "transition_information": 1.828831426545569,
+      "raw_attention": 1.396699329460908,
+      "source_receipt_grades": [
+        "net_positive_growth:direct_collider_receipt"
+      ],
+      "target_receipt_grades": [
+        "net_positive_growth:direct_collider_receipt"
+      ],
+      "attention": 0.028427731909691195
+    },
+    {
+      "source": "E00292",
+      "target": "E00293",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.6581451817144175,
+      "shared_routes": [
+        "transport_flow"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [
+        "constraint_closure",
+        "spectral_operator"
+      ],
+      "hub_penalty": 1.4142135623730951,
+      "rarity_weight": 1.505507455586657,
+      "transition_information": 1.3438454701072011,
+      "raw_attention": 1.3907302673256616,
+      "source_receipt_grades": [
+        "production_selector:direct_collider_receipt"
+      ],
+      "target_receipt_grades": [
+        "production_selector:direct_collider_receipt"
+      ],
+      "attention": 0.0283062405517777
+    },
+    {
+      "source": "E00203",
+      "target": "E00204",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.826964913247192,
+      "shared_routes": [
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "introduced_routes": [
+        "boundary_weak_form"
+      ],
+      "removed_routes": [],
+      "hub_penalty": 2.0,
+      "rarity_weight": 1.8041507253284035,
+      "transition_information": 2.282225001225684,
+      "raw_attention": 1.3418613797873182,
+      "source_receipt_grades": [
+        "net_positive_growth:candidate_transfer_receipt"
+      ],
+      "target_receipt_grades": [],
+      "attention": 0.027311587225638364
+    },
+    {
+      "source": "E00440",
+      "target": "E00441",
+      "source_paper": "0901.2948",
+      "target_paper": "0901.2948",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.7181631215289769,
+      "shared_routes": [
+        "commutator_incompatibility",
+        "constraint_closure"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [
+        "transport_flow"
+      ],
+      "hub_penalty": 2.0,
+      "rarity_weight": 2.176174209214758,
+      "transition_information": 1.828831426545569,
+      "raw_attention": 1.28160652075883,
+      "source_receipt_grades": [
+        "net_positive_growth:direct_collider_receipt"
+      ],
+      "target_receipt_grades": [],
+      "attention": 0.026085189430073274
+    },
+    {
+      "source": "E00455",
+      "target": "E00456",
+      "source_paper": "0901.2948",
+      "target_paper": "0901.2948",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.7008698541447476,
+      "shared_routes": [
+        "commutator_incompatibility",
+        "constraint_closure"
+      ],
+      "introduced_routes": [
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "removed_routes": [],
+      "hub_penalty": 2.449489742783178,
+      "rarity_weight": 1.957479593964558,
+      "transition_information": 1.5651135873797635,
+      "raw_attention": 1.170320291368911,
+      "source_receipt_grades": [
+        "survival_lifetime:direct_collider_receipt"
+      ],
+      "target_receipt_grades": [
+        "net_positive_growth:direct_collider_receipt"
+      ],
+      "attention": 0.023820124195483308
+    },
+    {
+      "source": "E00179",
+      "target": "E00180",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.8448555608670132,
+      "shared_routes": [
+        "constraint_closure",
+        "spectral_operator"
+      ],
+      "introduced_routes": [
+        "transport_flow"
+      ],
+      "removed_routes": [],
+      "hub_penalty": 2.449489742783178,
+      "rarity_weight": 1.505507455586657,
+      "transition_information": 1.828831426545569,
+      "raw_attention": 1.14971835828865,
+      "source_receipt_grades": [
+        "growth_timescale:direct_collider_receipt"
+      ],
+      "target_receipt_grades": [
+        "growth_timescale:candidate_transfer_receipt"
+      ],
+      "attention": 0.02340080257194311
+    },
+    {
+      "source": "E00202",
+      "target": "E00203",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.4717675956803982,
+      "shared_routes": [
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [
+        "commutator_incompatibility",
+        "constraint_closure"
+      ],
+      "hub_penalty": 2.0,
+      "rarity_weight": 1.957479593964558,
+      "transition_information": 2.3498456005493527,
+      "raw_attention": 1.1360142593663405,
+      "source_receipt_grades": [
+        "growth_timescale:candidate_transfer_receipt",
+        "astronomical_bound_evasion:candidate_transfer_receipt"
+      ],
+      "target_receipt_grades": [
+        "net_positive_growth:candidate_transfer_receipt"
+      ],
+      "attention": 0.023121876075731736
+    },
+    {
+      "source": "E00080",
+      "target": "E00081",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.8247706068560382,
+      "shared_routes": [
+        "commutator_incompatibility",
+        "constraint_closure",
+        "spectral_operator"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [
+        "transport_flow"
+      ],
+      "hub_penalty": 2.449489742783178,
+      "rarity_weight": 1.957479593964558,
+      "transition_information": 1.828831426545569,
+      "raw_attention": 1.0809926439071613,
+      "source_receipt_grades": [
+        "net_positive_growth:candidate_transfer_receipt"
+      ],
+      "target_receipt_grades": [],
+      "attention": 0.022001993148519774
+    },
+    {
+      "source": "E00208",
+      "target": "E00209",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.7873589364695204,
+      "shared_routes": [
+        "boundary_weak_form",
+        "constraint_closure",
+        "spectral_operator"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [
+        "commutator_incompatibility",
+        "transport_flow"
+      ],
+      "hub_penalty": 2.8284271247461903,
+      "rarity_weight": 2.022428675416783,
+      "transition_information": 2.5711137178219152,
+      "raw_attention": 1.0696197007698867,
+      "source_receipt_grades": [
+        "stopping_capture:candidate_transfer_receipt"
+      ],
+      "target_receipt_grades": [],
+      "attention": 0.0217705138517871
+    },
+    {
+      "source": "E00439",
+      "target": "E00440",
+      "source_paper": "0901.2948",
+      "target_paper": "0901.2948",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.597956531824114,
+      "shared_routes": [
+        "constraint_closure"
+      ],
+      "introduced_routes": [
+        "commutator_incompatibility",
+        "transport_flow"
+      ],
+      "removed_routes": [
+        "spectral_operator"
+      ],
+      "hub_penalty": 2.0,
+      "rarity_weight": 1.957479593964558,
+      "transition_information": 2.147874394619263,
+      "raw_attention": 1.0252044559992812,
+      "source_receipt_grades": [],
+      "target_receipt_grades": [
+        "net_positive_growth:direct_collider_receipt"
+      ],
+      "attention": 0.020866507782328025
+    },
+    {
+      "source": "E00449",
+      "target": "E00451",
+      "source_paper": "0901.2948",
+      "target_paper": "0901.2948",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.597956531824114,
+      "shared_routes": [
+        "constraint_closure"
+      ],
+      "introduced_routes": [
+        "commutator_incompatibility",
+        "transport_flow"
+      ],
+      "removed_routes": [
+        "spectral_operator"
+      ],
+      "hub_penalty": 2.0,
+      "rarity_weight": 1.957479593964558,
+      "transition_information": 2.147874394619263,
+      "raw_attention": 1.0252044559992812,
+      "source_receipt_grades": [],
+      "target_receipt_grades": [
+        "net_positive_growth:direct_collider_receipt"
+      ],
+      "attention": 0.020866507782328025
+    },
+    {
+      "source": "E00126",
+      "target": "E00127",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.9999999999999999,
+      "shared_routes": [
+        "constraint_closure",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [],
+      "hub_penalty": 2.0,
+      "rarity_weight": 1.505507455586657,
+      "transition_information": 0.0,
+      "raw_attention": 1.0162175325209934,
+      "source_receipt_grades": [
+        "stopping_capture:direct_collider_receipt"
+      ],
+      "target_receipt_grades": [
+        "net_positive_growth:direct_collider_receipt"
+      ],
+      "attention": 0.020683592357408128
+    },
+    {
+      "source": "E00129",
+      "target": "E00130",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.9999999999999999,
+      "shared_routes": [
+        "constraint_closure",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [],
+      "hub_penalty": 2.0,
+      "rarity_weight": 1.505507455586657,
+      "transition_information": 0.0,
+      "raw_attention": 1.0162175325209934,
+      "source_receipt_grades": [
+        "stopping_capture:direct_collider_receipt"
+      ],
+      "target_receipt_grades": [
+        "stopping_capture:direct_collider_receipt"
+      ],
+      "attention": 0.020683592357408128
+    },
+    {
+      "source": "E00207",
+      "target": "E00208",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.9936532068895523,
+      "shared_routes": [
+        "boundary_weak_form",
+        "commutator_incompatibility",
+        "constraint_closure",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [],
+      "hub_penalty": 2.0,
+      "rarity_weight": 2.022428675416783,
+      "transition_information": 0.0,
+      "raw_attention": 1.004796369516638,
+      "source_receipt_grades": [],
+      "target_receipt_grades": [
+        "stopping_capture:candidate_transfer_receipt"
+      ],
+      "attention": 0.020451131617192825
+    },
+    {
+      "source": "E00228",
+      "target": "E00229",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.8741572761215378,
+      "shared_routes": [
+        "transport_flow"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [
+        "spectral_operator"
+      ],
+      "hub_penalty": 2.0,
+      "rarity_weight": 1.5651135873797635,
+      "transition_information": 1.301395748213958,
+      "raw_attention": 0.9956672556775321,
+      "source_receipt_grades": [
+        "stopping_capture:candidate_transfer_receipt"
+      ],
+      "target_receipt_grades": [],
+      "attention": 0.020265322119531422
+    },
+    {
+      "source": "E00295",
+      "target": "E00296",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.4856429311786321,
+      "shared_routes": [
+        "spectral_operator"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [
+        "constraint_closure"
+      ],
+      "hub_penalty": 1.0,
+      "rarity_weight": 1.3438454701072011,
+      "transition_information": 1.3862951920004443,
+      "raw_attention": 0.9692868346454996,
+      "source_receipt_grades": [
+        "production_selector:direct_collider_receipt"
+      ],
+      "target_receipt_grades": [],
+      "attention": 0.0197283879913731
+    },
+    {
+      "source": "E00079",
+      "target": "E00080",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.9412140236543616,
+      "shared_routes": [
+        "commutator_incompatibility",
+        "constraint_closure",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [],
+      "hub_penalty": 2.0,
+      "rarity_weight": 1.957479593964558,
+      "transition_information": 0.0,
+      "raw_attention": 0.9212036224283437,
+      "source_receipt_grades": [],
+      "target_receipt_grades": [
+        "net_positive_growth:candidate_transfer_receipt"
+      ],
+      "attention": 0.018749725914694305
+    },
+    {
+      "source": "E00178",
+      "target": "E00179",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 1.0,
+      "shared_routes": [
+        "constraint_closure",
+        "spectral_operator"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [],
+      "hub_penalty": 2.0,
+      "rarity_weight": 1.3438454701072011,
+      "transition_information": 0.0,
+      "raw_attention": 0.9070956923223609,
+      "source_receipt_grades": [
+        "growth_timescale:candidate_transfer_receipt"
+      ],
+      "target_receipt_grades": [
+        "growth_timescale:direct_collider_receipt"
+      ],
+      "attention": 0.018462580036985365
+    },
+    {
+      "source": "E00201",
+      "target": "E00202",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.39993531969561935,
+      "shared_routes": [
+        "commutator_incompatibility",
+        "spectral_operator"
+      ],
+      "introduced_routes": [
+        "constraint_closure",
+        "transport_flow"
+      ],
+      "removed_routes": [
+        "discrete_protocol"
+      ],
+      "hub_penalty": 2.0,
+      "rarity_weight": 2.3587803902195286,
+      "transition_information": 2.393036731261808,
+      "raw_attention": 0.8667412706886976,
+      "source_receipt_grades": [],
+      "target_receipt_grades": [
+        "growth_timescale:candidate_transfer_receipt",
+        "astronomical_bound_evasion:candidate_transfer_receipt"
+      ],
+      "attention": 0.017641225966445923
+    },
+    {
+      "source": "E00451",
+      "target": "E00452",
+      "source_paper": "0901.2948",
+      "target_paper": "0901.2948",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.6414555046347812,
+      "shared_routes": [
+        "constraint_closure"
+      ],
+      "introduced_routes": [
+        "boundary_weak_form"
+      ],
+      "removed_routes": [
+        "commutator_incompatibility",
+        "transport_flow"
+      ],
+      "hub_penalty": 4.242640687119285,
+      "rarity_weight": 2.2026869072174895,
+      "transition_information": 2.474817478956505,
+      "raw_attention": 0.839018963973831,
+      "source_receipt_grades": [
+        "net_positive_growth:direct_collider_receipt"
+      ],
+      "target_receipt_grades": [
+        "net_positive_growth:direct_collider_receipt"
+      ],
+      "attention": 0.017076979756409698
+    },
+    {
+      "source": "E00413",
+      "target": "E00414",
+      "source_paper": "0901.2948",
+      "target_paper": "0901.2948",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.9907383460146874,
+      "shared_routes": [
+        "boundary_weak_form",
+        "commutator_incompatibility",
+        "constraint_closure",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [],
+      "hub_penalty": 2.449489742783178,
+      "rarity_weight": 2.022428675416783,
+      "transition_information": 0.0,
+      "raw_attention": 0.8180061364692395,
+      "source_receipt_grades": [
+        "net_positive_growth:direct_collider_receipt"
+      ],
+      "target_receipt_grades": [],
+      "attention": 0.01664929498964198
+    },
+    {
+      "source": "E00180",
+      "target": "E00181",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.7923977021627645,
+      "shared_routes": [
+        "constraint_closure",
+        "spectral_operator"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [
+        "transport_flow"
+      ],
+      "hub_penalty": 2.449489742783178,
+      "rarity_weight": 1.505507455586657,
+      "transition_information": 1.828831426545569,
+      "raw_attention": 0.7987639171410071,
+      "source_receipt_grades": [
+        "growth_timescale:candidate_transfer_receipt"
+      ],
+      "target_receipt_grades": [],
+      "attention": 0.016257648311740588
+    },
+    {
+      "source": "E00040",
+      "target": "E00041",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 1.0000000000000002,
+      "shared_routes": [
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [],
+      "hub_penalty": 2.0,
+      "rarity_weight": 1.5651135873797635,
+      "transition_information": 0.0,
+      "raw_attention": 0.782556793689882,
+      "source_receipt_grades": [],
+      "target_receipt_grades": [
+        "net_positive_growth:direct_collider_receipt"
+      ],
+      "attention": 0.015927776484084104
+    },
+    {
+      "source": "E00148",
+      "target": "E00149",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 1.0000000000000002,
+      "shared_routes": [
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [],
+      "hub_penalty": 2.0,
+      "rarity_weight": 1.5651135873797635,
+      "transition_information": 0.0,
+      "raw_attention": 0.782556793689882,
+      "source_receipt_grades": [],
+      "target_receipt_grades": [
+        "stopping_capture:direct_collider_receipt",
+        "net_positive_growth:direct_collider_receipt"
+      ],
+      "attention": 0.015927776484084104
+    },
+    {
+      "source": "E00457",
+      "target": "E00458",
+      "source_paper": "0901.2948",
+      "target_paper": "0901.2948",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.5499425114617342,
+      "shared_routes": [
+        "constraint_closure"
+      ],
+      "introduced_routes": [
+        "transport_flow"
+      ],
+      "removed_routes": [
+        "commutator_incompatibility",
+        "spectral_operator"
+      ],
+      "hub_penalty": 2.449489742783178,
+      "rarity_weight": 1.957479593964558,
+      "transition_information": 2.147874394619263,
+      "raw_attention": 0.7698613802499666,
+      "source_receipt_grades": [
+        "net_positive_growth:direct_collider_receipt"
+      ],
+      "target_receipt_grades": [],
+      "attention": 0.015669380276582594
+    },
+    {
+      "source": "E00227",
+      "target": "E00228",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.982872186934322,
+      "shared_routes": [
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [],
+      "hub_penalty": 2.0,
+      "rarity_weight": 1.5651135873797635,
+      "transition_information": 0.0,
+      "raw_attention": 0.7691533072142851,
+      "source_receipt_grades": [],
+      "target_receipt_grades": [
+        "stopping_capture:candidate_transfer_receipt"
+      ],
+      "attention": 0.015654968505912806
+    },
+    {
+      "source": "E00453",
+      "target": "E00454",
+      "source_paper": "0901.2948",
+      "target_paper": "0901.2948",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.357968072714427,
+      "shared_routes": [
+        "boundary_weak_form"
+      ],
+      "introduced_routes": [
+        "commutator_incompatibility"
+      ],
+      "removed_routes": [
+        "constraint_closure"
+      ],
+      "hub_penalty": 2.0,
+      "rarity_weight": 2.3273054007747964,
+      "transition_information": 2.3498456005493527,
+      "raw_attention": 0.7591408023056966,
+      "source_receipt_grades": [
+        "survival_lifetime:direct_collider_receipt"
+      ],
+      "target_receipt_grades": [],
+      "attention": 0.01545117890046087
+    },
+    {
+      "source": "E00127",
+      "target": "E00128",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.9942960417489314,
+      "shared_routes": [
+        "constraint_closure",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [],
+      "hub_penalty": 2.0,
+      "rarity_weight": 1.505507455586657,
+      "transition_information": 0.0,
+      "raw_attention": 0.7484600519566591,
+      "source_receipt_grades": [
+        "net_positive_growth:direct_collider_receipt"
+      ],
+      "target_receipt_grades": [],
+      "attention": 0.015233788155643965
+    },
+    {
+      "source": "E00128",
+      "target": "E00129",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.9942960417489314,
+      "shared_routes": [
+        "constraint_closure",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [],
+      "hub_penalty": 2.0,
+      "rarity_weight": 1.505507455586657,
+      "transition_information": 0.0,
+      "raw_attention": 0.7484600519566591,
+      "source_receipt_grades": [],
+      "target_receipt_grades": [
+        "stopping_capture:direct_collider_receipt"
+      ],
+      "attention": 0.015233788155643965
+    },
+    {
+      "source": "E00125",
+      "target": "E00126",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.6693009793097402,
+      "shared_routes": [
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "introduced_routes": [
+        "constraint_closure"
+      ],
+      "removed_routes": [],
+      "hub_penalty": 2.0,
+      "rarity_weight": 1.505507455586657,
+      "transition_information": 1.3862951920004443,
+      "raw_attention": 0.7482733637080954,
+      "source_receipt_grades": [],
+      "target_receipt_grades": [
+        "stopping_capture:direct_collider_receipt"
+      ],
+      "attention": 0.015229988394758486
+    },
+    {
+      "source": "E00130",
+      "target": "E00131",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.6693009793097402,
+      "shared_routes": [
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [
+        "constraint_closure"
+      ],
+      "hub_penalty": 2.0,
+      "rarity_weight": 1.505507455586657,
+      "transition_information": 1.3862951920004443,
+      "raw_attention": 0.7482733637080954,
+      "source_receipt_grades": [
+        "stopping_capture:direct_collider_receipt"
+      ],
+      "target_receipt_grades": [],
+      "attention": 0.015229988394758486
+    },
+    {
+      "source": "E00220",
+      "target": "E00221",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.5333509196380516,
+      "shared_routes": [
+        "boundary_weak_form",
+        "spectral_operator"
+      ],
+      "introduced_routes": [
+        "constraint_closure"
+      ],
+      "removed_routes": [
+        "transport_flow"
+      ],
+      "hub_penalty": 2.0,
+      "rarity_weight": 1.6996868419964137,
+      "transition_information": 1.6075633092730066,
+      "raw_attention": 0.7082929049885652,
+      "source_receipt_grades": [
+        "net_positive_growth:candidate_transfer_receipt"
+      ],
+      "target_receipt_grades": [],
+      "attention": 0.014416245781633611
+    },
+    {
+      "source": "E00041",
+      "target": "E00043",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.8889745564266028,
+      "shared_routes": [
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [],
+      "hub_penalty": 2.0,
+      "rarity_weight": 1.5651135873797635,
+      "transition_information": 0.0,
+      "raw_attention": 0.6956730785490871,
+      "source_receipt_grades": [
+        "net_positive_growth:direct_collider_receipt"
+      ],
+      "target_receipt_grades": [],
+      "attention": 0.014159388034800737
+    },
+    {
+      "source": "E00060",
+      "target": "E00061",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.43832092944742085,
+      "shared_routes": [
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [
+        "constraint_closure"
+      ],
+      "hub_penalty": 1.4142135623730951,
+      "rarity_weight": 1.505507455586657,
+      "transition_information": 1.3862951920004443,
+      "raw_attention": 0.6930204203895918,
+      "source_receipt_grades": [],
+      "target_receipt_grades": [
+        "net_positive_growth:candidate_transfer_receipt"
+      ],
+      "attention": 0.014105397133956463
+    },
+    {
+      "source": "E00291",
+      "target": "E00292",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.9190074972809804,
+      "shared_routes": [
+        "constraint_closure",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [],
+      "hub_penalty": 2.0,
+      "rarity_weight": 1.505507455586657,
+      "transition_information": 0.0,
+      "raw_attention": 0.6917863194482752,
+      "source_receipt_grades": [],
+      "target_receipt_grades": [
+        "production_selector:direct_collider_receipt"
+      ],
+      "attention": 0.014080278849749377
+    },
+    {
+      "source": "E00219",
+      "target": "E00220",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.49103293726547703,
+      "shared_routes": [
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "introduced_routes": [
+        "boundary_weak_form"
+      ],
+      "removed_routes": [
+        "constraint_closure"
+      ],
+      "hub_penalty": 2.0,
+      "rarity_weight": 1.6996868419964137,
+      "transition_information": 1.8342600966130642,
+      "raw_attention": 0.6852046830380396,
+      "source_receipt_grades": [],
+      "target_receipt_grades": [
+        "net_positive_growth:candidate_transfer_receipt"
+      ],
+      "attention": 0.013946319456019693
+    },
+    {
+      "source": "E00214",
+      "target": "E00215",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.7978846084032554,
+      "shared_routes": [
+        "boundary_weak_form",
+        "constraint_closure",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [],
+      "hub_penalty": 2.0,
+      "rarity_weight": 1.6996868419964137,
+      "transition_information": 0.0,
+      "raw_attention": 0.6780769851672371,
+      "source_receipt_grades": [],
+      "target_receipt_grades": [
+        "net_positive_growth:candidate_transfer_receipt"
+      ],
+      "attention": 0.01380124579561874
+    },
+    {
+      "source": "E00177",
+      "target": "E00178",
+      "source_paper": "0806.3381",
+      "target_paper": "0806.3381",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 1.0,
+      "shared_routes": [
+        "constraint_closure",
+        "spectral_operator"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [],
+      "hub_penalty": 2.0,
+      "rarity_weight": 1.3438454701072011,
+      "transition_information": 0.0,
+      "raw_attention": 0.6719227350536006,
+      "source_receipt_grades": [],
+      "target_receipt_grades": [
+        "growth_timescale:candidate_transfer_receipt"
+      ],
+      "attention": 0.013675985212581749
+    },
+    {
+      "source": "E00411",
+      "target": "E00412",
+      "source_paper": "0901.2948",
+      "target_paper": "0901.2948",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 1.0,
+      "shared_routes": [
+        "spectral_operator"
+      ],
+      "introduced_routes": [],
+      "removed_routes": [],
+      "hub_penalty": 2.0,
+      "rarity_weight": 1.301395748213958,
+      "transition_information": 0.0,
+      "raw_attention": 0.650697874106979,
+      "source_receipt_grades": [
+        "survival_lifetime:direct_collider_receipt"
+      ],
+      "target_receipt_grades": [],
+      "attention": 0.01324398482131363
+    },
+    {
+      "source": "E00412",
+      "target": "E00413",
+      "source_paper": "0901.2948",
+      "target_paper": "0901.2948",
+      "edge_type": "source_local_route_transition",
+      "route_cosine": 0.3632471751191803,
+      "shared_routes": [
+        "spectral_operator"
+      ],
+      "introduced_routes": [
+        "boundary_weak_form",
+        "commutator_incompatibility",
+        "constraint_closure",
+        "transport_flow"
+      ],
+      "removed_routes": [],
+      "hub_penalty": 2.0,
+      "rarity_weight": 2.022428675416783,
+      "transition_information": 2.2026869072174895,
+      "raw_attention": 0.6505031652268017,
+      "source_receipt_grades": [],
+      "target_receipt_grades": [
+        "net_positive_growth:direct_collider_receipt"
+      ],
+      "attention": 0.013240021812433079
+    }
+  ],
+  "top_nodes": [
+    {
+      "node_id": "E00456",
+      "source_id": "0901.2948",
+      "attention": 0.0314349692139955,
+      "routes": [
+        "commutator_incompatibility",
+        "constraint_closure",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "receipt_grades": [
+        "net_positive_growth:direct_collider_receipt"
+      ],
+      "formula": "\\left.\\frac{\\ud M}{\\ud t}\\right|_{\\rm acc} = \\pi\\, \\rho\\, v(t)\\, \\rem^2 \\ ,"
+    },
+    {
+      "node_id": "E00452",
+      "source_id": "0901.2948",
+      "attention": 0.026537355877191065,
+      "routes": [
+        "boundary_weak_form",
+        "constraint_closure"
+      ],
+      "receipt_grades": [
+        "net_positive_growth:direct_collider_receipt"
+      ],
+      "formula": "\\frac{\\ud M}{\\ud t} = \\left.\\frac{\\ud M}{\\ud t}\\right|_{\\rm evap} +\\left. \\frac{\\ud M}{\\ud t}\\right|_{\\rm acc} \\ ."
+    },
+    {
+      "node_id": "E00203",
+      "source_id": "0806.3381",
+      "attention": 0.02521673165068505,
+      "routes": [
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "receipt_grades": [
+        "net_positive_growth:candidate_transfer_receipt"
+      ],
+      "formula": "\\frac{dM}{dt} = 4\\pi \\, \\rho(r) \\, r^2 \\, v(r) = \\mathrm{constant}"
+    },
+    {
+      "node_id": "E00180",
+      "source_id": "0806.3381",
+      "attention": 0.023914097104635344,
+      "routes": [
+        "constraint_closure",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "receipt_grades": [
+        "growth_timescale:candidate_transfer_receipt"
+      ],
+      "formula": "t_w\\approx {M(R_C)\\over \\pi \\rho c_s R_C^2} = {16\\pi c_sd_0\\over \\lambda_4} \\left({M_4\\over M_0}\\right)^2 {1\\over M_0 R_C}\\ ."
+    },
+    {
+      "node_id": "E00440",
+      "source_id": "0901.2948",
+      "attention": 0.02347584860620065,
+      "routes": [
+        "commutator_incompatibility",
+        "constraint_closure",
+        "transport_flow"
+      ],
+      "receipt_grades": [
+        "net_positive_growth:direct_collider_receipt"
+      ],
+      "formula": "\\left.\\frac{\\ud M}{\\ud t}\\right|_{\\rm acc} = \\pi\\,v\\,\\rho\\,\\reff^2 \\ ,"
+    },
+    {
+      "node_id": "E00457",
+      "source_id": "0901.2948",
+      "attention": 0.022048556093136894,
+      "routes": [
+        "commutator_incompatibility",
+        "constraint_closure",
+        "spectral_operator"
+      ],
+      "receipt_grades": [
+        "net_positive_growth:direct_collider_receipt"
+      ],
+      "formula": "\\frac{\\ud p}{\\ud t} &\\!\\!=\\!\\!& \\frac{p(t)}{M(t)}\\left.\\frac{\\ud M}{\\ud t}\\right|_{\\rm evap} \\nonumber \\\\ &\\!\\!\\simeq\\!\\!& -\\frac{g_{\\rm eff}}{960\\, \\pi\\,\\lp} \\left(\\frac{\\mpl}{M_c}\\right)^3 \\frac{M(t)\\,p(t)}{\\sqrt{M^2(t)+p^2(t)}} \\ ."
+    },
+    {
+      "node_id": "E00292",
+      "source_id": "0806.3381",
+      "attention": 0.021193259700763536,
+      "routes": [
+        "constraint_closure",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "receipt_grades": [
+        "production_selector:direct_collider_receipt"
+      ],
+      "formula": "\\sigma_{BH}(M>M_{min}) = \\sum_{ij} \\int_{\\tau_{min}}^1 \\, d\\tau \\int_{\\tau}^{1} \\, \\frac{dx}{x} f_i(x) f_j(\\tau/x) \\hat\\sigma(\\rshat) \\; ,"
+    },
+    {
+      "node_id": "E00208",
+      "source_id": "0806.3381",
+      "attention": 0.021110822734489963,
+      "routes": [
+        "boundary_weak_form",
+        "commutator_incompatibility",
+        "constraint_closure",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "receipt_grades": [
+        "stopping_capture:candidate_transfer_receipt"
+      ],
+      "formula": "&&\\int_r^\\infty {dp\\over \\rho} = {c_s^2\\over \\Gamma-1}\\Bigg\\vert^\\infty_r\\quad,\\quad \\Gamma\\neq1\\\\ && \\int_r^\\infty {dp\\over \\rho} = K\\ln\\left[{\\rho(\\infty)\\over \\rho(r)}\\right]\\quad,\\quad \\Gamma=1\\ ."
+    },
+    {
+      "node_id": "E00179",
+      "source_id": "0806.3381",
+      "attention": 0.020931691304464237,
+      "routes": [
+        "constraint_closure",
+        "spectral_operator"
+      ],
+      "receipt_grades": [
+        "growth_timescale:direct_collider_receipt"
+      ],
+      "formula": "t(R_B<R_D) &=& 1.3\\times 10^5 \\,\\frac{1}{\\lambda_7} \\left({M_D\\over M_0}\\right)^{5/3} \\yr\\ ,\\ \\ \\quad\\quad\\quad D=7\\\\ t(R_D<R_B<R_C) &=& 6 \\times 10^7\\,\\frac{1}{\\lambda_4} \\left({M_D\\over M_0}\\right)^{5/3}\\yr\\ ,\\ \\ \\quad\\quad\\quad D=7\\\\ t(R_B>R_C) &=& 1.9\\times 10^6\\,\\frac{1}{\\lambda_4}\\left({M_D\\over M_0}\\right)^{5/3} \\yr\\ ,\\ \\ \\quad\\quad\\quad D=7\\ ."
+    },
+    {
+      "node_id": "E00202",
+      "source_id": "0806.3381",
+      "attention": 0.02038155102108883,
+      "routes": [
+        "commutator_incompatibility",
+        "constraint_closure",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "receipt_grades": [
+        "growth_timescale:candidate_transfer_receipt",
+        "astronomical_bound_evasion:candidate_transfer_receipt"
+      ],
+      "formula": "t_{NS,w}\\sim 20\\yr"
+    },
+    {
+      "node_id": "E00080",
+      "source_id": "0806.3381",
+      "attention": 0.02037585953160704,
+      "routes": [
+        "commutator_incompatibility",
+        "constraint_closure",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "receipt_grades": [
+        "net_positive_growth:candidate_transfer_receipt"
+      ],
+      "formula": "&&\\left( \\frac{dM}{dt} \\right)_{EM} = \\Delta^2 \\, \\pi \\, \\rho \\, v_{EM} \\; \\arad^2 \\, \\left( \\frac{M}{M_{a,D}} \\right) ^{2/(D-1)} \\\\ &&\\left( \\frac{dM}{dt} \\right)_{B} = \\lambda_D\\left[{D-3\\over 4}\\right]^{2/(D-3)} \\, \\pi \\, \\rho \\, c_s \\; \\arad^2 \\, \\left( \\frac{M}{M_{a,D}} \\right) ^{2/(D-3)} \\;."
+    },
+    {
+      "node_id": "E00124",
+      "source_id": "0806.3381",
+      "attention": 0.020313002250785108,
+      "routes": [
+        "constraint_closure",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "receipt_grades": [
+        "stopping_capture:direct_collider_receipt",
+        "net_positive_growth:direct_collider_receipt"
+      ],
+      "formula": "\\left({dp\\over dt}\\right)_{ac} &=& n \\pi[\\bhm R({\\sqrt s})]^2 \\Delta p \\;, \\\\ \\left({dM\\over dt}\\right)_{ac} &=& n \\pi [\\bhm R({\\sqrt s})]^2 \\Delta M \\;,"
+    },
+    {
+      "node_id": "E00451",
+      "source_id": "0901.2948",
+      "attention": 0.01897174376936886,
+      "routes": [
+        "commutator_incompatibility",
+        "constraint_closure",
+        "transport_flow"
+      ],
+      "receipt_grades": [
+        "net_positive_growth:direct_collider_receipt"
+      ],
+      "formula": "\\left.\\frac{\\ud M}{\\ud t}\\right|_{\\rm acc} =\\frac{4\\, \\pi\\,\\rho\\,\\lp^2}{v^3}\\left(\\frac{M}{\\mpl}\\right)^2 \\ ."
+    },
+    {
+      "node_id": "E00228",
+      "source_id": "0806.3381",
+      "attention": 0.017960145312722116,
+      "routes": [
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "receipt_grades": [
+        "stopping_capture:candidate_transfer_receipt"
+      ],
+      "formula": "{dE\\over dl} = \\eta \\sigma \\rho\\ ,"
+    },
+    {
+      "node_id": "E00127",
+      "source_id": "0806.3381",
+      "attention": 0.017958690256526046,
+      "routes": [
+        "constraint_closure",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "receipt_grades": [
+        "net_positive_growth:direct_collider_receipt"
+      ],
+      "formula": "\\left({dM\\over d\\ell}\\right)_{ac} = \\cacm \\bhm^2 \\pi\\rho {E\\over M} R^2(\\sqrt s)\\ ,"
+    },
+    {
+      "node_id": "E00129",
+      "source_id": "0806.3381",
+      "attention": 0.017958690256526046,
+      "routes": [
+        "constraint_closure",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "receipt_grades": [
+        "stopping_capture:direct_collider_receipt"
+      ],
+      "formula": "\\left({dp\\over d\\ell}\\right)_{sc} = -{E^2\\over s} \\rho \\int_{\\cos\\theta_c}^1 \\, d\\cos\\theta {d\\sigma\\over d\\cos\\theta} \\, 2\\sin^2 {\\theta\\over 2}\\ ,"
+    },
+    {
+      "node_id": "E00126",
+      "source_id": "0806.3381",
+      "attention": 0.017956790376083307,
+      "routes": [
+        "constraint_closure",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "receipt_grades": [
+        "stopping_capture:direct_collider_receipt"
+      ],
+      "formula": "\\left({dp\\over d\\ell}\\right)_{ac} = - (\\cac-\\cacm)\\bhm^2 \\pi\\rho{E^2\\over M^2} R^2(\\sqrt s)\\ ,"
+    },
+    {
+      "node_id": "E00130",
+      "source_id": "0806.3381",
+      "attention": 0.017956790376083307,
+      "routes": [
+        "constraint_closure",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "receipt_grades": [
+        "stopping_capture:direct_collider_receipt"
+      ],
+      "formula": "\\left({dp\\over d\\ell}\\right)_{sc} = -\\cel\\bhm^2 \\pi \\rho {E^2\\over s} R^2(\\sqrt s)\\ ."
+    },
+    {
+      "node_id": "E00455",
+      "source_id": "0901.2948",
+      "attention": 0.01668547788341599,
+      "routes": [
+        "commutator_incompatibility",
+        "constraint_closure"
+      ],
+      "receipt_grades": [
+        "survival_lifetime:direct_collider_receipt"
+      ],
+      "formula": "\\left.\\frac{\\ud M}{\\ud t}\\right|_{\\rm evap} \\simeq -\\frac{g_{\\rm eff}}{960\\, \\pi\\,\\lp}\\left(\\frac{\\mpl}{\\mc}\\right)^3 \\frac{M^2(t)}{\\sqrt{M^2(t)+p^2(t)}} \\ ."
+    },
+    {
+      "node_id": "E00663",
+      "source_id": "astro-ph/0109539",
+      "attention": 0.016397598734454975,
+      "routes": [
+        "constraint_closure",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "receipt_grades": [
+        "net_positive_growth:candidate_transfer_receipt"
+      ],
+      "formula": "\\dot M > 10^{15}"
+    },
+    {
+      "node_id": "E00178",
+      "source_id": "0806.3381",
+      "attention": 0.016069282624783555,
+      "routes": [
+        "constraint_closure",
+        "spectral_operator"
+      ],
+      "receipt_grades": [
+        "growth_timescale:candidate_transfer_receipt"
+      ],
+      "formula": "t(R_B<R_D) &=& 8\\,\\frac{1}{\\lambda_6} \\left({M_D\\over M_0}\\right)^2 \\yr\\ ,\\ \\ \\quad\\quad\\quad D=6\\\\ t(R_D<R_B<R_C) &=& 4\\times 10^2\\,\\frac{1}{\\lambda_4} \\left({M_D\\over M_0}\\right)^2 \\yr\\ ,\\ \\ \\quad\\quad\\quad D=6\\\\ t(R_B>R_C) &=& 15\\,\\frac{1}{\\lambda_4} \\left({M_D\\over M_0}\\right)^2 \\yr\\ ,\\ \\ \\quad\\quad\\quad D=6"
+    },
+    {
+      "node_id": "E00039",
+      "source_id": "0806.3381",
+      "attention": 0.01553217816171952,
+      "routes": [
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "receipt_grades": [
+        "net_positive_growth:candidate_transfer_receipt"
+      ],
+      "formula": "{dM\\over dt} = \\pi r_c^2 F\\ ."
+    },
+    {
+      "node_id": "E00128",
+      "source_id": "0806.3381",
+      "attention": 0.015233788155643965,
+      "routes": [
+        "constraint_closure",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "receipt_grades": [],
+      "formula": "\\Delta p =-2{E^2\\over s}(E_p-p_p)\\sin^2{\\theta\\over 2}"
+    },
+    {
+      "node_id": "E00041",
+      "source_id": "0806.3381",
+      "attention": 0.01504358225944242,
+      "routes": [
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "receipt_grades": [
+        "net_positive_growth:direct_collider_receipt"
+      ],
+      "formula": "\\frac{dM}{dt} = \\pi \\rho \\, v \\, r_c^2(M) \\; ,"
+    },
+    {
+      "node_id": "E00413",
+      "source_id": "0901.2948",
+      "attention": 0.014944658401037529,
+      "routes": [
+        "boundary_weak_form",
+        "commutator_incompatibility",
+        "constraint_closure",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "receipt_grades": [
+        "net_positive_growth:direct_collider_receipt"
+      ],
+      "formula": "\\frac{\\ud M}{\\ud\\tau}\\simeq f_{(4)}\\,\\frac{\\mpl}{\\lp}\\,\\left(\\frac{\\mpl}{M}\\right)^2 \\ ,"
+    },
+    {
+      "node_id": "E00220",
+      "source_id": "0806.3381",
+      "attention": 0.014181282618826653,
+      "routes": [
+        "boundary_weak_form",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "receipt_grades": [
+        "net_positive_growth:candidate_transfer_receipt"
+      ],
+      "formula": "{dM\\over dt} = \\pi R_B^2(M) \\rho(\\infty) c_s(\\infty) \\lambda_D"
+    },
+    {
+      "node_id": "E00293",
+      "source_id": "0806.3381",
+      "attention": 0.01415312027588885,
+      "routes": [
+        "transport_flow"
+      ],
+      "receipt_grades": [
+        "production_selector:direct_collider_receipt"
+      ],
+      "formula": "\\hat\\sigma(\\rshat)=\\pi R^2(\\rshat)/4"
+    },
+    {
+      "node_id": "E00204",
+      "source_id": "0806.3381",
+      "attention": 0.013655793612819182,
+      "routes": [
+        "boundary_weak_form",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "receipt_grades": [],
+      "formula": "v\\frac{dv}{dr} \\; +\\frac{1}{\\rho}\\,\\frac{dp}{dr} = -\\partial_r\\phi"
+    },
+    {
+      "node_id": "E00149",
+      "source_id": "0806.3381",
+      "attention": 0.01358029848117079,
+      "routes": [
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "receipt_grades": [
+        "stopping_capture:direct_collider_receipt",
+        "net_positive_growth:direct_collider_receipt"
+      ],
+      "formula": "{dp\\over d\\ell} &=& -(\\cac-\\cacm) \\bhm^2 \\pi\\rho R^2\\\\ {dM\\over d\\ell}&=& \\cacm \\bhm^2 \\pi\\rho {R^2\\over v}\\ ."
+    },
+    {
+      "node_id": "E00453",
+      "source_id": "0901.2948",
+      "attention": 0.013573453751474548,
+      "routes": [
+        "boundary_weak_form",
+        "constraint_closure"
+      ],
+      "receipt_grades": [
+        "survival_lifetime:direct_collider_receipt"
+      ],
+      "formula": "\\left.\\frac{\\ud M}{\\ud t}\\right|_{\\rm evap} \\simeq -\\frac{1}{\\gamma} \\left.\\frac{\\ud M}{\\ud \\tau}\\right|_{\\rm evap} \\ ,"
+    },
+    {
+      "node_id": "E00647",
+      "source_id": "astro-ph/0102478",
+      "attention": 0.013311049303644455,
+      "routes": [
+        "constraint_closure",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "receipt_grades": [
+        "net_positive_growth:candidate_transfer_receipt"
+      ],
+      "formula": "\\dot M \\sim"
+    },
+    {
+      "node_id": "E00650",
+      "source_id": "astro-ph/0105365",
+      "attention": 0.013311049303644455,
+      "routes": [
+        "constraint_closure",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "receipt_grades": [
+        "net_positive_growth:candidate_transfer_receipt"
+      ],
+      "formula": "\\dot M \\sim (R_{in}/R_a)\\dot M_{Bondi}"
+    },
+    {
+      "node_id": "E00412",
+      "source_id": "0901.2948",
+      "attention": 0.013242003316873354,
+      "routes": [
+        "spectral_operator"
+      ],
+      "receipt_grades": [],
+      "formula": "{\\cal A}_{(D)}=S_{(D)}\\,\\rh^{D-2}"
+    },
+    {
+      "node_id": "E00441",
+      "source_id": "0901.2948",
+      "attention": 0.013042594715036637,
+      "routes": [
+        "commutator_incompatibility",
+        "constraint_closure"
+      ],
+      "receipt_grades": [],
+      "formula": "\\rem =\\lp\\,\\frac{\\mpl}{M_{(D)}} \\left(\\frac{\\beta_D\\, M}{M_{(D)}}\\right)^{1/(D-1)} \\ ,"
+    },
+    {
+      "node_id": "E00454",
+      "source_id": "0901.2948",
+      "attention": 0.01250100523590477,
+      "routes": [
+        "boundary_weak_form",
+        "commutator_incompatibility"
+      ],
+      "receipt_grades": [],
+      "formula": "\\gamma = \\frac{1}{\\sqrt{1-\\beta^2}} = \\frac{\\sqrt{M^2 + p^2}}{M} \\ ."
+    },
+    {
+      "node_id": "E00215",
+      "source_id": "0806.3381",
+      "attention": 0.012293688092070768,
+      "routes": [
+        "boundary_weak_form",
+        "constraint_closure",
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "receipt_grades": [
+        "net_positive_growth:candidate_transfer_receipt"
+      ],
+      "formula": "{dM\\over dt} = 4\\pi \\, \\rho(r_s) \\, r_s^2 \\, c(r_s)\\ ."
+    },
+    {
+      "node_id": "E00040",
+      "source_id": "0806.3381",
+      "attention": 0.012147854567032199,
+      "routes": [
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "receipt_grades": [],
+      "formula": "F=\\rho v"
+    },
+    {
+      "node_id": "E00125",
+      "source_id": "0806.3381",
+      "attention": 0.011294323846426178,
+      "routes": [
+        "spectral_operator",
+        "transport_flow"
+      ],
+      "receipt_grades": [],
+      "formula": "s=M^2+2(EE_p - pp_p) + m_p^2\\ ."
+    },
+    {
+      "node_id": "E00081",
+      "source_id": "0806.3381",
+      "attention": 0.011000996574259887,
+      "routes": [
+        "commutator_incompatibility",
+        "constraint_closure",
+        "spectral_operator"
+      ],
+      "receipt_grades": [],
+      "formula": "v_{EM}\\sim v_E"
+    },
+    {
+      "node_id": "E00209",
+      "source_id": "0806.3381",
+      "attention": 0.01088525692589355,
+      "routes": [
+        "boundary_weak_form",
+        "constraint_closure",
+        "spectral_operator"
+      ],
+      "receipt_grades": [],
+      "formula": "\\hf \\partial_r v^2 \\left( 1-{c_s^2\\over v^2}\\right) = -\\partial_r\\phi + {2c_s^2\\over r}\\ ."
+    }
+  ],
+  "route_transition_attention": [
+    {
+      "source_route": "spectral_operator",
+      "target_route": "spectral_operator",
+      "attention": 0.130566411306234
+    },
+    {
+      "source_route": "spectral_operator",
+      "target_route": "transport_flow",
+      "attention": 0.10842562926091955
+    },
+    {
+      "source_route": "transport_flow",
+      "target_route": "transport_flow",
+      "attention": 0.09084032299903212
+    },
+    {
+      "source_route": "transport_flow",
+      "target_route": "spectral_operator",
+      "attention": 0.08901962353880474
+    },
+    {
+      "source_route": "constraint_closure",
+      "target_route": "spectral_operator",
+      "attention": 0.07607686715903268
+    },
+    {
+      "source_route": "constraint_closure",
+      "target_route": "constraint_closure",
+      "attention": 0.07366276259184056
+    },
+    {
+      "source_route": "spectral_operator",
+      "target_route": "constraint_closure",
+      "attention": 0.06789087594046837
+    },
+    {
+      "source_route": "constraint_closure",
+      "target_route": "transport_flow",
+      "attention": 0.06449857971033299
+    },
+    {
+      "source_route": "transport_flow",
+      "target_route": "constraint_closure",
+      "attention": 0.04946462323060302
+    },
+    {
+      "source_route": "constraint_closure",
+      "target_route": "commutator_incompatibility",
+      "attention": 0.025665576582640917
+    },
+    {
+      "source_route": "commutator_incompatibility",
+      "target_route": "constraint_closure",
+      "attention": 0.025614183582408544
+    },
+    {
+      "source_route": "constraint_closure",
+      "target_route": "boundary_weak_form",
+      "attention": 0.0219547887836744
+    },
+    {
+      "source_route": "boundary_weak_form",
+      "target_route": "boundary_weak_form",
+      "attention": 0.01916083952711877
+    },
+    {
+      "source_route": "commutator_incompatibility",
+      "target_route": "commutator_incompatibility",
+      "attention": 0.018705089320124022
+    },
+    {
+      "source_route": "spectral_operator",
+      "target_route": "commutator_incompatibility",
+      "attention": 0.018595841287768516
+    },
+    {
+      "source_route": "boundary_weak_form",
+      "target_route": "constraint_closure",
+      "attention": 0.017685752694840726
+    },
+    {
+      "source_route": "commutator_incompatibility",
+      "target_route": "spectral_operator",
+      "attention": 0.01631145195519358
+    },
+    {
+      "source_route": "transport_flow",
+      "target_route": "boundary_weak_form",
+      "attention": 0.01524629735018731
+    },
+    {
+      "source_route": "spectral_operator",
+      "target_route": "boundary_weak_form",
+      "attention": 0.015048138419938977
+    },
+    {
+      "source_route": "commutator_incompatibility",
+      "target_route": "transport_flow",
+      "attention": 0.013269170656320623
+    },
+    {
+      "source_route": "transport_flow",
+      "target_route": "commutator_incompatibility",
+      "attention": 0.011869763738980944
+    },
+    {
+      "source_route": "boundary_weak_form",
+      "target_route": "spectral_operator",
+      "attention": 0.00868433915220012
+    },
+    {
+      "source_route": "boundary_weak_form",
+      "target_route": "commutator_incompatibility",
+      "attention": 0.007734519682225778
+    },
+    {
+      "source_route": "commutator_incompatibility",
+      "target_route": "boundary_weak_form",
+      "attention": 0.005781547947127482
+    },
+    {
+      "source_route": "boundary_weak_form",
+      "target_route": "transport_flow",
+      "attention": 0.0023465949264995637
+    },
+    {
+      "source_route": "discrete_protocol",
+      "target_route": "commutator_incompatibility",
+      "attention": 0.0014701021638704936
+    },
+    {
+      "source_route": "discrete_protocol",
+      "target_route": "constraint_closure",
+      "attention": 0.0014701021638704936
+    },
+    {
+      "source_route": "discrete_protocol",
+      "target_route": "transport_flow",
+      "attention": 0.0014701021638704936
+    },
+    {
+      "source_route": "discrete_protocol",
+      "target_route": "spectral_operator",
+      "attention": 0.0014701021638704936
+    }
+  ]
+}
