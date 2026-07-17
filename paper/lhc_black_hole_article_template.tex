@@ -36,7 +36,7 @@
 \maketitle
 
 \begin{abstract}
-Before the Large Hadron Collider began operation, speculative theories of low-scale gravity raised a vivid question: could a particle collision create a microscopic black hole that survives, remains inside matter and grows? A dangerous outcome requires six events in sequence. The collision must produce the object; it must survive evaporation; matter must stop it; accretion must exceed every loss process; growth must be fast enough; and the same physics must remain compatible with old white dwarfs and neutron stars struck by cosmic rays whose constituent collisions reach the LHC energy regime. We reconstructed this chain from a broad search of the arXiv scientific-preprint archive and six complete primary papers. The software recovered all 12 equations chosen in advance as primary-source tests and linked equations through the physical quantities they calculate. The standard branch ends with rapid Hawking evaporation. Stable and metastable branches are constrained by momentum loss, accretion times and the observed survival of compact stars. The recovered literature contains no self-consistent route through all six conditions. A CERN safety report that was excluded from the reconstruction reaches the same physical branch structure and conclusion.
+Before the Large Hadron Collider began operation, speculative theories of low-scale gravity raised a vivid question: could a particle collision create a microscopic black hole that survives, remains inside matter and grows? A dangerous outcome requires six events in sequence. The collision must produce the object; it must survive evaporation; matter must stop it; accretion must exceed every loss process; growth must be fast enough; and the same physics must remain compatible with old white dwarfs and neutron stars struck by cosmic rays whose constituent collisions reach the LHC energy regime. We reconstructed this chain from a broad search of the arXiv scientific-preprint archive and six complete primary papers. The software recovered all @@TOTAL_RECEIPTS@@ equations chosen in advance as primary-source tests and linked equations through the physical quantities they calculate. The standard branch ends with rapid Hawking evaporation. Stable and metastable branches are constrained by momentum loss, accretion times and the observed survival of compact stars. The recovered literature contains no self-consistent route through all six conditions. A CERN safety report that was excluded from the reconstruction reaches the same physical branch structure and conclusion.
 \end{abstract}
 
 \section{Why the question deserved a calculation}
@@ -171,9 +171,9 @@ The observation is stronger than a verbal analogy. Production, momentum loss, ca
 
 Scientific papers carry two different kinds of structure. Citations, authors and stated conclusions show how an argument travelled. Equations show how one physical quantity is converted into another. We built both maps from the same sources.
 
-The Hyperion operational archive contains 2.5 million arXiv papers. The fixed public LHC experiment scanned 500,000 source documents and selected 492 records using terms connected to colliders, black holes, cosmic rays, compact stars, evaporation and accretion. Six complete primary safety papers were then added, producing 496 unique paper nodes. The broad set intentionally includes neighboring astrophysics because the stopping and growth laws are developed there. The six primary papers carry the quantitative LHC safety argument.
+The Hyperion operational archive contains 2.5 million arXiv papers. The fixed public LHC experiment scanned @@SCANNED_COUNT@@ source documents and selected @@SELECTED_COUNT@@ records using terms connected to colliders, black holes, cosmic rays, compact stars, evaporation and accretion. Six complete primary safety papers were then added, producing @@SOURCE_COUNT@@ unique paper nodes. The broad set intentionally includes neighboring astrophysics because the stopping and growth laws are developed there. The six primary papers carry the quantitative LHC safety argument.
 
-The provenance graph contains 708 extracted claim nodes, 327 cited-paper nodes, 369 citation links and 708 paper-to-claim links. Figure~\ref{fig:provenance-summary} reduces it to its main families. Risk claims, safety claims and astronomical statements all occur. Their counts describe the discussion; the equations decide whether the feared chain is physically closed.
+The provenance graph contains @@CLAIM_COUNT@@ extracted claim nodes, @@REFERENCE_COUNT@@ cited-paper nodes, @@CITATION_LINKS@@ citation links and @@CLAIM_LINKS@@ paper-to-claim links. Figure~\ref{fig:provenance-summary} reduces it to its main families. Risk claims, safety claims and astronomical statements all occur. Their counts describe the discussion; the equations decide whether the feared chain is physically closed.
 
 \begin{figure}[H]
 \centering
@@ -189,9 +189,9 @@ The provenance graph contains 708 extracted claim nodes, 327 cited-paper nodes, 
 \label{fig:provenance}
 \end{figure}
 
-The equation graph starts from 729 equations together with their positions and nearby text. The software converted 728 into numerical descriptions of the operation being performed; 464 contained enough information to identify a physical role. It then found 366 equation-to-equation steps inside individual papers and 190 candidate matches between different papers. Each retained node records the source equation, the quantities it consumes and produces, its physical setting and its position in the paper.
+The equation graph starts from @@EQUATION_WINDOW_COUNT@@ equations together with their positions and nearby text. The software converted @@GRAPH_NODE_COUNT@@ into numerical descriptions of the operation being performed; @@USABLE_NODE_COUNT@@ contained enough information to identify a physical role. It then found @@GRAPH_EDGE_COUNT@@ equation-to-equation steps inside individual papers and @@ANALOG_EDGE_COUNT@@ candidate matches between different papers. Each retained node records the source equation, the quantities it consumes and produces, its physical setting and its position in the paper.
 
-Figure~\ref{fig:equation-graph} organizes the 36 distinct equations that satisfy at least one of the six physical conditions. Circles mark equations written in collider or LHC-safety contexts. Diamonds mark equations from material or astrophysical settings that calculate the same physical quantity and therefore supply a transfer test.
+Figure~\ref{fig:equation-graph} organizes the @@STRICT_RECEIPT_COUNT@@ distinct equations that satisfy at least one of the six physical conditions. Circles mark equations written in collider or LHC-safety contexts. Diamonds mark equations from material or astrophysical settings that calculate the same physical quantity and therefore supply a transfer test.
 
 \begin{figure}[H]
 \centering
@@ -208,17 +208,12 @@ Figure~\ref{fig:equation-graph} organizes the 36 distinct equations that satisfy
 \toprule
 Condition & Direct equations & Transfer equations & Quantity calculated \\
 \midrule
-production & 3 & 0 & formation threshold and production rate \\
-survival & 3 & 0 & evaporation rate or lifetime \\
-stopping & 5 & 2 & momentum loss and capture \\
-net growth & 11 & 10 & mass gained minus mass lost \\
-growth time & 1 & 3 & time required to reach a larger scale \\
-astronomical test & 0 & 1 & predicted consequence for compact stars \\
+@@SLOT_TABLE@@
 \bottomrule
 \end{tabularx}
 \end{table}
 
-The graph makes the result precise. Equations cover every local process, and 23 direct assignments connect primary-source equations to collider conditions. 16 assignments carry stopping, growth or astronomical calculations across physical settings. Within the papers, the equations directly connect stopping to mass growth. No single derivation carries one consistent parameter set through production, survival, stopping, growth time and the compact-star test. The literature is modular: one paper grants stability to study its consequences, another evaluates Hawking loss, and another computes capture under a particular dimensional model.
+The graph makes the result precise. Equations cover every local process, and @@DIRECT_ASSIGNMENTS@@ direct assignments connect primary-source equations to collider conditions. @@CANDIDATE_ASSIGNMENTS@@ assignments carry stopping, growth or astronomical calculations across physical settings. Within the papers, the equations directly connect stopping to mass growth. No single derivation carries one consistent parameter set through production, survival, stopping, growth time and the compact-star test. The literature is modular: one paper grants stability to study its consequences, another evaluates Hawking loss, and another computes capture under a particular dimensional model.
 
 Two positive results recovered from the equations determine the physical conclusion. The standard semiclassical branch has a large negative mass rate. The stable branch predicts compact-star effects when growth is fast enough to matter on Earth. These results close the dangerous route from opposite sides.
 
@@ -257,7 +252,7 @@ This is how the method separates a repeated phrase from a physical dependency. T
 
 \subsection{A direct check against the primary sources}
 
-Twelve equations were named in advance across the six primary papers. They cover production, the parton threshold, Hawking loss, stopping, accretion, competing mass rates, growth stages and compact-star bounds. The extraction recovered 12 of 12 and each passed its prespecified equation test.
+Twelve equations were named in advance across the six primary papers. They cover production, the parton threshold, Hawking loss, stopping, accretion, competing mass rates, growth stages and compact-star bounds. The extraction recovered @@RECOVERED_RECEIPTS@@ of @@TOTAL_RECEIPTS@@ and each passed its prespecified equation test.
 
 \begin{table}[H]
 \centering
@@ -267,19 +262,14 @@ Twelve equations were named in advance across the six primary papers. They cover
 \toprule
 arXiv source & Extracted equations & Named equations recovered \\
 \midrule
-\href{https://arxiv.org/abs/0806.3381}{0806.3381} & 334 & 6/6 \\
-\href{https://arxiv.org/abs/0806.3414}{0806.3414} & 0 & 0/0 \\
-\href{https://arxiv.org/abs/0807.3349}{0807.3349} & 37 & 3/3 \\
-\href{https://arxiv.org/abs/0808.1415}{0808.1415} & 12 & 1/1 \\
-\href{https://arxiv.org/abs/0808.4087}{0808.4087} & 3 & 0/0 \\
-\href{https://arxiv.org/abs/0901.2948}{0901.2948} & 75 & 2/2 \\
+@@SOURCE_TABLE@@
 \bottomrule
 \end{tabular}
 \end{table}
 
 \subsection{Which transitions carry the argument?}
 
-The graph ranking gives greater weight to an uncommon, informative equation-to-equation step than to a connection repeated throughout the corpus. Its strongest individual step is mass intake -> momentum evolution in arXiv 0901.2948. Across the high-ranking links, three operations dominate in ordinary physical terms: an equation defines an allowed range, another propagates mass or momentum, and a constraint tests the result. This is the mathematical skeleton of the safety argument. Repetition of a conclusion does not raise this score.
+The graph ranking gives greater weight to an uncommon, informative equation-to-equation step than to a connection repeated throughout the corpus. Its strongest individual step is @@TOP_TRANSITION@@. Across the high-ranking links, three operations dominate in ordinary physical terms: an equation defines an allowed range, another propagates mass or momentum, and a constraint tests the result. This is the mathematical skeleton of the safety argument. Repetition of a conclusion does not raise this score.
 
 \begin{figure}[H]
 \centering

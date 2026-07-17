@@ -191,11 +191,11 @@ def plot_evidence_funnel(
     plt = ensure_matplotlib()
     fig, ax = plt.subplots(figsize=(10.8, 5.4))
     stages = [
-        ("selected papers", int(manifest.get("source_count") or 0), "broad case literature plus full primary sources"),
-        ("equation windows", int(manifest.get("equation_witness_count") or 0), "ordered formula windows with source positions"),
-        ("typed equation nodes", int(graph.get("usable_mechanism_node_count") or len(graph.get("nodes") or [])), "operator/substrate fingerprints pass formula gates"),
-        ("constructor receipts", len(strict_receipt_index(constructor)), "equations satisfy one of six physical contracts"),
-        ("gold receipts", int(gold.get("recovered_receipts") or 0), "named primary-source equations recovered"),
+        ("selected papers", int(manifest.get("source_count") or 0), "broad literature search plus complete primary sources"),
+        ("equation windows", int(manifest.get("equation_witness_count") or 0), "complete formulas retained with source position and nearby text"),
+        ("typed equation nodes", int(graph.get("usable_mechanism_node_count") or len(graph.get("nodes") or [])), "physical quantities and mathematical operation identified"),
+        ("case equations", len(strict_receipt_index(constructor)), "equations answer at least one of the six safety questions"),
+        ("benchmark equations", int(gold.get("recovered_receipts") or 0), "equations named in advance and recovered from primary sources"),
     ]
     max_value = max(value for _, value, _ in stages) or 1
     y_values = list(reversed(range(len(stages))))
@@ -213,12 +213,13 @@ def plot_evidence_funnel(
             linewidth=1.2,
         )
         ax.add_patch(polygon)
-        ax.text(0, y + 0.08, f"{value:,}  {label}", ha="center", va="center", weight="bold", fontsize=10)
-        ax.text(0, y - 0.19, detail, ha="center", va="center", fontsize=7.8, color="#2e3a40")
-    ax.text(4.75, 3.7, f"Primary sources: {gold.get('present_required_sources', 0)}/{gold.get('required_source_count', 0)}", ha="right", fontsize=9, weight="bold")
-    ax.text(4.75, 3.35, f"Named equations: {gold.get('recovered_receipts', 0)}/{gold.get('total_receipts', 0)}", ha="right", fontsize=9, weight="bold")
-    ax.set_title("From literature to equations that enter the safety mechanism", loc="left", weight="bold")
-    ax.set_xlim(-5.1, 5.1)
+        ax.text(0, y, f"{value:,}", ha="center", va="center", weight="bold", fontsize=10)
+        ax.text(4.85, y + 0.11, label, ha="left", va="center", weight="bold", fontsize=9.4)
+        ax.text(4.85, y - 0.17, detail, ha="left", va="center", fontsize=7.5, color="#2e3a40")
+    ax.text(-4.95, 4.45, f"Primary sources present: {gold.get('present_required_sources', 0)}/{gold.get('required_source_count', 0)}", ha="left", fontsize=8.7, weight="bold")
+    ax.text(-4.95, 4.15, f"Named equations recovered: {gold.get('recovered_receipts', 0)}/{gold.get('total_receipts', 0)}", ha="left", fontsize=8.7, weight="bold")
+    ax.set_title("From a broad literature search to a testable physical chain", loc="left", weight="bold")
+    ax.set_xlim(-5.1, 10.2)
     ax.set_ylim(-0.7, 4.7)
     ax.axis("off")
     save_figure(fig, path)
@@ -278,14 +279,14 @@ def plot_provenance_graph(provenance: Dict[str, Any], path: Path) -> None:
         if source_id in positions:
             x, y = positions[source_id]
             ax.scatter([x], [y], s=46, facecolors="white", edgecolors="#15232b", linewidths=1.0, zorder=5)
-            ax.text(x - 0.12, y, source_id, ha="right", va="center", fontsize=7.2, weight="bold")
     for x, label in ((0.0, "named authors"), (1.6, "selected papers"), (3.2, "cited papers"), (4.8, "source claims")):
         ax.text(x, 1.035, label, ha="center", va="bottom", fontsize=9.2, weight="bold")
     ax.set_title("Provenance graph: who wrote, cited and claimed what", loc="left", weight="bold")
-    ax.text(0.0, -0.045, "Outlined nodes are the six primary LHC-safety papers used by the equation benchmark.", fontsize=8.2)
-    ax.legend(loc="lower center", bbox_to_anchor=(0.5, -0.09), ncol=4, frameon=False, fontsize=8)
+    ax.text(0.0, -0.050, "Outlined nodes are the six primary LHC-safety papers used by the equation benchmark:", fontsize=8.2)
+    ax.text(0.0, -0.085, "0806.3381, 0806.3414, 0807.3349, 0808.1415, 0808.4087 and 0901.2948", fontsize=8.2, weight="bold")
+    ax.legend(loc="lower center", bbox_to_anchor=(0.5, -0.15), ncol=4, frameon=False, fontsize=8)
     ax.set_xlim(-0.5, 5.3)
-    ax.set_ylim(-0.02, 1.09)
+    ax.set_ylim(-0.14, 1.09)
     ax.axis("off")
     save_figure(fig, path)
     plt.close(fig)
@@ -341,6 +342,19 @@ def plot_public_knowledge_graph(kg: Dict[str, Any], path: Path) -> None:
         "constructor_slot": 9.8,
         "verdict": 11.0,
         "case": 12.0,
+    }
+    public_kind = {
+        "author": "authors",
+        "paper": "selected\npapers",
+        "reference": "cited\nstudies",
+        "claim": "written\nclaims",
+        "claim_family": "claim\ntypes",
+        "equation_receipt": "equations\nused",
+        "route": "calculation\ntypes",
+        "branch": "physical\nbranches",
+        "constructor_slot": "six\nconditions",
+        "verdict": "physical\nresult",
+        "case": "public\nanswer",
     }
     by_kind: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
     for item in kg.get("nodes") or []:
@@ -399,9 +413,9 @@ def plot_public_knowledge_graph(kg: Dict[str, Any], path: Path) -> None:
         )
     for kind, x in sorted(x_by_kind.items(), key=lambda item: item[1]):
         if by_kind.get(kind):
-            ax.text(x, 1.035, f"{kind.replace('_', ' ')}\n{len(by_kind[kind]):,}", ha="center", va="bottom", fontsize=7.4, weight="bold")
-    ax.set_title("Joined public knowledge graph: provenance flows into physical construction", loc="left", weight="bold")
-    ax.text(0.15, -0.035, "Brown edges record authorship, citations and claims. Green edges connect papers to typed equations, mechanism conditions and the case conclusion.", fontsize=8.2)
+            ax.text(x, 1.035, f"{public_kind.get(kind, kind.replace('_', ' '))}\n{len(by_kind[kind]):,}", ha="center", va="bottom", fontsize=7.4, weight="bold")
+    ax.set_title("How the literature becomes a physical answer", loc="left", weight="bold")
+    ax.text(0.15, -0.035, "Brown links trace people, papers, citations and claims. Green links follow calculations into the six physical conditions and the final answer.", fontsize=8.2)
     ax.set_xlim(-0.2, 12.45)
     ax.set_ylim(-0.01, 1.1)
     ax.axis("off")
@@ -416,6 +430,14 @@ def plot_equation_graph(graph: Dict[str, Any], constructor: Dict[str, Any], path
     node_by_id = {str(item.get("id")): item for item in graph.get("nodes") or []}
     positions: Dict[Tuple[str, str], Tuple[float, float]] = {}
     slot_x = {slot_id: idx for idx, slot_id in enumerate(SLOT_ORDER)}
+    slot_examples = {
+        "production_selector": r"$\sigma_{\rm BH}$ and threshold",
+        "survival_lifetime": r"$\mathrm{d}M/\mathrm{d}t<0$",
+        "stopping_capture": r"$\mathrm{d}p/\mathrm{d}\ell$",
+        "net_positive_growth": r"$\mathrm{d}M/\mathrm{d}t$",
+        "growth_timescale": r"$\int \mathrm{d}M/\dot M$",
+        "astronomical_bound_evasion": r"predicted time vs star age",
+    }
     slot_rows: Dict[str, List[Tuple[str, Dict[str, str]]]] = defaultdict(list)
     for node_id, assignments in receipt_index.items():
         for assignment in assignments:
@@ -444,19 +466,17 @@ def plot_equation_graph(graph: Dict[str, Any], constructor: Dict[str, Any], path
         marker = "o" if assignment["grade"] == "direct" else "D"
         color = COLORS[assignment["grade"]]
         ax.scatter([x], [y], s=42 if marker == "o" else 34, marker=marker, c=color, edgecolors="white", linewidths=0.5, zorder=4)
-        source_id = str(node.get("source_id") or "")
-        if source_id in {"0806.3381", "0807.3349", "0808.1415", "0901.2948"}:
-            ax.text(x + 0.06, y, source_id, fontsize=6.4, va="center", color="#1f2b31")
     for slot_id, x in slot_x.items():
         ax.axvline(x, color="#dfe3e5", linewidth=0.7, zorder=0)
         ax.text(x, 0.965, SLOT_SHORT[slot_id], ha="center", va="bottom", fontsize=8.8, weight="bold")
-        ax.text(x, 0.925, f"{len(slot_rows.get(slot_id, []))} receipts", ha="center", va="bottom", fontsize=7.1, color="#4c5960")
+        ax.text(x, 0.925, f"{len(slot_rows.get(slot_id, []))} equations", ha="center", va="bottom", fontsize=7.1, color="#4c5960")
+        ax.text(x, 0.885, slot_examples[slot_id], ha="center", va="bottom", fontsize=6.7, color="#44535a")
     ax.scatter([], [], s=42, c=COLORS["direct"], marker="o", label="collider-regime equation")
-    ax.scatter([], [], s=34, c=COLORS["candidate"], marker="D", label="cross-regime transfer candidate")
-    ax.plot([], [], color="#32434a", linewidth=0.8, label="source-local equation path")
-    ax.plot([], [], color="#6b88a1", linewidth=0.8, linestyle="--", label="cross-paper structural analogue")
+    ax.scatter([], [], s=34, c=COLORS["candidate"], marker="D", label="equation transferred from another setting")
+    ax.plot([], [], color="#32434a", linewidth=0.8, label="next calculation in the same paper")
+    ax.plot([], [], color="#6b88a1", linewidth=0.8, linestyle="--", label="same calculation pattern in another paper")
     ax.legend(loc="lower center", bbox_to_anchor=(0.5, -0.11), ncol=4, frameon=False, fontsize=7.5)
-    ax.set_title("Typed equation graph retained for the LHC mechanism", loc="left", weight="bold")
+    ax.set_title("How the retained equations assemble into the six-condition argument", loc="left", weight="bold")
     ax.set_xlim(-0.35, 5.5)
     ax.set_ylim(0.02, 1.06)
     ax.set_xticks([])
@@ -469,51 +489,73 @@ def plot_equation_graph(graph: Dict[str, Any], constructor: Dict[str, Any], path
 
 def plot_constructor(constructor: Dict[str, Any], path: Path) -> None:
     plt = ensure_matplotlib()
-    fig, ax = plt.subplots(figsize=(13.2, 5.2))
-    slots = {str(item.get("slot_id")): item for item in constructor.get("slots") or []}
-    supported_pairs = {
-        (str(item.get("source_slot")), str(item.get("target_slot")))
-        for item in constructor.get("supported_transitions") or []
+    fig, ax = plt.subplots(figsize=(13.4, 6.2))
+    titles = {
+        "production_selector": "1  FORM",
+        "survival_lifetime": "2  SURVIVE",
+        "stopping_capture": "3  STOP",
+        "net_positive_growth": "4  GAIN MASS",
+        "growth_timescale": "5  GROW FAST",
+        "astronomical_bound_evasion": "6  PASS THE SKY TEST",
     }
-    xs = {slot_id: 1.0 + idx * 2.15 for idx, slot_id in enumerate(SLOT_ORDER)}
+    questions = {
+        "production_selector": "Can a collision\nmake it?",
+        "survival_lifetime": "Does it outlive\nHawking loss?",
+        "stopping_capture": "Can matter\nretain it?",
+        "net_positive_growth": "Is accretion larger\nthan every loss?",
+        "growth_timescale": "Does growth\nfinish in time?",
+        "astronomical_bound_evasion": "Do compact stars\nsurvive the prediction?",
+    }
+    exits = {
+        "production_selector": "below threshold\nno black hole",
+        "survival_lifetime": "ordinary branch\nevaporates",
+        "stopping_capture": "too much momentum\nescapes matter",
+        "net_positive_growth": "net rate $\\leq 0$\nshrinks or stalls",
+        "growth_timescale": "growth is too slow\nfor a catastrophe",
+        "astronomical_bound_evasion": "old white dwarfs and\nneutron stars survive",
+    }
+    xs = {slot_id: 1.05 + idx * 2.16 for idx, slot_id in enumerate(SLOT_ORDER)}
     for left, right in zip(SLOT_ORDER, SLOT_ORDER[1:]):
-        supported = (left, right) in supported_pairs
-        arrow(
-            ax,
-            (xs[left] + 0.82, 2.75),
-            (xs[right] - 0.82, 2.75),
-            color="#2f7d5d" if supported else "#b45f4d",
-            style="-" if supported else "--",
-            width=1.8,
-        )
-        ax.text((xs[left] + xs[right]) / 2, 2.98, "source path" if supported else "path absent", ha="center", fontsize=6.8, color="#2f7d5d" if supported else "#8e4437")
+        arrow(ax, (xs[left] + 0.86, 3.65), (xs[right] - 0.86, 3.65), color="#2f6f62", width=1.8)
     for slot_id in SLOT_ORDER:
-        slot = slots.get(slot_id) or {}
-        status = str(slot.get("status") or "missing")
-        color = "#c7dfd4" if status == "direct_mechanism_receipt" else "#f2dfbd" if status == "candidate_transfer_only" else "#e4e7e9"
-        body = f"{int(slot.get('direct_receipt_count') or 0)} collider\n{int(slot.get('candidate_transfer_count') or 0)} transfer"
-        draw_box(ax, xs[slot_id], 2.75, 1.72, 1.36, SLOT_SHORT[slot_id], body, color, title_size=8.4, body_size=7.4)
-    ax.text(0.15, 1.42, "A dangerous outcome requires every condition and every arrow.", fontsize=10.2, weight="bold")
-    missing = [SLOT_SHORT.get(item, item) for item in constructor.get("missing_direct_slots") or []]
-    broken = [
-        f"{SLOT_SHORT.get(str(item.get('source_slot')), item.get('source_slot'))} to {SLOT_SHORT.get(str(item.get('target_slot')), item.get('target_slot'))}"
-        for item in constructor.get("broken_transitions") or []
-    ]
-    draw_box(
-        ax,
-        6.35,
-        0.72,
-        11.6,
-        0.95,
-        "Result",
-        f"collider equations missing for: {', '.join(missing) if missing else 'none'}\nmissing links in recovered derivations: {', '.join(broken) if broken else 'none'}",
-        "#eef1f2",
-        title_size=9.4,
-        body_size=7.8,
+        x = xs[slot_id]
+        draw_box(
+            ax,
+            x,
+            3.65,
+            1.78,
+            1.32,
+            titles[slot_id],
+            questions[slot_id],
+            "#d8e9e2" if slot_id != "astronomical_bound_evasion" else "#f1dfbd",
+            title_size=8.2,
+            body_size=7.5,
+        )
+        arrow(ax, (x, 2.98), (x, 2.20), color="#a65545", width=1.2)
+        ax.text(x + 0.13, 2.62, "if no", ha="left", va="center", fontsize=7.2, color="#8e4437", weight="bold")
+        draw_box(
+            ax,
+            x,
+            1.68,
+            1.78,
+            0.78,
+            "branch ends",
+            exits[slot_id],
+            "#f3e7e2" if slot_id != "astronomical_bound_evasion" else "#e6edf3",
+            title_size=7.4,
+            body_size=6.8,
+        )
+    ax.text(
+        0.15,
+        0.47,
+        "The dangerous scenario needs six consecutive yes answers.  The standard branch ends at evaporation; the stable branch conflicts with the observed survival of compact stars.",
+        fontsize=10.0,
+        weight="bold",
+        color="#202c39",
     )
-    ax.set_title("Physical constructor for a dangerous microscopic black hole", loc="left", weight="bold")
-    ax.set_xlim(0, 12.7)
-    ax.set_ylim(0.05, 3.75)
+    ax.set_title("What would have to happen before a microscopic black hole became dangerous?", loc="left", weight="bold", fontsize=13)
+    ax.set_xlim(0, 13.0)
+    ax.set_ylim(0.15, 4.65)
     ax.axis("off")
     save_figure(fig, path)
     plt.close(fig)
@@ -536,10 +578,22 @@ def plot_transfer_map(constructor: Dict[str, Any], path: Path) -> None:
         "astronomical_bound_evasion": r"$N_{\rm CR}P_{\rm cap}P_{\rm grow}\ll1$",
     }
     transfer_conditions = {
-        "stopping_capture": "kinetic-energy loss exceeds escape requirement",
-        "net_positive_growth": "matter intake remains greater than evaporation",
-        "growth_timescale": "integrated growth completes during exposure",
-        "astronomical_bound_evasion": "predicted destruction is absent from compact stars",
+        "stopping_capture": "how quickly momentum is lost",
+        "net_positive_growth": "mass gained minus mass lost",
+        "growth_timescale": "time obtained by integrating the growth rate",
+        "astronomical_bound_evasion": "predicted effect during a star's lifetime",
+    }
+    source_titles = {
+        "stopping_capture": "stopping law in dense matter",
+        "net_positive_growth": "accretion law in dense matter",
+        "growth_timescale": "growth law integrated over mass",
+        "astronomical_bound_evasion": "compact-star growth prediction",
+    }
+    test_titles = {
+        "stopping_capture": "Does it stop inside Earth?",
+        "net_positive_growth": "Does mass increase overall?",
+        "growth_timescale": "Does growth finish in time?",
+        "astronomical_bound_evasion": "Should old compact stars survive?",
     }
     rows = min(len(slots), 6)
     for idx, slot in enumerate(slots[:rows]):
@@ -548,13 +602,13 @@ def plot_transfer_map(constructor: Dict[str, Any], path: Path) -> None:
         slot_id = str(slot.get("slot_id"))
         formula = measured_equations.get(slot_id, r"$\mathrm{typed\ source\ equation}$")
         source = str(candidate.get("source_id") or "source")
-        draw_box(ax, 1.55, y, 2.65, 0.78, f"{source}: measured regime", formula, "#dce8ef", title_size=7.8, body_size=6.5)
+        draw_box(ax, 1.55, y, 2.65, 0.78, source_titles.get(slot_id, "source equation"), f"{formula}  [{source}]", "#dce8ef", title_size=7.8, body_size=6.5)
         draw_box(ax, 5.55, y, 2.65, 0.78, SLOT_SHORT.get(slot_id, slot_id), transfer_conditions.get(slot_id, "evaluate the same physical quantity"), "#e6edda", title_size=7.8, body_size=6.4)
-        draw_box(ax, 9.65, y, 2.65, 0.78, "LHC variable test", collider_tests.get(slot_id, "evaluate with LHC parameters"), "#f1dfc4", title_size=7.8, body_size=6.8)
+        draw_box(ax, 9.65, y, 2.65, 0.78, test_titles.get(slot_id, "Collider test"), collider_tests.get(slot_id, "evaluate with LHC parameters"), "#f1dfc4", title_size=7.8, body_size=6.8)
         arrow(ax, (2.9, y), (4.15, y), color="#527c8c")
         arrow(ax, (6.9, y), (8.25, y), color="#6f8a45")
-    ax.text(3.55, rows + 0.12, "identify the conserved rate, threshold or time", ha="center", fontsize=8.0, color="#365865")
-    ax.text(7.6, rows + 0.12, "replace the carrier and re-evaluate all parameters", ha="center", fontsize=8.0, color="#566c31")
+    ax.text(3.55, rows + 0.12, "keep the same physical quantity", ha="center", fontsize=8.0, color="#365865")
+    ax.text(7.6, rows + 0.12, "insert Earth or collider conditions and recalculate", ha="center", fontsize=8.0, color="#566c31")
     ax.set_title("Equation transfer from compact stars and matter to the collider case", loc="left", weight="bold")
     ax.set_xlim(0, 11.2)
     ax.set_ylim(0, rows + 0.6)
@@ -563,8 +617,48 @@ def plot_transfer_map(constructor: Dict[str, Any], path: Path) -> None:
     plt.close(fig)
 
 
-def plot_sparse_attention(sparse: Dict[str, Any], path: Path) -> None:
+def public_transition_label(item: Dict[str, Any], graph: Dict[str, Any]) -> str:
+    nodes = {str(node.get("id")): node for node in graph.get("nodes") or []}
+    source = str((nodes.get(str(item.get("source"))) or {}).get("formula") or "")
+    target = str((nodes.get(str(item.get("target"))) or {}).get("formula") or "")
+    if "sigma_{BH}" in source and "hat\\sigma" in target:
+        return "total production -> geometric production area"
+    if "acc" in source and "{\\ud p}" in target:
+        return "mass intake -> momentum evolution"
+    if "4\\pi" in source and "dv}{dr}" in target:
+        return "steady mass flow -> force balance"
+    if "acc" in source and "\\rem" in target:
+        return "mass intake -> capture radius"
+    if "evap" in source and "acc" in target:
+        return "evaporation -> accretion"
+    if "t(R_B" in source and "t_w" in target:
+        return "growth stages -> total growth time"
+    if "t_{NS" in source and "dM}{dt}" in target:
+        return "neutron-star time -> steady mass flow"
+    if "dM}{dt}" in source and "v_{EM}" in target:
+        return "growth law -> Earth-speed condition"
+    source_grades = item.get("source_receipt_grades") or []
+    target_grades = item.get("target_receipt_grades") or []
+
+    def grade_slot(grades: Sequence[Any]) -> str:
+        if not grades:
+            return "supporting equation"
+        slot = str(grades[0]).split(":", 1)[0]
+        return SLOT_SHORT.get(slot, slot.replace("_", " "))
+
+    return f"{grade_slot(source_grades)} -> {grade_slot(target_grades)}"
+
+
+def plot_sparse_attention(sparse: Dict[str, Any], graph: Dict[str, Any], path: Path) -> None:
     plt = ensure_matplotlib()
+    public_route = {
+        "transport_flow": "change / flow",
+        "constraint_closure": "constraint",
+        "spectral_operator": "transformation",
+        "boundary_weak_form": "environment",
+        "commutator_incompatibility": "competing laws",
+        "discrete_protocol": "sequence",
+    }
     transitions = sparse.get("route_transition_attention") or []
     routes = [route for route in ROUTE_SHORT if any(item.get("source_route") == route or item.get("target_route") == route for item in transitions)]
     matrix = [[0.0 for _ in routes] for _ in routes]
@@ -576,43 +670,43 @@ def plot_sparse_attention(sparse: Dict[str, Any], path: Path) -> None:
             matrix[index[source]][index[target]] = float(item.get("attention") or 0.0)
     fig, axes = plt.subplots(1, 2, figsize=(12.4, 5.4), gridspec_kw={"width_ratios": [1.05, 1.25]})
     im = axes[0].imshow(matrix, cmap="YlGnBu", aspect="equal")
-    axes[0].set_xticks(range(len(routes)), [ROUTE_SHORT[route] for route in routes], rotation=38, ha="right", fontsize=7.5)
-    axes[0].set_yticks(range(len(routes)), [ROUTE_SHORT[route] for route in routes], fontsize=7.5)
-    axes[0].set_xlabel("next equation role")
-    axes[0].set_ylabel("current equation role")
-    axes[0].set_title("Attention carried by route transitions", loc="left", fontsize=10.3, weight="bold")
-    fig.colorbar(im, ax=axes[0], fraction=0.046, pad=0.04, label="fraction of graph attention")
+    axes[0].set_xticks(range(len(routes)), [public_route[route] for route in routes], rotation=38, ha="right", fontsize=7.5)
+    axes[0].set_yticks(range(len(routes)), [public_route[route] for route in routes], fontsize=7.5)
+    axes[0].set_xlabel("role of the next equation")
+    axes[0].set_ylabel("role of the current equation")
+    axes[0].set_title("Information score by equation role", loc="left", fontsize=10.3, weight="bold")
+    fig.colorbar(im, ax=axes[0], fraction=0.046, pad=0.04, label="share of information score")
     top = (sparse.get("top_edges") or [])[:8]
     y = list(reversed(range(len(top))))
     values = [float(item.get("attention") or 0.0) for item in top]
-    labels = [
-        f"{item.get('source_paper')}  {','.join(ROUTE_SHORT.get(route, route) for route in item.get('shared_routes') or []) or 'role change'}"
-        for item in top
-    ]
+    labels = [f"{item.get('source_paper')}  {public_transition_label(item, graph)}" for item in top]
     axes[1].barh(y, values, color="#4d8191")
     axes[1].set_yticks(y, labels, fontsize=7.4)
-    axes[1].set_xlabel("normalized edge attention")
-    axes[1].set_title("Highest-information equation transitions", loc="left", fontsize=10.3, weight="bold")
+    axes[1].set_xlabel("normalized information score")
+    axes[1].set_title("Eight equation steps carrying the most information", loc="left", fontsize=10.3, weight="bold")
     axes[1].spines[["top", "right"]].set_visible(False)
-    fig.suptitle("Sparse attention follows equation-to-equation transitions", x=0.01, ha="left", fontsize=12, weight="bold")
+    fig.suptitle("Which equation-to-equation links carry the safety argument?", x=0.01, ha="left", fontsize=12, weight="bold")
     fig.tight_layout(rect=(0, 0, 1, 0.95))
     save_figure(fig, path)
     plt.close(fig)
 
 
 def slot_rows_tex(constructor: Dict[str, Any]) -> str:
+    contribution = {
+        "production_selector": "formation threshold and production rate",
+        "survival_lifetime": "evaporation rate or lifetime",
+        "stopping_capture": "momentum loss and capture",
+        "net_positive_growth": "mass gained minus mass lost",
+        "growth_timescale": "time required to reach a larger scale",
+        "astronomical_bound_evasion": "predicted consequence for compact stars",
+    }
     rows = []
     for slot in constructor.get("slots") or []:
-        status = str(slot.get("status") or "missing")
-        interpretation = {
-            "direct_mechanism_receipt": "collider-regime equation recovered",
-            "candidate_transfer_only": "equation recovered in another physical regime",
-            "missing": "required equation absent",
-        }.get(status, status)
+        slot_id = str(slot.get("slot_id"))
         rows.append(
-            f"{latex_escape(SLOT_SHORT.get(str(slot.get('slot_id')), str(slot.get('slot_id'))))} & "
+            f"{latex_escape(SLOT_SHORT.get(slot_id, slot_id))} & "
             f"{int(slot.get('direct_receipt_count') or 0)} & {int(slot.get('candidate_transfer_count') or 0)} & "
-            f"{latex_escape(interpretation)} \\\\"
+            f"{latex_escape(contribution.get(slot_id, 'physical relation'))} \\\\"
         )
     return "\n".join(rows)
 
@@ -661,13 +755,49 @@ def write_tex(
         f"{SLOT_SHORT.get(str(item.get('source_slot')), item.get('source_slot'))} $\\rightarrow$ {SLOT_SHORT.get(str(item.get('target_slot')), item.get('target_slot'))}"
         for item in constructor.get("broken_transitions") or []
     ]
-    top_transition = (sparse.get("route_transition_attention") or [{}])[0]
-    top_transition_text = (
-        f"{ROUTE_SHORT.get(str(top_transition.get('source_route')), str(top_transition.get('source_route')))} to "
-        f"{ROUTE_SHORT.get(str(top_transition.get('target_route')), str(top_transition.get('target_route')))}"
-    )
+    top_edge = (sparse.get("top_edges") or [{}])[0]
+    top_transition_text = public_transition_label(top_edge, graph)
+    if top_edge.get("source_paper"):
+        top_transition_text += f" in arXiv {top_edge.get('source_paper')}"
     slot_table = slot_rows_tex(constructor)
     source_table = primary_source_rows(gold)
+    selection_path = ROOT / "data" / "hf_lhc_selection_500k" / "selection_manifest.json"
+    selection = read_json(selection_path) if selection_path.exists() else {}
+    template_path = ROOT / "paper" / "lhc_black_hole_article_template.tex"
+    if not template_path.exists():
+        raise FileNotFoundError(f"Missing public article template: {template_path}")
+    replacements = {
+        "@@SCANNED_COUNT@@": count(selection.get("scanned") or 0),
+        "@@SELECTED_COUNT@@": count(selection.get("selected") or manifest.get("source_count") or 0),
+        "@@SOURCE_COUNT@@": count(manifest.get("source_count")),
+        "@@CLAIM_COUNT@@": count(node_counts.get("claim")),
+        "@@REFERENCE_COUNT@@": count(node_counts.get("external_reference")),
+        "@@CITATION_LINKS@@": count(edge_counts.get("paper_cites_paper")),
+        "@@CLAIM_LINKS@@": count(edge_counts.get("source_makes_claim")),
+        "@@EQUATION_WINDOW_COUNT@@": count(manifest.get("equation_witness_count")),
+        "@@GRAPH_NODE_COUNT@@": count(len(graph.get("nodes") or [])),
+        "@@USABLE_NODE_COUNT@@": count(graph.get("usable_mechanism_node_count") or 0),
+        "@@GRAPH_EDGE_COUNT@@": count(len(graph.get("edges") or [])),
+        "@@ANALOG_EDGE_COUNT@@": count(len(graph.get("analog_edges") or [])),
+        "@@STRICT_RECEIPT_COUNT@@": count(len(receipt_index)),
+        "@@DIRECT_ASSIGNMENTS@@": count(direct_assignments),
+        "@@CANDIDATE_ASSIGNMENTS@@": count(candidate_assignments),
+        "@@TOTAL_RECEIPTS@@": count(gold.get("total_receipts")),
+        "@@RECOVERED_RECEIPTS@@": count(gold.get("recovered_receipts")),
+        "@@TOP_TRANSITION@@": latex_escape(top_transition_text),
+        "@@SLOT_TABLE@@": slot_table,
+        "@@SOURCE_TABLE@@": source_table,
+    }
+    tex = template_path.read_text(encoding="utf-8")
+    for placeholder, value in replacements.items():
+        tex = tex.replace(placeholder, value)
+    unresolved = sorted({token for token in tex.split() if token.startswith("@@")})
+    if unresolved:
+        raise ValueError(f"Unresolved public-article placeholders: {unresolved}")
+    tex_path.write_text(tex, encoding="utf-8")
+    return tex_path
+
+    # Retained temporarily as a fallback record of the earlier technical report.
     tex = rf"""\documentclass[10pt]{{article}}
 \usepackage[margin=0.78in]{{geometry}}
 \usepackage{{amsmath,amssymb,booktabs,array,tabularx,graphicx,microtype,xcolor}}
@@ -957,7 +1087,7 @@ def build(args: argparse.Namespace) -> Dict[str, Any]:
     plot_equation_graph(graph, constructor, figure_dir / "lhc_equation_graph.pdf")
     plot_constructor(constructor, figure_dir / "lhc_physical_constructor.pdf")
     plot_transfer_map(constructor, figure_dir / "lhc_transfer_map.pdf")
-    plot_sparse_attention(sparse, figure_dir / "lhc_sparse_attention.pdf")
+    plot_sparse_attention(sparse, graph, figure_dir / "lhc_sparse_attention.pdf")
     tex_path = write_tex(paper_dir, manifest, provenance, graph, sparse, constructor, kg, gold)
     generated_figures = [
         figure_dir / "lhc_evidence_funnel.pdf",

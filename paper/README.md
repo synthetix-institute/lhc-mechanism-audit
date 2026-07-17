@@ -1,8 +1,53 @@
-# Generated Paper
+# Public Article
 
-`lhc_black_hole_answer.pdf` is generated from the retained provenance graph,
-equation mechanism graph, six-slot physical constructor, sparse-attention
-calculation and the independent equation benchmark.
+## Complete submission packet
+
+`lhc_epistack_submission_packet.pdf` is the primary competition document. Its
+first ten pages are the core reading path; the complete fourteen-page article
+follows as supporting material. Build the packet from the repository root:
+
+```bash
+bash scripts/build_submission_packet.sh
+```
+
+The core states the corpus hierarchy explicitly: Hyperion's operational
+archive contains 2.5 million arXiv papers, while the reproducible LHC case uses
+a fixed 500,000-document screening slice plus complete primary sources.
+
+## Judge's guide
+
+`lhc_judges_guide.pdf` is the ten-page core submission for a non-specialist
+reader. It contrasts the documentary graph with the equation mechanism graph,
+shows one complete source-to-conclusion receipt and identifies the artifact that
+supports each judging criterion.
+
+Build it with:
+
+```bash
+bash scripts/build_judges_guide.sh
+```
+
+The build writes `lhc_judges_guide_receipts.json` and verifies the selected
+equation IDs and twelve-equation benchmark before compiling the PDF.
+
+The runnable judge demonstration requires only Python:
+
+```bash
+bash scripts/run_judge_demo.sh
+```
+
+## Full article
+
+[`lhc_black_hole_answer.pdf`](lhc_black_hole_answer.pdf) explains the LHC
+black-hole question for non-specialists. It begins with the physical answer,
+then follows the six events that would all have to occur before a microscopic
+object could become dangerous. The equations are introduced one at a time,
+their variables are defined at first use, and the final section compares the
+automated reconstruction with the independent CERN safety report.
+
+The article is generated from the retained provenance graph, equation graph,
+six-condition physical chain, equation-transition calculation and a
+prespecified twelve-equation source test.
 
 From the repository root, run:
 
@@ -18,6 +63,7 @@ the PDF. A different evidence bundle can be supplied as the first argument.
 bash scripts/build_lhc_black_hole_answer.sh /path/to/run paper
 ```
 
-The report figures show the evidence funnel, full and collapsed provenance
-graphs, public knowledge graph, retained equation graph, physical constructor,
-astrophysics-to-collider transfer map and sparse-attention result.
+The figures show the six physical conditions, the full and collapsed
+provenance graphs, the joined literature-to-physics graph, the retained
+equation graph, the astrophysics-to-collider transfer and the equation steps
+that carry the safety argument.

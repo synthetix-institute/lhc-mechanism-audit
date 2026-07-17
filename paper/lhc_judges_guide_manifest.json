@@ -1,0 +1,17 @@
+{
+  "report_type": "epistack_judges_guide_build",
+  "readiness": "usable",
+  "receipt_bundle": "paper/lhc_judges_guide_receipts.json",
+  "numbers": "paper/generated/judge_numbers.tex",
+  "tex": "paper/lhc_judges_guide.tex",
+  "pdf": "paper/lhc_judges_guide.pdf",
+  "submission_packet": "paper/lhc_epistack_submission_packet.pdf",
+  "selected_receipts": [
+    "E00292",
+    "E00455",
+    "E00124",
+    "E00149",
+    "E00179",
+    "E00202"
+  ]
+}

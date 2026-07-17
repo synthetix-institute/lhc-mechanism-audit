@@ -1,0 +1,415 @@
+{
+  "report_type": "epistack_judge_receipt_bundle",
+  "readiness": "usable",
+  "question": "Could the Large Hadron Collider make a dangerous black hole?",
+  "answer": "The processed literature contains no physically complete catastrophe path. The semiclassical branch ends in evaporation; stable-object branches are constrained by stopping, growth-time and compact-star survival calculations.",
+  "two_graphs": {
+    "provenance": "Who wrote, cited or asserted each claim.",
+    "mechanism": "Which physical quantity each equation transforms and whether the transformations compose."
+  },
+  "metrics": {
+    "global_archive_documents": 2500000,
+    "documents_screened": 500000,
+    "screened_sources_retained": 492,
+    "papers_in_reconstruction": 496,
+    "claims": 708,
+    "citation_links": 369,
+    "equation_windows": 729,
+    "fingerprinted_equations": 728,
+    "usable_equation_nodes": 464,
+    "source_local_equation_edges": 314,
+    "cross_paper_analogue_edges": 190,
+    "strict_equation_receipts": 36,
+    "attended_receipt_edges": 91,
+    "knowledge_graph_nodes": 1604,
+    "knowledge_graph_edges": 2556,
+    "benchmark_receipts_recovered": 12,
+    "benchmark_receipts_total": 12
+  },
+  "constructor": {
+    "danger_branch_closed": false,
+    "reported_branch_verdict": "incomplete_direct_mechanism_branch",
+    "interpretation": "The dangerous branch requires astronomical-bound evasion. No direct receipt fills that condition; the retained compact-star equation predicts a rapid consequence instead, so observation closes the branch against danger.",
+    "slots": [
+      {
+        "slot_id": "production_selector",
+        "label": "production threshold",
+        "status": "direct_mechanism_receipt",
+        "direct_receipt_count": 3,
+        "candidate_transfer_count": 0,
+        "inputs": [
+          "parton_energy",
+          "gravity_scale"
+        ],
+        "outputs": [
+          "produced_microscopic_black_hole"
+        ]
+      },
+      {
+        "slot_id": "survival_lifetime",
+        "label": "survival against evaporation",
+        "status": "direct_mechanism_receipt",
+        "direct_receipt_count": 3,
+        "candidate_transfer_count": 0,
+        "inputs": [
+          "produced_microscopic_black_hole"
+        ],
+        "outputs": [
+          "long_lived_microscopic_black_hole"
+        ]
+      },
+      {
+        "slot_id": "stopping_capture",
+        "label": "stopping or capture in matter",
+        "status": "direct_mechanism_receipt",
+        "direct_receipt_count": 5,
+        "candidate_transfer_count": 2,
+        "inputs": [
+          "long_lived_microscopic_black_hole",
+          "medium_state"
+        ],
+        "outputs": [
+          "captured_microscopic_black_hole"
+        ]
+      },
+      {
+        "slot_id": "net_positive_growth",
+        "label": "net positive mass growth",
+        "status": "direct_mechanism_receipt",
+        "direct_receipt_count": 11,
+        "candidate_transfer_count": 10,
+        "inputs": [
+          "captured_microscopic_black_hole",
+          "medium_state"
+        ],
+        "outputs": [
+          "growing_microscopic_black_hole"
+        ]
+      },
+      {
+        "slot_id": "growth_timescale",
+        "label": "growth on a relevant timescale",
+        "status": "direct_mechanism_receipt",
+        "direct_receipt_count": 1,
+        "candidate_transfer_count": 3,
+        "inputs": [
+          "growing_microscopic_black_hole",
+          "mass_rate"
+        ],
+        "outputs": [
+          "macroscopic_growth_within_exposure"
+        ]
+      },
+      {
+        "slot_id": "astronomical_bound_evasion",
+        "label": "evasion of astronomical survival bounds",
+        "status": "candidate_transfer_only",
+        "direct_receipt_count": 0,
+        "candidate_transfer_count": 1,
+        "inputs": [
+          "macroscopic_growth_within_exposure",
+          "cosmic_ray_exposure"
+        ],
+        "outputs": [
+          "model_consistent_with_astronomical_survival"
+        ]
+      }
+    ],
+    "supported_transitions": [
+      {
+        "source_slot": "stopping_capture",
+        "target_slot": "net_positive_growth",
+        "contract_compatible": true,
+        "source_local_witnesses": [
+          {
+            "source_id": "0806.3381",
+            "source_node": "E00124",
+            "target_node": "E00124",
+            "edge_type": "source_local_equation_path"
+          },
+          {
+            "source_id": "0806.3381",
+            "source_node": "E00124",
+            "target_node": "E00127",
+            "edge_type": "source_local_equation_path"
+          },
+          {
+            "source_id": "0806.3381",
+            "source_node": "E00149",
+            "target_node": "E00149",
+            "edge_type": "source_local_equation_path"
+          },
+          {
+            "source_id": "0806.3381",
+            "source_node": "E00126",
+            "target_node": "E00127",
+            "edge_type": "source_local_equation_path"
+          }
+        ],
+        "typed_cross_source_candidates": 30,
+        "supports_branch_closure": true
+      }
+    ],
+    "broken_transitions": [
+      {
+        "source_slot": "production_selector",
+        "target_slot": "survival_lifetime",
+        "contract_compatible": true,
+        "source_local_witnesses": [],
+        "typed_cross_source_candidates": 9,
+        "supports_branch_closure": false
+      },
+      {
+        "source_slot": "survival_lifetime",
+        "target_slot": "stopping_capture",
+        "contract_compatible": true,
+        "source_local_witnesses": [],
+        "typed_cross_source_candidates": 15,
+        "supports_branch_closure": false
+      },
+      {
+        "source_slot": "net_positive_growth",
+        "target_slot": "growth_timescale",
+        "contract_compatible": true,
+        "source_local_witnesses": [],
+        "typed_cross_source_candidates": 6,
+        "supports_branch_closure": false
+      },
+      {
+        "source_slot": "growth_timescale",
+        "target_slot": "astronomical_bound_evasion",
+        "contract_compatible": true,
+        "source_local_witnesses": [],
+        "typed_cross_source_candidates": 0,
+        "supports_branch_closure": false
+      }
+    ]
+  },
+  "selected_equation_receipts": [
+    {
+      "node_id": "E00292",
+      "source_id": "0806.3381",
+      "source_title": "Astrophysical implications of hypothetical stable TeV-scale black holes",
+      "source_url": "https://arxiv.org/abs/0806.3381",
+      "source_equation_ordinal": 283,
+      "source_start": 190241,
+      "source_end": 190435,
+      "formula": "\\sigma_{BH}(M>M_{min}) = \\sum_{ij} \\int_{\\tau_{min}}^1 \\, d\\tau \\int_{\\tau}^{1} \\, \\frac{dx}{x} f_i(x) f_j(\\tau/x) \\hat\\sigma(\\rshat) \\; ,",
+      "source_context": "presentative cases of $D=6$ and $D=10$, a black hole with mass $M=5 M_D$ has entropy $S_{BH}\\sim 24$, a plausible threshold to assume a semiclassical behaviour. Since for a fixed value of $M$ the black hole radius, and thus the production cross sections, decrease with increasing $M_D$, to be conservative in our estimates of production rates by cosmic rays we shall loosen this constraint, and allow for $M_{min}/M_D$ to be as small as 3. In the primary cases of interest for cosmic ray bounds, $D\\leq7$, this lowest value corresponds to a Schwarzschild radius that is less than twice the Planck radius, $1/M_D$. The production cross sections at the LHC are then obtained from the simple formula: \\begin{equation} \\label{eq:LHC-BHrate} \\sigma_{BH}(M>M_{min}) = \\sum_{ij} \\int_{\\tau_{min}}^1 \\, d\\tau \\int_{\\tau}^{1} \\, \\frac{dx}{x} f_i(x) f_j(\\tau/x) \\hat\\sigma(\\rshat) \\; , \\end{equation} where ${\\hat s} =x_1 x_2 s$, and, as discussed above, $\\hat\\sigma(\\rshat)=\\pi R^2(\\rshat)/4 $, $M_{min}=3 M_D$, and \\begin{equation} \\tau=x_1 x_2 > \\tau_{min}=M_{min}^2/(y^2 s) \\; . \\end{equation} $x_{1,2}$ are the momentum fractions of the colliding nucleons carried by the partons $i$ and $j$, which are taken to span the full set of quarks, antiquarks and gluons. For the numerical evaluations throughout this work we shall use the CTEQ6M set of parton distribution functions~\\cite{Pumplin:2002vw}, calcula",
+      "route_signature": [
+        "constraint_closure",
+        "transport_flow",
+        "spectral_operator"
+      ],
+      "constructor_roles": [
+        "operator_apparatus",
+        "real_substrate_geometry",
+        "selector"
+      ],
+      "case_categories": [
+        "accretion_growth",
+        "astrophysical_bound",
+        "black_hole",
+        "capture_stopping",
+        "collider_threshold",
+        "evaporation_branch",
+        "safety_risk"
+      ],
+      "case_branches": [
+        "astrophysical_black_hole_analogue",
+        "production_threshold_branch"
+      ]
+    },
+    {
+      "node_id": "E00455",
+      "source_id": "0901.2948",
+      "source_title": "Possibility of Catastrophic Black Hole Growth in the Warped Brane-World Scenario at the LHC",
+      "source_url": "https://arxiv.org/abs/0901.2948",
+      "source_equation_ordinal": 52,
+      "source_start": 22834,
+      "source_end": 23023,
+      "formula": "\\left.\\frac{\\ud M}{\\ud t}\\right|_{\\rm evap} \\simeq -\\frac{g_{\\rm eff}}{960\\, \\pi\\,\\lp}\\left(\\frac{\\mpl}{\\mc}\\right)^3 \\frac{M^2(t)}{\\sqrt{M^2(t)+p^2(t)}} \\ .",
+      "source_context": "rac{\\ud M}{\\ud t}\\right|_{\\rm evap} +\\left. \\frac{\\ud M}{\\ud t}\\right|_{\\rm acc} \\ . \\label{dMdt} \\end{eqnarray} The decay rate in the reference frame of the Earth is obtained from Eq.~\\eqref{evap5}, \\begin{eqnarray} \\left.\\frac{\\ud M}{\\ud t}\\right|_{\\rm evap} \\simeq -\\frac{1}{\\gamma} \\left.\\frac{\\ud M}{\\ud \\tau}\\right|_{\\rm evap} \\ , \\label{evap} \\end{eqnarray} where $\\gamma$ is the relativistic factor for a point-particle of mass $M$ and three-momentum of magnitude $p$, \\begin{eqnarray} \\gamma = \\frac{1}{\\sqrt{1-\\beta^2}} = \\frac{\\sqrt{M^2 + p^2}}{M} \\ . \\end{eqnarray} Inserting this expression for $\\gamma$ and that for $C$ in terms of $\\mc$ [see Eq.~\\eqref{C}] into Eq.~\\eqref{evap} gives \\begin{eqnarray} \\left.\\frac{\\ud M}{\\ud t}\\right|_{\\rm evap} \\simeq -\\frac{g_{\\rm eff}}{960\\, \\pi\\,\\lp}\\left(\\frac{\\mpl}{\\mc}\\right)^3 \\frac{M^2(t)}{\\sqrt{M^2(t)+p^2(t)}} \\ . \\end{eqnarray} The accretion rate is given in general by Eq~\\eqref{acc}. For sub-atomic growth and $p>0$, the accretion rate is \\begin{eqnarray} \\left.\\frac{\\ud M}{\\ud t}\\right|_{\\rm acc} = \\pi\\, \\rho\\, v(t)\\, \\rem^2 \\ , \\end{eqnarray} where $\\rho\\simeq 5.5\\cdot 10^3\\,$kg$/$m$^3$ is the Earth's mean density and $\\rem$ is given by Eq.~\\eqref{Cem} expressed in terms of a time-dependent mass $M=M(t)$. \\par Finally, the time-evolution of the momentum in the Earth frame is described by the equation \\begin{eqnarray} \\frac{\\ud",
+      "route_signature": [
+        "constraint_closure",
+        "commutator_incompatibility"
+      ],
+      "constructor_roles": [
+        "real_substrate_geometry",
+        "selector"
+      ],
+      "case_categories": [
+        "accretion_growth",
+        "astrophysical_bound",
+        "black_hole",
+        "collider_threshold",
+        "evaporation_branch"
+      ],
+      "case_branches": []
+    },
+    {
+      "node_id": "E00124",
+      "source_id": "0806.3381",
+      "source_title": "Astrophysical implications of hypothetical stable TeV-scale black holes",
+      "source_url": "https://arxiv.org/abs/0806.3381",
+      "source_equation_ordinal": 115,
+      "source_start": 82615,
+      "source_end": 82905,
+      "formula": "\\left({dp\\over dt}\\right)_{ac} &=& n \\pi[\\bhm R({\\sqrt s})]^2 \\Delta p \\;, \\\\ \\left({dM\\over dt}\\right)_{ac} &=& n \\pi [\\bhm R({\\sqrt s})]^2 \\Delta M \\;,",
+      "source_context": "effects significantly reduce $\\cacm$, below an energy threshold $E_p'\\sim \\alpha_s/R$. Notice that any energy that is not absorbed must be re-rediated, thus contributing to black hole momentum loss. } Back in the star frame, the momentum change will then be \\begin{equation} \\Delta p = \\cac p_p - (\\cac-\\cacm){E^2\\over M^2} (E_p-p_p) \\end{equation} where the terms proportional to $p_p$ contribute zero when averaged over different parton momenta. One can combine these equations with the capture cross section to determine the accretion contribution to the momentum and mass variation. For a black hole of velocity $v\\sim 1$ in a matter distribution with parton density $n$, one finds: \\begin{eqnarray}\\label{pacevol} \\left({dp\\over dt}\\right)_{ac} &=& n \\pi[\\bhm R({\\sqrt s})]^2 \\Delta p %nv\\int_0^{\\bhm R} \\pi db^2 \\Delta p \\;, \\\\ \\label{Macevol} \\left({dM\\over dt}\\right)_{ac} &=& n \\pi [\\bhm R({\\sqrt s})]^2 \\Delta M %\\int_0^{\\bhm R} \\pi db^2 \\Delta M \\;, \\end{eqnarray} where \\begin{equation}\\label{sdef} s=M^2+2(EE_p - pp_p) + m_p^2\\ . \\end{equation} This leads to the following evolution as a function of path length $\\ell$: \\begin{equation}\\label{acloss} \\left({dp\\over d\\ell}\\right)_{ac} = - (\\cac-\\cacm)\\bhm^2 \\pi\\rho{E^2\\over M^2} R^2(\\sqrt s)\\ , \\end{equation} \\begin{equation}\\label{mgain} \\left({dM\\over d\\ell}\\right)_{ac} = \\cacm \\bhm^2 \\pi\\rho {E\\over M} R^2(\\sqrt s)\\ , \\end{equatio",
+      "route_signature": [
+        "transport_flow",
+        "constraint_closure",
+        "spectral_operator"
+      ],
+      "constructor_roles": [
+        "operator_apparatus",
+        "real_substrate_geometry",
+        "selector"
+      ],
+      "case_categories": [
+        "accretion_growth",
+        "astrophysical_bound",
+        "black_hole",
+        "capture_stopping",
+        "collider_threshold",
+        "evaporation_branch",
+        "safety_risk"
+      ],
+      "case_branches": [
+        "direct_lhc_safety",
+        "evaporation_branch",
+        "stable_growth_or_capture_branch",
+        "production_threshold_branch"
+      ]
+    },
+    {
+      "node_id": "E00149",
+      "source_id": "0806.3381",
+      "source_title": "Astrophysical implications of hypothetical stable TeV-scale black holes",
+      "source_url": "https://arxiv.org/abs/0806.3381",
+      "source_equation_ordinal": 140,
+      "source_start": 91184,
+      "source_end": 91342,
+      "formula": "{dp\\over d\\ell} &=& -(\\cac-\\cacm) \\bhm^2 \\pi\\rho R^2\\\\ {dM\\over d\\ell}&=& \\cacm \\bhm^2 \\pi\\rho {R^2\\over v}\\ .",
+      "source_context": "regime $v\\gsim.02$, these radii are all less than or of order $r_N$ (see Appendix~\\ref{app:accretion}), so the capture is dominantly subnuclear. As the black hole moves through the stellar material, it collides with nucleons at a rate \\begin{equation}\\label{nuccolrat} {dn\\over dl} = \\pi {\\rho\\over m_p} r_N^2\\ . \\end{equation} When a collision occurs, it moves non-relativistically through the nucleon. As it does so, it is bombarded by the relativistic partons within the nucleon. The average mass and momentum collected during such a transit is given using (\\ref{pacevol}), (\\ref{Macevol}), times the average time $\\Delta t = 4r_n/3v$ of the transit; combining with (\\ref{nuccolrat}) gives \\begin{eqnarray} {dp\\over d\\ell} &=& -(\\cac-\\cacm) \\bhm^2 \\pi\\rho R^2\\\\ \\label{Mnrevol} {dM\\over d\\ell}&=& \\cacm \\bhm^2 \\pi\\rho {R^2\\over v}\\ . \\end{eqnarray} Note two possible caveats to these formulas. First, in a collision with a single nucleon, $\\Delta M$ cannot be bigger than $m_p$. We show that this is true in Appendix~\\ref{app:accretion}. Second, there could be enhancements of $\\Delta M$ due to the fact that if the black hole captures a parton, the QCD string can pull in more energy, whether or not it breaks. (Moreover, since most of the nucleons are in nuclei, it may even be that it pulls in more of the nucleus.) Indeed, one might expect a minimum energy captured of $\\sim 100$~MeV if the BH",
+      "route_signature": [
+        "transport_flow",
+        "spectral_operator"
+      ],
+      "constructor_roles": [
+        "operator_apparatus",
+        "real_substrate_geometry",
+        "selector"
+      ],
+      "case_categories": [
+        "accretion_growth",
+        "astrophysical_bound",
+        "black_hole",
+        "capture_stopping",
+        "collider_threshold",
+        "evaporation_branch",
+        "safety_risk"
+      ],
+      "case_branches": [
+        "direct_lhc_safety",
+        "stable_growth_or_capture_branch",
+        "production_threshold_branch"
+      ]
+    },
+    {
+      "node_id": "E00179",
+      "source_id": "0806.3381",
+      "source_title": "Astrophysical implications of hypothetical stable TeV-scale black holes",
+      "source_url": "https://arxiv.org/abs/0806.3381",
+      "source_equation_ordinal": 170,
+      "source_start": 112100,
+      "source_end": 112485,
+      "formula": "t(R_B<R_D) &=& 1.3\\times 10^5 \\,\\frac{1}{\\lambda_7} \\left({M_D\\over M_0}\\right)^{5/3} \\yr\\ ,\\ \\ \\quad\\quad\\quad D=7\\\\ t(R_D<R_B<R_C) &=& 6 \\times 10^7\\,\\frac{1}{\\lambda_4} \\left({M_D\\over M_0}\\right)^{5/3}\\yr\\ ,\\ \\ \\quad\\quad\\quad D=7\\\\ t(R_B>R_C) &=& 1.9\\times 10^6\\,\\frac{1}{\\lambda_4}\\left({M_D\\over M_0}\\right)^{5/3} \\yr\\ ,\\ \\ \\quad\\quad\\quad D=7\\ .",
+      "source_context": "are determined by the white dwarf parameters (for a $M=M_\\odot$ white dwarf~\\cite{Shen}) $d_0\\approx 1.4\\times 10^{-6} s$ and $c_s\\approx 1.4\\times 10^{-2}$. The combination $d_0 \\, c_s$ has a value that is approximately $1.5\\times 10^{-4}$ times the Earth's value (\\ref{Birch}). The resulting time scales will therefore be comparatively shorter: \\begin{eqnarray} t(R_B<R_D) &=& 8\\,\\frac{1}{\\lambda_6} \\left({M_D\\over M_0}\\right)^2 \\yr\\ ,\\ \\ \\quad\\quad\\quad D=6\\\\ t(R_D<R_B<R_C) &=& 4\\times 10^2\\,\\frac{1}{\\lambda_4} \\left({M_D\\over M_0}\\right)^2 \\yr\\ ,\\ \\ \\quad\\quad\\quad D=6\\\\ t(R_B>R_C) &=& 15\\,\\frac{1}{\\lambda_4} \\left({M_D\\over M_0}\\right)^2 \\yr\\ ,\\ \\ \\quad\\quad\\quad D=6 \\end{eqnarray} \\begin{eqnarray} t(R_B<R_D) &=& 1.3\\times 10^5 \\,\\frac{1}{\\lambda_7} \\left({M_D\\over M_0}\\right)^{5/3} \\yr\\ ,\\ \\ \\quad\\quad\\quad D=7\\\\ t(R_D<R_B<R_C) &=& 6 \\times 10^7\\,\\frac{1}{\\lambda_4} \\left({M_D\\over M_0}\\right)^{5/3}\\yr\\ ,\\ \\ \\quad\\quad\\quad D=7\\\\ t(R_B>R_C) &=& 1.9\\times 10^6\\,\\frac{1}{\\lambda_4}\\left({M_D\\over M_0}\\right)^{5/3} \\yr\\ ,\\ \\ \\quad\\quad\\quad D=7\\ . \\end{eqnarray} Taking the largest value of relevance for the LHC, $M_D\\sim 4.7$~TeV, and using the value of $\\lambda_{D}$ appropriate for a relativistic electron gas, the longest possible phase of the evolution in $D=7$ does not exceed 80 million years. We recall that, in this largest-$M$ condition, the Earth's lifetime for $D=7$ exce",
+      "route_signature": [
+        "spectral_operator",
+        "constraint_closure"
+      ],
+      "constructor_roles": [
+        "operator_apparatus",
+        "readout_current",
+        "real_substrate_geometry",
+        "selector"
+      ],
+      "case_categories": [
+        "accretion_growth",
+        "astrophysical_bound",
+        "black_hole",
+        "capture_stopping",
+        "collider_threshold",
+        "evaporation_branch",
+        "safety_risk"
+      ],
+      "case_branches": []
+    },
+    {
+      "node_id": "E00202",
+      "source_id": "0806.3381",
+      "source_title": "Astrophysical implications of hypothetical stable TeV-scale black holes",
+      "source_url": "https://arxiv.org/abs/0806.3381",
+      "source_equation_ordinal": 193,
+      "source_start": 133986,
+      "source_end": 134006,
+      "formula": "t_{NS,w}\\sim 20\\yr",
+      "source_context": "l value $\\rho=2\\times 10^{14}\\gr/\\cm^2$ gives $d_0=7\\times 10^{-3}s$, and the speed of sound is of magnitude $c_s\\sim 0.1$. The time scales are therefore about $10^{-6}$ times smaller than those of the white dwarf. The longest evolution corresponds to the 4-dimensional phase from $R_D$ to $R_C$ in $D=11$ dimensions, with a time scale of $\\sim10$ million years; for $D\\leq7$, times are $\\lsim 50 \\yr$. In the more general warped case, the growth times are, as in the white dwarf case, dominated by the upper end of the warped phase and its crossover to four-dimensional accretion, with time scale (\\ref{Bwarpt}). For neutron star parameters and a value $R_C\\geq 5$~\\AA, this yields times of size $t_{NS,w}\\sim 20\\yr$. Combining the results of this and the preceding subsections, we find that the rate-limiting step to destroy a neutron star is the time required for a black hole to be produced and reach the surface of the neutron star. Once it reaches the core, the accretion times are very rapid compared to the neutron star's lifetime, ${\\cal O}$(Gyr). These bounds appear quite challenging to avoid. In order to do so, one would need a significant deficit of light cosmic ray primaries, together with a heavy ($\\gsim 7\\,\\tev$) minimum black hole mass and only systems with low $FCE$, {\\it and} one would have to have a neutrino flux that is either suppressed by unknown mechanisms or is unusuall",
+      "route_signature": [
+        "constraint_closure",
+        "spectral_operator",
+        "commutator_incompatibility",
+        "transport_flow"
+      ],
+      "constructor_roles": [
+        "operator_apparatus",
+        "real_substrate_geometry",
+        "selector"
+      ],
+      "case_categories": [
+        "accretion_growth",
+        "astrophysical_bound",
+        "black_hole",
+        "capture_stopping",
+        "collider_threshold",
+        "evaporation_branch",
+        "safety_risk"
+      ],
+      "case_branches": [
+        "direct_lhc_safety",
+        "evaporation_branch",
+        "stable_growth_or_capture_branch",
+        "production_threshold_branch"
+      ]
+    }
+  ],
+  "proof_checks": {
+    "source_claim_provenance_present": true,
+    "citation_provenance_present": true,
+    "authorship_provenance_present": true,
+    "typed_equation_receipts_present": true,
+    "equation_graph_attention_present": true,
+    "constructor_transitions_complete": false,
+    "constructor_branch_closed": false
+  },
+  "benchmark": {
+    "source_coverage": 1.0,
+    "receipt_coverage": 1.0,
+    "failed_receipts": []
+  },
+  "artifact_index": {
+    "manifest": "runs/lhc_black_hole_audit_revised/manifest.json",
+    "screen_manifest": "runs/lhc_black_hole_audit_500k_strict/manifest.json",
+    "equation_graph": "runs/lhc_black_hole_audit_revised/equation_mechanism_graph.json",
+    "constructor": "runs/lhc_black_hole_audit_revised/physical_constructor.json",
+    "knowledge_graph": "runs/lhc_black_hole_audit_revised/public_knowledge_graph.json",
+    "benchmark": "runs/lhc_black_hole_audit_revised/lhc_gold_benchmark.json",
+    "comparison": "runs/lhc_black_hole_audit_revised/discourse_vs_mechanism_attention.json",
+    "sparse_attention": "runs/lhc_black_hole_audit_revised/sparse_attention_audit.json"
+  },
+  "supporting_article": "paper/lhc_black_hole_answer.pdf",
+  "submission_packet": "paper/lhc_epistack_submission_packet.pdf"
+}

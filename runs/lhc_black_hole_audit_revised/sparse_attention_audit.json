@@ -47,16 +47,16 @@
         "transport_flow"
       ],
       "hub_penalty": 2.449489742783178,
-      "rarity_weight": 1.957479593964558,
+      "rarity_weight": 1.9574795939645582,
       "transition_information": 1.828831426545569,
-      "raw_attention": 1.396699329460908,
+      "raw_attention": 1.3966993294609085,
       "source_receipt_grades": [
         "net_positive_growth:direct_collider_receipt"
       ],
       "target_receipt_grades": [
         "net_positive_growth:direct_collider_receipt"
       ],
-      "attention": 0.028427731909691195
+      "attention": 0.028427731909691206
     },
     {
       "source": "E00292",
@@ -126,14 +126,14 @@
         "transport_flow"
       ],
       "hub_penalty": 2.0,
-      "rarity_weight": 2.176174209214758,
+      "rarity_weight": 2.1761742092147585,
       "transition_information": 1.828831426545569,
-      "raw_attention": 1.28160652075883,
+      "raw_attention": 1.2816065207588303,
       "source_receipt_grades": [
         "net_positive_growth:direct_collider_receipt"
       ],
       "target_receipt_grades": [],
-      "attention": 0.026085189430073274
+      "attention": 0.026085189430073277
     },
     {
       "source": "E00455",
@@ -152,7 +152,7 @@
       ],
       "removed_routes": [],
       "hub_penalty": 2.449489742783178,
-      "rarity_weight": 1.957479593964558,
+      "rarity_weight": 1.9574795939645582,
       "transition_information": 1.5651135873797635,
       "raw_attention": 1.170320291368911,
       "source_receipt_grades": [
@@ -207,7 +207,7 @@
         "constraint_closure"
       ],
       "hub_penalty": 2.0,
-      "rarity_weight": 1.957479593964558,
+      "rarity_weight": 1.9574795939645582,
       "transition_information": 2.3498456005493527,
       "raw_attention": 1.1360142593663405,
       "source_receipt_grades": [
@@ -236,14 +236,14 @@
         "transport_flow"
       ],
       "hub_penalty": 2.449489742783178,
-      "rarity_weight": 1.957479593964558,
+      "rarity_weight": 1.9574795939645582,
       "transition_information": 1.828831426545569,
-      "raw_attention": 1.0809926439071613,
+      "raw_attention": 1.0809926439071615,
       "source_receipt_grades": [
         "net_positive_growth:candidate_transfer_receipt"
       ],
       "target_receipt_grades": [],
-      "attention": 0.022001993148519774
+      "attention": 0.02200199314851978
     },
     {
       "source": "E00208",
@@ -290,14 +290,14 @@
         "spectral_operator"
       ],
       "hub_penalty": 2.0,
-      "rarity_weight": 1.957479593964558,
+      "rarity_weight": 1.9574795939645582,
       "transition_information": 2.147874394619263,
-      "raw_attention": 1.0252044559992812,
+      "raw_attention": 1.0252044559992814,
       "source_receipt_grades": [],
       "target_receipt_grades": [
         "net_positive_growth:direct_collider_receipt"
       ],
-      "attention": 0.020866507782328025
+      "attention": 0.020866507782328028
     },
     {
       "source": "E00449",
@@ -317,14 +317,14 @@
         "spectral_operator"
       ],
       "hub_penalty": 2.0,
-      "rarity_weight": 1.957479593964558,
+      "rarity_weight": 1.9574795939645582,
       "transition_information": 2.147874394619263,
-      "raw_attention": 1.0252044559992812,
+      "raw_attention": 1.0252044559992814,
       "source_receipt_grades": [],
       "target_receipt_grades": [
         "net_positive_growth:direct_collider_receipt"
       ],
-      "attention": 0.020866507782328025
+      "attention": 0.020866507782328028
     },
     {
       "source": "E00126",
@@ -468,14 +468,14 @@
       "introduced_routes": [],
       "removed_routes": [],
       "hub_penalty": 2.0,
-      "rarity_weight": 1.957479593964558,
+      "rarity_weight": 1.9574795939645582,
       "transition_information": 0.0,
-      "raw_attention": 0.9212036224283437,
+      "raw_attention": 0.9212036224283439,
       "source_receipt_grades": [],
       "target_receipt_grades": [
         "net_positive_growth:candidate_transfer_receipt"
       ],
-      "attention": 0.018749725914694305
+      "attention": 0.018749725914694308
     },
     {
       "source": "E00178",
@@ -676,7 +676,7 @@
         "spectral_operator"
       ],
       "hub_penalty": 2.449489742783178,
-      "rarity_weight": 1.957479593964558,
+      "rarity_weight": 1.9574795939645582,
       "transition_information": 2.147874394619263,
       "raw_attention": 0.7698613802499666,
       "source_receipt_grades": [
@@ -1060,7 +1060,7 @@
     {
       "node_id": "E00456",
       "source_id": "0901.2948",
-      "attention": 0.0314349692139955,
+      "attention": 0.03143496921399551,
       "routes": [
         "commutator_incompatibility",
         "constraint_closure",
@@ -1115,7 +1115,7 @@
     {
       "node_id": "E00440",
       "source_id": "0901.2948",
-      "attention": 0.02347584860620065,
+      "attention": 0.023475848606200653,
       "routes": [
         "commutator_incompatibility",
         "constraint_closure",
@@ -1129,7 +1129,7 @@
     {
       "node_id": "E00457",
       "source_id": "0901.2948",
-      "attention": 0.022048556093136894,
+      "attention": 0.022048556093136898,
       "routes": [
         "commutator_incompatibility",
         "constraint_closure",
@@ -1202,7 +1202,7 @@
     {
       "node_id": "E00080",
       "source_id": "0806.3381",
-      "attention": 0.02037585953160704,
+      "attention": 0.020375859531607046,
       "routes": [
         "commutator_incompatibility",
         "constraint_closure",
@@ -1232,7 +1232,7 @@
     {
       "node_id": "E00451",
       "source_id": "0901.2948",
-      "attention": 0.01897174376936886,
+      "attention": 0.018971743769368863,
       "routes": [
         "commutator_incompatibility",
         "constraint_closure",
@@ -1512,7 +1512,7 @@
     {
       "node_id": "E00441",
       "source_id": "0901.2948",
-      "attention": 0.013042594715036637,
+      "attention": 0.013042594715036639,
       "routes": [
         "commutator_incompatibility",
         "constraint_closure"
@@ -1571,7 +1571,7 @@
     {
       "node_id": "E00081",
       "source_id": "0806.3381",
-      "attention": 0.011000996574259887,
+      "attention": 0.01100099657425989,
       "routes": [
         "commutator_incompatibility",
         "constraint_closure",
@@ -1642,12 +1642,12 @@
     {
       "source_route": "constraint_closure",
       "target_route": "commutator_incompatibility",
-      "attention": 0.025665576582640917
+      "attention": 0.025665576582640924
     },
     {
       "source_route": "commutator_incompatibility",
       "target_route": "constraint_closure",
-      "attention": 0.025614183582408544
+      "attention": 0.025614183582408547
     },
     {
       "source_route": "constraint_closure",
@@ -1662,12 +1662,12 @@
     {
       "source_route": "commutator_incompatibility",
       "target_route": "commutator_incompatibility",
-      "attention": 0.018705089320124022
+      "attention": 0.018705089320124026
     },
     {
       "source_route": "spectral_operator",
       "target_route": "commutator_incompatibility",
-      "attention": 0.018595841287768516
+      "attention": 0.01859584128776852
     },
     {
       "source_route": "boundary_weak_form",
@@ -1677,7 +1677,7 @@
     {
       "source_route": "commutator_incompatibility",
       "target_route": "spectral_operator",
-      "attention": 0.01631145195519358
+      "attention": 0.016311451955193585
     },
     {
       "source_route": "transport_flow",
@@ -1697,7 +1697,7 @@
     {
       "source_route": "transport_flow",
       "target_route": "commutator_incompatibility",
-      "attention": 0.011869763738980944
+      "attention": 0.011869763738980946
     },
     {
       "source_route": "boundary_weak_form",
@@ -1726,17 +1726,17 @@
     },
     {
       "source_route": "discrete_protocol",
-      "target_route": "constraint_closure",
-      "attention": 0.0014701021638704936
-    },
-    {
-      "source_route": "discrete_protocol",
       "target_route": "transport_flow",
       "attention": 0.0014701021638704936
     },
     {
       "source_route": "discrete_protocol",
       "target_route": "spectral_operator",
+      "attention": 0.0014701021638704936
+    },
+    {
+      "source_route": "discrete_protocol",
+      "target_route": "constraint_closure",
       "attention": 0.0014701021638704936
     }
   ]

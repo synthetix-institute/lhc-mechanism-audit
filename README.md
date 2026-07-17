@@ -1,8 +1,18 @@
 # Can the LHC produce a dangerous black hole?
 
-This repository reconstructs the physical argument from equations in the scientific literature. The result is a fully generated paper with a provenance graph, an equation graph, a six-condition physical constructor, sparse graph attention, vector figures and an independent comparison with the CERN Safety Study Group report.
+This repository reconstructs the LHC black-hole safety argument from equations in the scientific literature. The generated article is written for non-specialists: it explains why the question arose, follows the six physical conditions required for danger, defines every displayed variable, shows where the equations come from and compares the result with the independently written CERN Safety Study Group report.
 
-[Read the generated PDF](paper/lhc_black_hole_answer.pdf)
+[Read the complete submission packet](paper/lhc_epistack_submission_packet.pdf).
+Its first ten pages are a judge-facing explanation; the full fourteen-page
+scientific article follows in the same file.
+
+Competition judges can start with the shorter
+[judge's guide](paper/lhc_judges_guide.pdf). It follows one source equation
+through every intermediate representation and maps the result directly to the
+Epistack judging criteria. The [judge route](JUDGES.md) lists the most useful
+files and a dependency-free five-minute demo.
+
+The first map in the article shows who wrote, cited and claimed what. The second follows the calculations themselves: production, evaporation, stopping, mass growth, growth time and the compact-star test. Keeping these maps separate makes it possible to distinguish a widely repeated statement from a physically connected derivation.
 
 ## Result
 
@@ -21,7 +31,8 @@ The independent CERN report follows the same branch order and reaches the same s
 
 ## Evidence
 
-The case build combines two source layers:
+The Hyperion operational archive contains 2.5 million arXiv papers. The public
+LHC case build uses two source layers drawn from that larger corpus:
 
 - a broad screen of 500,000 records from the Hyperion arXiv mirror, which retained 492 case-related source records;
 - complete source packages for six primary LHC-safety papers, including four papers absent from the screened prefix.
@@ -62,6 +73,18 @@ Branch closure requires:
 - an equation path in the source graph for each required transition.
 
 ## Build the paper from static artifacts
+
+Build the complete competition packet from the committed artifacts:
+
+```bash
+bash scripts/build_submission_packet.sh
+```
+
+This writes `paper/lhc_epistack_submission_packet.pdf`, with the ten-page core
+followed by the fourteen-page article. Set `REBUILD_ARTICLE=1` to regenerate the
+article and its figures before assembly.
+
+## Build the full article
 
 The committed static run contains the graph evidence needed to regenerate the constructor, sparse attention, figures, TeX and PDF:
 

@@ -1,0 +1,19 @@
+Question: Could the Large Hadron Collider produce a dangerous microscopic black hole?
+
+Use primary scientific sources. Give a direct answer, then return the following
+intermediate outputs in a machine-readable table:
+
+1. Every physical condition required between one collider event and a dangerous
+   macroscopic outcome.
+2. At least one source equation for each active condition.
+3. Definitions of every variable used in those equations.
+4. The source paper and equation position for each receipt.
+5. Which equations are connected in source order inside the same paper.
+6. Every transfer from one physical environment to another, including the
+   parameters and boundary conditions that change.
+7. The exact part of the answer that changes under this counterfactual:
+   assume Hawking evaporation is absent.
+
+Separate documentary evidence (who claimed or cited what) from physical
+dependencies (which calculated quantity is required by the next step). Mark any
+condition that lacks a source-supported equation path.

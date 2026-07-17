@@ -1,7 +1,7 @@
 {
   "report_type": "lhc_provenance_mechanism_comparison",
   "readiness": "usable",
-  "source_run": "runs/lhc_black_hole_audit_revised",
+  "source_run": "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/runs/lhc_black_hole_audit_revised",
   "provenance_graph": {
     "node_type_counts": {
       "paper": 496,
@@ -290,7 +290,7 @@
           "transport_flow"
         ],
         "hub_penalty": 2.8284271247461903,
-        "rarity_weight": 2.0224286754167835,
+        "rarity_weight": 2.022428675416783,
         "transition_information": 2.5711137178219152,
         "raw_attention": 1.0696197007698867,
         "source_receipt_grades": [
@@ -422,14 +422,14 @@
         "introduced_routes": [],
         "removed_routes": [],
         "hub_penalty": 2.0,
-        "rarity_weight": 2.0224286754167835,
+        "rarity_weight": 2.022428675416783,
         "transition_information": 0.0,
-        "raw_attention": 1.0047963695166382,
+        "raw_attention": 1.004796369516638,
         "source_receipt_grades": [],
         "target_receipt_grades": [
           "stopping_capture:candidate_transfer_receipt"
         ],
-        "attention": 0.02045113161719283
+        "attention": 0.020451131617192825
       },
       {
         "source": "E00228",
@@ -604,14 +604,14 @@
         "introduced_routes": [],
         "removed_routes": [],
         "hub_penalty": 2.449489742783178,
-        "rarity_weight": 2.0224286754167835,
+        "rarity_weight": 2.022428675416783,
         "transition_information": 0.0,
-        "raw_attention": 0.8180061364692397,
+        "raw_attention": 0.8180061364692395,
         "source_receipt_grades": [
           "net_positive_growth:direct_collider_receipt"
         ],
         "target_receipt_grades": [],
-        "attention": 0.016649294989641985
+        "attention": 0.01664929498964198
       },
       {
         "source": "E00180",
@@ -1073,8 +1073,8 @@
         ],
         "removed_routes": [],
         "hub_penalty": 2.0,
-        "rarity_weight": 2.0224286754167835,
-        "transition_information": 2.2026869072174895,
+        "rarity_weight": 2.022428675416783,
+        "transition_information": 2.20268690721749,
         "raw_attention": 0.6505031652268018,
         "source_receipt_grades": [],
         "target_receipt_grades": [
@@ -1420,7 +1420,7 @@
       {
         "node_id": "E00413",
         "source_id": "0901.2948",
-        "attention": 0.014944658401037533,
+        "attention": 0.01494465840103753,
         "routes": [
           "boundary_weak_form",
           "commutator_incompatibility",
@@ -1709,17 +1709,17 @@
       {
         "source_route": "transport_flow",
         "target_route": "boundary_weak_form",
-        "attention": 0.015246297350187314
+        "attention": 0.01524629735018731
       },
       {
         "source_route": "spectral_operator",
         "target_route": "boundary_weak_form",
-        "attention": 0.01504813841993898
+        "attention": 0.015048138419938977
       },
       {
         "source_route": "commutator_incompatibility",
         "target_route": "transport_flow",
-        "attention": 0.013269170656320625
+        "attention": 0.013269170656320623
       },
       {
         "source_route": "transport_flow",
@@ -1753,12 +1753,12 @@
       },
       {
         "source_route": "discrete_protocol",
-        "target_route": "transport_flow",
+        "target_route": "constraint_closure",
         "attention": 0.0014701021638704936
       },
       {
         "source_route": "discrete_protocol",
-        "target_route": "constraint_closure",
+        "target_route": "transport_flow",
         "attention": 0.0014701021638704936
       },
       {

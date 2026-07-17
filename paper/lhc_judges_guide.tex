@@ -1,0 +1,336 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.72in]{geometry}
+\usepackage{amsmath,amssymb,booktabs,array,tabularx,graphicx,microtype,xcolor,enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{caption,float,placeins}
+\hypersetup{
+  pdftitle={Two Maps of Scientific Reasoning: A Judge's Guide},
+  pdfauthor={Synthetix Institute},
+  pdfsubject={Worked LHC black-hole case for the Epistack competition}
+}
+\captionsetup{font=footnotesize,labelfont=bf,justification=raggedright,singlelinecheck=false}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.52em}
+\setlist{nosep,leftmargin=1.25em}
+\renewcommand{\arraystretch}{1.12}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\definecolor{ink}{HTML}{1F2D3A}
+\definecolor{green}{HTML}{226B54}
+\definecolor{greenbg}{HTML}{E5F1EC}
+\definecolor{blue}{HTML}{315B7D}
+\definecolor{bluebg}{HTML}{EAF0F5}
+\definecolor{amber}{HTML}{8A5A19}
+\definecolor{amberbg}{HTML}{F6EEDD}
+\definecolor{rulegray}{HTML}{CBD4DA}
+\newcommand{\ud}{\mathrm{d}}
+\newcommand{\repo}{\href{https://github.com/synthetix-institute/lhc-mechanism-audit}{public repository}}
+\newcommand{\sourcefile}[2]{\href{https://github.com/synthetix-institute/lhc-mechanism-audit/blob/main/#1}{\texttt{#2}}}
+\newcommand{\resultbox}[1]{%
+  \par\smallskip\noindent\begingroup\setlength{\fboxsep}{9pt}%
+  \colorbox{greenbg}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{\color{ink}\textbf{Case result.} #1}}%
+  \endgroup\par\smallskip}
+\newcommand{\judgebox}[1]{%
+  \par\smallskip\noindent\begingroup\setlength{\fboxsep}{8pt}%
+  \colorbox{bluebg}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{\color{ink}#1}}%
+  \endgroup\par\smallskip}
+\newcommand{\receiptbox}[1]{%
+  \par\smallskip\noindent\begingroup\setlength{\fboxsep}{8pt}%
+  \colorbox{amberbg}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{\color{ink}#1}}%
+  \endgroup\par\smallskip}
+\input{paper/generated/judge_numbers.tex}
+
+\title{\vspace{-1.5em}\textbf{Two Maps of Scientific Reasoning}\\[0.35em]
+\large A worked answer to the LHC black-hole question\\[0.3em]
+\normalsize Core submission (Part I)}
+\author{Synthetix Institute}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-1.6em}
+
+\begin{abstract}
+Scientific papers contain a documentary map of authors, claims and citations. They also contain a second map: the sequence of physical operations by which one measured or calculated quantity produces another. A conventional deep-research workflow reconstructs the first map and summarizes it in prose. This submission reconstructs both. In the LHC case, the documentary map records arguments for and against microscopic black-hole safety. The equation map asks a harder question: can any single set of assumptions carry a collision through production, survival, capture, sustained growth, rapid growth and compatibility with long-lived compact stars? The reconstructed literature contains no such path. Standard microscopic black holes evaporate; stable alternatives meet stopping, growth-time and astronomical constraints. Every step below links to a source equation, its variables, its place in the paper and the graph edge that uses it.
+\end{abstract}
+
+\resultbox{The processed literature supports the conclusion that the LHC cannot produce a dangerous black hole within the quantitative model classes it studies. Two independent physical branches reach that result: rapid evaporation for ordinary microscopic black holes, and compact-star constraints for hypothetical stable ones.}
+
+The preliminary review asked for ``concrete receipts'' and ``intermediate outputs available and interrogable at each stage.'' This guide is organized around one receipt chain. The full derivation, twelve-equation benchmark and vector graphs are in the accompanying \href{https://github.com/synthetix-institute/lhc-mechanism-audit/blob/main/paper/lhc_black_hole_answer.pdf}{technical article}.
+
+\judgebox{\textbf{Five-minute path for judges.} Read Fig.~\ref{fig:gates}; inspect the receipt on pp.~\pageref{sec:receipt}--\pageref{sec:receipt-end}; compare the two maps in Figs.~\ref{fig:provenance} and \ref{fig:mechanism}; then run \texttt{bash scripts/run\_judge\_demo.sh}. The dependency-free command propagates the Hawking counterfactual through the committed graph receipts.}
+
+\section{The question becomes six testable conditions}
+
+Between a particle collision and a catastrophe lie six required events. The collision must produce a microscopic black hole; the object must survive; matter must stop it; mass intake must exceed mass loss; the positive rate must persist long enough to matter; and the same assumptions must agree with the continued existence of white dwarfs and neutron stars exposed to natural high-energy collisions.
+
+Writing the feared outcome as
+\begin{equation}
+\mathcal D=P\land S\land C\land G\land T\land A
+\label{eq:danger}
+\end{equation}
+makes the logic explicit. $\mathcal D$ denotes a dangerous macroscopic outcome. $P$, $S$, $C$, $G$, $T$ and $A$ denote production, survival, capture, positive growth, growth within the available time and astronomical compatibility. The symbol $\land$ means that every condition is required. A failure at one gate ends that branch.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{paper/figures/lhc_physical_constructor.pdf}
+\caption{The physical argument in one view. The upper branch ends when Hawking radiation removes mass faster than matter can be captured. The lower branch grants stability and tests the more conservative scenario against stopping, accretion, growth time and compact-star survival.}
+\label{fig:gates}
+\end{figure}
+
+This representation changes the meaning of a ``crux.'' A verbal debate may treat Hawking evaporation as the crux because one side questions it. Equation~\eqref{eq:danger} shows that suppressing evaporation changes one gate. It opens the stable-object branch while leaving momentum loss, mass balance, integration over time and astronomical observation to be tested.
+
+\section{One receipt from source to conclusion}
+\label{sec:receipt}
+
+The receipt chain below shows what the software retained at each stage. The identifiers refer to nodes in the \sourcefile{runs/lhc_black_hole_audit_revised/equation_mechanism_graph.json}{graph JSON}. Each node stores the source paper, equation number in source order, character offsets, formula, neighboring text, quantities, physical setting and graph links.
+
+\subsection*{1. Production is conditional}
+
+Node \texttt{E00292}, equation 283 in arXiv:0806.3381, calculates a production cross-section:
+\begin{equation}
+\sigma_{\rm BH}(M>M_{\min})=
+\sum_{ij}\int_{\tau_{\min}}^1\!\ud\tau
+\int_\tau^1\frac{\ud x}{x}\,f_i(x)f_j(\tau/x)\,
+\hat\sigma(\sqrt{\hat s}).
+\label{eq:production}
+\end{equation}
+$\sigma_{\rm BH}$ is the formation probability expressed as a cross-section; $M_{\min}$ is the model's minimum black-hole mass; $f_i$ and $f_j$ are quark and gluon momentum distributions; $x$ is a momentum fraction; and $\hat s$ is the squared energy of the constituent collision. The equation yields a number only after a low gravity scale, a threshold and a horizon-formation rule are supplied. The intermediate output is therefore \emph{conditional production}, not danger.
+
+\subsection*{2. The ordinary branch loses mass}
+
+Node \texttt{E00455}, equation 52 in arXiv:0901.2948, contains
+\begin{equation}
+\left.\frac{\ud M}{\ud t}\right|_{\rm evap}<0,
+\label{eq:evap}
+\end{equation}
+where $M$ is black-hole mass and $t$ is time. The source gives the full model-dependent coefficient; its sign is the relevant output. The mechanism graph assigns this equation to survival. A negative rate closes the ordinary branch before stopping or accretion begins.
+
+\subsection*{3. Granting stability creates a new calculation}
+
+Nodes \texttt{E00124} and \texttt{E00149} in arXiv:0806.3381 couple momentum loss to mass gain:
+\begin{align}
+\frac{\ud p}{\ud\ell}&=-(c_{\rm ac}-c_{\rm ac,M})b^2\pi\rho R^2,
+&
+\frac{\ud M}{\ud\ell}&=c_{\rm ac,M}b^2\pi\rho\frac{R^2}{v}.
+\label{eq:stopping-growth}
+\end{align}
+$p$ is momentum, $\ell$ is path length, $\rho$ is material density, $R$ is the capture radius, $v$ is speed, $b$ is a dimensionless impact-parameter factor, and the two $c$ coefficients describe how collision energy and momentum are captured. These equations answer two separate questions: whether matter retains the object and how rapidly its mass changes after retention. The source-local graph connects the two calculations because they share the same evolving $M$, $p$ and material conditions.
+
+\subsection*{4. A rate becomes a consequence only after integration}
+
+A positive mass rate at one instant says little about long-term danger. The required time is
+\begin{equation}
+t_{\rm grow}=\int_{M_0}^{M_*}\frac{\ud M}{\dot M_{\rm net}(M)},
+\label{eq:time}
+\end{equation}
+where $M_0$ and $M_*$ are the initial and final masses and $\dot M_{\rm net}$ is accretion minus loss. Node \texttt{E00179} evaluates this calculation for compact-star conditions. Node \texttt{E00202} gives a neutron-star consequence for one warped model,
+\begin{equation}
+t_{\rm NS,w}\sim20~\mathrm{yr}.
+\label{eq:ns}
+\end{equation}
+$t_{\rm NS,w}$ is the predicted neutron-star growth time. Neutron stars survive vastly longer than twenty years. A model that predicts fast destructive growth therefore conflicts with the objects already exposed to natural high-energy collisions.
+
+\receiptbox{\textbf{The load-bearing inference.} Challenging Hawking evaporation moves the calculation from Eq.~\eqref{eq:evap} to the stable branch in Eqs.~\eqref{eq:stopping-growth}--\eqref{eq:ns}. Catastrophe still requires capture and rapid growth alongside the observed survival of old compact stars. No recovered equation path satisfies both demands.}
+\label{sec:receipt-end}
+
+\section{The same papers produce two different graphs}
+
+Hyperion's operational archive contains \GlobalArchiveDocuments{} arXiv papers. The public LHC experiment used a fixed \DocumentsScreened{}-document screening slice and retained \ScreenedSources{} case-related records. Complete sources for six primary safety papers were then added. After deduplication, the reconstruction contains \PaperCount{} papers, \ClaimCount{} extracted claims and \CitationCount{} citation links. The archive number describes the available scientific corpus; the smaller number defines the reproducible case experiment reported here.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\linewidth]{paper/figures/lhc_provenance_summary.pdf}
+\caption{The documentary map. It records source identity, citation and three claim families. This view establishes attribution, incentives and historical dependence. The physical question requires an additional step because risk and safety statements coexist while their assumptions remain inside the papers.}
+\label{fig:provenance}
+\end{figure}
+
+The second graph starts from \EquationWindowCount{} equation windows. \FingerprintCount{} received operational fingerprints and \UsableEquationCount{} contained enough information for a physical role. The graph retains \SourceEdgeCount{} equation-to-equation transitions inside papers and \CrossPaperEdgeCount{} structural matches between papers. Strict formula tests identify \StrictReceiptCount{} equations that instantiate at least one of the six conditions.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{paper/figures/lhc_equation_graph.pdf}
+\caption{The mechanism map. Each node is a source equation assigned to a necessary condition. Solid edges preserve source order; dashed edges mark calculations with a compatible mathematical role in another paper. The map shows which quantities can be composed, which assumptions change between papers and where observation rejects a branch.}
+\label{fig:mechanism}
+\end{figure}
+
+The joined public graph has \KnowledgeNodeCount{} nodes and \KnowledgeEdgeCount{} typed edges. A reader can move from a claim to its paper, from that paper to the relevant equation, from the equation to the quantity it calculates and from the quantity to the condition it tests. The machine-readable form is \sourcefile{runs/lhc_black_hole_audit_revised/public_knowledge_graph.json}{public\_knowledge\_graph.json}.
+
+\begin{table}[H]
+\centering
+\caption{What each graph can establish.}
+\begin{tabularx}{\linewidth}{P{0.24\linewidth}YY}
+\toprule
+Question & Documentary graph & Mechanism graph \\
+\midrule
+Who made the claim? & Author, paper and date & Source retained on every equation node \\
+Which sources depend on one another? & Citation and response links & Reused equations and cross-paper transfers \\
+What happens if evaporation is suppressed? & A safety argument loses one support & The stable branch activates stopping, growth and astronomical tests \\
+Which evidence carries the conclusion? & Influential claims and sources & Negative mass rate; integrated growth time; compact-star survival \\
+Where does new evidence enter? & Add or revise a claim & Replace the equation at the affected physical condition \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection*{How the maps differ, and how they join}
+
+The documentary graph is a ledger. Its basic record is ``paper A makes claim B and cites paper C.'' It can establish priority, attribution, citation ancestry and whether several statements descend from the same source. The mechanism graph is a circuit diagram. Its basic record is ``equation A changes quantity B under conditions C, producing an output used by equation D.'' It can establish whether a proposed physical sequence is mathematically connected.
+
+The two graphs meet at an exact source location. Every equation node carries its paper identifier and character offsets; every claim node carries its source paper. This shared key creates the path
+\begin{equation}
+\text{author}\rightarrow\text{paper}\rightarrow\text{claim},
+\qquad
+\text{paper}\rightarrow\text{equation}\rightarrow\text{quantity}
+\rightarrow\text{condition}\rightarrow\text{answer}.
+\label{eq:graphjoin}
+\end{equation}
+The first path answers who asserted a proposition and how it travelled. The second tests what must occur in nature for the proposition to hold. A paper can contribute to both paths, but citation traffic cannot substitute for a missing mass balance, stopping law or observation.
+
+The Hawking counterfactual makes the difference concrete. Removing evaporation deletes one support for the safety conclusion in the documentary graph. In the mechanism graph it changes the survival condition from failed to provisionally open, then activates four downstream calculations: momentum loss, net mass growth, integrated growth time and compact-star compatibility. The observed survival of compact stars closes the dangerous branch under the fast-growth assumptions. The conclusion survives through a different physical route, a fact that a claim tally cannot derive.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{paper/figures/lhc_public_knowledge_graph.pdf}
+\caption{The join between the two maps. Brown links retain authorship, papers, citations and claims. Green links begin at source equations and follow calculations into the six physical conditions. Paper identity and source position connect the layers, so every physical conclusion remains attributable without reducing the calculation to a statement count.}
+\label{fig:joined}
+\end{figure}
+
+\section{Method: from 2.5 million papers to a revisable answer}
+
+The pipeline separates broad discovery from strict physical testing. This prevents a paper from entering the final derivation merely because it contains the words ``black hole,'' ``LHC'' or ``safety.'' Each stage produces a file that can be inspected before the next stage runs.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Seven stages of the public case reconstruction.}
+\begin{tabularx}{\linewidth}{P{0.19\linewidth}Y P{0.28\linewidth}}
+\toprule
+Stage & Operation & Inspectable output \\
+\midrule
+Archive & Store \GlobalArchiveDocuments{} arXiv papers as source text with document identity. & Global source archive \\
+Case screen & Search a fixed \DocumentsScreened{}-document slice broadly, then retain \ScreenedSources{} records for the LHC question. & Source manifest and selection scores \\
+Source completion & Add full \LaTeX{} sources for six primary safety papers and deduplicate by paper identifier. & \PaperCount{} complete case papers \\
+Documentary extraction & Record authors, citations and scoped claims while preserving source positions. & Provenance graph \\
+Equation extraction & Retain complete equation windows, neighboring definitions and source order; describe quantities, operation and physical setting. & \EquationWindowCount{} equation windows and \FingerprintCount{} typed records \\
+Mechanism assembly & Connect source-local calculations and compatible cross-paper transfers; require formula-level evidence for each of the six conditions. & Equation graph and constructor receipts \\
+Stress test and validation & Remove one condition, propagate the changed branch, recover a prespecified twelve-equation benchmark and compare with the held-out CERN report. & Counterfactual trace, benchmark and external validation \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Three controls carry most of the evidential burden. First, a phrase match proposes a source but cannot fill a physical condition; the formula must contain the required quantities and operation. Second, a cross-paper link records a candidate transfer until units, parameter ranges, regime and boundary conditions agree. Third, the constructor composes adjacent steps only when an output from one equation supplies an input required by the next. Sparse attention then ranks rare, informative transitions while reducing the influence of generic high-degree nodes. The surviving paths determine the answer; the prose renders that structure for the reader.
+
+\section{A scientific answer is an executable dependency}
+
+The case contains two independent routes to safety. In the semiclassical route, Eq.~\eqref{eq:evap} removes mass. In the stable-object route, the safety calculation grants survival and asks what follows. Fast growth then predicts compact-star destruction on times shorter than observed stellar ages. Slow growth removes the terrestrial catastrophe. The alternatives converge on the same answer for different physical reasons.
+
+This is the central epistemic gain over claim ranking. A challenge paper can carry high rhetorical attention and still leave the conclusion unchanged because another physical route remains. Conversely, a low-citation equation can be load-bearing when it converts a rate into the timescale that decides the case.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{paper/figures/lhc_transfer_map.pdf}
+\caption{How the astronomical test is transferred. The equation's physical role is preserved while density, speed, size, exposure and initial conditions are replaced. Transfer becomes evidence after units, parameter ranges and boundary conditions match.}
+\label{fig:transfer}
+\end{figure}
+
+The graph assigns each uncertainty to the condition it changes. Microscopic production depends on speculative low-scale gravity. Evaporation depends on the semiclassical regime. Stable-object bounds depend on capture and accretion models. New evidence therefore changes a local part of the answer:
+
+\begin{center}
+\begin{tabularx}{0.96\linewidth}{P{0.28\linewidth}P{0.24\linewidth}Y}
+\toprule
+New result & Gate changed & Recalculation \\
+\midrule
+Different horizon threshold & Production & Recompute $\sigma_{\rm BH}$ and initial mass distribution \\
+Modified evaporation law & Survival & Recompute $\dot M_{\rm evap}$; activate the stable branch if needed \\
+New capture cross-section & Stopping & Recompute momentum loss and retained population \\
+New accretion regime & Growth and time & Integrate the revised $\dot M_{\rm net}$ \\
+New compact-star observation & Astronomical test & Re-evaluate the exposed population and exclusion range \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section{A reproducible comparison with deep research}
+
+An off-the-shelf research model can often produce the correct final answer and cite CERN. The useful comparison is harder: can it expose the physical dependency that keeps the answer stable when one argument is removed? The repository supplies a fixed prompt in \sourcefile{data/judge_comparison_prompt.txt}{data/judge\_comparison\_prompt.txt}. A response is checked for seven concrete outputs: the six necessary conditions, one source equation per active condition, variable definitions, source positions, within-paper links, cross-regime parameter changes and the exact gate changed by new evidence.
+
+The test question is simple: \emph{Assume Hawking evaporation is absent. What follows?} A discourse summary reports that a standard safety argument has weakened. The mechanism graph opens the stable branch and returns the calculations still required: stopping, net growth, growth time and the compact-star test. This difference is the submission's main contribution to epistemic uplift.
+
+The current build provides three checks against unsupported fluency:
+\begin{enumerate}
+\item \textbf{Prespecified extraction test.} \BenchmarkRecovered{} of \BenchmarkTotal{} named primary-source equations were recovered. The list was fixed before the final mechanism graph was assembled.
+\item \textbf{Graph receipt.} Every displayed inference points to a source equation and physical condition. The receipt bundle is \sourcefile{paper/lhc_judges_guide_receipts.json}{paper/lhc\_judges\_guide\_receipts.json}.
+\item \textbf{Held-out reconstruction.} CERN-2003-001 was excluded from the equation corpus and benchmark. Its human-written safety analysis follows the same branch order and reaches the same conclusion.
+\end{enumerate}
+
+\section{Evidence for each judging criterion}
+
+The table below uses the competition's seven dimensions verbatim. Each row names a measured result, the committed artifact that carries it and a short test a judge can perform. This makes the scoring claims independent of the prose quality of the submission.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Criterion-by-criterion evidence and direct checks.}
+\begin{tabularx}{\linewidth}{P{0.18\linewidth}Y P{0.30\linewidth}}
+\toprule
+Criterion & Demonstrated result and artifact & Direct check \\
+\midrule
+Epistemic uplift & The graph identifies the equations that carry the answer and propagates the ``no Hawking evaporation'' challenge through the remaining branch. Artifact: receipt bundle and judge demo. & Run \texttt{bash scripts/run\_judge\_demo.sh}; compare its downstream conditions with a prose research answer to the fixed prompt. \\
+Generalizability & Source, equation, quantity, operation, condition and observation are case-independent record types; the six-condition chain is the replaceable LHC component. Artifact: evidence contracts and constructor. & Replace the condition file while keeping the source and receipt schema; inspect which fields require domain adaptation. \\
+Compounding and shareability & The joined JSON preserves authorship, citations, formulas, source offsets, branch assignments and typed edges. A new source changes local nodes and paths. Artifact: \texttt{public\_knowledge\_graph.json}. & Add or revise one receipt and rebuild; inspect the graph diff instead of regenerating the narrative by hand. \\
+Scalability & The operational archive contains \GlobalArchiveDocuments{} papers. The public case test screens \DocumentsScreened{} documents programmatically, then applies stricter equation tests to the retained set. Artifact: full-run script and manifests. & Inspect the source counts at each stage; rerun the fixed slice or increase the screening limit. \\
+Methodological transparency & Formula contracts, source positions, graph edges, twelve prespecified equation tests, pseudocode and regression tests are committed. Artifact: benchmark, tests and build scripts. & Open node \texttt{E00202}, locate its source equation, then run \texttt{python3 -B -m pytest -q}. \\
+Adversarial robustness & A challenge changes the condition it addresses; transfer still requires matching quantities, units, regime and boundary conditions. Artifact: counterfactual trace and strict contracts. & Challenge evaporation, stopping or accretion separately and observe which branch edges change and which remain. \\
+Insight contribution & The documentary map and mechanism map expose different dependencies. Their source-level join shows why agreement among claims and closure of a physical branch are distinct results. Artifact: Figs.~\ref{fig:provenance}--\ref{fig:joined}. & Compare the node and edge types, then trace one claim through its paper to the equation and observation that decide it. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The current empirical validation covers one equation-rich case. Generalizability is implemented at the schema and software levels; cross-case trials will test how well the same records represent measurements, causal models and experimental protocols outside mathematical physics.
+
+\section{How to inspect and rebuild it}
+
+The judge path is self-contained: committed receipts reproduce every number and figure in this guide. The full corpus pipeline adds large-scale source selection and equation featurization.
+
+\begin{verbatim}
+git clone https://github.com/synthetix-institute/lhc-mechanism-audit.git
+cd lhc-mechanism-audit
+bash scripts/run_judge_demo.sh
+\end{verbatim}
+
+The demo checks that every selected equation ID exists, that all prespecified benchmark equations were recovered and that the numerical claims in this guide match the JSON artifacts. \texttt{bash scripts/build\_judges\_guide.sh} also compiles the PDF when LaTeX is available; \texttt{python3 -B -m pytest -q} runs the regression suite.
+
+\subsection*{Algorithm in twelve lines}
+\begin{verbatim}
+for each paper:
+    retain source identity, claims, citations, equations and source positions
+    describe each equation by quantities, operation and physical setting
+    connect equations that occur in source order
+connect cross-paper equations only when operation and quantities are compatible
+for each case condition:
+    require a formula-level contract; reject phrase-only matches
+    assign direct receipts and parameter-transfer candidates
+test whether outputs from one condition satisfy inputs to the next
+rank uncommon informative transitions, with a penalty for generic hubs
+report the complete branches, failed gates and source equations
+compare the result with a held-out human analysis
+\end{verbatim}
+
+\section{What travels to another case}
+
+The reusable object is a conditional chain: an initial state, operations that change it, constraints on those operations, measurable outputs and observations that can reject a branch. The LHC constructor uses mass, momentum, rates and stellar survival. A biomedical origin question would use genomic changes, host adaptation, sampling processes, experimental protocols and dated observations. A nutrition question would separate exposure, biological response, confounding structure, biomarkers and clinical outcomes. In each case, provenance remains attached to every receipt while the mechanism layer tests whether the steps can be composed.
+
+This yields a compact design rule for living knowledge bases: store who said it and store what must happen for it to be true. The first graph supports accountability. The second supports scientific reasoning, local revision and transfer across fields.
+
+\judgebox{\textbf{Supporting material.} In the combined submission packet, the complete fourteen-page article follows this guide as Part II. It gives the full physical derivation, larger vector graphs, all displayed variable definitions, the constructor implementation and the held-out comparison with CERN-2003-001.}
+
+\section*{References}
+\footnotesize
+\begin{enumerate}[leftmargin=*,itemsep=0pt,topsep=0pt]
+\item S. B. Giddings and M. L. Mangano, ``Astrophysical implications of hypothetical stable TeV-scale black holes,'' \emph{Phys. Rev. D} 78, 035009 (2008), \href{https://arxiv.org/abs/0806.3381}{arXiv:0806.3381}.
+\item J. Ellis et al., ``Review of the Safety of LHC Collisions,'' \emph{J. Phys. G} 35, 115004 (2008), \href{https://arxiv.org/abs/0806.3414}{arXiv:0806.3414}.
+\item B. Koch, M. Bleicher and H. Stoecker, ``Exclusion of black hole disaster scenarios at the LHC,'' \emph{Phys. Lett. B} 672, 71--76 (2009), \href{https://arxiv.org/abs/0807.3349}{arXiv:0807.3349}.
+\item R. Casadio, S. Fabi and B. Harms, ``Possibility of catastrophic black hole growth in the warped brane-world scenario at the LHC,'' \href{https://arxiv.org/abs/0901.2948}{arXiv:0901.2948}.
+\item J.-P. Blaizot et al., \emph{Study of potentially dangerous events during heavy-ion collisions at the LHC}, CERN-2003-001 (2003), \href{https://cds.cern.ch/record/613175/files/CERN-2003-001.pdf}{CERN document server}.
+\end{enumerate}
+
+\end{document}

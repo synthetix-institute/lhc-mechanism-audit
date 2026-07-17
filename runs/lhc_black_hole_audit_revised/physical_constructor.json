@@ -2,7 +2,7 @@
   "report_type": "lhc_physical_constructor",
   "schema": "typed equation-contract constructor v2",
   "readiness": "usable",
-  "source_run": "runs/lhc_black_hole_audit_revised",
+  "source_run": "/Users/vbaulin/antigr/KnowledgeParser/lhc-mechanism-audit/runs/lhc_black_hole_audit_revised",
   "evidence_rule": "Equation quantities fill mechanism slots; surrounding text identifies the physical regime. Branch closure additionally requires a source-local equation path between every adjacent slot.",
   "input_counts": {
     "source_witness_count": 729,
