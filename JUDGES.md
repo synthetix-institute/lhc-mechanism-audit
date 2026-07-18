@@ -1,10 +1,12 @@
 # Judge's Route
 
-Start with the [complete submission packet](paper/lhc_epistack_submission_packet.pdf).
-Pages 1--10 answer the LHC black-hole question in ordinary language and show
-one complete chain from a primary-source equation to the case conclusion.
-Pages 11--24 contain the full scientific article, larger graphs and independent
-CERN comparison.
+Start with the [ten-page main document](paper/lhc_judges_guide.pdf). It explains
+the original two-map solution, the method used to build it, one complete chain
+from a primary-source equation to the case conclusion, and the evidence for
+each judging criterion.
+
+The separate [worked two-graph artifact](paper/lhc_black_hole_answer.pdf)
+contains the full LHC derivation, larger graphs and independent CERN comparison.
 
 The submission's main result is simple: scientific papers contain two graphs.
 One records authors, claims and citations. The other records how physical
@@ -28,16 +30,15 @@ bash scripts/run_judge_demo.sh
 
 The dependency-free command verifies the selected equation IDs, checks the
 prespecified primary-source benchmark and prints the calculations that become
-active when evaporation is removed. Rebuild the complete PDF with
-`bash scripts/build_submission_packet.sh`.
+active when evaporation is removed. Rebuild the main PDF with
+`bash scripts/build_judges_guide.sh`.
 
 ## Most Informative Artifacts
 
-- [Submission packet](paper/lhc_epistack_submission_packet.pdf): ten-page core
-  followed by the fourteen-page article.
-- [Judge's guide](paper/lhc_judges_guide.pdf): the core as a standalone file.
-- [Full public article](paper/lhc_black_hole_answer.pdf): detailed physics,
-  figures and the held-out CERN comparison.
+- [Main submission](paper/lhc_judges_guide.pdf): the complete ten-page reading
+  path for judges.
+- [Worked two-graph artifact](paper/lhc_black_hole_answer.pdf): detailed
+  physics, documentary and mechanism graphs, and the held-out CERN comparison.
 - [Receipt bundle](paper/lhc_judges_guide_receipts.json): source positions,
   formulas and branch assignments used in the guide.
 - [Joined graph](runs/lhc_black_hole_audit_revised/public_knowledge_graph.json):

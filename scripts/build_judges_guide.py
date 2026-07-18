@@ -160,7 +160,6 @@ def build() -> Dict[str, Any]:
         },
         "artifact_index": {key: str(path.relative_to(ROOT)) for key, path in inputs.items()},
         "supporting_article": "paper/lhc_black_hole_answer.pdf",
-        "submission_packet": "paper/lhc_epistack_submission_packet.pdf",
     }
 
     GENERATED.mkdir(parents=True, exist_ok=True)
@@ -198,7 +197,6 @@ def build() -> Dict[str, Any]:
         "numbers": str(numbers_path.relative_to(ROOT)),
         "tex": "paper/lhc_judges_guide.tex",
         "pdf": "paper/lhc_judges_guide.pdf",
-        "submission_packet": "paper/lhc_epistack_submission_packet.pdf",
         "selected_receipts": list(SELECTED_RECEIPTS),
     }
     manifest_path = PAPER / "lhc_judges_guide_manifest.json"

@@ -6,10 +6,19 @@ All / integrated, with the deepest contribution in structure and assessment.
 
 ## Primary document
 
-[Two Maps of Scientific Reasoning: complete submission packet](paper/lhc_epistack_submission_packet.pdf)
+[Two Maps of Scientific Reasoning: main submission](paper/lhc_judges_guide.pdf)
 
-Pages 1--10 are the judge-facing core. Pages 11--24 contain the complete
-fourteen-page scientific article and its larger figures.
+This is the complete ten-page explanation of the original solution, the method
+used to construct it, one worked source-to-conclusion receipt, and the evidence
+for each judging criterion.
+
+## Worked knowledge artifact
+
+[LHC black-hole case: documentary graph and mechanism graph](paper/lhc_black_hole_answer.pdf)
+
+This separate fourteen-page artifact applies the method to the scientific
+case. It contains the full physical derivation, larger vector graphs, equation
+definitions, constructor results and independent CERN comparison.
 
 ## Repository
 
@@ -29,13 +38,12 @@ formula, its variables, its physical setting and its place in the source.
 
 ## What should judges inspect first?
 
-The ten-page core contains one complete worked receipt and a direct comparison
+The ten-page main document contains one complete worked receipt and a direct comparison
 between the documentary graph and the equation graph. The machine-readable
 receipt bundle exposes every intermediate output used in that example. Running
 `bash scripts/run_judge_demo.sh` checks those receipts and propagates the Hawking
 counterfactual through the committed graph. Running
-`bash scripts/build_submission_packet.sh` rebuilds the core and binds it to the
-full article.
+`bash scripts/build_judges_guide.sh` rebuilds the main PDF.
 
 ## Interest in further paid work
 

@@ -410,6 +410,5 @@
     "comparison": "runs/lhc_black_hole_audit_revised/discourse_vs_mechanism_attention.json",
     "sparse_attention": "runs/lhc_black_hole_audit_revised/sparse_attention_audit.json"
   },
-  "supporting_article": "paper/lhc_black_hole_answer.pdf",
-  "submission_packet": "paper/lhc_epistack_submission_packet.pdf"
+  "supporting_article": "paper/lhc_black_hole_answer.pdf"
 }

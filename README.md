@@ -2,9 +2,13 @@
 
 This repository reconstructs the LHC black-hole safety argument from equations in the scientific literature. The generated article is written for non-specialists: it explains why the question arose, follows the six physical conditions required for danger, defines every displayed variable, shows where the equations come from and compares the result with the independently written CERN Safety Study Group report.
 
-[Read the complete submission packet](paper/lhc_epistack_submission_packet.pdf).
-Its first ten pages are a judge-facing explanation; the full fourteen-page
-scientific article follows in the same file.
+[Read the ten-page main submission](paper/lhc_judges_guide.pdf). It explains the
+original two-map solution, how the system constructs it, one complete
+source-to-conclusion receipt, and the evidence for each judging criterion.
+
+The separate [worked two-graph artifact](paper/lhc_black_hole_answer.pdf)
+contains the full fourteen-page LHC derivation, larger vector graphs and the
+independent CERN comparison.
 
 Competition judges can start with the shorter
 [judge's guide](paper/lhc_judges_guide.pdf). It follows one source equation
@@ -72,19 +76,16 @@ Branch closure requires:
 - compatible output and input quantities between adjacent conditions;
 - an equation path in the source graph for each required transition.
 
-## Build the paper from static artifacts
-
-Build the complete competition packet from the committed artifacts:
+## Build the main submission
 
 ```bash
-bash scripts/build_submission_packet.sh
+bash scripts/build_judges_guide.sh
 ```
 
-This writes `paper/lhc_epistack_submission_packet.pdf`, with the ten-page core
-followed by the fourteen-page article. Set `REBUILD_ARTICLE=1` to regenerate the
-article and its figures before assembly.
+This writes the ten-page `paper/lhc_judges_guide.pdf` from committed graph
+receipts and checks the prespecified equation benchmark before compilation.
 
-## Build the full article
+## Build the worked two-graph artifact
 
 The committed static run contains the graph evidence needed to regenerate the constructor, sparse attention, figures, TeX and PDF:
 

@@ -4,7 +4,7 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{caption,float,placeins}
 \hypersetup{
-  pdftitle={Two Maps of Scientific Reasoning: A Judge's Guide},
+  pdftitle={Two Maps of Scientific Reasoning: Main Submission},
   pdfauthor={Synthetix Institute},
   pdfsubject={Worked LHC black-hole case for the Epistack competition}
 }
@@ -42,7 +42,7 @@
 
 \title{\vspace{-1.5em}\textbf{Two Maps of Scientific Reasoning}\\[0.35em]
 \large A worked answer to the LHC black-hole question\\[0.3em]
-\normalsize Core submission (Part I)}
+\normalsize Main submission}
 \author{Synthetix Institute}
 \date{}
 
@@ -56,7 +56,7 @@ Scientific papers contain a documentary map of authors, claims and citations. Th
 
 \resultbox{The processed literature supports the conclusion that the LHC cannot produce a dangerous black hole within the quantitative model classes it studies. Two independent physical branches reach that result: rapid evaporation for ordinary microscopic black holes, and compact-star constraints for hypothetical stable ones.}
 
-The preliminary review asked for ``concrete receipts'' and ``intermediate outputs available and interrogable at each stage.'' This guide is organized around one receipt chain. The full derivation, twelve-equation benchmark and vector graphs are in the accompanying \href{https://github.com/synthetix-institute/lhc-mechanism-audit/blob/main/paper/lhc_black_hole_answer.pdf}{technical article}.
+The preliminary review asked for ``concrete receipts'' and ``intermediate outputs available and interrogable at each stage.'' This ten-page document explains the solution, shows how it was constructed and follows one receipt chain from source equation to conclusion. The separate \href{https://github.com/synthetix-institute/lhc-mechanism-audit/blob/main/paper/lhc_black_hole_answer.pdf}{worked two-graph artifact} contains the full derivation, larger vector graphs and twelve-equation benchmark.
 
 \judgebox{\textbf{Five-minute path for judges.} Read Fig.~\ref{fig:gates}; inspect the receipt on pp.~\pageref{sec:receipt}--\pageref{sec:receipt-end}; compare the two maps in Figs.~\ref{fig:provenance} and \ref{fig:mechanism}; then run \texttt{bash scripts/run\_judge\_demo.sh}. The dependency-free command propagates the Hawking counterfactual through the committed graph receipts.}
 
@@ -321,7 +321,7 @@ The reusable object is a conditional chain: an initial state, operations that ch
 
 This yields a compact design rule for living knowledge bases: store who said it and store what must happen for it to be true. The first graph supports accountability. The second supports scientific reasoning, local revision and transfer across fields.
 
-\judgebox{\textbf{Supporting material.} In the combined submission packet, the complete fourteen-page article follows this guide as Part II. It gives the full physical derivation, larger vector graphs, all displayed variable definitions, the constructor implementation and the held-out comparison with CERN-2003-001.}
+\judgebox{\textbf{Worked knowledge artifact.} The separate fourteen-page \href{https://github.com/synthetix-institute/lhc-mechanism-audit/blob/main/paper/lhc_black_hole_answer.pdf}{two-graph PDF} applies this method to the complete LHC case. It contains the documentary and mechanism graphs, the full physical derivation, displayed variable definitions, constructor results and the held-out comparison with CERN-2003-001. The corresponding graph data are stored in \sourcefile{runs/lhc_black_hole_audit_revised/public_knowledge_graph.json}{public\_knowledge\_graph.json}.}
 
 \section*{References}
 \footnotesize

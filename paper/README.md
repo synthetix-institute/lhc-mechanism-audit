@@ -1,31 +1,19 @@
 # Public Article
 
-## Complete submission packet
+## Main submission
 
-`lhc_epistack_submission_packet.pdf` is the primary competition document. Its
-first ten pages are the core reading path; the complete fourteen-page article
-follows as supporting material. Build the packet from the repository root:
+`lhc_judges_guide.pdf` is the primary competition document. It is a complete
+ten-page explanation of the original two-map solution, the construction method,
+one source-to-conclusion receipt and the judging-criteria evidence. Build it
+from the repository root:
 
 ```bash
-bash scripts/build_submission_packet.sh
+bash scripts/build_judges_guide.sh
 ```
 
 The core states the corpus hierarchy explicitly: Hyperion's operational
 archive contains 2.5 million arXiv papers, while the reproducible LHC case uses
 a fixed 500,000-document screening slice plus complete primary sources.
-
-## Judge's guide
-
-`lhc_judges_guide.pdf` is the ten-page core submission for a non-specialist
-reader. It contrasts the documentary graph with the equation mechanism graph,
-shows one complete source-to-conclusion receipt and identifies the artifact that
-supports each judging criterion.
-
-Build it with:
-
-```bash
-bash scripts/build_judges_guide.sh
-```
 
 The build writes `lhc_judges_guide_receipts.json` and verifies the selected
 equation IDs and twelve-equation benchmark before compiling the PDF.
@@ -36,10 +24,11 @@ The runnable judge demonstration requires only Python:
 bash scripts/run_judge_demo.sh
 ```
 
-## Full article
+## Worked two-graph artifact
 
-[`lhc_black_hole_answer.pdf`](lhc_black_hole_answer.pdf) explains the LHC
-black-hole question for non-specialists. It begins with the physical answer,
+[`lhc_black_hole_answer.pdf`](lhc_black_hole_answer.pdf) is the separate
+fourteen-page knowledge artifact. It explains the LHC black-hole question for
+non-specialists, begins with the physical answer,
 then follows the six events that would all have to occur before a microscopic
 object could become dangerous. The equations are introduced one at a time,
 their variables are defined at first use, and the final section compares the
